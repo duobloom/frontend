@@ -2,14 +2,20 @@
  * 일반 버튼 (배경색 red)
  * <Button>{children}</Button>
  *
+ * 버튼 disabled (배경색 red)
+ * <Button disabled>{children}</Button>
+ *
  * reverse 버튼 (배경색 white)
  * <Button variant="reverse">{children}</Button>
  *
- * 타원 버튼 (배경색 red)
+ * 타원 버튼 - 작은 사이즈 (배경색 red)
  * <Button variant="oval" size="sm">{children}</Button>
  *
- * 타원 reverse 버튼 (배경색 white)
+ * 타원 reverse 버튼 - 작은 사이즈 (배경색 white)
  * <Button variant="ovalReverse" size="sm">{children}</Button>
+ *
+ * 타원 버튼 - 중간 사이즈 (배경색 red)
+ * <Button variant="oval" size="md">{children}</Button>
  */
 
 import { ButtonHTMLAttributes, forwardRef } from "react";
@@ -29,8 +35,8 @@ const buttonVariants = cva(
       },
       size: {
         default: "h-[5rem]",
-        md: "h-[4rem]",
-        sm: "h-[3rem]",
+        md: "h-[4rem] w-[fit-content] min-w-[6.2rem] px-[2rem] py-[1.15rem]",
+        sm: "h-[3rem] w-[fit-content] px-[1.2rem] py-[.8rem]",
       },
     },
     defaultVariants: {
