@@ -4,7 +4,7 @@
 
 @layer base {
   html {
-    @apply font-sans text-[62.5%] tracking-[-1px] text-black;
+    @apply font-sans text-[62.5%] leading-[1.5] tracking-[-1px] text-black antialiased;
   }
   body {
     @apply text-[1.6rem] tracking-[-1px];

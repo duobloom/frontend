@@ -21,10 +21,7 @@ const InfoBoxContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<H
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn(
-        "shadow-InfoBox min-h-[16.5rem] rounded-[1.6rem] border border-gray-300 bg-white p-[2rem]",
-        className,
-      )}
+      className={cn("min-h-[16.5rem] rounded-[1.6rem] border border-gray-300 bg-white p-[2rem] shadow-box", className)}
       {...props}
     />
   ),
