@@ -9,4 +9,7 @@
   body {
     @apply text-[1.6rem] tracking-[-1px];
   }
+  hr {
+    @apply my-[1.6rem] w-full border-t border-solid border-gray-100;
+  }
 }
