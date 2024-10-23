@@ -1,7 +1,7 @@
 import { Button } from "./Button";
 import { Input } from "./Input";
 import { Badge } from "./Badge";
-import Box from "./Box";
+import InfoBox from "./InfoBox";
+import AlarmBox from "./AlarmBox";
 
-export { Button, Badge, Box, Input };
-
+export { Button, Badge, InfoBox, Input, AlarmBox };

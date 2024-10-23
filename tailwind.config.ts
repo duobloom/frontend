@@ -4,7 +4,16 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Pretendard"', "sans-serif"],
+        sans: [
+          "Pretendard",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Roboto",
+          "Helvetica Neue",
+          "Arial",
+          "sans-serif",
+        ],
       },
       colors: {
         red: {
