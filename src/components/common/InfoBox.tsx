@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/common";
 import { HospitalType, PolicyListType } from "@/types";
 import { cn, dDayCalculation } from "@/utils";
-import BookMarkSVG from "@/assets/icon/bookmark.svg?react";
+import { IconBookMark } from "@/assets/icon";
 
 // Props 타입 정의
 type HospitalInfoBoxProps = Omit<HospitalType, "lat" | "lon"> & {
@@ -127,7 +127,7 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
           ))}
         </div>
         <button onClick={bookMarkFn}>
-          <BookMarkSVG className={`${isClick ? "stroke-red" : "stroke-gray-300"}`} />
+          <IconBookMark className={`${isClick ? "stroke-red" : "stroke-gray-300"}`} />
         </button>
       </div>
     </InfoBoxContainer>

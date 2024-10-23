@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/utils";
 import { BoxContainer, BoxContent, BoxFooter, BoxHeader } from "@/components/ui/Box";
-import ChevronRightSVG from "@/assets/icon/chevron-right.svg?react";
+import { IconChevronRight } from "@/assets/icon";
 
 // Props 타입 정의
 type TAlarmAlarmBoxProps = {
@@ -30,7 +30,7 @@ const AlarmBox = ({ children, timestamp, point }: TAlarmAlarmBoxProps) => {
           {/* 해당 부분은 props로 시간을 받아야 할 것 같음 */}
           <span className="text-[1.2rem] font-medium leading-normal tracking-tight text-gray-500">{timestamp}</span>
         </div>
-        <ChevronRightSVG />
+        <IconChevronRight />
       </BoxHeader>
       <BoxContent>{children}</BoxContent>
       {point && (
