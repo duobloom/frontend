@@ -4,9 +4,9 @@
 
 @layer base {
   html {
-    @apply font-sans text-[62.5%] tracking-[-0.2px] text-black;
+    @apply font-sans text-[62.5%] tracking-[-1px] text-black;
   }
   body {
-    @apply text-[1.6rem] tracking-[-0.2px];
+    @apply text-[1.6rem] tracking-[-1px];
   }
 }
