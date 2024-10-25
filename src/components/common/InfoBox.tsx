@@ -2,35 +2,37 @@ import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/common";
 import { HospitalType, PolicyListType } from "@/types";
-import { dDayCalculation } from "@/utils";
-import { cn } from "@/utils";
+import { cn, dDayCalculation } from "@/utils";
 import BookMarkSVG from "@/assets/icon/bookmark.svg?react";
 
 // Props 타입 정의
-type HospitalBoxProps = Omit<HospitalType, "lat" | "lon"> & {
+type HospitalInfoBoxProps = Omit<HospitalType, "lat" | "lon"> & {
   variant: "hospital";
 };
 
-type PolicyBoxProps = PolicyListType & {
+type PolicyInfoBoxProps = PolicyListType & {
   variant: "policy";
 };
 
-type TInfoBoxProps = HospitalBoxProps | PolicyBoxProps;
+type TInfoInfoBoxProps = HospitalInfoBoxProps | PolicyInfoBoxProps;
 
 // 컨테이너 컴포넌트
-const BoxContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const InfoBoxContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn("shadow-box min-h-[16.5rem] rounded-[1.6rem] border border-gray-300 bg-white p-[2rem]", className)}
+      className={cn(
+        "shadow-InfoBox min-h-[16.5rem] rounded-[1.6rem] border border-gray-300 bg-white p-[2rem]",
+        className,
+      )}
       {...props}
     />
   ),
 );
-BoxContainer.displayName = "BoxContainer";
+InfoBoxContainer.displayName = "InfoBoxContainer";
 
 // 제목 컴포넌트
-const BoxTitle = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const InfoBoxTitle = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
@@ -39,9 +41,9 @@ const BoxTitle = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
     />
   ),
 );
-BoxTitle.displayName = "BoxTitle";
+InfoBoxTitle.displayName = "InfoBoxTitle";
 
-const Box = (props: TInfoBoxProps) => {
+const InfoBox = (props: TInfoInfoBoxProps) => {
   const { variant, keywords } = props;
   const [isClick, setIsClick] = useState(false);
   const navigate = useNavigate();
@@ -106,12 +108,12 @@ const Box = (props: TInfoBoxProps) => {
   };
 
   return (
-    <BoxContainer onClick={() => moveDetail(variant, entityId)}>
+    <InfoBoxContainer onClick={() => moveDetail(variant, entityId)}>
       <div className="mb-[1.5rem] flex justify-between gap-[1.7rem]">
         <div className="flex flex-col gap-[1rem]">
           {variant === "hospital" && props.isCert && <Badge variant="certBadge">듀블 인증병원</Badge>}
           <div className="w-[22rem]">
-            <BoxTitle>{entityTitle}</BoxTitle>
+            <InfoBoxTitle>{entityTitle}</InfoBoxTitle>
             {renderContent()}
           </div>
         </div>
@@ -131,10 +133,10 @@ const Box = (props: TInfoBoxProps) => {
           <BookMarkSVG className={`${isClick ? "stroke-red" : "stroke-gray-300"}`} />
         </button>
       </div>
-    </BoxContainer>
+    </InfoBoxContainer>
   );
 };
 
-Box.displayName = "Box";
+InfoBox.displayName = "InfoBox";
 
-export default Box;
+export default InfoBox;
