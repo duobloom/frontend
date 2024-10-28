@@ -8,6 +8,7 @@ import IconArrowLeft from "./icon-arrow-left.svg?react";
 import IconSearch from "./icon-search.svg?react";
 import IconBell from "./icon-bell.svg?react";
 import IconShare from "./icon-share.svg?react";
+import IconVector from "./icon-vector.svg?react";
 
 export {
   IconHeart,
@@ -20,4 +21,5 @@ export {
   IconSearch,
   IconBell,
   IconShare,
+  IconVector,
 };
