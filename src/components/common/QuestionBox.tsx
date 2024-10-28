@@ -2,23 +2,13 @@ import * as React from "react";
 import { cn } from "@/utils";
 import { QuestionType } from "@/types";
 import { Button } from "./Button";
+import { BoxContainer, BoxContent, BoxFooter, BoxHeader } from "../ui/Box";
+import Author from "../ui/Author";
 
 // Props 타입 정의
 type TQuestionBoxProps = {
   data: QuestionType;
 };
-
-// 컨테이너 컴포넌트
-const QuestionBoxContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn("w-full cursor-pointer flex-col rounded-[1.6rem] border px-[2rem] py-[2rem] shadow-box", className)}
-      {...props}
-    />
-  ),
-);
-QuestionBoxContainer.displayName = "QuestionBoxContainer";
 
 //답변 박스 컨테이너 컴포넌트
 const AnswerBoxContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
@@ -43,37 +33,6 @@ const QuestionBoxTitle = React.forwardRef<HTMLDivElement, React.HTMLAttributes<H
 );
 QuestionBoxTitle.displayName = "QuestionBoxTitle";
 
-// 텍스트 컴포넌트
-const QuestionBoxContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("text-[1.3rem] font-medium leading-normal text-black", className)} {...props} />
-  ),
-);
-QuestionBoxContent.displayName = "QuestionBoxContent";
-// 프로필 이미지 컴포넌트
-const QuestionProfileImage = React.forwardRef<HTMLImageElement, React.ImgHTMLAttributes<HTMLImageElement>>(
-  ({ className, ...props }, ref) => (
-    <img
-      ref={ref}
-      className={cn("h-[3.6rem] w-[3.6rem] rounded-full border border-gray-300 object-cover", className)}
-      {...props}
-    />
-  ),
-);
-QuestionProfileImage.displayName = "QuestionBoxProfileImage";
-
-// 시간 컴포넌트
-const QuestionBoxTime = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <span
-      ref={ref}
-      className={cn("text-[1.2rem] font-medium leading-normal tracking-tight text-gray-500", className)}
-      {...props}
-    />
-  ),
-);
-QuestionBoxTime.displayName = "QuestionBoxTime";
-
 // QuestionBox 컴포넌트
 const QuestionBox = ({ data }: TQuestionBoxProps) => {
   const answers = data.answers; // 답변 배열 가져오기
@@ -83,7 +42,7 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
   const hasTwoAnswers = answers.length >= 2;
 
   return (
-    <QuestionBoxContainer>
+    <BoxContainer>
       <div>
         <div className="flex flex-col gap-[1rem]">
           <div className="flex justify-between">
@@ -100,37 +59,28 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
 
           {hasNoAnswers && (
             <AnswerBoxContainer className="flex items-center justify-center text-[1.2rem]">
-              <QuestionBoxContent className="text-[1.2rem]">질문에 답변해 주세요</QuestionBoxContent>
+              <BoxContent className="text-[1.2rem]">질문에 답변해 주세요</BoxContent>
             </AnswerBoxContainer>
           )}
 
           {hasOneAnswer && (
             <>
               <AnswerBoxContainer>
-                <div className="flex gap-[.7rem]">
-                  <QuestionProfileImage src={answers[0].user.profileImage} alt={answers[0].user.name} />
-                  <div className="flex flex-col justify-start">
-                    <QuestionBoxTitle>{answers[0].user.name}</QuestionBoxTitle>
-                    <QuestionBoxTime>
-                      {new Date(answers[0].updated_at).toLocaleTimeString("ko-KR", {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </QuestionBoxTime>
-                  </div>
-                </div>
-                <div className="my-[1rem]">
-                  <QuestionBoxContent>{answers[0].content}</QuestionBoxContent>
-                </div>
-                <span>
-                  <hr></hr>
-                  <p className="mt-[.5rem] text-end text-[1.4rem] text-red">5포인트 획득</p>
-                </span>
+                <BoxHeader>
+                  <Author
+                    profileImg={answers[0].user.profileImage}
+                    name={answers[0].user.name}
+                    createdAt={answers[0].updated_at}
+                  ></Author>
+                </BoxHeader>
+                <BoxContent>{answers[0].content}</BoxContent>
+                <BoxFooter />
+                <p className="text-end text-[1.4rem] text-red">5포인트 획득</p>
               </AnswerBoxContainer>
               <AnswerBoxContainer className="flex items-center justify-center text-[1.2rem]">
-                <QuestionBoxContent className="text-center text-[1.2rem]">
+                <BoxContent className="text-center text-[1.2rem]">
                   아직 동반자가 질문에 대해<br></br> 답변을 하지 않았습니다
-                </QuestionBoxContent>
+                </BoxContent>
               </AnswerBoxContainer>
             </>
           )}
@@ -140,30 +90,23 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
               <>
                 <AnswerBoxContainer>
                   <div className="mt-[1rem] flex gap-[.7rem]" key={index}>
-                    <QuestionProfileImage src={answer.user.profileImage} alt={answer.user.name} />
-                    <div className="flex flex-col justify-start">
-                      <QuestionBoxTitle>{answer.user.name}</QuestionBoxTitle>
-                      <QuestionBoxTime>
-                        {new Date(answer.updated_at).toLocaleTimeString("ko-KR", {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
-                      </QuestionBoxTime>
-                    </div>
+                    <BoxHeader>
+                      <Author
+                        profileImg={answer.user.profileImage}
+                        name={answer.user.name}
+                        createdAt={answer.updated_at}
+                      ></Author>
+                    </BoxHeader>
                   </div>
-                  <div className="my-[1rem]">
-                    <QuestionBoxContent>{answers[0].content}</QuestionBoxContent>
-                  </div>
-                  <span>
-                    <hr></hr>
-                    <p className="mt-[.5rem] text-end text-[1.4rem] text-red">5포인트 획득</p>
-                  </span>
+                  <BoxContent>{answer.content}</BoxContent>
+                  <BoxFooter />
+                  <p className="text-end text-[1.4rem] text-red">5포인트 획득</p>
                 </AnswerBoxContainer>
               </>
             ))}
         </div>
       </div>
-    </QuestionBoxContainer>
+    </BoxContainer>
   );
 };
 
