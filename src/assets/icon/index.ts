@@ -13,6 +13,8 @@ import IconNavPolicy from "./icon-nav-policy.svg?react";
 import IconNavHospital from "./icon-nav-hospital.svg?react";
 import IconNavMypage from "./icon-nav-mypage.svg?react";
 import IconNavCommunity from "./icon-nav-community.svg?react";
+import IconDropdown from "./icon-dropdown.svg?react";
+import IconMap from "./icon-map.svg?react";
 
 export {
   IconHeart,
@@ -30,4 +32,6 @@ export {
   IconNavHospital,
   IconNavMypage,
   IconNavCommunity,
+  IconDropdown,
+  IconMap,
 };
