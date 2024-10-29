@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { IconLogoDoubloom } from "@/assets/icon";
+import Navbar from "./components/layout/Nav";
 
 function App() {
   return (
@@ -13,8 +14,11 @@ function App() {
             <h1 className="font-black text-red">듀오블룸</h1>
           </div>
         </div>
-        <div className="mr-[8.5rem] flex h-full w-[37.5rem] flex-col bg-white">
+        <div className="relative mr-[8.5rem] flex h-full w-[37.5rem] flex-col bg-white">
           <Outlet />
+          <div className="absolute bottom-0 left-0 w-full">
+            <Navbar />
+          </div>
         </div>
       </div>
     </div>
