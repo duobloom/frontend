@@ -15,6 +15,7 @@ import IconNavMypage from "./icon-nav-mypage.svg?react";
 import IconNavCommunity from "./icon-nav-community.svg?react";
 import IconDropdown from "./icon-dropdown.svg?react";
 import IconMap from "./icon-map.svg?react";
+import IconClose from "./icon-close.svg?react";
 
 export {
   IconHeart,
@@ -34,4 +35,5 @@ export {
   IconNavCommunity,
   IconDropdown,
   IconMap,
+  IconClose,
 };
