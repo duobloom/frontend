@@ -13,6 +13,13 @@ const router = createBrowserRouter([
           return { Component: MainPage };
         },
       },
+      {
+        path: "/hospital",
+        async lazy() {
+          const { default: HospitalPage } = await import("@/pages/HospitalPage");
+          return { Component: HospitalPage };
+        },
+      },
     ],
   },
 ]);
