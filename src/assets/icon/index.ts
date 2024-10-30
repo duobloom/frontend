@@ -8,6 +8,11 @@ import IconArrowLeft from "./icon-arrow-left.svg?react";
 import IconSearch from "./icon-search.svg?react";
 import IconBell from "./icon-bell.svg?react";
 import IconShare from "./icon-share.svg?react";
+import IconNavHome from "./icon-nav-home.svg?react";
+import IconNavPolicy from "./icon-nav-policy.svg?react";
+import IconNavHospital from "./icon-nav-hospital.svg?react";
+import IconNavMypage from "./icon-nav-mypage.svg?react";
+import IconNavCommunity from "./icon-nav-community.svg?react";
 import IconVector from "./icon-vector.svg?react";
 
 export {
@@ -21,5 +26,10 @@ export {
   IconSearch,
   IconBell,
   IconShare,
+  IconNavHome,
+  IconNavPolicy,
+  IconNavHospital,
+  IconNavMypage,
+  IconNavCommunity,
   IconVector,
 };
