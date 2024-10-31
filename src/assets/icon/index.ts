@@ -17,6 +17,8 @@ import IconDropdown from "./icon-dropdown.svg?react";
 import IconMap from "./icon-map.svg?react";
 import IconVector from "./icon-vector.svg?react";
 import IconClose from "./icon-close.svg?react";
+import IconLocation from "./icon-location.svg?react";
+import IconMarker from "./icn-map-marker.svg?react";
 
 export {
   IconHeart,
@@ -38,4 +40,6 @@ export {
   IconMap,
   IconVector,
   IconClose,
+  IconLocation,
+  IconMarker,
 };
