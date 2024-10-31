@@ -45,6 +45,7 @@ const config: Config = {
       colors: {
         red: {
           DEFAULT: "#FF5A5A",
+          10: "#FF5A5A1A",
         },
         blue: {
           DEFAULT: "#3978F2",
