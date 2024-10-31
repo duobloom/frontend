@@ -4,6 +4,7 @@ import { PostType } from "@/types/PostType";
 import { FeedType } from "@/types/FeedType";
 import { EmotionType } from "@/types/EmotionType";
 import { QuestionType, AnswerType } from "@/types/QuestionType";
+import { UserType, UserProfileType } from "@/types/UserType";
 
 export {
   type HospitalType,
@@ -13,5 +14,7 @@ export {
   type QuestionType,
   type AnswerType,
   type PostType,
-  type FeedType
+  type FeedType,
+  type UserProfileType,
+  type UserType,
 };

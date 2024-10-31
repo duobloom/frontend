@@ -1,7 +1,34 @@
-/** @type {import('tailwindcss').Config} */
-export default {
+import type { Config } from "tailwindcss";
+
+import { PluginCreator } from "tailwindcss/types/config";
+
+const utilsPlugin: PluginCreator = ({ addUtilities }) =>
+  addUtilities({
+    ".scrollbar-hide": {
+      "-ms-overflow-style": "none" /* IE and Edge */,
+      "scrollbar-width": "none" /* Firefox */,
+      "&::-webkit-scrollbar": {
+        display: "none" /* Safari and Chrome */,
+      },
+    },
+  });
+
+const config: Config = {
+  mode: "jit", // calc 사용
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    screens: {
+      lg_mobile: "425px",
+      md_mobile: "375px",
+      sm_mobile: "340px",
+      xsm_mobile: "320px",
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      notebook: "1440px",
+      "2xl": "1536px",
+    },
     extend: {
       fontFamily: {
         sans: [
@@ -34,8 +61,12 @@ export default {
       },
       boxShadow: {
         box: "0 4px 6px rgba(0, 0, 0, 0.1)", // 박스 그림자
+        feed: "0 4px 6px 0 rgba(0, 0, 0, 0.1) inset", // 피드 박스 그림자
       },
+
+      scrollbar: ["hidden"], //스크롤바 숨기기
     },
   },
-  plugins: [],
+  plugins: [utilsPlugin],
 };
+export default config;

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { AuthorSchema } from "./UserType";
 
 // 카테고리 enum 정의 (DB 타입 보고 수정할 예정)
 // const MainCategoryEnum = z.enum(["자유", "난임", "정책", "병원/클리닉"]);
@@ -16,13 +17,6 @@ const CategorySchema = z.object({
 const ImageSchema = z.object({
   url: z.string().url(),
   alt: z.string().optional(),
-});
-
-// 작성자 정보 타입 정의
-const AuthorSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  profileImage: z.string().url().optional(),
 });
 
 // 태그 타입 정의
@@ -44,5 +38,4 @@ export const PostSchema = z.object({
   comments: z.number().default(0),
 });
 
-// Response 타입 예시
 export type PostType = z.infer<typeof PostSchema>;

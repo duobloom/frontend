@@ -12,4 +12,7 @@
   hr {
     @apply my-[1.6rem] w-full border-t border-solid border-gray-100;
   }
+  main {
+    @apply h-full;
+  }
 }
