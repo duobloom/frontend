@@ -20,11 +20,13 @@ const config: Config = {
     screens: {
       lg_mobile: "425px",
       md_mobile: "375px",
-      sm_mobile: "320px",
+      sm_mobile: "340px",
+      xsm_mobile: "320px",
       sm: "640px",
       md: "768px",
       lg: "1024px",
       xl: "1280px",
+      notebook: "1440px",
       "2xl": "1536px",
     },
     extend: {
