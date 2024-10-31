@@ -16,5 +16,14 @@ const medicalDepartment = [
   { id: 15, name: "정형외과" },
   { id: 16, name: "중앙내과" },
 ];
+const medicalOptions = [
+  { id: 1, name: "전체" },
+  { id: 2, name: "진료중" },
+  { id: 3, name: "야간진료" },
+  { id: 4, name: "주말진료" },
+  { id: 5, name: "정부지원" },
+  { id: 6, name: "체중관리" },
+  { id: 7, name: "여의사" },
+];
 
-export { medicalDepartment };
+export { medicalDepartment, medicalOptions };
