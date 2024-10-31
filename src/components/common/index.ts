@@ -5,5 +5,6 @@ import InfoBox from "./InfoBox";
 import AlarmBox from "./AlarmBox";
 import { EmotionBox } from "./EmotionBox";
 import { QuestionBox } from "./QuestionBox";
-
-export { Button, Badge, InfoBox, Input, EmotionBox, QuestionBox, AlarmBox };
+import ScrollableOptions from "./ScrollerableOption";
+import { OptionTabs, OptionBoxes } from "./OptionBoxes";
+export { Button, Badge, InfoBox, Input, EmotionBox, QuestionBox, AlarmBox, ScrollableOptions, OptionTabs, OptionBoxes };
