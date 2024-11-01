@@ -4,6 +4,7 @@ import Author from "@/components/ui/Author";
 import { BoxContainer, BoxContent, BoxFooter, BoxHeader } from "@/components/ui/Box";
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/components/ui/Carousel";
 import LikeAndComments from "@/components/ui/LikeAndComments";
+import { Drawer, DrawerContent, DrawerTrigger } from "./Drawer";
 import { IconDotHorizontal } from "@/assets/icon";
 
 type FeedBoxProps = {
@@ -26,17 +27,38 @@ export default function FeedBox({ feed }: FeedBoxProps) {
     });
   }, [api]);
 
+  // 글 수정
+  const handleTextEdit = (id: string) => {
+    console.log(id);
+  };
+
+  // 글 삭제
+  const handleTextDelete = (id: string) => {
+    console.log(id);
+  };
+
   return (
     <BoxContainer>
       <BoxHeader>
         <div className="flex items-center gap-[1.2rem]">
           <Author profileImg={feed.author.profileImage} name={feed.author.name} createdAt={feed.createdAt} />
         </div>
-        <IconDotHorizontal className="cursor-pointer" />
+        <Drawer>
+          <DrawerTrigger asChild>
+            <IconDotHorizontal className="cursor-pointer" />
+          </DrawerTrigger>
+          <DrawerContent className="h-[23%]">
+            <div className="flex flex-col gap-[1.8rem] px-[9rem] py-[3.9rem] text-[1.6rem] font-extrabold leading-normal tracking-[-0.032rem]">
+              <button>글 저장</button>
+              <button onClick={() => handleTextEdit(feed.id)}>수정</button>
+              <button onClick={() => handleTextDelete(feed.id)}>삭제</button>
+            </div>
+          </DrawerContent>
+        </Drawer>
       </BoxHeader>
 
       <BoxContent className="ml-[4.8rem] mt-[1rem] flex flex-col">
-        <div className="text-[1.3rem] font-medium leading-[1.8rem] text-black">{feed.content}</div>
+        <div className="line-clamp-3 text-[1.3rem] font-medium leading-[1.8rem] text-black">{feed.content}</div>
 
         {feed.images && feed.images.length > 0 && (
           <div className="relative mt-[1.5rem]">
