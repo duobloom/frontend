@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Drawer, DrawerContent, DrawerTrigger, DrawerTitle, DrawerClose } from "@/components/common/Drawser";
+import { Drawer, DrawerContent, DrawerTrigger, DrawerTitle, DrawerClose } from "@/components/common/Drawer";
 import Header from "@/components/layout/Header";
 import { BoxFooter, DropdownBox } from "@/components/ui/Box";
 import { medicalDepartment, medicalOptions, regions } from "@/constant";
