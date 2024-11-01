@@ -20,6 +20,20 @@ const router = createBrowserRouter([
           return { Component: HospitalPage };
         },
       },
+      {
+        path: "/hospital/map",
+        async lazy() {
+          const { default: HospitalMapPage } = await import("@/pages/HospitalMapPage");
+          return { Component: HospitalMapPage };
+        },
+      },
+      {
+        path: "/hospital/:hopital_id",
+        async lazy() {
+          const { default: HospitalInfoPage } = await import("@/pages/HospitalInfoPage");
+          return { Component: HospitalInfoPage };
+        },
+      },
     ],
   },
 ]);
