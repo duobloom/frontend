@@ -34,6 +34,20 @@ const router = createBrowserRouter([
           return { Component: HospitalInfoPage };
         },
       },
+      {
+        path: "/policy",
+        async lazy() {
+          const { default: PolicyPage } = await import("@/pages/PolicyPage");
+          return { Component: PolicyPage };
+        },
+      },
+      {
+        path: "/policy/:policy_id",
+        async lazy() {
+          const { default: PolicyInfoPage } = await import("@/pages/PolicyInfoPage");
+          return { Component: PolicyInfoPage };
+        },
+      },
     ],
   },
 ]);
