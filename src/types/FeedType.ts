@@ -19,5 +19,12 @@ export const FeedSchema = z.object({
   comments: z.array(CommentSchema),
 });
 
+export const FeedPostSchema = z.object({
+  feed_id: z.number(),
+  content: z.string(),
+  images: z.array(ImageSchema).optional().default([]),
+});
+
 // Response 타입 예시
 export type FeedType = z.infer<typeof FeedSchema>;
+export type FeedPostType = z.infer<typeof FeedPostSchema>;
