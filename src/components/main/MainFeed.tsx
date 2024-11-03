@@ -28,11 +28,13 @@ const feedData = {
       author: { user_id: 1, name: "이혜선", profileImage: testProfileImg },
       content:
         "평소에 퇴근하고 지쳐서 당신과 많은 이야기를 나누지 못했는데, 오늘 딱 느낀 거 같아, 우리 앞으로 대화를 자주 하자.",
+      createdAt: "오후 10:56",
     },
     {
       comment_id: 2,
       author: { user_id: 2, name: "김준혁", profileImage: testProfileImg },
       content: "아~",
+      createdAt: "오후 10:56",
     },
   ],
 };
