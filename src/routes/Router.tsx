@@ -13,6 +13,13 @@ const router = createBrowserRouter([
           return { Component: MainPage };
         },
       },
+      {
+        path: "/feed/:id",
+        async lazy() {
+          const { default: FeedDetailPage } = await import("@/pages/FeedDetailPage");
+          return { Component: FeedDetailPage };
+        },
+      },
     ],
   },
 ]);
