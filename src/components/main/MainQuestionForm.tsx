@@ -1,10 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
-import { DrawerClose, DrawerTitle } from "../common/Drawer";
+import { useEffect, useRef, useState } from "react";
+import { DrawerTitle } from "../common/Drawer";
 import { Button } from "../common";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "../common/AlertDialog";
+import { IconClose } from "@/assets/icon";
 
 const MainQuestionForm = ({ qTitle, onClose }: { qTitle: string; onClose: () => void }) => {
   const textRef = useRef<HTMLTextAreaElement>(null);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   useEffect(() => {
     if (textRef.current) {
@@ -40,10 +52,28 @@ const MainQuestionForm = ({ qTitle, onClose }: { qTitle: string; onClose: () => 
     setIsFormValid(false);
   };
 
+  // 닫기 전 확인
+  const handleClose = () => {
+    if (isFormValid) {
+      setShowConfirmDialog(true);
+    } else {
+      resetForm();
+      onClose();
+    }
+  };
+
+  const handleConfirmClose = () => {
+    resetForm();
+    onClose();
+    setShowConfirmDialog(false);
+  };
+
   return (
     <>
       <div className="flex items-center justify-between pb-[1.4rem]">
-        <DrawerClose onClick={resetForm} />
+        <div onClick={handleClose} className="cursor-pointer">
+          <IconClose />
+        </div>
         <DrawerTitle text="질문 답변" />
         <Button variant="oval" size="sm" disabled={!isFormValid} onClick={handleSubmit}>
           완료
@@ -58,6 +88,19 @@ const MainQuestionForm = ({ qTitle, onClose }: { qTitle: string; onClose: () => 
           className="h-full resize-none text-[1.4rem] font-medium leading-[2rem] tracking-[-0.028] text-black outline-none"
         ></textarea>
       </div>
+
+      <AlertDialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>알림</AlertDialogTitle>
+            <AlertDialogDescription>글 작성을 취소하시겠어요?</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>아니오</AlertDialogCancel>
+            <AlertDialogAction onClick={handleConfirmClose}>네</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 };
