@@ -5,17 +5,17 @@ import { cn } from "@/utils";
 import { IconEdit, IconPlus, IconSmileHappy } from "@/assets/icon";
 
 // 아이콘 버튼 컨테이너
-const IconButtonContainer = ({
-  className,
-  children,
-  onClick,
-}: {
-  className: string;
-  children: React.ReactNode;
-  onClick?: () => void;
-}) => {
+const IconButtonContainer = React.forwardRef<
+  HTMLButtonElement,
+  {
+    className: string;
+    children: React.ReactNode;
+    onClick?: () => void;
+  }
+>(({ className, children, onClick }, ref) => {
   return (
     <button
+      ref={ref}
       className={cn(
         "absolute right-[2rem] flex h-[5rem] w-[5rem] transform items-center justify-center rounded-full border border-gray-300",
         className,
@@ -25,7 +25,8 @@ const IconButtonContainer = ({
       {children}
     </button>
   );
-};
+});
+IconButtonContainer.displayName = "IconButtonContainer";
 
 const MainAddButton = () => {
   const [isClicked, setIsClicked] = useState(false);
