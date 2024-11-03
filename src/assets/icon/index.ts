@@ -15,6 +15,11 @@ import IconNavMypage from "./icon-nav-mypage.svg?react";
 import IconNavCommunity from "./icon-nav-community.svg?react";
 import IconVector from "./icon-vector.svg?react";
 import IconClose from "./icon-close.svg?react";
+import IconPlus from "./icon-plus.svg?react";
+import IconEdit from "./icon-edit.svg?react";
+import IconSmileHappy from "./icon-smiley-happy.svg?react";
+import IconCamera from "./icon-camera.svg?react";
+import IconCircleClose from "./icon-circle-close.svg?react";
 
 export {
   IconHeart,
@@ -34,4 +39,9 @@ export {
   IconNavCommunity,
   IconVector,
   IconClose,
+  IconPlus,
+  IconEdit,
+  IconSmileHappy,
+  IconCamera,
+  IconCircleClose,
 };

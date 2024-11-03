@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { AuthorSchema } from "./UserType";
+import { CommentSchema } from "./CommentType";
 
 // 카테고리 enum 정의 (DB 타입 보고 수정할 예정)
 // const MainCategoryEnum = z.enum(["자유", "난임", "정책", "병원/클리닉"]);
@@ -27,7 +28,7 @@ const TagSchema = z.object({
 
 // 게시글 타입 정의
 export const PostSchema = z.object({
-  id: z.string(),
+  post_id: z.number(),
   author: AuthorSchema,
   category: CategorySchema,
   content: z.string(),
@@ -35,7 +36,7 @@ export const PostSchema = z.object({
   tags: z.array(TagSchema),
   createdAt: z.string().datetime(),
   likes: z.number().default(0),
-  comments: z.number().default(0),
+  comments: z.array(CommentSchema),
 });
 
 export type PostType = z.infer<typeof PostSchema>;

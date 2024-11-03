@@ -3,7 +3,7 @@ import { z } from "zod";
 export const AuthorSchema = z.object({
   user_id: z.number(),
   name: z.string(),
-  birth: z.string(),
+  birth: z.string().optional(),
   profileImage: z.string().optional(),
 });
 

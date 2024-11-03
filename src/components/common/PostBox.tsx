@@ -36,7 +36,7 @@ export default function PostBox({ post }: PostBoxProps) {
       <BoxContent className="mt-[1rem]">
         <div
           className="mb-[1.4rem] line-clamp-2 cursor-pointer text-[1.3rem] font-medium leading-[1.8rem] text-black"
-          onClick={() => navigate(`/post/${post.id}`)}
+          onClick={() => navigate(`/post/${post.post_id}`)}
         >
           {post.content}
         </div>
@@ -50,7 +50,7 @@ export default function PostBox({ post }: PostBoxProps) {
       </BoxContent>
 
       <BoxFooter>
-        <LikeAndComments type="post" id={post.id} likes={post.likes} comments={post.comments} />
+        <LikeAndComments type="post" id={post.post_id} likes={post.likes} comments={post.comments} />
       </BoxFooter>
     </BoxContainer>
   );
