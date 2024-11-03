@@ -6,6 +6,7 @@ import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/componen
 import LikeAndComments from "@/components/ui/LikeAndComments";
 import { Drawer, DrawerContent, DrawerTrigger } from "./Drawer";
 import { FeedType } from "@/types";
+import { MainTextForm } from "../main";
 
 const IconDotHorizontal = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>((props, ref) => (
   <svg ref={ref} {...props} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18,13 +19,13 @@ const IconDotHorizontal = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement
 ));
 IconDotHorizontal.displayName = "IconDotHorizontal";
 
-export { IconDotHorizontal };
-
 type FeedBoxProps = {
   feed: FeedType;
 };
 
 export default function FeedBox({ feed }: FeedBoxProps) {
+  const [isTextDrawerOpen, setIsTextDrawerOpen] = useState(false);
+
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -68,7 +69,16 @@ export default function FeedBox({ feed }: FeedBoxProps) {
           <DrawerContent className="h-[23%]">
             <div className="flex flex-col gap-[1.8rem] px-[9rem] py-[3.9rem] text-[1.6rem] font-extrabold leading-normal tracking-[-0.032rem]">
               <button onClick={() => handleTextSave(feed.feed_id)}>글 저장</button>
-              <button onClick={() => handleTextEdit(feed.feed_id)}>수정</button>
+
+              <Drawer open={isTextDrawerOpen} onOpenChange={setIsTextDrawerOpen}>
+                <DrawerTrigger asChild>
+                  <button onClick={() => handleTextEdit(feed.feed_id)}>수정</button>
+                </DrawerTrigger>
+                <DrawerContent>
+                  <MainTextForm type="edit" initialData={feed} onClose={() => setIsTextDrawerOpen(false)} />
+                </DrawerContent>
+              </Drawer>
+
               <button onClick={() => handleTextDelete(feed.feed_id)}>삭제</button>
             </div>
           </DrawerContent>
