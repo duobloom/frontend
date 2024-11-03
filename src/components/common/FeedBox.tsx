@@ -1,11 +1,24 @@
-import { useEffect, useState } from "react";
-import { FeedType } from "@/types";
+import { forwardRef, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Author from "@/components/ui/Author";
 import { BoxContainer, BoxContent, BoxFooter, BoxHeader } from "@/components/ui/Box";
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/components/ui/Carousel";
 import LikeAndComments from "@/components/ui/LikeAndComments";
 import { Drawer, DrawerContent, DrawerTrigger } from "./Drawer";
-import { IconDotHorizontal } from "@/assets/icon";
+import { FeedType } from "@/types";
+
+const IconDotHorizontal = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>((props, ref) => (
+  <svg ref={ref} {...props} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="icn-dot-horizontal">
+      <circle id="Vector" cx="12" cy="12" r="2" fill="#212721" />
+      <circle id="Vector_2" cx="5" cy="12" r="2" fill="#212721" />
+      <circle id="Vector_3" cx="19" cy="12" r="2" fill="#212721" />
+    </g>
+  </svg>
+));
+IconDotHorizontal.displayName = "IconDotHorizontal";
+
+export { IconDotHorizontal };
 
 type FeedBoxProps = {
   feed: FeedType;
@@ -27,13 +40,18 @@ export default function FeedBox({ feed }: FeedBoxProps) {
     });
   }, [api]);
 
+  // 글 저장 (스크랩)
+  const handleTextSave = (id: number) => {
+    console.log(id);
+  };
+
   // 글 수정
-  const handleTextEdit = (id: string) => {
+  const handleTextEdit = (id: number) => {
     console.log(id);
   };
 
   // 글 삭제
-  const handleTextDelete = (id: string) => {
+  const handleTextDelete = (id: number) => {
     console.log(id);
   };
 
@@ -49,16 +67,21 @@ export default function FeedBox({ feed }: FeedBoxProps) {
           </DrawerTrigger>
           <DrawerContent className="h-[23%]">
             <div className="flex flex-col gap-[1.8rem] px-[9rem] py-[3.9rem] text-[1.6rem] font-extrabold leading-normal tracking-[-0.032rem]">
-              <button>글 저장</button>
-              <button onClick={() => handleTextEdit(feed.id)}>수정</button>
-              <button onClick={() => handleTextDelete(feed.id)}>삭제</button>
+              <button onClick={() => handleTextSave(feed.feed_id)}>글 저장</button>
+              <button onClick={() => handleTextEdit(feed.feed_id)}>수정</button>
+              <button onClick={() => handleTextDelete(feed.feed_id)}>삭제</button>
             </div>
           </DrawerContent>
         </Drawer>
       </BoxHeader>
 
       <BoxContent className="ml-[4.8rem] mt-[1rem] flex flex-col">
-        <div className="line-clamp-3 text-[1.3rem] font-medium leading-[1.8rem] text-black">{feed.content}</div>
+        <Link
+          to={`/feed/${feed.feed_id}`}
+          className="line-clamp-3 text-[1.3rem] font-medium leading-[1.8rem] text-black"
+        >
+          {feed.content}
+        </Link>
 
         {feed.images && feed.images.length > 0 && (
           <div className="relative mt-[1.5rem]">
@@ -83,7 +106,7 @@ export default function FeedBox({ feed }: FeedBoxProps) {
       </BoxContent>
 
       <BoxFooter className="ml-[4.8rem]">
-        <LikeAndComments type="feed" id={feed.id} likes={feed.likes} comments={feed.comments} />
+        <LikeAndComments type="feed" id={feed.feed_id} likes={feed.likes} comments={feed.comments} />
       </BoxFooter>
     </BoxContainer>
   );

@@ -44,7 +44,7 @@ type BackTitleHeader = {
 
 type BackMenuHeader = {
   variant: typeof VARIANTS.BACK_MENU;
-  title: string;
+  title?: string;
   children?: never;
   isBookmark?: never;
   handleBookmark?: () => never;

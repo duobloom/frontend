@@ -79,8 +79,8 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
               <AnswerBoxContainer>
                 <BoxHeader>
                   <Author
-                    profileImg={answers[0].user.profileImage}
-                    name={answers[0].user.name}
+                    profileImg={answers[0].author.profileImage}
+                    name={answers[0].author.name}
                     createdAt={answers[0].updated_at}
                   ></Author>
                 </BoxHeader>
@@ -103,8 +103,8 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
                   <div className="mt-[1rem] flex gap-[.7rem]" key={index}>
                     <BoxHeader>
                       <Author
-                        profileImg={answer.user.profileImage}
-                        name={answer.user.name}
+                        profileImg={answer.author.profileImage}
+                        name={answer.author.name}
                         createdAt={answer.updated_at}
                       ></Author>
                     </BoxHeader>

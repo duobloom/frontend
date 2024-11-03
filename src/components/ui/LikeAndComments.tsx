@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { IconComments, IconHeart } from "@/assets/icon";
 import { useState } from "react";
+import { CommentType } from "@/types/CommentType";
 
 type TLikeAndComments = {
   type: "post" | "feed";
-  id: string;
+  id: number;
   likes: number;
-  comments: number;
+  comments: CommentType[];
 };
 
 const LikeAndComments = ({ type, id, likes, comments }: TLikeAndComments) => {
@@ -31,7 +32,7 @@ const LikeAndComments = ({ type, id, likes, comments }: TLikeAndComments) => {
         onClick={() => navigate(`${type === "feed" ? `/feed/${id}` : `/post/${id}`}`)}
       >
         <IconComments />
-        <span className="text-[1.4rem]">{String(comments)}</span>
+        <span className="text-[1.4rem]">{String(comments.length)}</span>
       </div>
     </div>
   );
