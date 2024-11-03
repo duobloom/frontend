@@ -48,7 +48,7 @@ const MainAddButton = () => {
           </IconButtonContainer>
         </DrawerTrigger>
         <DrawerContent>
-          <MainTextForm onClose={() => setIsTextDrawerOpen(false)} />
+          <MainTextForm type="add" onClose={() => setIsTextDrawerOpen(false)} />
         </DrawerContent>
       </Drawer>
 
