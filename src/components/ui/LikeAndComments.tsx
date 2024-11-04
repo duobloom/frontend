@@ -4,7 +4,7 @@ import { useState } from "react";
 import { CommentType } from "@/types/CommentType";
 
 type TLikeAndComments = {
-  type: "post" | "feed";
+  type: "community" | "feed";
   id: number;
   likes: number;
   comments: CommentType[];
@@ -29,7 +29,7 @@ const LikeAndComments = ({ type, id, likes, comments }: TLikeAndComments) => {
       </div>
       <div
         className="flex cursor-pointer items-center gap-[0.4rem] text-gray-500"
-        onClick={() => navigate(`${type === "feed" ? `/feed/${id}` : `/post/${id}`}`)}
+        onClick={() => navigate(`${type === "feed" ? `/feed/${id}` : `/community/${id}`}`)}
       >
         <IconComments />
         <span className="text-[1.4rem]">{String(comments.length)}</span>

@@ -6,6 +6,6 @@ import AlarmBox from "./AlarmBox";
 import { EmotionBox } from "./EmotionBox";
 import { QuestionBox } from "./QuestionBox";
 import FeedBox from "./FeedBox";
-import PostBox from "./PostBox";
+import CommunityBox from "./CommunityBox";
 
-export { Button, Badge, InfoBox, Input, EmotionBox, QuestionBox, AlarmBox, FeedBox, PostBox };
+export { Button, Badge, InfoBox, Input, EmotionBox, QuestionBox, AlarmBox, FeedBox, CommunityBox };

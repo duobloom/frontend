@@ -27,8 +27,8 @@ const TagSchema = z.object({
 });
 
 // 게시글 타입 정의
-export const PostSchema = z.object({
-  post_id: z.number(),
+export const CommunitySchema = z.object({
+  community_id: z.number(),
   author: AuthorSchema,
   category: CategorySchema,
   content: z.string(),
@@ -39,4 +39,4 @@ export const PostSchema = z.object({
   comments: z.array(CommentSchema),
 });
 
-export type PostType = z.infer<typeof PostSchema>;
+export type CommunityType = z.infer<typeof CommunitySchema>;
