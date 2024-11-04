@@ -27,6 +27,20 @@ const router = createBrowserRouter([
           return { Component: PostDetailPage };
         },
       },
+      {
+        path: "/calendar",
+        async lazy() {
+          const { default: CalendarPage } = await import("@/pages/CalendarPage");
+          return { Component: CalendarPage };
+        },
+      },
+      {
+        path: "/calendar/:date",
+        async lazy() {
+          const { default: CalendarDetailPage } = await import("@/pages/CalendarDetailPage");
+          return { Component: CalendarDetailPage };
+        },
+      },
     ],
   },
 ]);
