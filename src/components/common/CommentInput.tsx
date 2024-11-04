@@ -1,5 +1,5 @@
 import React from "react";
-import { Input } from "../common";
+import { Input } from ".";
 
 const CommentInput = () => {
   return (

@@ -1,24 +1,14 @@
-import React, { forwardRef } from "react";
+import React from "react";
 import Author from "../ui/Author";
-import { FeedType } from "@/types";
+import IconDotHorizontal from "../ui/IconDotHorizontal";
 import { Drawer, DrawerContent, DrawerTrigger } from "../common/Drawer";
+import { CommentType } from "@/types/CommentType";
 
-const IconDotHorizontal = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>((props, ref) => (
-  <svg ref={ref} {...props} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g id="icn-dot-horizontal">
-      <circle id="Vector" cx="12" cy="12" r="2" fill="#212721" />
-      <circle id="Vector_2" cx="5" cy="12" r="2" fill="#212721" />
-      <circle id="Vector_3" cx="19" cy="12" r="2" fill="#212721" />
-    </g>
-  </svg>
-));
-IconDotHorizontal.displayName = "IconDotHorizontal";
-
-type TFeedPostProps = {
-  feedData: FeedType;
+type TCommentBoxProps = {
+  commentData: CommentType[];
 };
 
-const FeedComment = ({ feedData }: TFeedPostProps) => {
+const CommentBox = ({ commentData }: TCommentBoxProps) => {
   // 댓글 수정
   const handleCommentEdit = (id: number) => {
     console.log(id);
@@ -33,7 +23,7 @@ const FeedComment = ({ feedData }: TFeedPostProps) => {
     <section>
       <div className="mb-[1.5rem] mt-[2rem] h-[.6rem] w-full bg-gray-100" />
       <article className={`flex flex-col gap-[2rem] px-[1.5rem]`}>
-        {feedData.comments.map((comment) => (
+        {commentData.map((comment) => (
           <div key={comment.comment_id} className="flex flex-col gap-[.5rem]">
             <div className="flex items-center justify-between">
               <Author
@@ -64,4 +54,4 @@ const FeedComment = ({ feedData }: TFeedPostProps) => {
   );
 };
 
-export default FeedComment;
+export default CommentBox;

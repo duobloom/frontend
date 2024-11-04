@@ -16,8 +16,15 @@ const router = createBrowserRouter([
       {
         path: "/feed/:id",
         async lazy() {
-          const { default: FeedDetailPage } = await import("@/pages/FeedDetailPage");
-          return { Component: FeedDetailPage };
+          const { default: PostDetailPage } = await import("@/pages/PostDetailPage");
+          return { Component: PostDetailPage };
+        },
+      },
+      {
+        path: "/community/:id",
+        async lazy() {
+          const { default: PostDetailPage } = await import("@/pages/PostDetailPage");
+          return { Component: PostDetailPage };
         },
       },
     ],
