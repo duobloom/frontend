@@ -1,5 +1,5 @@
-import { FeedHeader } from "@/components/feed";
 import { PostDetailBox, CommentBox, CommentInput } from "@/components/common";
+import FeedHeader from "@/components/feed/FeedHeader";
 import { FeedType } from "@/types";
 
 import testProfileImg from "@/assets/image/test-profile.jpg";
