@@ -19,6 +19,7 @@ import IconVector from "./icon-vector.svg?react";
 import IconClose from "./icon-close.svg?react";
 import IconLocation from "./icon-location.svg?react";
 import IconMarker from "./icn-map-marker.svg?react";
+import IconPoint from "./icon-point.svg?react";
 
 export {
   IconHeart,
@@ -42,4 +43,5 @@ export {
   IconClose,
   IconLocation,
   IconMarker,
+  IconPoint,
 };
