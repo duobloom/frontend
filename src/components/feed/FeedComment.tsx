@@ -1,18 +1,8 @@
-import React, { forwardRef } from "react";
+import React from "react";
 import Author from "../ui/Author";
-import { FeedType } from "@/types";
+import IconDotHorizontal from "../ui/IconDotHorizontal";
 import { Drawer, DrawerContent, DrawerTrigger } from "../common/Drawer";
-
-const IconDotHorizontal = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>((props, ref) => (
-  <svg ref={ref} {...props} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g id="icn-dot-horizontal">
-      <circle id="Vector" cx="12" cy="12" r="2" fill="#212721" />
-      <circle id="Vector_2" cx="5" cy="12" r="2" fill="#212721" />
-      <circle id="Vector_3" cx="19" cy="12" r="2" fill="#212721" />
-    </g>
-  </svg>
-));
-IconDotHorizontal.displayName = "IconDotHorizontal";
+import { FeedType } from "@/types";
 
 type TFeedPostProps = {
   feedData: FeedType;
