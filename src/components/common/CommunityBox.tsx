@@ -19,7 +19,6 @@ export default function CommunityBox({ communityData }: CommunityBoxProps) {
           <Author
             profileImg={communityData.author.profileImage}
             name={communityData.author.name}
-            category={communityData.category.sub}
             createdAt={communityData.createdAt}
           />
         </div>

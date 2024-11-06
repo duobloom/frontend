@@ -8,7 +8,6 @@ import { BasePostSchema } from "./BasePostType";
 // 카테고리 타입 정의
 const CategorySchema = z.object({
   main: z.string(),
-  sub: z.string(),
 });
 
 // 태그 타입 정의

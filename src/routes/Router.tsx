@@ -41,6 +41,13 @@ const router = createBrowserRouter([
           return { Component: CalendarDetailPage };
         },
       },
+      {
+        path: "/community",
+        async lazy() {
+          const { default: CommunityPage } = await import("@/pages/CommunityPage");
+          return { Component: CommunityPage };
+        },
+      },
     ],
   },
 ]);
