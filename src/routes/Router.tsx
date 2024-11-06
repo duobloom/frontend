@@ -49,6 +49,41 @@ const router = createBrowserRouter([
         },
       },
       {
+        path: "/mypage",
+        async lazy() {
+          const { default: MyPage } = await import("@/pages/Mypage/MyPage");
+          return { Component: MyPage };
+        },
+      },
+      {
+        path: "/mypage/point",
+        async lazy() {
+          const { default: MyPoint } = await import("@/pages/Mypage/MyPoint");
+          return { Component: MyPoint };
+        },
+      },
+      {
+        path: "/mypage/editinfo",
+        async lazy() {
+          const { default: EditMyInfo } = await import("@/pages/Mypage/EditMyInfo");
+          return { Component: EditMyInfo };
+        },
+      },
+      {
+        path: "/mypage/myscrap",
+        async lazy() {
+          const { default: MyScrap } = await import("@/pages/Mypage/MyScrap");
+          return { Component: MyScrap };
+        },
+      },
+      {
+        path: "/mypage/savedpost",
+        async lazy() {
+          const { default: SavedPost } = await import("@/pages/Mypage/SavedPost");
+          return { Component: SavedPost };
+        },
+      },
+      {
         path: "/feed/:id",
         async lazy() {
           const { default: PostDetailPage } = await import("@/pages/PostDetailPage");
