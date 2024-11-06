@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Header from "@/components/layout/Header";
 import { Badge, Button, OptionTabs } from "@/components/common";
 import { BoxFooter } from "@/components/ui/Box";
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/Carousel";
+import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/components/ui/Carousel";
 import { Drawer, DrawerClose, DrawerContent, DrawerTitle, DrawerTrigger } from "@/components/common/Drawer";
 import useDraggable from "@/hooks/useDraggable";
 import {
@@ -16,19 +16,32 @@ import {
   AddressCopy,
   KakaoMap,
 } from "@/components/hospital";
-import image from "@/assets/image/Image.png";
-import image2 from "@/assets/image/test.png";
+import image from "@/assets/image/test.png";
 
 const HospitalInfoPage = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const draggableOptions = useDraggable(scrollRef);
-  const [activeDrawer, setActiveDrawer] = React.useState<"medic" | "clinicHour" | null>(null);
-  const [isBookMarked, setIsBookMarked] = React.useState(false);
-  const [selectedTab, setSelectedTab] = React.useState("병원 정보");
+  const [activeDrawer, setActiveDrawer] = useState<"medic" | "clinicHour" | null>(null);
+  const [isBookMarked, setIsBookMarked] = useState(false);
+  const [selectedTab, setSelectedTab] = useState("병원 정보");
   const infoSectionRef = useRef<HTMLDivElement>(null);
   const medicSectionRef = useRef<HTMLDivElement>(null);
   const directionSectionRef = useRef<HTMLDivElement>(null);
 
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
+
+  React.useEffect(() => {
+    if (!api) return;
+
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap() + 1);
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [api]);
   // 탭 클릭 시 스크롤이동
   const scrollToSection = (sectionRef: React.RefObject<HTMLDivElement>) => {
     if (scrollRef.current && sectionRef.current) {
@@ -55,7 +68,7 @@ const HospitalInfoPage = () => {
     { day: "토", time: "10:00 - 15:00" },
     { day: "일", time: "", isClosed: true },
   ];
-  const images = [image, image2, "https://example.com/image3.jpg", "https://example.com/image4.jpg"];
+  const images = [image, "https://example.com/image3.jpg", "https://example.com/image4.jpg"];
 
   return (
     <div className="flex h-full flex-col">
@@ -75,18 +88,26 @@ const HospitalInfoPage = () => {
         </span>
         <BoxFooter />
         <section className="relative mb-[3rem] h-[17rem] w-full rounded-[1rem] border">
-          <Carousel orientation="horizontal" opts={{ loop: true }} className="h-full w-full">
+          <Carousel orientation="horizontal" setApi={setApi} className="h-[17rem] w-full">
             <CarouselContent className="flex">
               {images.map((img, index) => (
-                <CarouselItem key={index} className="relative h-full w-full">
-                  <img src={img} alt={`slide-${index + 1}`} className="h-full w-full rounded-lg object-cover" />
-                  <span className="absolute right-[.5rem] top-[1rem] rounded-full bg-black bg-opacity-80 px-[1.5rem] py-[.5rem] text-[1.2rem] text-white">
-                    {index + 1} / {images.length}
-                  </span>
+                <CarouselItem key={index}>
+                  <div className="relative w-full overflow-hidden rounded-[1rem]">
+                    <img
+                      src={img}
+                      alt={`slide-${index + 1}`}
+                      className="h-[17rem] w-full rounded-[1rem] object-cover"
+                    />
+                  </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
           </Carousel>
+          {images.length > 1 && (
+            <div className="absolute right-[1.5rem] top-[1.5rem] flex h-[2.4rem] w-auto min-w-[3.5rem] items-center justify-center rounded-[10rem] bg-black bg-opacity-80 px-[.7rem] py-[.5rem] text-[1rem] font-bold leading-normal tracking-[2px] text-white">
+              {current}/{count}
+            </div>
+          )}
         </section>
         <DetailBox title="전화번호" content="010-0000-0000" />
         <Drawer>

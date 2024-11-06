@@ -44,23 +44,13 @@ const subTextVariants = cva("text-[1.2rem] leading-none text-gray-500 tracking-[
 interface AuthorProps extends VariantProps<typeof AuthorVariants> {
   profileImg?: string;
   name: string;
-  category?: string;
   createdAt?: string;
   birth?: string;
   isMe?: boolean;
   className?: string;
 }
 
-const Author = ({
-  variant = "community",
-  profileImg,
-  name,
-  category,
-  createdAt,
-  birth,
-  isMe,
-  className,
-}: AuthorProps) => {
+const Author = ({ variant = "community", profileImg, name, createdAt, birth, isMe, className }: AuthorProps) => {
   const avatarSizes = {
     community: "h-[3.6rem] w-[3.6rem]",
     feed: "h-[5rem] w-[5rem]",
@@ -83,14 +73,10 @@ const Author = ({
       <div className={cn(`flex flex-col gap-[.5rem] ${variant === "feedReverse" && "items-end"}`)}>
         <div className="flex items-center gap-[.5rem]">
           <span className={nameVariants({ variant })}>{name}</span>
-          {category && (
-            <>
-              <span className="leading-none text-gray-500">·</span>
-              <span className="text-[1.4rem] font-medium leading-none text-gray-500">{category}</span>
-            </>
-          )}
         </div>
-        {(birth || createdAt) && <span className={cn(subTextVariants({ variant }))}>{birth || createdAt}</span>}
+        {(birth || createdAt) && (
+          <span className={cn(subTextVariants({ variant, className }))}>{birth || createdAt}</span>
+        )}
       </div>
     </div>
   );

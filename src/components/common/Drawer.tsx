@@ -151,6 +151,8 @@ const DrawerContent = React.forwardRef<
         style={{ left: contentPosition }}
         {...props}
       >
+        <DrawerPrimitive.Title className="sr-only">Drawer</DrawerPrimitive.Title>
+        <DrawerPrimitive.Description className="sr-only">Drawer content</DrawerPrimitive.Description>
         {children}
       </DrawerPrimitive.Content>
     </DrawerPortal>

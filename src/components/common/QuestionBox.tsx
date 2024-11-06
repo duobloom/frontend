@@ -2,8 +2,10 @@ import * as React from "react";
 import { cn } from "@/utils";
 import { QuestionType } from "@/types";
 import { Button } from "./Button";
+import { Drawer, DrawerTrigger, DrawerContent } from "./Drawer";
 import { BoxContainer, BoxContent, BoxFooter, BoxHeader } from "../ui/Box";
 import Author from "../ui/Author";
+import MainQuestionForm from "../main/MainQuestionForm";
 
 // Props 타입 정의
 type TQuestionBoxProps = {
@@ -35,6 +37,8 @@ QuestionBoxTitle.displayName = "QuestionBoxTitle";
 
 // QuestionBox 컴포넌트
 const QuestionBox = ({ data }: TQuestionBoxProps) => {
+  const [isQuestionDrawerOpen, setIsQuestionDrawerOpen] = React.useState(false);
+
   const answers = data.answers; // 답변 배열 가져오기
 
   const hasNoAnswers = answers.length === 0;
@@ -50,9 +54,16 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
               첫번째 질문
             </Button>
             {hasNoAnswers && (
-              <Button variant="oval" size="sm">
-                답변하기
-              </Button>
+              <Drawer open={isQuestionDrawerOpen} onOpenChange={setIsQuestionDrawerOpen}>
+                <DrawerTrigger asChild>
+                  <Button variant="oval" size="sm">
+                    답변하기
+                  </Button>
+                </DrawerTrigger>
+                <DrawerContent>
+                  <MainQuestionForm qTitle={data.content} onClose={() => setIsQuestionDrawerOpen(false)} />
+                </DrawerContent>
+              </Drawer>
             )}
           </div>
           <QuestionBoxTitle className="my-[.7rem]">{data.content}</QuestionBoxTitle>
@@ -68,8 +79,8 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
               <AnswerBoxContainer>
                 <BoxHeader>
                   <Author
-                    profileImg={answers[0].user.profileImage}
-                    name={answers[0].user.name}
+                    profileImg={answers[0].author.profileImage}
+                    name={answers[0].author.name}
                     createdAt={answers[0].updated_at}
                   ></Author>
                 </BoxHeader>
@@ -92,8 +103,8 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
                   <div className="mt-[1rem] flex gap-[.7rem]" key={index}>
                     <BoxHeader>
                       <Author
-                        profileImg={answer.user.profileImage}
-                        name={answer.user.name}
+                        profileImg={answer.author.profileImage}
+                        name={answer.author.name}
                         createdAt={answer.updated_at}
                       ></Author>
                     </BoxHeader>
