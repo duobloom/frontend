@@ -16,8 +16,7 @@ import {
   AddressCopy,
   KakaoMap,
 } from "@/components/hospital";
-import image from "@/assets/image/Image.png";
-import image2 from "@/assets/image/test.png";
+import image from "@/assets/image/test.png";
 
 const HospitalInfoPage = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -69,7 +68,7 @@ const HospitalInfoPage = () => {
     { day: "토", time: "10:00 - 15:00" },
     { day: "일", time: "", isClosed: true },
   ];
-  const images = [image, image2, "https://example.com/image3.jpg", "https://example.com/image4.jpg"];
+  const images = [image, "https://example.com/image3.jpg", "https://example.com/image4.jpg"];
 
   return (
     <div className="flex h-full flex-col">

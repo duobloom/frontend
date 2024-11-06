@@ -16,7 +16,7 @@
 
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { IconArrowLeft, IconBell, IconBookMark, IconDotHorizontal, IconSearch, IconShare } from "@/assets/icon";
+import { IconArrowLeft, IconBell, IconBookMark, IconSearch, IconShare } from "@/assets/icon";
 
 const VARIANTS = {
   TITLE_MOVE: "titleMove", // A
@@ -29,8 +29,22 @@ const VARIANTS = {
 type TitleMoveHeader = {
   variant: typeof VARIANTS.TITLE_MOVE;
 } & (
-  | { title: string; children?: never; isBookmark?: never; handleBookmark?: () => never; searchQuery?: never }
-  | { title?: never; children: React.ReactNode; isBookmark?: never; handleBookmark?: () => never; searchQuery?: never }
+  | {
+      title: string;
+      children?: never;
+      isBookmark?: never;
+      handleBookmark?: () => never;
+      searchQuery?: never;
+      menuButton?: never;
+    }
+  | {
+      title?: never;
+      children: React.ReactNode;
+      isBookmark?: never;
+      handleBookmark?: () => never;
+      searchQuery?: never;
+      menuButton?: never;
+    }
 );
 
 type BackTitleHeader = {
@@ -40,15 +54,17 @@ type BackTitleHeader = {
   isBookmark?: never;
   handleBookmark?: () => never;
   searchQuery?: never;
+  menuButton?: never;
 };
 
 type BackMenuHeader = {
   variant: typeof VARIANTS.BACK_MENU;
-  title: string;
+  title?: string;
   children?: never;
   isBookmark?: never;
   handleBookmark?: () => never;
   searchQuery?: never;
+  menuButton: () => JSX.Element;
 };
 
 type BackActionsHeader = {
@@ -58,6 +74,7 @@ type BackActionsHeader = {
   isBookmark: boolean;
   handleBookmark: () => void;
   searchQuery?: never;
+  menuButton?: never;
 };
 
 type BackSearchHeader = {
@@ -67,11 +84,12 @@ type BackSearchHeader = {
   isBookmark?: never;
   handleBookmark?: () => never;
   searchQuery?: string;
+  menuButton?: never;
 };
 
 type HeaderProps = TitleMoveHeader | BackTitleHeader | BackMenuHeader | BackActionsHeader | BackSearchHeader;
 
-const Header = ({ variant, children, title, isBookmark, handleBookmark, searchQuery }: HeaderProps) => {
+const Header = ({ variant, children, title, isBookmark, handleBookmark, searchQuery, menuButton }: HeaderProps) => {
   const navigate = useNavigate();
 
   // 공유 버튼
@@ -117,9 +135,7 @@ const Header = ({ variant, children, title, isBookmark, handleBookmark, searchQu
           <>
             {renderBackButton()}
             <h2 className="text-[1.6rem] font-extrabold leading-normal text-black">{title}</h2>
-            <button>
-              <IconDotHorizontal />
-            </button>
+            {menuButton()}
           </>
         );
 

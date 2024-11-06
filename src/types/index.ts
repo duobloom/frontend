@@ -1,6 +1,6 @@
 import { HospitalType } from "@/types/HospitalType";
 import { PolicyType, PolicyListType } from "@/types/PolicyType";
-import { PostType } from "@/types/PostType";
+import { CommunityType } from "@/types/CommunityType";
 import { FeedType } from "@/types/FeedType";
 import { EmotionType } from "@/types/EmotionType";
 import { QuestionType, AnswerType } from "@/types/QuestionType";
@@ -14,7 +14,7 @@ export {
   type EmotionType,
   type QuestionType,
   type AnswerType,
-  type PostType,
+  type CommunityType,
   type FeedType,
   type UserProfileType,
   type UserType,

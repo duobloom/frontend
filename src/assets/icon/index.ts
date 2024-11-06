@@ -20,6 +20,11 @@ import IconClose from "./icon-close.svg?react";
 import IconLocation from "./icon-location.svg?react";
 import IconMarker from "./icn-map-marker.svg?react";
 import IconPoint from "./icon-point.svg?react";
+import IconPlus from "./icon-plus.svg?react";
+import IconEdit from "./icon-edit.svg?react";
+import IconSmileHappy from "./icon-smiley-happy.svg?react";
+import IconCamera from "./icon-camera.svg?react";
+import IconCircleClose from "./icon-circle-close.svg?react";
 
 export {
   IconHeart,
@@ -44,4 +49,9 @@ export {
   IconLocation,
   IconMarker,
   IconPoint,
+  IconPlus,
+  IconEdit,
+  IconSmileHappy,
+  IconCamera,
+  IconCircleClose,
 };
