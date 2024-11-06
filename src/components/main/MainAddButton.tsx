@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { MainTextForm, MainEmotionForm } from "@/components/main";
+import { MainEmotionForm } from "@/components/main";
 import { Drawer, DrawerContent, DrawerTrigger } from "../common/Drawer";
+import { PostForm } from "@/components/common";
 import { cn } from "@/utils";
 import { IconEdit, IconPlus, IconSmileHappy } from "@/assets/icon";
 
@@ -48,7 +49,7 @@ const MainAddButton = () => {
           </IconButtonContainer>
         </DrawerTrigger>
         <DrawerContent>
-          <MainTextForm type="add" onClose={() => setIsTextDrawerOpen(false)} />
+          <PostForm type="add" context="feed" onClose={() => setIsTextDrawerOpen(false)} />
         </DrawerContent>
       </Drawer>
 

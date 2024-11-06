@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Header from "@/components/layout/Header";
-import { MainTextForm } from "@/components/main";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/common/Drawer";
 import IconDotHorizontal from "../ui/IconDotHorizontal";
 import { FeedType } from "@/types";
+import { PostForm } from "../common";
 
 const FeedHeader = ({ feedData }: { feedData: FeedType }) => {
   const [isMenuDrawerOpen, setIsMenuDrawerOpen] = useState(false); // 메뉴 드로어 상태
@@ -43,7 +43,7 @@ const FeedHeader = ({ feedData }: { feedData: FeedType }) => {
       {/* 수정 Drawer */}
       <Drawer open={isEditDrawerOpen} onOpenChange={setIsEditDrawerOpen}>
         <DrawerContent>
-          <MainTextForm type="edit" initialData={feedData} onClose={() => setIsEditDrawerOpen(false)} />
+          <PostForm type="edit" context="feed" initialData={feedData} onClose={() => setIsEditDrawerOpen(false)} />
         </DrawerContent>
       </Drawer>
     </>
