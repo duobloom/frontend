@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cn } from "@/utils";
+import { IconDropdown } from "@/assets/icon";
 
 const BoxContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
@@ -36,4 +37,21 @@ const BoxFooter = React.forwardRef<HTMLDivElement, React.PropsWithChildren<React
 );
 BoxFooter.displayName = "BoxFooter";
 
-export { BoxContainer, BoxHeader, BoxContent, BoxFooter };
+const DropdownBox = React.forwardRef<HTMLDivElement, React.PropsWithChildren<React.HTMLAttributes<HTMLDivElement>>>(
+  ({ className, children, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cn(
+        "flex w-[18.5rem] items-center justify-between px-[1.4rem] py-[1.6rem] text-[1.8rem] font-bold",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+      <IconDropdown />
+    </div>
+  ),
+);
+DropdownBox.displayName = "DropdownBox";
+
+export { BoxContainer, BoxHeader, BoxContent, BoxFooter, DropdownBox };

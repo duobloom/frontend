@@ -4,7 +4,8 @@ import { Badge } from "./Badge";
 import InfoBox from "./InfoBox";
 import AlarmBox from "./AlarmBox";
 import { EmotionBox } from "./EmotionBox";
-import { QuestionBox } from "./QuestionBox";
+import { OptionTabs, OptionBoxes } from "./OptionBoxes";
+import ScrollableOptions from "./ScrollerableOption";
 import FeedBox from "./FeedBox";
 import CommunityBox from "./CommunityBox";
 import PostDetailBox from "./PostDetailBox";
@@ -19,6 +20,9 @@ export {
   Input,
   EmotionBox,
   QuestionBox,
+  ScrollableOptions,
+  OptionTabs,
+  OptionBoxes,
   AlarmBox,
   FeedBox,
   CommunityBox,
@@ -27,3 +31,4 @@ export {
   CommentInput,
   FilterButton,
 };
+

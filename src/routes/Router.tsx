@@ -14,6 +14,27 @@ const router = createBrowserRouter([
         },
       },
       {
+        path: "/hospital",
+        async lazy() {
+          const { default: HospitalPage } = await import("@/pages/HospitalPage");
+          return { Component: HospitalPage };
+        },
+      },
+      {
+        path: "/hospital/map",
+        async lazy() {
+          const { default: HospitalMapPage } = await import("@/pages/HospitalMapPage");
+          return { Component: HospitalMapPage };
+        },
+      },
+      {
+        path: "/hospital/:hopital_id",
+        async lazy() {
+          const { default: HospitalInfoPage } = await import("@/pages/HospitalInfoPage");
+          return { Component: HospitalInfoPage };
+        },
+      },
+      {
         path: "/feed/:id",
         async lazy() {
           const { default: PostDetailPage } = await import("@/pages/PostDetailPage");

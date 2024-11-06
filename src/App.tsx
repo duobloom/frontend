@@ -19,7 +19,6 @@ function App() {
             </div>
           </div>
         </div>
-
         {/* Right section - 앱 영역 */}
         <div className="right-section flex w-full justify-center lg:w-[37.5rem] lg:min-w-[37.5rem]">
           <div className="h-screen w-full max-w-[37.5rem] bg-white shadow-lg">
