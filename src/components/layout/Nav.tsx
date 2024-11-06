@@ -35,9 +35,9 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  if (NAV_ITEMS.filter((item) => item.path === location.pathname).length === 0) return;
-
+  if (!NAV_ITEMS.find((item) => item.path === location.pathname)) return;
   const isActive = (path: string) => location.pathname === path;
+  
   return (
     <NavBarContainer>
       {NAV_ITEMS.map((item) => (

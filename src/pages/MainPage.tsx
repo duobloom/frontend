@@ -1,6 +1,6 @@
-import React from "react";
 import Header from "@/components/layout/Header";
-import { MainDayAndPoint, MainProfile, MainCalendar } from "@/components/main";
+import { MainDayAndPoint, MainProfile, MainCalendar, MainFeed, MainAddButton } from "@/components/main";
+import { generateDates } from "@/utils/generateDates";
 
 import testProfile from "@/assets/image/test-profile.jpg";
 import testProfile2 from "@/assets/image/test-profile2.jpg";
@@ -21,13 +21,17 @@ const exampleData = {
 };
 
 const MainPage = () => {
+  const { yearMonth, calendarData } = generateDates(); // 날짜 데이터
+
   return (
-    <main>
+    <main className="relative">
       <Header variant="titleMove">
-        <MainDayAndPoint point={12392} />
+        <MainDayAndPoint point={12392} yearMonth={yearMonth} />
       </Header>
       <MainProfile userData={exampleData.userData} partnerData={exampleData.partnerData} />
-      <MainCalendar />
+      <MainCalendar calendarData={calendarData} />
+      <MainFeed />
+      <MainAddButton />
     </main>
   );
 };
