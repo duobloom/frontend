@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { MainTextForm } from "@/components/main";
 import Author from "@/components/ui/Author";
 import { BoxContainer, BoxContent, BoxFooter, BoxHeader } from "@/components/ui/Box";
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/components/ui/Carousel";
 import IconDotHorizontal from "@/components/ui/IconDotHorizontal";
 import LikeAndComments from "@/components/ui/LikeAndComments";
+import PostForm from "@/components/common/PostForm";
 import { Drawer, DrawerContent, DrawerTrigger } from "./Drawer";
 import { FeedType } from "@/types";
 
@@ -60,12 +60,12 @@ export default function FeedBox({ feed }: FeedBoxProps) {
             <div className="flex flex-col gap-[1.8rem] px-[9rem] py-[3.9rem] text-[1.6rem] font-extrabold leading-normal tracking-[-0.032rem]">
               <button onClick={() => handleTextSave(feed.feed_id)}>글 저장</button>
 
-              <Drawer open={isTextDrawerOpen} onOpenChange={setIsTextDrawerOpen}>
+              <Drawer dismissible={false} open={isTextDrawerOpen} onOpenChange={setIsTextDrawerOpen}>
                 <DrawerTrigger asChild>
                   <button onClick={() => handleTextEdit(feed.feed_id)}>수정</button>
                 </DrawerTrigger>
                 <DrawerContent>
-                  <MainTextForm type="edit" initialData={feed} onClose={() => setIsTextDrawerOpen(false)} />
+                  <PostForm type="edit" context="feed" initialData={feed} onClose={() => setIsTextDrawerOpen(false)} />
                 </DrawerContent>
               </Drawer>
 

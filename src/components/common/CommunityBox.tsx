@@ -41,8 +41,8 @@ export default function CommunityBox({ communityData }: CommunityBoxProps) {
         </div>
         <div className="flex flex-wrap gap-[0.8rem]">
           {communityData.tags.map((tag) => (
-            <Badge key={tag.id} variant="tagBadge">
-              {tag.name}
+            <Badge key={tag} variant="tagBadge">
+              {tag}
             </Badge>
           ))}
         </div>

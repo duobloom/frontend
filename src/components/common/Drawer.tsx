@@ -144,7 +144,7 @@ const DrawerContent = React.forwardRef<
       <DrawerPrimitive.Content
         ref={ref}
         className={cn(
-          "fixed bottom-0 z-50 flex h-[83.2%] w-[37.5rem] flex-col overflow-y-auto rounded-t-[3rem] border-none bg-white px-[1.8rem] py-[2rem] scrollbar-hide",
+          "fixed bottom-0 z-50 flex h-[83.2%] w-[37.5rem] flex-col rounded-t-[3rem] border-none bg-white px-[1.8rem] py-[2rem]",
           isMobile ? "w-full" : "",
           className,
         )}

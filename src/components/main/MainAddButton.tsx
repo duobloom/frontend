@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { MainTextForm, MainEmotionForm } from "@/components/main";
+import { MainEmotionForm } from "@/components/main";
 import { Drawer, DrawerContent, DrawerTrigger } from "../common/Drawer";
+import { PostForm } from "@/components/common";
 import { cn } from "@/utils";
 import { IconEdit, IconPlus, IconSmileHappy } from "@/assets/icon";
 
@@ -35,8 +36,8 @@ const MainAddButton = () => {
 
   return (
     <div>
-      {/* 글쓰기 버튼 */}
-      <Drawer open={isTextDrawerOpen} onOpenChange={setIsTextDrawerOpen}>
+      {/* 글쓰기 버튼 - 외부 영역 클릭해도 닫히지 않음 */}
+      <Drawer dismissible={false} open={isTextDrawerOpen} onOpenChange={setIsTextDrawerOpen}>
         <DrawerTrigger asChild>
           <IconButtonContainer
             onClick={() => setIsClicked(false)}
@@ -48,7 +49,7 @@ const MainAddButton = () => {
           </IconButtonContainer>
         </DrawerTrigger>
         <DrawerContent>
-          <MainTextForm type="add" onClose={() => setIsTextDrawerOpen(false)} />
+          <PostForm type="add" context="feed" onClose={() => setIsTextDrawerOpen(false)} />
         </DrawerContent>
       </Drawer>
 
