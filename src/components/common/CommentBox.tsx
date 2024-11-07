@@ -1,4 +1,3 @@
-import React from "react";
 import Author from "../ui/Author";
 import IconDotHorizontal from "../ui/IconDotHorizontal";
 import { Drawer, DrawerContent, DrawerTrigger } from "../common/Drawer";

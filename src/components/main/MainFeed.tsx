@@ -1,4 +1,3 @@
-import React from "react";
 import { EmotionBox, FeedBox, QuestionBox } from "../common";
 
 import testProfileImg from "@/assets/image/test-profile.jpg";

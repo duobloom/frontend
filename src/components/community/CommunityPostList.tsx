@@ -1,4 +1,3 @@
-import React from "react";
 import CommunityTitle from "./CommunityTitle";
 import { CommunityBox } from "@/components/common";
 

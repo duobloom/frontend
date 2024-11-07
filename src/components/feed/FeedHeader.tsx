@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Header from "@/components/layout/Header";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/common/Drawer";
 import IconDotHorizontal from "../ui/IconDotHorizontal";

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/common";
 import useDraggable from "@/hooks/useDraggable";
 import { cn } from "@/utils";

@@ -1,10 +1,10 @@
 export const filterList = [
-  { id: 1, text: "홈" },
-  { id: 2, text: "심리케어" },
-  { id: 3, text: "멘토링" },
-  { id: 4, text: "정책" },
-  { id: 5, text: "병원/클리닉" },
-  { id: 6, text: "자유" },
+  { id: 1, name: "홈" },
+  { id: 2, name: "심리케어" },
+  { id: 3, name: "멘토링" },
+  { id: 4, name: "정책" },
+  { id: 5, name: "병원/클리닉" },
+  { id: 6, name: "자유" },
 ];
 
 export const categoryList = [

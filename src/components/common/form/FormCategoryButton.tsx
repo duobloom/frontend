@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import useDraggable from "@/hooks/useDraggable";
 import { cn } from "@/utils";
-import { categoryList } from "@/constants/CategoryList";
 import { CategoryType } from "@/types/CommunityType";
+import { categoryList } from "@/constants";
 
 type TFormCategoryButtonProps = {
   selectedButton: CategoryType;

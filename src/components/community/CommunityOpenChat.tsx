@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import CommunityTitle from "./CommunityTitle";
 import Author from "@/components/ui/Author";
 import useDraggable from "@/hooks/useDraggable";

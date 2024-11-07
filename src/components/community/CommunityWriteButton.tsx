@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/common/Drawer";
 import { PostForm } from "@/components/common";
 import { IconEdit } from "@/assets/icon";
