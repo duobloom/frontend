@@ -60,7 +60,7 @@ export default function FeedBox({ feed }: FeedBoxProps) {
             <div className="flex flex-col gap-[1.8rem] px-[9rem] py-[3.9rem] text-[1.6rem] font-extrabold leading-normal tracking-[-0.032rem]">
               <button onClick={() => handleTextSave(feed.feed_id)}>글 저장</button>
 
-              <Drawer open={isTextDrawerOpen} onOpenChange={setIsTextDrawerOpen}>
+              <Drawer dismissible={false} open={isTextDrawerOpen} onOpenChange={setIsTextDrawerOpen}>
                 <DrawerTrigger asChild>
                   <button onClick={() => handleTextEdit(feed.feed_id)}>수정</button>
                 </DrawerTrigger>

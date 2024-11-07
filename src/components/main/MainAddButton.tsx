@@ -36,8 +36,8 @@ const MainAddButton = () => {
 
   return (
     <div>
-      {/* 글쓰기 버튼 */}
-      <Drawer open={isTextDrawerOpen} onOpenChange={setIsTextDrawerOpen}>
+      {/* 글쓰기 버튼 - 외부 영역 클릭해도 닫히지 않음 */}
+      <Drawer dismissible={false} open={isTextDrawerOpen} onOpenChange={setIsTextDrawerOpen}>
         <DrawerTrigger asChild>
           <IconButtonContainer
             onClick={() => setIsClicked(false)}

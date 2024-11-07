@@ -41,7 +41,7 @@ const FeedHeader = ({ feedData }: { feedData: FeedType }) => {
       <Header variant="backMenu" menuButton={renderMenuButton} />
 
       {/* 수정 Drawer */}
-      <Drawer open={isEditDrawerOpen} onOpenChange={setIsEditDrawerOpen}>
+      <Drawer dismissible={false} open={isEditDrawerOpen} onOpenChange={setIsEditDrawerOpen}>
         <DrawerContent>
           <PostForm type="edit" context="feed" initialData={feedData} onClose={() => setIsEditDrawerOpen(false)} />
         </DrawerContent>
