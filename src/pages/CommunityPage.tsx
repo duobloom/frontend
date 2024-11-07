@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import { FilterButton } from "@/components/common";
 import { CommunityMagazine, CommunityOpenChat, CommunityPostList, CommunityWriteButton } from "@/components/community";
-import { filterList } from "@/constants/categoryList";
+import { filterList } from "@/constants/CategoryList";
 
 const CommunityPage = () => {
   const [searchParams] = useSearchParams();

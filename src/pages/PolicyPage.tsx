@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Drawer, DrawerContent, DrawerTrigger, DrawerTitle, DrawerClose } from "@/components/common/Drawer";
 import Header from "@/components/layout/Header";
 import { BoxFooter, DropdownBox } from "@/components/ui/Box";
-import { PolicyOptions, regions } from "@/constant";
+import { PolicyOptions, regions } from "@/constants";
 import { Button, ScrollableOptions } from "@/components/common";
 import { RegionSelecter } from "@/components/hospital";
 import { examplePolicyData, PolicyInfo } from "@/components/policy/PolicyInfoBox";
