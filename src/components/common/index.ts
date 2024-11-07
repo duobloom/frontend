@@ -12,6 +12,7 @@ import PostDetailBox from "./PostDetailBox";
 import CommentBox from "./CommentBox";
 import CommentInput from "./CommentInput";
 import FilterButton from "./FilterButton";
+import { QuestionBox } from "./QuestionBox";
 
 export {
   Button,
@@ -31,4 +32,3 @@ export {
   CommentInput,
   FilterButton,
 };
-
