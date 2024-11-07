@@ -22,6 +22,8 @@ const FormTag = ({ form }: TFormTagProps) => {
 
     form.setValue("tags", [...currentTags, newTag]);
     tagInputRef.current.value = "";
+
+    form.trigger();
   };
 
   // 태그 input 엔터

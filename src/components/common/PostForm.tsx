@@ -48,8 +48,10 @@ const PostForm = ({ type, context, initialData = null, onClose }: TPostFormProps
 
   // 완료 버튼 클릭
   const handleSubmit = () => {
-    console.log(form.getValues());
-    onClose();
+    if (form.formState.isValid || form.watch("content") || (context === "community" && form.watch("category"))) {
+      console.log(form.getValues());
+      onClose();
+    }
   };
 
   // 닫기 전 확인
@@ -76,19 +78,20 @@ const PostForm = ({ type, context, initialData = null, onClose }: TPostFormProps
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="flex h-full flex-col overflow-y-auto scrollbar-hide">
+      <form onSubmit={(e) => e.preventDefault()} className="flex h-full flex-col overflow-y-auto scrollbar-hide">
         <div className="flex items-center justify-between pb-[1.4rem]">
           <div onClick={handleClose} className="cursor-pointer">
             <IconClose />
           </div>
           <DrawerTitle text={`${type === "add" ? "글 쓰기" : "글 수정"}`} />
           <Button
+            type="button"
             variant="oval"
             size="sm"
-            type="submit"
             disabled={
               !form.formState.isValid || !form.watch("content") || (context === "community" && !form.watch("category"))
             }
+            onClick={handleSubmit}
           >
             완료
           </Button>
