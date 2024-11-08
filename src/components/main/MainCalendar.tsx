@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useDraggable from "@/hooks/useDraggable";
 
 type TMainCalendarProps = {
@@ -37,7 +37,7 @@ const MainCalendar = ({ calendarData }: TMainCalendarProps) => {
     <section
       ref={scrollRef}
       {...draggableOptions()}
-      className="scrollbar-hide flex h-[9.5rem] w-full flex-col gap-[.5rem] overflow-x-auto pb-[1rem] pt-[1.5rem]"
+      className="flex h-[9.5rem] w-full flex-col gap-[.5rem] overflow-x-auto pb-[1rem] pt-[1.5rem] scrollbar-hide"
     >
       <div className="flex items-center gap-[1rem] text-[1.2rem] font-semibold text-gray-500">
         {calendarData.monthDates.map((date) => (

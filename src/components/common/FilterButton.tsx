@@ -1,16 +1,16 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/common";
 import useDraggable from "@/hooks/useDraggable";
 import { cn } from "@/utils";
 import { Link } from "react-router-dom";
 
 type TFilterButtonProps = {
-  filterList: { id: number; text: string }[];
+  options: { id: number; text: string }[];
   selectedButton: number;
   setSelectedButton: (id: number) => void;
 };
 
-const FilterButton = ({ filterList, selectedButton, setSelectedButton }: TFilterButtonProps) => {
+const FilterButton = ({ options, selectedButton, setSelectedButton }: TFilterButtonProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const draggableOptions = useDraggable(scrollRef);
 
@@ -30,7 +30,7 @@ const FilterButton = ({ filterList, selectedButton, setSelectedButton }: TFilter
       {...draggableOptions()}
       className="flex w-full space-x-[.8rem] overflow-x-scroll px-[1.5rem] py-[.5rem] scrollbar-hide"
     >
-      {filterList.map((item) => (
+      {options.map((item) => (
         <Link key={item.id} to={`?filter=${item.id}`}>
           <Button
             data-select={selectedButton === item.id}

@@ -1,4 +1,4 @@
-import { regions } from "@/constant";
+import { regions } from "@/constants";
 import { OptionTabs, OptionBoxes } from "@/components/common";
 import { useState } from "react";
 

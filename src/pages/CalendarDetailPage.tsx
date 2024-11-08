@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import Header from "@/components/layout/Header";

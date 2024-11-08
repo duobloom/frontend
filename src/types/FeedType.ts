@@ -5,11 +5,10 @@ export const FeedSchema = BasePostSchema.extend({
   feed_id: z.number(),
 });
 
-export const FeedPostSchema = z.object({
-  feed_id: z.number(),
-  content: z.string(),
+export const FeedPostFormSchema = z.object({
+  content: z.string().min(1, "내용을 입력해주세요"),
   images: z.array(ImageSchema).optional().default([]),
 });
 
 export type FeedType = z.infer<typeof FeedSchema>;
-export type FeedPostType = z.infer<typeof FeedPostSchema>;
+export type FeedPostFormType = z.infer<typeof FeedPostFormSchema>;
