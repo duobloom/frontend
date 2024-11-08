@@ -15,7 +15,7 @@ const GetRegionName = ({ selectedSi, selectedGun, selectedNeighborhood }: TRegio
     selectedGunData ? ` · ${selectedGunData.name}` : ""
   }${selectedNeighborhoodData ? ` · ${selectedNeighborhoodData.name}` : ""}`;
 
-  return <p className="mb-[1rem] text-[1.5rem] font-bold">{selectedLocation}</p>;
+  return <p className="text-[1.7rem] font-bold">{selectedLocation}</p>;
 };
 
 export default GetRegionName;
