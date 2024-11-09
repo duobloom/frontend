@@ -14,13 +14,12 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    // proxy: {
-    //   "/api": {
-    //     target: "http://127.0.0.1:5000",
-    //     changeOrigin: true,
-    //     secure: false,
-    //   },
-    // },
+    proxy: {
+      "/api": {
+        target: "http://ec2-52-78-212-34.ap-northeast-2.compute.amazonaws.com:8080",
+        changeOrigin: true,
+      },
+    },
   },
   resolve: {
     alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
