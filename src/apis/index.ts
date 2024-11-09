@@ -1,3 +1,3 @@
-import { getSearchHospitalRegion } from "./hospital/getSearchRegion";
+import { getFilterHospital } from "./hospital/getFilterHospital";
 
-export { getSearchHospitalRegion };
+export { getFilterHospital };

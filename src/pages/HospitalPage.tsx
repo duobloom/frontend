@@ -7,7 +7,7 @@ import { Button, OptionBoxes, ScrollableOptions } from "@/components/common";
 import { IconMap } from "@/assets/icon";
 import { useNavigate } from "react-router-dom";
 import { GetRegionName, HospitalInfo, RegionSelecter } from "@/components/hospital";
-import { getSearchHospitalRegion } from "@/apis";
+import { getFilterHospital } from "@/apis";
 import { useQuery } from "@tanstack/react-query";
 
 const HospitalPage = () => {
@@ -26,7 +26,7 @@ const HospitalPage = () => {
     refetch: refetchHospital,
   } = useQuery({
     queryKey: ["hospitalData", selectedSi, selectedGun, selectedNeighborhood],
-    queryFn: () => getSearchHospitalRegion(selectedSi, selectedGun, selectedNeighborhood),
+    queryFn: () => getFilterHospital(selectedSi, selectedGun, selectedNeighborhood),
     enabled: false,
   });
   const applyFilters = () => {

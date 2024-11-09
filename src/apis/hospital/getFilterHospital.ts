@@ -1,9 +1,9 @@
 import { HospitalType } from "@/types";
 import axios from "axios";
 
-export const getSearchHospitalRegion = async (
-  region_code: number | null,
-  middle_code: number | null,
+export const getFilterHospital = async (
+  region_code?: number | null,
+  middle_code?: number | null,
   detail_code?: number | null,
 ) => {
   const params = {
