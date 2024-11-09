@@ -2,8 +2,12 @@ import { Outlet } from "react-router-dom";
 import { IconLogoDoubloom } from "@/assets/icon";
 import Navbar from "./components/layout/Nav";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import axios from "axios";
 
 const queryClient = new QueryClient();
+
+axios.defaults.withCredentials = true;
+// axios.defaults.baseURL = import.meta.env.VITE_APP_API_ENDPOINT;
 
 function App() {
   return (
