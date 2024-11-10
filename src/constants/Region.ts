@@ -1,4 +1,5 @@
 const regions = [
+  { region_code: 0, si: "전체", gun: [{ middle_code: 0, name: "전체", neighborhoods: [] }] },
   {
     region_code: 1100000000,
     si: "서울특별시",
