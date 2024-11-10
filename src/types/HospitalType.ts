@@ -1,23 +1,44 @@
 import { z } from "zod";
 
 const HospitalKeywordSchema = z.object({
-  keyword_id: z.number(),
-  keyword_name: z.string(),
+  keywordId: z.number(),
+  keywordName: z.string(),
 });
 
+//병원 전체 타입
 export const HospitalSchema = z.object({
-  hospital_id: z.number(),
-  hospital_name: z.string(),
-  hospital_type: z.string(), // 병원 종류,
-  hospital_img: z.string(), // 병원 이미지
-  start_date: z.string().nullable(), // (시작 시간)
-  end_date: z.string().nullable(), // (종료 시간)
-  lat: z.string().nullable(), // 위도
-  lon: z.string().nullable(), // 경도 (내 위치와 병원 사이의 거리를 나타내기 위해 사용)
-  location: z.string().nullable(), // 병원 위치
-  isClosed: z.boolean().nullable(), // 휴무
-  isCert: z.boolean().nullable(), // 병원 인증 여부
-  keywords: z.array(HospitalKeywordSchema),
+  hospitalId: z.number(), // 병원 ID
+  hospitalName: z.string(), // 병원 이름
+  region: z.number().nullable(), // 상위 지역 코드
+  middle: z.number().nullable(), // 시/군 단위 코드
+  detail: z.number().nullable(), // 구/읍/면 단위 코드
+  type: z.string(), // 병원 종류
+  address: z.string().nullable(), // 병원 주소
+  phone: z.string().nullable(), // 병원 전화번호
+  time: z.string().nullable(), // 진료시간
+  hospitalInfo: z.string().nullable(), // 병원 정보
+  staffInfo: z.string().nullable(), // 의료진 정보
+  latitude: z.number().nullable(), // 위도
+  longitude: z.number().nullable(), // 경도
+  linkUrl: z.string().nullable(), // 링크 URL
+  keywordMappings: z.array(HospitalKeywordSchema).optional(), // 키워드 정보
+});
+
+//병원 리스트 타입
+export const HospitalListSchema = z.object({
+  hospitalId: z.number(), // 병원 ID
+  hospitalName: z.string(), // 병원 이름
+  region: z.number().nullable(), // 상위 지역 코드
+  middle: z.number().nullable(), // 시/군 단위 코드
+  detail: z.number().nullable(), // 구/읍/면 단위 코드
+  type: z.string(), // 병원 종류
+  address: z.string().nullable(), // 병원 주소
+  time: z.string().nullable(), // 진료시간
+  latitude: z.number().nullable(), // 위도
+  longitude: z.number().nullable(), // 경도
+  linkUrl: z.string().nullable(), // 링크 URL
+  keywordMappings: z.array(HospitalKeywordSchema).optional(), // 키워드 정보
 });
 
 export type HospitalType = z.infer<typeof HospitalSchema>;
+export type HospitalListType = z.infer<typeof HospitalListSchema>;
