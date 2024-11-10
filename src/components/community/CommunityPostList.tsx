@@ -11,7 +11,7 @@ const examplePost = {
   category: "자유" as "자유" | "심리케어" | "멘토링" | "정책" | "병원/클리닉",
   content:
     "본 타입은 커뮤니티에서 홈에서만 사용하는 타입입니다. 내용은 두줄 이상넘어가지 않고, 넘어갈시에는 이렇게 표현합니다.아아아아",
-  images: [{ url: "https://example.com/profile.jpg", alt: "" }],
+  photoUrls: ["https://example.com/profile.jpg"],
   tags: ["태그1", "태그2", "태그3"],
   createdAt: "오전 09:00",
   likes: 1,

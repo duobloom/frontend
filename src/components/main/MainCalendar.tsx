@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { useSearchParams } from "react-router-dom";
 import useDraggable from "@/hooks/useDraggable";
 
 type TMainCalendarProps = {
+  yearMonth: string;
   calendarData: {
     today: {
       date: string;
@@ -14,24 +16,40 @@ type TMainCalendarProps = {
   };
 };
 
-const MainCalendar = ({ calendarData }: TMainCalendarProps) => {
-  const [selectDate, setSelectDate] = useState(calendarData.today.date);
+const MainCalendar = ({ yearMonth, calendarData }: TMainCalendarProps) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const currentDate = searchParams.get("date");
+  const nowDate = currentDate ? currentDate.slice(-2) : calendarData.today.date.padStart(2, "0");
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const draggableOptions = useDraggable(scrollRef);
 
+  // 스크롤 이동
   useEffect(() => {
     const selectElement = scrollRef.current?.querySelector('[data-select="true"]');
     if (selectElement) {
       selectElement.scrollIntoView({
-        behavior: selectDate === calendarData.today.date ? "auto" : "smooth",
+        behavior: nowDate === calendarData.today.date.padStart(2, "0") ? "auto" : "smooth",
         block: "start",
         inline: "center",
       });
     }
-  }, [selectDate, calendarData.today.date]);
+  }, [nowDate, calendarData.today.date]);
 
-  const isSelectedDate = (date: string) => selectDate === date;
+  // 날짜 선택
+  const isSelectedDate = (date: string) => nowDate === date.padStart(2, "0");
+
+  // 미래 날짜
   const isFutureDate = (date: string) => Number(date) > Number(calendarData.today.date);
+
+  // 날짜 이동
+  const handleMoveDate = (date: string) => {
+    const formattedYearMonth = yearMonth.replace(".", "-");
+    const formattedDate = date.padStart(2, "0");
+    searchParams.set("date", `${formattedYearMonth}-${formattedDate}`);
+    setSearchParams(searchParams);
+  };
 
   return (
     <section
@@ -46,8 +64,14 @@ const MainCalendar = ({ calendarData }: TMainCalendarProps) => {
             <button
               data-select={isSelectedDate(date.date)}
               disabled={isFutureDate(date.date)}
-              className={`flex h-[4.9rem] min-w-[4.9rem] items-center justify-center rounded-[1rem] ${isFutureDate(date.date) ? "cursor-not-allowed text-gray-500" : isSelectedDate(date.date) ? "bg-red text-white" : "bg-white text-black"}`}
-              onClick={() => setSelectDate(date.date)}
+              className={`flex h-[4.9rem] min-w-[4.9rem] items-center justify-center rounded-[1rem] ${
+                isFutureDate(date.date)
+                  ? "cursor-not-allowed text-gray-500"
+                  : isSelectedDate(date.date)
+                    ? "bg-red text-white"
+                    : "bg-white text-black"
+              }`}
+              onClick={() => handleMoveDate(date.date)}
             >
               <span className="text-[1.6rem] font-bold leading-normal tracking-[-0.032rem]">{date.date}</span>
             </button>

@@ -33,7 +33,7 @@ const CommunityOpenChat = () => {
           >
             <div className="flex h-full flex-col justify-end gap-[.9rem] text-white">
               <Author
-                variant="feed"
+                variant="board"
                 profileImg={item.img}
                 name={item.name}
                 createdAt={item.sub}

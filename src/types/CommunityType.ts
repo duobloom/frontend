@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { BasePostSchema, ImageSchema } from "./BasePostType";
+import { BasePostSchema } from "./BasePostType";
 
 export const CommunitySchema = BasePostSchema.extend({
   community_id: z.number(),
@@ -10,7 +10,7 @@ export const CommunitySchema = BasePostSchema.extend({
 export const CommunityPostFormSchema = z.object({
   category: z.enum(["심리케어", "멘토링", "정책", "병원/클리닉", "자유"]),
   content: z.string().min(1, "내용을 입력해주세요"),
-  images: z.array(ImageSchema).optional().default([]),
+  photoUrls: z.array(z.string().url()).optional().default([]),
   tags: z.array(z.string()).default([]),
 });
 

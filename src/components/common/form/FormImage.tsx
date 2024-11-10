@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import { UseFormReturn } from "react-hook-form";
 import useDraggable from "@/hooks/useDraggable";
-import { CommunityPostFormType, FeedPostFormType } from "@/types";
+import { CommunityPostFormType, BoardPostFormType } from "@/types";
 import { IconCamera, IconCircleClose } from "@/assets/icon";
 
-type FormType = CommunityPostFormType | FeedPostFormType;
+type FormType = CommunityPostFormType | BoardPostFormType;
 
 type TFormImageProps = {
   form: UseFormReturn<FormType>;
@@ -17,10 +17,10 @@ const FormImage = ({ form }: TFormImageProps) => {
 
   // 이미지 삭제
   const handleImgDelete = (urlToDelete: string) => {
-    const currentImages = form.getValues("images");
+    const currentImages = form.getValues("photoUrls");
     form.setValue(
-      "images",
-      currentImages.filter((img) => img.url !== urlToDelete),
+      "photoUrls",
+      currentImages.filter((img) => img !== urlToDelete),
     );
     if (fileRef.current) fileRef.current.value = "";
   };
@@ -32,11 +32,8 @@ const FormImage = ({ form }: TFormImageProps) => {
 
     if (!files || files.length === 0) return;
 
-    const newImage = {
-      url: URL.createObjectURL(files[0]),
-      alt: "",
-    };
-    form.setValue("images", [...form.getValues("images"), newImage]);
+    const newImage = URL.createObjectURL(files[0]);
+    form.setValue("photoUrls", [...form.getValues("photoUrls"), newImage]);
     target.value = "";
   };
 
@@ -47,15 +44,15 @@ const FormImage = ({ form }: TFormImageProps) => {
         className="my-[1.5rem] flex min-h-[10.5rem] gap-[.8rem] overflow-x-auto scrollbar-hide"
         {...draggableOptions()}
       >
-        {form.watch("images").map((img) => (
+        {form.watch("photoUrls").map((img) => (
           <div
-            key={img.url}
+            key={img}
             className="relative h-[10.5rem] w-[10.5rem] min-w-[10.5rem] overflow-hidden rounded-[1rem] border border-gray-300"
           >
-            <img src={img.url} alt={img.alt || "이미지"} className="h-full w-full object-cover" />
+            <img src={img} alt={"이미지"} className="h-full w-full object-cover" />
             <IconCircleClose
               className="absolute right-[.4rem] top-[.4rem] cursor-pointer"
-              onClick={() => handleImgDelete(img.url)}
+              onClick={() => handleImgDelete(img)}
             />
           </div>
         ))}
@@ -64,7 +61,7 @@ const FormImage = ({ form }: TFormImageProps) => {
             <IconCamera />
           </label>
           <input
-            {...form.register("images")}
+            {...form.register("photoUrls")}
             type="file"
             id="inputFile"
             className="hidden"

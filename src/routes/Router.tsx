@@ -84,7 +84,7 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "/feed/:id",
+        path: "/board/:id",
         async lazy() {
           const { default: PostDetailPage } = await import("@/pages/PostDetailPage");
           return { Component: PostDetailPage };
@@ -116,6 +116,13 @@ const router = createBrowserRouter([
         async lazy() {
           const { default: CommunityPage } = await import("@/pages/CommunityPage");
           return { Component: CommunityPage };
+        },
+      },
+      {
+        path: "/login",
+        async lazy() {
+          const { default: LoginPage } = await import("@/pages/LoginPage");
+          return { Component: LoginPage };
         },
       },
     ],
