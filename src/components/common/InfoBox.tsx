@@ -101,7 +101,7 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
 
   return (
     <InfoBoxContainer onClick={() => moveDetail(variant, entityId)}>
-      <div className="mb-[1.5rem] flex justify-between gap-[1.7rem]">
+      <div className="mb-[1.5rem] flex items-center justify-between gap-[1.7rem]">
         <div className="flex flex-col gap-[1rem]">
           {/* {variant === "hospital" && props.isCert && <Badge variant="certBadge">듀블 인증병원</Badge>} */}
           <div className="w-[22rem]">
