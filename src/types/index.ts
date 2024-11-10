@@ -6,6 +6,7 @@ import { EmotionType } from "@/types/EmotionType";
 import { QuestionType, AnswerType } from "@/types/QuestionType";
 import { UserType, UserProfileType } from "@/types/UserType";
 import { PointType } from "./PointType";
+import { LoginType } from "./LoginType";
 
 export {
   type HospitalType,
@@ -21,4 +22,5 @@ export {
   type UserType,
   type CommunityPostFormType,
   type PointType,
+  type LoginType,
 };

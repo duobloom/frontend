@@ -118,6 +118,13 @@ const router = createBrowserRouter([
           return { Component: CommunityPage };
         },
       },
+      {
+        path: "/login",
+        async lazy() {
+          const { default: LoginPage } = await import("@/pages/LoginPage");
+          return { Component: LoginPage };
+        },
+      },
     ],
   },
 ]);
