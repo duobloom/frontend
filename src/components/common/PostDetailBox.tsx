@@ -7,12 +7,12 @@ import { BoardType, CommunityType } from "@/types";
 type TPostDetailBoxProps = (BoardType | CommunityType) & { variant: string };
 
 const PostDetailBox = (props: TPostDetailBoxProps) => {
-  const { author, content, images, createdAt, likes, comments } = props;
+  const { author, content, photoUrls, createdAt, likes, comments } = props;
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
 
-  const id = props.variant === "board" ? (props as BoardType).board_id : (props as CommunityType).community_id;
+  const id = props.variant === "board" ? (props as BoardType).boardId : (props as CommunityType).community_id;
 
   useEffect(() => {
     if (!api) return;
@@ -32,20 +32,20 @@ const PostDetailBox = (props: TPostDetailBoxProps) => {
           <Author variant="board" profileImg={author.profileImage} name={author.name} createdAt={createdAt} />
         </div>
         <div className="text-[1.3rem] font-medium leading-[1.8rem] tracking-[-0.026rem] text-black">{content}</div>
-        {images && images.length > 0 && (
+        {photoUrls && photoUrls.length > 0 && (
           <div className="relative">
             <Carousel setApi={setApi} className="w-full">
               <CarouselContent>
-                {images.map((image, index) => (
+                {photoUrls.map((image, index) => (
                   <CarouselItem key={index}>
                     <div className="relative aspect-square w-full overflow-hidden rounded-[1rem] border border-gray-300">
-                      <img src={image.url} alt="" className="h-full w-full object-cover" />
+                      <img src={image} alt="이미지" className="h-full w-full object-cover" />
                     </div>
                   </CarouselItem>
                 ))}
               </CarouselContent>
             </Carousel>
-            {images.length > 1 && (
+            {photoUrls.length > 1 && (
               <div className="absolute right-[1.5rem] top-[1.5rem] flex h-[2.4rem] w-auto min-w-[3.5rem] items-center justify-center rounded-[10rem] bg-black bg-opacity-80 px-[.7rem] py-[.5rem] text-[1rem] font-bold leading-normal tracking-[2px] text-white">
                 {current}/{count}
               </div>

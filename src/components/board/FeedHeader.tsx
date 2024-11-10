@@ -28,9 +28,9 @@ const BoardHeader = ({ boardData }: { boardData: BoardType }) => {
       </DrawerTrigger>
       <DrawerContent className="h-[23%]">
         <div className="flex flex-col gap-[1.8rem] px-[9rem] py-[3.9rem] text-[1.6rem] font-extrabold leading-normal tracking-[-0.032rem]">
-          <button onClick={() => handleBoardSave(boardData.board_id)}>글 저장</button>
-          <button onClick={() => handleBoardEdit(boardData.board_id)}>수정</button>
-          <button onClick={() => handleBoardDelete(boardData.board_id)}>삭제</button>
+          <button onClick={() => handleBoardSave(boardData.boardId)}>글 저장</button>
+          <button onClick={() => handleBoardEdit(boardData.boardId)}>수정</button>
+          <button onClick={() => handleBoardDelete(boardData.boardId)}>삭제</button>
         </div>
       </DrawerContent>
     </Drawer>

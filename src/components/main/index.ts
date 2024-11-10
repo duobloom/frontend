@@ -1,8 +1,8 @@
 import MainDayAndPoint from "./MainDayAndPoint";
 import MainProfile from "./MainProfile";
 import MainCalendar from "./MainCalendar";
-import MainBoard from "./MainBoard";
+import MainFeed from "./MainFeed";
 import MainAddButton from "./MainAddButton";
 import MainEmotionForm from "./MainEmotionForm";
 
-export { MainDayAndPoint, MainProfile, MainCalendar, MainBoard, MainAddButton, MainEmotionForm };
+export { MainDayAndPoint, MainProfile, MainCalendar, MainFeed, MainAddButton, MainEmotionForm };

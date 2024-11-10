@@ -58,11 +58,11 @@ export default function BoardBox({ board }: BoardBoxProps) {
           </DrawerTrigger>
           <DrawerContent className="h-[23%]">
             <div className="flex flex-col gap-[1.8rem] px-[9rem] py-[3.9rem] text-[1.6rem] font-extrabold leading-normal tracking-[-0.032rem]">
-              <button onClick={() => handleTextSave(board.board_id)}>글 저장</button>
+              <button onClick={() => handleTextSave(board.boardId)}>글 저장</button>
 
               <Drawer dismissible={false} open={isTextDrawerOpen} onOpenChange={setIsTextDrawerOpen}>
                 <DrawerTrigger asChild>
-                  <button onClick={() => handleTextEdit(board.board_id)}>수정</button>
+                  <button onClick={() => handleTextEdit(board.boardId)}>수정</button>
                 </DrawerTrigger>
                 <DrawerContent>
                   <PostForm
@@ -74,7 +74,7 @@ export default function BoardBox({ board }: BoardBoxProps) {
                 </DrawerContent>
               </Drawer>
 
-              <button onClick={() => handleTextDelete(board.board_id)}>삭제</button>
+              <button onClick={() => handleTextDelete(board.boardId)}>삭제</button>
             </div>
           </DrawerContent>
         </Drawer>
@@ -82,26 +82,26 @@ export default function BoardBox({ board }: BoardBoxProps) {
 
       <BoxContent className="ml-[4.8rem] mt-[1rem] flex flex-col">
         <Link
-          to={`/board/${board.board_id}`}
+          to={`/board/${board.boardId}`}
           className="line-clamp-3 text-[1.3rem] font-medium leading-[1.8rem] text-black"
         >
           {board.content}
         </Link>
 
-        {board.images && board.images.length > 0 && (
+        {board.photoUrls && board.photoUrls.length > 0 && (
           <div className="relative mt-[1.5rem]">
             <Carousel setApi={setApi} className="w-full">
               <CarouselContent>
-                {board.images.map((image, index) => (
+                {board.photoUrls.map((image, index) => (
                   <CarouselItem key={index}>
                     <div className="relative aspect-square w-full overflow-hidden rounded-[1rem] border border-gray-300">
-                      <img src={image.url} alt="" className="h-full w-full object-cover" />
+                      <img src={image} alt="이미지" className="h-full w-full object-cover" />
                     </div>
                   </CarouselItem>
                 ))}
               </CarouselContent>
             </Carousel>
-            {board.images.length > 1 && (
+            {board.photoUrls.length > 1 && (
               <div className="absolute right-[1.5rem] top-[1.5rem] flex h-[2.4rem] w-auto min-w-[3.5rem] items-center justify-center rounded-[10rem] bg-black bg-opacity-80 px-[.7rem] py-[.5rem] text-[1rem] font-bold leading-normal tracking-[2px] text-white">
                 {current}/{count}
               </div>
@@ -111,7 +111,7 @@ export default function BoardBox({ board }: BoardBoxProps) {
       </BoxContent>
 
       <BoxFooter className="ml-[4.8rem]">
-        <LikeAndComments type="board" id={board.board_id} likes={board.likes} comments={board.comments} />
+        <LikeAndComments type="board" id={board.boardId} likes={board.likes} comments={board.comments} />
       </BoxFooter>
     </BoxContainer>
   );

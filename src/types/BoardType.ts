@@ -1,13 +1,13 @@
 import { z } from "zod";
-import { BasePostSchema, ImageSchema } from "./BasePostType";
+import { BasePostSchema } from "./BasePostType";
 
 export const BoardSchema = BasePostSchema.extend({
-  board_id: z.number(),
+  boardId: z.number(),
 });
 
 export const BoardPostFormSchema = z.object({
   content: z.string().min(1, "내용을 입력해주세요"),
-  images: z.array(ImageSchema).optional().default([]),
+  photoUrls: z.array(z.string().url()).optional().default([]),
 });
 
 export type BoardType = z.infer<typeof BoardSchema>;

@@ -16,8 +16,8 @@ import {
   AlertDialogTitle,
 } from "@/components/common/AlertDialog";
 
-import { BoardPostFormSchema, BoardPostFormType } from "@/types/BoardType";
 import { CategoryType, CommunityPostFormSchema, CommunityPostFormType } from "@/types/CommunityType";
+import { BoardPostFormSchema, BoardPostFormType } from "@/types/BoardType";
 
 import { IconClose } from "@/assets/icon";
 import { useState } from "react";
@@ -37,7 +37,7 @@ const PostForm = ({ type, context, initialData = null, onClose }: TPostFormProps
     resolver: zodResolver(context === "community" ? CommunityPostFormSchema : BoardPostFormSchema),
     defaultValues: {
       content: initialData?.content || "",
-      images: initialData?.images || [],
+      photoUrls: initialData?.photoUrls || [],
       ...(context === "community" && {
         category: (initialData as CommunityPostFormType)?.category || "",
         tags: (initialData as CommunityPostFormType)?.tags || [],
@@ -56,12 +56,12 @@ const PostForm = ({ type, context, initialData = null, onClose }: TPostFormProps
 
   // 닫기 전 확인
   const handleClose = () => {
-    const { images, tags } = form.getValues();
+    const { photoUrls, tags } = form.getValues();
     if (
       form.formState.isValid ||
       form.watch("content") ||
       tags?.length ||
-      images?.length ||
+      photoUrls?.length ||
       (context === "community" && form.watch("category"))
     ) {
       setShowConfirmDialog(true);
