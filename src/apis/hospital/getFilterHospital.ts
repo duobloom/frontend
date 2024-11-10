@@ -16,10 +16,7 @@ export const getFilterHospital = async (
     ...(department ? { type: department } : {}),
   };
 
-  const response = await axios.get<HospitalType[]>(
-    "http://ec2-52-78-212-34.ap-northeast-2.compute.amazonaws.com:8080/api/hospitals/search",
-    { params },
-  );
+  const response = await axios.get<HospitalType[]>("/api/hospitals/search", { params });
   console.log(params);
   console.log(response.data);
   return response.data;
