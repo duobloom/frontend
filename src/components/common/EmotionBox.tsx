@@ -28,14 +28,16 @@ EmotionBoxEmoji.displayName = "EmotionBoxEmoji";
 
 // EmotionBox 컴포넌트
 const EmotionBox = ({ emotion }: TEmotionBoxProps) => {
-  const emotionData = emotionList.find((item) => item.id === emotion.emotion_num);
+  const emotionData = emotionList.find((item) => item.id === emotion.emoji);
   const emoji = emotionData?.emoji ?? "😶"; // 찾지 못했을 때 기본 이모티콘
   const text = emotionData?.text ?? "감정을 표현할 수 없습니다.";
 
   return (
     <BoxContainer>
       <BoxHeader>
-        <Author profileImg={emotion.author.profileImage} name={emotion.author.name} createdAt={emotion.updated_at} />
+        {emotion.author && (
+          <Author profileImg={emotion.author.profileImage} name={emotion.author.name} createdAt={emotion.feedDate} />
+        )}
         <EmotionBoxEmoji>{emoji}</EmotionBoxEmoji>
       </BoxHeader>
       <div className="ml-[4.8rem]">
