@@ -10,13 +10,12 @@ import {
   MedicDetailInfo,
   MedicInfo,
   ClinicHours,
-  HospitalInfo,
-  exampleHospitalData,
   InfoText,
   AddressCopy,
   KakaoMap,
 } from "@/components/hospital";
 import image from "@/assets/image/test.png";
+import { useLocation } from "react-router-dom";
 
 const HospitalInfoPage = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -27,6 +26,8 @@ const HospitalInfoPage = () => {
   const infoSectionRef = useRef<HTMLDivElement>(null);
   const medicSectionRef = useRef<HTMLDivElement>(null);
   const directionSectionRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+  const hospitalData = location.state || {};
 
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -78,7 +79,7 @@ const HospitalInfoPage = () => {
         {...draggableOptions}
         className="flex-1 overflow-y-scroll bg-white px-[1.8rem] pt-[2.2rem] scrollbar-hide"
       >
-        <InfoText>병원명</InfoText>
+        <InfoText>{hospitalData.hospitalName}</InfoText>
         <InfoText variant="secondary" size="sm">
           산부인과
         </InfoText>
@@ -185,7 +186,6 @@ const HospitalInfoPage = () => {
             <InfoText size="md" className="mb-[1.5rem]">
               이 주변 산부인과
             </InfoText>
-            <HospitalInfo item={exampleHospitalData} />
           </section>
         </div>
       </div>
