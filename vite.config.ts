@@ -19,6 +19,14 @@ export default defineConfig({
         target: "http://ec2-52-78-212-34.ap-northeast-2.compute.amazonaws.com:8080",
         changeOrigin: true,
       },
+      "/file": {
+        target: "http://ec2-52-78-212-34.ap-northeast-2.compute.amazonaws.com:8080",
+        changeOrigin: true,
+      },
+      "/IMAGE": {
+        target: "http://ec2-52-78-212-34.ap-northeast-2.compute.amazonaws.com:8080",
+        changeOrigin: true,
+      },
     },
   },
   resolve: {
