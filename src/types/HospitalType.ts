@@ -1,8 +1,7 @@
 import { z } from "zod";
 
 const HospitalKeywordSchema = z.object({
-  keywordId: z.number(),
-  keywordName: z.string(),
+  keyword: z.string(),
 });
 
 //병원 전체 타입

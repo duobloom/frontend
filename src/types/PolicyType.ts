@@ -1,8 +1,7 @@
 import { z } from "zod";
 
 const PolicyKeywordSchema = z.object({
-  keywordId: z.number(),
-  keywordName: z.string(),
+  keyword: z.string(),
 });
 
 // 정책 전체 타입
