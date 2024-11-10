@@ -49,7 +49,7 @@ const MainAddButton = () => {
           </IconButtonContainer>
         </DrawerTrigger>
         <DrawerContent>
-          <PostForm type="add" context="feed" onClose={() => setIsTextDrawerOpen(false)} />
+          <PostForm type="add" context="board" onClose={() => setIsTextDrawerOpen(false)} />
         </DrawerContent>
       </Drawer>
 

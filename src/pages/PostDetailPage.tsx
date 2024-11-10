@@ -1,13 +1,13 @@
 import { PostDetailBox, CommentBox, CommentInput } from "@/components/common";
-import BoardHeader from "@/components/feed/BoardHeader";
+import BoardHeader from "@/components/board/FeedHeader";
 import { BoardType } from "@/types";
 
 import testProfileImg from "@/assets/image/test-profile.jpg";
 import testImg1 from "@/assets/image/test-profile2.jpg";
 import testImg2 from "@/assets/image/test.png";
 
-const feedData = {
-  feed_id: 1,
+const boardData = {
+  board_id: 1,
   author: { user_id: 1, name: "이혜선", profileImage: testProfileImg },
   content:
     "오늘 아침, 일찍 일어나 따뜻한 커피 한 잔을 들고 산책을 나갔다. 선선한 바람이 불어 기분이 상쾌했고, 오랜만에 여유롭게 자연을 만끽할 수 있었다.",
@@ -37,16 +37,16 @@ const feedData = {
 // 커뮤니티, 피드에서 상세 글로 둘 다 접근
 const PostDetailPage = () => {
   const transformedBoardData: BoardType & { variant: string } = {
-    ...feedData,
-    variant: "feed" as const,
+    ...boardData,
+    variant: "board" as const,
   };
 
   return (
     <main>
-      <BoardHeader feedData={feedData} />
+      <BoardHeader boardData={boardData} />
       <div className="h-[calc(100vh-138px)] overflow-y-auto scrollbar-hide">
         <PostDetailBox {...transformedBoardData} />
-        <CommentBox commentData={feedData.comments} />
+        <CommentBox commentData={boardData.comments} />
       </div>
       <CommentInput />
     </main>

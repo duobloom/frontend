@@ -11,7 +11,7 @@ const questionData = {
 };
 
 const boardData = {
-  feed_id: 1,
+  board_id: 1,
   author: { user_id: 1, name: "이혜선", profileImage: testProfileImg },
   content:
     "오늘 아침, 일찍 일어나 따뜻한 커피 한 잔을 들고 산책을 나갔다. 선선한 바람이 불어 기분이 상쾌했고, 오랜만에 여유롭게 자연을 만끽할 수 있었다.",

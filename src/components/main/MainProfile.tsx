@@ -10,7 +10,7 @@ const MainProfile = ({ userData, partnerData }: TMainProfileProps) => {
   return (
     <section className="flex h-[8rem] w-full items-center justify-between p-[1.5rem]">
       <Author
-        variant="feed"
+        variant="board"
         profileImg={userData.profileImage}
         name={userData.name}
         birth={userData.birth}
@@ -20,7 +20,7 @@ const MainProfile = ({ userData, partnerData }: TMainProfileProps) => {
       <div className="h-[5rem] w-[.1rem] bg-gray-300" />
 
       <Author
-        variant="feedReverse"
+        variant="boardReverse"
         profileImg={partnerData.profileImage}
         name={partnerData.name}
         birth={partnerData.birth}

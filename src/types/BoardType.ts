@@ -2,7 +2,7 @@ import { z } from "zod";
 import { BasePostSchema, ImageSchema } from "./BasePostType";
 
 export const BoardSchema = BasePostSchema.extend({
-  feed_id: z.number(),
+  board_id: z.number(),
 });
 
 export const BoardPostFormSchema = z.object({

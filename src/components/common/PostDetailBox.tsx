@@ -12,7 +12,7 @@ const PostDetailBox = (props: TPostDetailBoxProps) => {
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
 
-  const id = props.variant === "feed" ? (props as BoardType).feed_id : (props as CommunityType).community_id;
+  const id = props.variant === "board" ? (props as BoardType).board_id : (props as CommunityType).community_id;
 
   useEffect(() => {
     if (!api) return;
@@ -29,7 +29,7 @@ const PostDetailBox = (props: TPostDetailBoxProps) => {
     <section className="flex flex-col gap-[2rem] px-[1.5rem]">
       <article className="flex flex-col gap-[2rem]">
         <div>
-          <Author variant="feed" profileImg={author.profileImage} name={author.name} createdAt={createdAt} />
+          <Author variant="board" profileImg={author.profileImage} name={author.name} createdAt={createdAt} />
         </div>
         <div className="text-[1.3rem] font-medium leading-[1.8rem] tracking-[-0.026rem] text-black">{content}</div>
         {images && images.length > 0 && (
@@ -54,7 +54,7 @@ const PostDetailBox = (props: TPostDetailBoxProps) => {
         )}
       </article>
       <hr className="my-0" />
-      <LikeAndComments type="feed" id={id} likes={likes} comments={comments} />
+      <LikeAndComments type="board" id={id} likes={likes} comments={comments} />
     </section>
   );
 };
