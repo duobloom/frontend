@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Drawer, DrawerContent, DrawerTrigger, DrawerTitle, DrawerClose } from "@/components/common/Drawer";
 import Header from "@/components/layout/Header";
 import { BoxFooter, DropdownBox } from "@/components/ui/Box";
@@ -9,9 +9,14 @@ import { useNavigate } from "react-router-dom";
 import { GetRegionName, RegionSelecter } from "@/components/hospital";
 import { getFilterHospital } from "@/apis";
 import { useQuery } from "@tanstack/react-query";
+import useDraggable from "@/hooks/useDraggable";
+import { cn } from "@/utils";
 
 const HospitalPage = () => {
   const navigate = useNavigate();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const draggableOptions = useDraggable(scrollRef);
+
   const [activeDrawer, setActiveDrawer] = useState<"location" | "department" | null>(null);
   const [selectedOption, setSelectedOption] = useState(1);
   const [selectedDepartment, setSelectedDepartment] = useState(1);
@@ -79,11 +84,24 @@ const HospitalPage = () => {
         />
 
         <div className="px-[1.5rem]">
-          <p className="mt-[1rem] text-[1.5rem] font-medium">
+          <p className="text-[1.5rem] font-medium">
             {hospitalData ? `${hospitalData.length}개의 병원/클리닉` : "0 개의 병원/클리닉"}
           </p>
           <BoxFooter />
-          <div className="flex h-full flex-col gap-[1rem]">
+          <div
+            ref={scrollRef}
+            {...draggableOptions()}
+            className={cn(
+              "flex flex-col gap-[1rem] overflow-y-auto scrollbar-hide",
+              "h-[47.8rem]",
+              "lg:h-[46rem]",
+              "notebook:h-[60.5rem]",
+              "2xl:h-[74rem]",
+              "lg_mobile:h-[46rem]",
+              "sm_mobile:h-[41rem]",
+              "xsm_mobile:h-[25rem]",
+            )}
+          >
             {hospitalData && hospitalData.length > 0 ? (
               hospitalData.map((item) => (
                 <InfoBox
