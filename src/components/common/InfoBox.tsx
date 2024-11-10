@@ -1,19 +1,13 @@
 import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/common";
-import { HospitalType, PolicyListType } from "@/types";
+import { HospitalListType, PolicyListType } from "@/types";
 import { cn, dDayCalculation } from "@/utils";
 import { IconBookMark } from "@/assets/icon";
 
 // Props 타입 정의
-type HospitalInfoBoxProps = Omit<HospitalType, "lat" | "lon"> & {
-  variant: "hospital";
-};
-
-type PolicyInfoBoxProps = PolicyListType & {
-  variant: "policy";
-};
-
+type HospitalInfoBoxProps = HospitalListType & { variant: "hospital" };
+type PolicyInfoBoxProps = PolicyListType & { variant: "policy" };
 type TInfoInfoBoxProps = HospitalInfoBoxProps | PolicyInfoBoxProps;
 
 // 컨테이너 컴포넌트
@@ -41,14 +35,14 @@ const InfoBoxTitle = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
 InfoBoxTitle.displayName = "InfoBoxTitle";
 
 const InfoBox = (props: TInfoInfoBoxProps) => {
-  const { variant, keywords } = props;
+  const { variant, keywordMappings } = props;
   const [isClick, setIsClick] = useState(false);
   const navigate = useNavigate();
 
   // ID 값 추출
-  const entityId = variant === "hospital" ? props.hospital_id : props.policy_id;
-  const entityTitle = variant === "hospital" ? props.hospital_name : props.policy_name;
-  const entityImg = variant === "hospital" ? props.hospital_img : props.policy_img;
+  const entityId = variant === "hospital" ? props.hospitalId : props.policy_id;
+  const entityTitle = variant === "hospital" ? props.hospitalName : props.policy_name;
+  const entityImg = variant === "hospital" ? props.linkUrl : props.policy_img;
 
   // 상세 페이지 이동
   const moveDetail = useCallback(
@@ -62,28 +56,29 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
   const bookMarkFn = useCallback((e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.stopPropagation();
     setIsClick((prev) => !prev);
-    console.log("북마크 클릭");
   }, []);
 
   // 컨텐츠 렌더링
   const renderContent = () => {
     if (variant === "hospital") {
-      const { hospital_type, location, start_date, end_date, isClosed } = props;
+      const { type, time, address } = props;
+      const departmentMap: { [key: string]: string } = {
+        MATERNITY: "산부인과",
+        CARDIOLOGY: "심장내과",
+        DERMATOLOGY: "피부과",
+      };
+      const department = departmentMap[type] || type;
       return (
         <div className="flex flex-col text-[1.1rem] font-medium leading-[1.5rem] text-gray-500">
           <div className="flex gap-[.5rem]">
-            <span>{hospital_type}</span>
+            <span>{department}</span>
             <span>·</span>
-            <span className="tracking-normal">
-              {start_date} - {end_date}
-            </span>
-            <span>·</span>
-            <span>{isClosed && "휴진"}</span>
+            <span className="tracking-normal">{time ?? "시간 정보 없음"}</span>
           </div>
           <div className="flex gap-[.5rem]">
-            <span className="tracking-normal">1.3km</span>
+            <span className="tracking-normal">1.3km</span> {/* 거리 계산 */}
             <span>·</span>
-            <span>{location}</span>
+            <span>{address ?? "주소 정보 없음"}</span>
           </div>
         </div>
       );
@@ -106,25 +101,27 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
 
   return (
     <InfoBoxContainer onClick={() => moveDetail(variant, entityId)}>
-      <div className="mb-[1.5rem] flex justify-between gap-[1.7rem]">
+      <div className="mb-[1.5rem] flex items-center justify-between gap-[1.7rem]">
         <div className="flex flex-col gap-[1rem]">
-          {variant === "hospital" && props.isCert && <Badge variant="certBadge">듀블 인증병원</Badge>}
+          {/* {variant === "hospital" && props.isCert && <Badge variant="certBadge">듀블 인증병원</Badge>} */}
           <div className="w-[22rem]">
             <InfoBoxTitle>{entityTitle}</InfoBoxTitle>
             {renderContent()}
           </div>
         </div>
         <div className="h-[8.5rem] w-[8.5rem] overflow-hidden rounded-[1rem] border border-gray-100">
-          <img src={entityImg} alt={entityTitle} className="h-full w-full object-cover" />
+          <img src={entityImg || "/default-image.png"} alt={entityTitle} className="h-full w-full object-cover" />
         </div>
       </div>
       <div className="flex justify-between">
-        <div className="flex w-[21rem] gap-[.8rem] overflow-hidden">
-          {keywords.map((keyword) => (
-            <Badge key={keyword.keyword_id} variant="tagBadge">
-              {keyword.keyword_name}
-            </Badge>
-          ))}
+        <div className="flex w-fit gap-[.8rem] overflow-hidden">
+          {keywordMappings &&
+            keywordMappings.length > 0 &&
+            keywordMappings.map((keyword, index) => (
+              <Badge key={index} variant="tagBadge">
+                {keyword.keyword}
+              </Badge>
+            ))}
         </div>
         <button onClick={bookMarkFn}>
           <IconBookMark className={`${isClick ? "stroke-red" : "stroke-gray-300"}`} />

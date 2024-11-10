@@ -41,10 +41,7 @@ const DropdownBox = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Rea
   ({ className, children, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn(
-        "flex w-[18.5rem] items-center justify-between px-[1.4rem] py-[1.6rem] text-[1.8rem] font-bold",
-        className,
-      )}
+      className={cn("flex min-w-[16.3rem] items-center justify-between py-[1.6rem] text-[1.7rem] font-bold", className)}
       {...props}
     >
       {children}

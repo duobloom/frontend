@@ -1,6 +1,6 @@
 const medicalDepartment = [
-  { id: 1, name: "전체" },
-  { id: 2, name: "산부인과" },
+  { id: 1, name: "전체", type: "BASIC" },
+  { id: 2, name: "산부인과", type: "MATERNITY" },
   { id: 3, name: "비뇨기과" },
   { id: 4, name: "내분비내과" },
   { id: 5, name: "유전학과" },
@@ -18,7 +18,7 @@ const medicalDepartment = [
 ];
 const medicalOptions = [
   { id: 1, name: "전체" },
-  { id: 2, name: "진료중" },
+  { id: 2, name: "한방진료" },
   { id: 3, name: "야간진료" },
   { id: 4, name: "주말진료" },
   { id: 5, name: "정부지원" },

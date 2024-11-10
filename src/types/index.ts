@@ -1,4 +1,4 @@
-import { HospitalType } from "@/types/HospitalType";
+import { HospitalType, HospitalListType } from "@/types/HospitalType";
 import { PolicyType, PolicyListType } from "@/types/PolicyType";
 import { CommunityType, CommunityPostFormType } from "@/types/CommunityType";
 import { BoardType, BoardPostFormType } from "@/types/BoardType";
@@ -10,6 +10,7 @@ import { LoginType } from "./LoginType";
 
 export {
   type HospitalType,
+  type HospitalListType,
   type PolicyType,
   type PolicyListType,
   type EmotionType,
