@@ -1,5 +1,5 @@
 import Header from "@/components/layout/Header";
-import { MainDayAndPoint, MainProfile, MainCalendar, MainFeed, MainAddButton } from "@/components/main";
+import { MainDayAndPoint, MainProfile, MainCalendar, MainBoard, MainAddButton } from "@/components/main";
 import { generateDates } from "@/utils/generateDates";
 
 import testProfile from "@/assets/image/test-profile.jpg";
@@ -30,7 +30,7 @@ const MainPage = () => {
       </Header>
       <MainProfile userData={exampleData.userData} partnerData={exampleData.partnerData} />
       <MainCalendar yearMonth={yearMonth} calendarData={calendarData} />
-      <MainFeed nowData={nowData} />
+      <MainBoard nowData={nowData} />
       <MainAddButton />
     </main>
   );

@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import Header from "@/components/layout/Header";
-import { EmotionBox, FeedBox, QuestionBox } from "@/components/common";
+import { EmotionBox, BoardBox, QuestionBox } from "@/components/common";
 
 import "dayjs/locale/ko";
 
@@ -66,7 +66,7 @@ const CalendarDetailPage = () => {
       </h1>
       <section className="flex h-[calc(100%-18.8rem)] flex-col gap-[1.5rem] overflow-auto rounded-t-[3rem] bg-gray-100 p-[1.5rem] shadow-feed scrollbar-hide">
         <EmotionBox emotion={emotionData} />
-        <FeedBox feed={feedData} />
+        <BoardBox feed={feedData} />
         <QuestionBox data={questionData} />
       </section>
     </main>

@@ -16,7 +16,7 @@ import {
   AlertDialogTitle,
 } from "@/components/common/AlertDialog";
 
-import { FeedPostFormSchema, FeedPostFormType } from "@/types/FeedType";
+import { BoardPostFormSchema, BoardPostFormType } from "@/types/BoardType";
 import { CategoryType, CommunityPostFormSchema, CommunityPostFormType } from "@/types/CommunityType";
 
 import { IconClose } from "@/assets/icon";
@@ -24,8 +24,8 @@ import { useState } from "react";
 
 type TPostFormProps = {
   type: "add" | "edit";
-  context: "feed" | "community";
-  initialData?: (FeedPostFormType | CommunityPostFormType) | null;
+  context: "board" | "community";
+  initialData?: (BoardPostFormType | CommunityPostFormType) | null;
   onClose: () => void;
 };
 
@@ -34,7 +34,7 @@ const PostForm = ({ type, context, initialData = null, onClose }: TPostFormProps
 
   // form 설정
   const form = useForm({
-    resolver: zodResolver(context === "community" ? CommunityPostFormSchema : FeedPostFormSchema),
+    resolver: zodResolver(context === "community" ? CommunityPostFormSchema : BoardPostFormSchema),
     defaultValues: {
       content: initialData?.content || "",
       images: initialData?.images || [],

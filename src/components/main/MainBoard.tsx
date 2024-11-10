@@ -1,4 +1,4 @@
-import { EmotionBox, FeedBox, QuestionBox } from "../common";
+import { EmotionBox, BoardBox, QuestionBox } from "../common";
 
 import testProfileImg from "@/assets/image/test-profile.jpg";
 import testImg1 from "@/assets/image/test-profile2.jpg";
@@ -10,7 +10,7 @@ const questionData = {
   answers: [],
 };
 
-const feedData = {
+const boardData = {
   feed_id: 1,
   author: { user_id: 1, name: "이혜선", profileImage: testProfileImg },
   content:
@@ -45,17 +45,17 @@ const emotionData = {
   author: { user_id: 1, name: "이혜선", profileImage: testProfileImg },
 };
 
-const MainFeed = ({ nowData }: { nowData: string }) => {
+const MainBoard = ({ nowData }: { nowData: string }) => {
   console.log(nowData);
 
   return (
     <section className="relative z-0 mt-[1.5rem] flex h-[calc(100%-24.8rem)] flex-col gap-[1.5rem] overflow-auto rounded-t-[3rem] bg-gray-100 p-[1.5rem] shadow-feed scrollbar-hide">
       <div className="absolute left-1/2 top-0 z-[-1] h-full w-[.1rem] bg-gray-300" />
       <EmotionBox emotion={emotionData} />
-      <FeedBox feed={feedData} />
+      <BoardBox board={boardData} />
       <QuestionBox data={questionData} />
     </section>
   );
 };
 
-export default MainFeed;
+export default MainBoard;

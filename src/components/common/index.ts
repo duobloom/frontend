@@ -6,7 +6,7 @@ import AlarmBox from "./AlarmBox";
 import { EmotionBox } from "./EmotionBox";
 import { OptionTabs, OptionBoxes } from "./OptionBoxes";
 import ScrollableOptions from "./ScrollerableOption";
-import FeedBox from "./FeedBox";
+import BoardBox from "./BoardBox";
 import CommunityBox from "./CommunityBox";
 import PostDetailBox from "./PostDetailBox";
 import CommentBox from "./CommentBox";
@@ -26,7 +26,7 @@ export {
   OptionTabs,
   OptionBoxes,
   AlarmBox,
-  FeedBox,
+  BoardBox,
   CommunityBox,
   PostDetailBox,
   CommentBox,

@@ -7,13 +7,13 @@ import IconDotHorizontal from "@/components/ui/IconDotHorizontal";
 import LikeAndComments from "@/components/ui/LikeAndComments";
 import PostForm from "@/components/common/PostForm";
 import { Drawer, DrawerContent, DrawerTrigger } from "./Drawer";
-import { FeedType } from "@/types";
+import { BoardType } from "@/types";
 
-type FeedBoxProps = {
-  feed: FeedType;
+type BoardBoxProps = {
+  board: BoardType;
 };
 
-export default function FeedBox({ feed }: FeedBoxProps) {
+export default function BoardBox({ board }: BoardBoxProps) {
   const [isTextDrawerOpen, setIsTextDrawerOpen] = useState(false);
 
   const [api, setApi] = useState<CarouselApi>();
@@ -50,7 +50,7 @@ export default function FeedBox({ feed }: FeedBoxProps) {
     <BoxContainer>
       <BoxHeader>
         <div className="flex items-center gap-[1.2rem]">
-          <Author profileImg={feed.author.profileImage} name={feed.author.name} createdAt={feed.createdAt} />
+          <Author profileImg={board.author.profileImage} name={board.author.name} createdAt={board.createdAt} />
         </div>
         <Drawer>
           <DrawerTrigger asChild>
@@ -58,18 +58,23 @@ export default function FeedBox({ feed }: FeedBoxProps) {
           </DrawerTrigger>
           <DrawerContent className="h-[23%]">
             <div className="flex flex-col gap-[1.8rem] px-[9rem] py-[3.9rem] text-[1.6rem] font-extrabold leading-normal tracking-[-0.032rem]">
-              <button onClick={() => handleTextSave(feed.feed_id)}>글 저장</button>
+              <button onClick={() => handleTextSave(board.board_id)}>글 저장</button>
 
               <Drawer dismissible={false} open={isTextDrawerOpen} onOpenChange={setIsTextDrawerOpen}>
                 <DrawerTrigger asChild>
-                  <button onClick={() => handleTextEdit(feed.feed_id)}>수정</button>
+                  <button onClick={() => handleTextEdit(board.board_id)}>수정</button>
                 </DrawerTrigger>
                 <DrawerContent>
-                  <PostForm type="edit" context="feed" initialData={feed} onClose={() => setIsTextDrawerOpen(false)} />
+                  <PostForm
+                    type="edit"
+                    context="board"
+                    initialData={board}
+                    onClose={() => setIsTextDrawerOpen(false)}
+                  />
                 </DrawerContent>
               </Drawer>
 
-              <button onClick={() => handleTextDelete(feed.feed_id)}>삭제</button>
+              <button onClick={() => handleTextDelete(board.board_id)}>삭제</button>
             </div>
           </DrawerContent>
         </Drawer>
@@ -77,17 +82,17 @@ export default function FeedBox({ feed }: FeedBoxProps) {
 
       <BoxContent className="ml-[4.8rem] mt-[1rem] flex flex-col">
         <Link
-          to={`/feed/${feed.feed_id}`}
+          to={`/board/${board.board_id}`}
           className="line-clamp-3 text-[1.3rem] font-medium leading-[1.8rem] text-black"
         >
-          {feed.content}
+          {board.content}
         </Link>
 
-        {feed.images && feed.images.length > 0 && (
+        {board.images && board.images.length > 0 && (
           <div className="relative mt-[1.5rem]">
             <Carousel setApi={setApi} className="w-full">
               <CarouselContent>
-                {feed.images.map((image, index) => (
+                {board.images.map((image, index) => (
                   <CarouselItem key={index}>
                     <div className="relative aspect-square w-full overflow-hidden rounded-[1rem] border border-gray-300">
                       <img src={image.url} alt="" className="h-full w-full object-cover" />
@@ -96,7 +101,7 @@ export default function FeedBox({ feed }: FeedBoxProps) {
                 ))}
               </CarouselContent>
             </Carousel>
-            {feed.images.length > 1 && (
+            {board.images.length > 1 && (
               <div className="absolute right-[1.5rem] top-[1.5rem] flex h-[2.4rem] w-auto min-w-[3.5rem] items-center justify-center rounded-[10rem] bg-black bg-opacity-80 px-[.7rem] py-[.5rem] text-[1rem] font-bold leading-normal tracking-[2px] text-white">
                 {current}/{count}
               </div>
@@ -106,7 +111,7 @@ export default function FeedBox({ feed }: FeedBoxProps) {
       </BoxContent>
 
       <BoxFooter className="ml-[4.8rem]">
-        <LikeAndComments type="feed" id={feed.feed_id} likes={feed.likes} comments={feed.comments} />
+        <LikeAndComments type="board" id={board.board_id} likes={board.likes} comments={board.comments} />
       </BoxFooter>
     </BoxContainer>
   );

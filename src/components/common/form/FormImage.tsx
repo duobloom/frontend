@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import { UseFormReturn } from "react-hook-form";
 import useDraggable from "@/hooks/useDraggable";
-import { CommunityPostFormType, FeedPostFormType } from "@/types";
+import { CommunityPostFormType, BoardPostFormType } from "@/types";
 import { IconCamera, IconCircleClose } from "@/assets/icon";
 
-type FormType = CommunityPostFormType | FeedPostFormType;
+type FormType = CommunityPostFormType | BoardPostFormType;
 
 type TFormImageProps = {
   form: UseFormReturn<FormType>;

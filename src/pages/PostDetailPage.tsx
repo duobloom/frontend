@@ -1,6 +1,6 @@
 import { PostDetailBox, CommentBox, CommentInput } from "@/components/common";
-import FeedHeader from "@/components/feed/FeedHeader";
-import { FeedType } from "@/types";
+import BoardHeader from "@/components/feed/BoardHeader";
+import { BoardType } from "@/types";
 
 import testProfileImg from "@/assets/image/test-profile.jpg";
 import testImg1 from "@/assets/image/test-profile2.jpg";
@@ -36,16 +36,16 @@ const feedData = {
 
 // 커뮤니티, 피드에서 상세 글로 둘 다 접근
 const PostDetailPage = () => {
-  const transformedFeedData: FeedType & { variant: string } = {
+  const transformedBoardData: BoardType & { variant: string } = {
     ...feedData,
     variant: "feed" as const,
   };
 
   return (
     <main>
-      <FeedHeader feedData={feedData} />
+      <BoardHeader feedData={feedData} />
       <div className="h-[calc(100vh-138px)] overflow-y-auto scrollbar-hide">
-        <PostDetailBox {...transformedFeedData} />
+        <PostDetailBox {...transformedBoardData} />
         <CommentBox commentData={feedData.comments} />
       </div>
       <CommentInput />

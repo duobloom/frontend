@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import Author from "../ui/Author";
 import LikeAndComments from "../ui/LikeAndComments";
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/components/ui/Carousel";
-import { FeedType, CommunityType } from "@/types";
+import { BoardType, CommunityType } from "@/types";
 
-type TPostDetailBoxProps = (FeedType | CommunityType) & { variant: string };
+type TPostDetailBoxProps = (BoardType | CommunityType) & { variant: string };
 
 const PostDetailBox = (props: TPostDetailBoxProps) => {
   const { author, content, images, createdAt, likes, comments } = props;
@@ -12,7 +12,7 @@ const PostDetailBox = (props: TPostDetailBoxProps) => {
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
 
-  const id = props.variant === "feed" ? (props as FeedType).feed_id : (props as CommunityType).community_id;
+  const id = props.variant === "feed" ? (props as BoardType).feed_id : (props as CommunityType).community_id;
 
   useEffect(() => {
     if (!api) return;
