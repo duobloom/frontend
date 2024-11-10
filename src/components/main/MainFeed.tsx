@@ -39,13 +39,15 @@ const feedData = {
 };
 
 const emotionData = {
-  emotion_id: 1,
-  emotion_num: 2,
-  updated_at: "오후 11:18",
+  emotionId: 1,
+  emoji: 2,
+  feedDate: "오후 11:18",
   author: { user_id: 1, name: "이혜선", profileImage: testProfileImg },
 };
 
-const MainFeed = () => {
+const MainFeed = ({ nowData }: { nowData: string }) => {
+  console.log(nowData);
+
   return (
     <section className="relative z-0 mt-[1.5rem] flex h-[calc(100%-24.8rem)] flex-col gap-[1.5rem] overflow-auto rounded-t-[3rem] bg-gray-100 p-[1.5rem] shadow-feed scrollbar-hide">
       <div className="absolute left-1/2 top-0 z-[-1] h-full w-[.1rem] bg-gray-300" />
