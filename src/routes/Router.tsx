@@ -84,7 +84,7 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "/feed/:id",
+        path: "/board/:id",
         async lazy() {
           const { default: PostDetailPage } = await import("@/pages/PostDetailPage");
           return { Component: PostDetailPage };

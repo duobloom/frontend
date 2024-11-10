@@ -6,6 +6,7 @@ dayjs.locale("ko");
 
 export const generateDates = () => {
   const yearMonth = dayjs().format("YYYY.MM");
+  const nowData = dayjs().format("YYYY-MM-DD");
 
   const today = dayjs();
   const startOfMonth = today.startOf("month");
@@ -22,6 +23,7 @@ export const generateDates = () => {
   }
 
   return {
+    nowData,
     yearMonth,
     calendarData: {
       today: {

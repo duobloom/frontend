@@ -22,11 +22,11 @@ export default function CommunityBox({ communityData }: CommunityBoxProps) {
             createdAt={communityData.createdAt}
           />
         </div>
-        {communityData.images.length > 1 && (
+        {communityData.photoUrls.length > 1 && (
           <div className="relative h-[3.6rem] w-[3.6rem] overflow-hidden rounded-[1rem] border border-gray-100">
-            <img src={communityData.images[0].url} alt="" className="h-full w-full object-cover" />
+            <img src={communityData.photoUrls[0]} alt="이미지" className="h-full w-full object-cover" />
             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-[1.4rem] font-bold leading-normal text-white">
-              {communityData.images.length}+
+              {communityData.photoUrls.length}+
             </div>
           </div>
         )}

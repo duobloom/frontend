@@ -21,7 +21,7 @@ const exampleData = {
 };
 
 const MainPage = () => {
-  const { yearMonth, calendarData } = generateDates(); // 날짜 데이터
+  const { nowData, yearMonth, calendarData } = generateDates(); // 날짜 데이터
 
   return (
     <main className="relative">
@@ -29,8 +29,8 @@ const MainPage = () => {
         <MainDayAndPoint point={12392} yearMonth={yearMonth} />
       </Header>
       <MainProfile userData={exampleData.userData} partnerData={exampleData.partnerData} />
-      <MainCalendar calendarData={calendarData} />
-      <MainFeed />
+      <MainCalendar yearMonth={yearMonth} calendarData={calendarData} />
+      <MainFeed nowData={nowData} />
       <MainAddButton />
     </main>
   );

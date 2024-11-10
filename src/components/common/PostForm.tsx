@@ -16,16 +16,16 @@ import {
   AlertDialogTitle,
 } from "@/components/common/AlertDialog";
 
-import { FeedPostFormSchema, FeedPostFormType } from "@/types/FeedType";
 import { CategoryType, CommunityPostFormSchema, CommunityPostFormType } from "@/types/CommunityType";
+import { BoardPostFormSchema, BoardPostFormType } from "@/types/BoardType";
 
 import { IconClose } from "@/assets/icon";
 import { useState } from "react";
 
 type TPostFormProps = {
   type: "add" | "edit";
-  context: "feed" | "community";
-  initialData?: (FeedPostFormType | CommunityPostFormType) | null;
+  context: "board" | "community";
+  initialData?: (BoardPostFormType | CommunityPostFormType) | null;
   onClose: () => void;
 };
 
@@ -34,10 +34,10 @@ const PostForm = ({ type, context, initialData = null, onClose }: TPostFormProps
 
   // form 설정
   const form = useForm({
-    resolver: zodResolver(context === "community" ? CommunityPostFormSchema : FeedPostFormSchema),
+    resolver: zodResolver(context === "community" ? CommunityPostFormSchema : BoardPostFormSchema),
     defaultValues: {
       content: initialData?.content || "",
-      images: initialData?.images || [],
+      photoUrls: initialData?.photoUrls || [],
       ...(context === "community" && {
         category: (initialData as CommunityPostFormType)?.category || "",
         tags: (initialData as CommunityPostFormType)?.tags || [],
@@ -56,12 +56,12 @@ const PostForm = ({ type, context, initialData = null, onClose }: TPostFormProps
 
   // 닫기 전 확인
   const handleClose = () => {
-    const { images, tags } = form.getValues();
+    const { photoUrls, tags } = form.getValues();
     if (
       form.formState.isValid ||
       form.watch("content") ||
       tags?.length ||
-      images?.length ||
+      photoUrls?.length ||
       (context === "community" && form.watch("category"))
     ) {
       setShowConfirmDialog(true);

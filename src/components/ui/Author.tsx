@@ -6,8 +6,8 @@ const AuthorVariants = cva("flex items-center", {
   variants: {
     variant: {
       community: "gap-[1.2rem]",
-      feed: "gap-[1rem]",
-      feedReverse: "flex-row-reverse gap-[1rem]",
+      board: "gap-[1rem]",
+      boardReverse: "flex-row-reverse gap-[1rem]",
     },
   },
   defaultVariants: {
@@ -19,8 +19,8 @@ const nameVariants = cva("font-bold leading-none", {
   variants: {
     variant: {
       community: "text-[1.4rem] tracking-[-0.028rem]",
-      feed: "text-[1.8rem]",
-      feedReverse: "text-[1.8rem]",
+      board: "text-[1.8rem]",
+      boardReverse: "text-[1.8rem]",
     },
   },
   defaultVariants: {
@@ -32,8 +32,8 @@ const subTextVariants = cva("text-[1.2rem] leading-none text-gray-500 tracking-[
   variants: {
     variant: {
       community: "font-normal",
-      feed: "font-semibold",
-      feedReverse: "font-semibold",
+      board: "font-semibold",
+      boardReverse: "font-semibold",
     },
   },
   defaultVariants: {
@@ -53,8 +53,8 @@ interface AuthorProps extends VariantProps<typeof AuthorVariants> {
 const Author = ({ variant = "community", profileImg, name, createdAt, birth, isMe, className }: AuthorProps) => {
   const avatarSizes = {
     community: "h-[3.6rem] w-[3.6rem]",
-    feed: "h-[5rem] w-[5rem]",
-    feedReverse: "h-[5rem] w-[5rem]",
+    board: "h-[5rem] w-[5rem]",
+    boardReverse: "h-[5rem] w-[5rem]",
   };
 
   return (
@@ -70,7 +70,7 @@ const Author = ({ variant = "community", profileImg, name, createdAt, birth, isM
           </div>
         )}
       </div>
-      <div className={cn(`flex flex-col gap-[.5rem] ${variant === "feedReverse" && "items-end"}`)}>
+      <div className={cn(`flex flex-col gap-[.5rem] ${variant === "boardReverse" && "items-end"}`)}>
         <div className="flex items-center gap-[.5rem]">
           <span className={nameVariants({ variant })}>{name}</span>
         </div>

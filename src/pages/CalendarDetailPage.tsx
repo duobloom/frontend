@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import Header from "@/components/layout/Header";
-import { EmotionBox, FeedBox, QuestionBox } from "@/components/common";
+import { EmotionBox, BoardBox, QuestionBox } from "@/components/common";
 
 import "dayjs/locale/ko";
 
@@ -18,15 +18,12 @@ const questionData = {
   answers: [],
 };
 
-const feedData = {
-  feed_id: 1,
+const boardData = {
+  boardId: 1,
   author: { user_id: 1, name: "이혜선", profileImage: testProfileImg },
   content:
     "오늘 아침, 일찍 일어나 따뜻한 커피 한 잔을 들고 산책을 나갔다. 선선한 바람이 불어 기분이 상쾌했고, 오랜만에 여유롭게 자연을 만끽할 수 있었다.",
-  images: [
-    { url: testImg1, alt: "" },
-    { url: testImg2, alt: "" },
-  ],
+  photoUrls: [testImg1, testImg2],
   createdAt: "오전 10:56",
   likes: 1,
   comments: [
@@ -47,9 +44,9 @@ const feedData = {
 };
 
 const emotionData = {
-  emotion_id: 1,
-  emotion_num: 2,
-  updated_at: "오후 11:18",
+  emotionId: 1,
+  emoji: 2,
+  feedDate: "오후 11:18",
   author: { user_id: 1, name: "이혜선", profileImage: testProfileImg },
 };
 
@@ -66,7 +63,7 @@ const CalendarDetailPage = () => {
       </h1>
       <section className="flex h-[calc(100%-18.8rem)] flex-col gap-[1.5rem] overflow-auto rounded-t-[3rem] bg-gray-100 p-[1.5rem] shadow-feed scrollbar-hide">
         <EmotionBox emotion={emotionData} />
-        <FeedBox feed={feedData} />
+        <BoardBox board={boardData} />
         <QuestionBox data={questionData} />
       </section>
     </main>
