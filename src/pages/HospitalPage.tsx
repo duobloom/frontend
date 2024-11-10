@@ -49,7 +49,7 @@ const HospitalPage = () => {
   return (
     <div className="flex w-full flex-col">
       <Header variant="titleMove" title="병원/클리닉" />
-      <Drawer>
+      <Drawer open={activeDrawer !== null}>
         <span className="flex w-full items-center justify-between px-[1.5rem]">
           <DrawerTrigger onClick={() => setActiveDrawer("location")}>
             <DropdownBox>
