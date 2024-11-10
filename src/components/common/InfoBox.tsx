@@ -114,12 +114,12 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
         </div>
       </div>
       <div className="flex justify-between">
-        <div className="flex w-[21rem] gap-[.8rem] overflow-hidden">
+        <div className="flex w-fit gap-[.8rem] overflow-hidden">
           {keywordMappings &&
             keywordMappings.length > 0 &&
-            keywordMappings.map((keyword) => (
-              <Badge key={keyword.keywordId} variant="tagBadge">
-                {keyword.keywordName}
+            keywordMappings.map((keyword, index) => (
+              <Badge key={index} variant="tagBadge">
+                {keyword.keyword}
               </Badge>
             ))}
         </div>
