@@ -47,7 +47,7 @@ const HospitalPage = () => {
   if (isError) return <div>{error?.message || "에러가 발생했습니다."}</div>;
 
   return (
-    <div className="flex h-full w-full flex-col">
+    <div className="flex w-full flex-col">
       <Header variant="titleMove" title="병원/클리닉" />
       <Drawer>
         <span className="flex w-full items-center justify-between px-[1.5rem]">
@@ -109,7 +109,12 @@ const HospitalPage = () => {
           </div>
         </div>
 
-        <Button variant="ovalReverse" size="md" className="mb-[1rem] self-center" onClick={() => navigate("map")}>
+        <Button
+          variant="ovalReverse"
+          size="md"
+          className="fixed bottom-[6rem] mb-[1rem] self-center"
+          onClick={() => navigate("map")}
+        >
           <IconMap />
           지도보기
         </Button>
