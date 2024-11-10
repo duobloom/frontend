@@ -3,10 +3,10 @@ import { Drawer, DrawerContent, DrawerTrigger, DrawerTitle, DrawerClose } from "
 import Header from "@/components/layout/Header";
 import { BoxFooter, DropdownBox } from "@/components/ui/Box";
 import { medicalDepartment, medicalOptions } from "@/constants";
-import { Button, OptionBoxes, ScrollableOptions } from "@/components/common";
+import { Button, InfoBox, OptionBoxes, ScrollableOptions } from "@/components/common";
 import { IconMap } from "@/assets/icon";
 import { useNavigate } from "react-router-dom";
-import { GetRegionName, HospitalInfo, RegionSelecter } from "@/components/hospital";
+import { GetRegionName, RegionSelecter } from "@/components/hospital";
 import { getFilterHospital } from "@/apis";
 import { useQuery } from "@tanstack/react-query";
 
@@ -15,9 +15,17 @@ const HospitalPage = () => {
   const [activeDrawer, setActiveDrawer] = useState<"location" | "department" | null>(null);
   const [selectedOption, setSelectedOption] = useState(1);
   const [selectedDepartment, setSelectedDepartment] = useState(1);
-  const [selectedSi, setSelectedSi] = useState<number | null>(0);
-  const [selectedGun, setSelectedGun] = useState<number | null>(0);
+  const [selectedSi, setSelectedSi] = useState<number | null>(null);
+  const [selectedGun, setSelectedGun] = useState<number | null>(null);
   const [selectedNeighborhood, setSelectedNeighborhood] = useState<number | null>(null);
+
+  const regionCode = selectedSi === 0 ? null : selectedSi;
+  const middleCode = selectedGun === 0 ? null : selectedGun;
+  const detailCode = selectedNeighborhood === 0 ? null : selectedNeighborhood;
+  const selectedDepartmentName = medicalDepartment.find((department) => department.id === selectedDepartment)?.name;
+  const selectedDepartmentType = medicalDepartment.find((department) => department.id === selectedDepartment)?.type;
+  const selectedOptionName = medicalOptions.find((option) => option.id === selectedOption)?.name;
+  const optionKeyword = selectedOptionName === "전체" ? null : selectedOptionName;
 
   const {
     data: hospitalData,
@@ -25,19 +33,18 @@ const HospitalPage = () => {
     error,
     refetch: refetchHospital,
   } = useQuery({
-    queryKey: ["hospitalData", selectedSi, selectedGun, selectedNeighborhood],
-    queryFn: () => getFilterHospital(selectedSi, selectedGun, selectedNeighborhood),
+    queryKey: ["hospitalData", regionCode, middleCode, detailCode, optionKeyword, selectedDepartmentType],
+    queryFn: () => getFilterHospital(regionCode, middleCode, detailCode, optionKeyword, selectedDepartmentType),
     enabled: false,
   });
+
   const applyFilters = () => {
-    if (activeDrawer === "location") refetchHospital();
-    //else 진료과 필터링;
-    setActiveDrawer(null);
+    refetchHospital().finally(() => {
+      setActiveDrawer(null);
+    });
   };
 
-  if (isError) return <>{error.message}</>;
-
-  const selectedDepartmentName = medicalDepartment.find((department) => department.id === selectedDepartment)?.name;
+  if (isError) return <div>{error?.message || "에러가 발생했습니다."}</div>;
 
   return (
     <div className="flex h-full w-full flex-col">
@@ -61,18 +68,47 @@ const HospitalPage = () => {
             <DropdownBox>{selectedDepartmentName || "전체"}</DropdownBox>
           </DrawerTrigger>
         </span>
-        <ScrollableOptions options={medicalOptions} selectedOption={selectedOption} onSelect={setSelectedOption} />
-        <div className="flex-1 px-[1.5rem]">
+
+        <ScrollableOptions
+          options={medicalOptions}
+          selectedOption={selectedOption}
+          onSelect={(option) => {
+            setSelectedOption(option);
+            applyFilters();
+          }}
+        />
+
+        <div className="px-[1.5rem]">
           <p className="mt-[1rem] text-[1.5rem] font-medium">
             {hospitalData ? `${hospitalData.length}개의 병원/클리닉` : "0 개의 병원/클리닉"}
           </p>
           <BoxFooter />
-          {hospitalData && hospitalData.length > 0 ? (
-            hospitalData.map((item) => <HospitalInfo key={item.hospital_id} item={item} />)
-          ) : (
-            <p className="text-center text-[1.5rem] text-gray-400">데이터가 없습니다.</p>
-          )}
+          <div className="flex h-full flex-col gap-[1rem]">
+            {hospitalData && hospitalData.length > 0 ? (
+              hospitalData.map((item) => (
+                <InfoBox
+                  key={item.hospitalId}
+                  variant="hospital"
+                  hospitalId={item.hospitalId}
+                  hospitalName={item.hospitalName}
+                  region={item.region}
+                  middle={item.middle}
+                  detail={item.detail}
+                  type={item.type}
+                  address={item.address}
+                  time={item.time}
+                  latitude={item.latitude}
+                  longitude={item.longitude}
+                  linkUrl={item.linkUrl}
+                  keywordMappings={item.keywordMappings}
+                />
+              ))
+            ) : (
+              <p className="text-center text-[1.5rem] text-gray-400">데이터가 없습니다.</p>
+            )}
+          </div>
         </div>
+
         <Button variant="ovalReverse" size="md" className="mb-[1rem] self-center" onClick={() => navigate("map")}>
           <IconMap />
           지도보기
@@ -98,18 +134,15 @@ const HospitalPage = () => {
               <OptionBoxes
                 options={medicalDepartment}
                 selectedOption={selectedDepartment}
-                onSelect={setSelectedDepartment}
+                onSelect={(option) => {
+                  setSelectedDepartment(option);
+                }}
               />
             </>
           )}
           <span className="fixed bottom-[1rem] left-0 w-full px-[2rem]">
             <BoxFooter />
-            <Button
-              variant="default"
-              className="w-full"
-              onClick={() => applyFilters()}
-              disabled={selectedSi === null || selectedGun === null}
-            >
+            <Button variant="default" className="w-full" onClick={applyFilters}>
               적용하기
             </Button>
           </span>
