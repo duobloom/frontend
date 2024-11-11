@@ -19,7 +19,6 @@ export const BoardPostFormSchema = z.object({
 
 // api request 타입
 export const BoardRequestSchema = z.object({
-  title: z.string().optional(),
   content: z.string(),
   photoUrls: z.array(z.string()).optional().default([]),
 });

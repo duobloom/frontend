@@ -1,7 +1,8 @@
+import { useState } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormCategoryButton, FormImage, FormTag } from "@/components/common/form";
 
+import { FormCategoryButton, FormImage, FormTag } from "@/components/common/form";
 import { DrawerTitle } from "./Drawer";
 import { Button } from "./Button";
 import { Form } from "@/components/ui/Form";
@@ -16,13 +17,13 @@ import {
   AlertDialogTitle,
 } from "@/components/common/AlertDialog";
 
+import { getS3Url, postPresignedUrl, putS3Upload } from "@/apis/image/imageUpload";
+import { usePostBoardWrite } from "@/hooks/usePostBoardWrite";
+
 import { CategoryType, CommunityPostFormSchema, CommunityPostFormType } from "@/types/CommunityType";
 import { BoardPostFormSchema, BoardPostFormType } from "@/types/BoardType";
 
 import { IconClose } from "@/assets/icon";
-import { useState } from "react";
-import { getS3Url, postPresignedUrl, putS3Upload } from "@/apis/imageUpload/imageUpload";
-import { usePostBoardWrite } from "@/hooks/usePostBoardWrite";
 
 type TPostFormProps = {
   type: "add" | "edit";
@@ -76,19 +77,17 @@ const PostForm = ({ type, context, initialData = null, onClose }: TPostFormProps
         }
 
         const boardForm = {
-          title: "",
           content: form.getValues().content,
           photoUrls: s3Urls,
         };
 
         // 커뮤니티
         if (context === "community") {
-          const communityForm = {
-            ...boardForm,
-            type: form.getValues().type,
-            tags: form.getValues().tags || [],
-          };
-          console.log(communityForm);
+          // const communityForm = {
+          //   ...boardForm,
+          //   type: form.getValues().type,
+          //   tags: form.getValues().tags || [],
+          // };
           // postCommunityMutation.mutate(communityForm);
         }
         // 피드
