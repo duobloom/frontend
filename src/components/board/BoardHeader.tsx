@@ -5,7 +5,7 @@ import IconDotHorizontal from "../ui/IconDotHorizontal";
 import { BoardType } from "@/types";
 import { PostForm } from "../common";
 
-const BoardHeader = ({ boardData }: { boardData: BoardType }) => {
+const FeedHeader = ({ boardData }: { boardData: BoardType }) => {
   const [isMenuDrawerOpen, setIsMenuDrawerOpen] = useState(false); // 메뉴 드로어 상태
   const [isEditDrawerOpen, setIsEditDrawerOpen] = useState(false); // 수정 드로어 상태
 
@@ -50,4 +50,4 @@ const BoardHeader = ({ boardData }: { boardData: BoardType }) => {
   );
 };
 
-export default BoardHeader;
+export default FeedHeader;

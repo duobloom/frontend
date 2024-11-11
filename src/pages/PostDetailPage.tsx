@@ -1,5 +1,5 @@
 import { PostDetailBox, CommentBox, CommentInput } from "@/components/common";
-import BoardHeader from "@/components/board/FeedHeader";
+import { BoardHeader } from "@/components/board/FeedHeader";
 import { BoardType } from "@/types";
 
 import testProfileImg from "@/assets/image/test-profile.jpg";
