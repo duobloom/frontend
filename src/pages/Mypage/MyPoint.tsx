@@ -1,52 +1,27 @@
+import { getPointTransaction } from "@/apis";
 import { IconPoint } from "@/assets/icon";
 import { OptionTabs } from "@/components/common";
 import Header from "@/components/layout/Header";
 import { TransactionBox } from "@/components/mypage";
 import { BoxFooter } from "@/components/ui/Box";
-import { PointType } from "@/types";
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
-
-const examplePointData: PointType[] = [
-  {
-    transaction_id: 1,
-    amount: 100,
-    transaction_type: "ANSWER",
-    created_at: "2024-11-05T10:00:00Z",
-    balance: 1000,
-    user_id: 1,
-  },
-  {
-    transaction_id: 2,
-    amount: 50,
-    transaction_type: "ANSWER",
-    created_at: "2024-11-05T10:00:00Z",
-    balance: 1050,
-    user_id: 1,
-  },
-  {
-    transaction_id: 3,
-    amount: 20,
-    transaction_type: "ANSWER",
-    created_at: "2024-11-05T10:00:00Z",
-    balance: 1070,
-    user_id: 1,
-  },
-  {
-    transaction_id: 4,
-    amount: 200,
-    transaction_type: "CHALLENGE_REWARD",
-    created_at: "2024-11-04T15:30:00Z",
-    balance: 1200,
-    user_id: 2,
-  },
-];
 
 const MyPoint = () => {
   const [selectedTab, setSelectedTab] = React.useState("내 포인트");
-  const userId = 1;
+  const userId = 2;
 
-  const filteredData = examplePointData.filter((data) =>
-    selectedTab === "내 포인트" ? data.user_id === userId : data.user_id !== userId,
+  const { data: TransactionData, isError } = useQuery({
+    queryKey: ["TransactionData"],
+    queryFn: () => getPointTransaction(),
+    staleTime: 60000,
+  });
+
+  if (isError) console.error("에러가 발생했습니다.");
+
+  // 선택된 탭에 따라 데이터 필터링
+  const filteredData = TransactionData?.filter((data) =>
+    selectedTab === "내 포인트" ? data.userId === userId : data.userId !== userId,
   );
 
   return (
@@ -78,7 +53,7 @@ const MyPoint = () => {
           </div>
           <hr className="border-t-4" />
           <section className="px-[1.5rem]">
-            <TransactionBox transactions={filteredData} />
+            <TransactionBox transactions={filteredData || []} />
           </section>
         </div>
       </div>
