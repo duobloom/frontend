@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 type PointContainerProps = {
   userPoint: number;
   partnerPoint: number;
+  userId: number | undefined;
 };
 
-const PointContainer = ({ userPoint, partnerPoint }: PointContainerProps) => {
+const PointContainer = ({ userPoint, partnerPoint, userId }: PointContainerProps) => {
   const navigate = useNavigate();
 
   return (
@@ -29,7 +30,10 @@ const PointContainer = ({ userPoint, partnerPoint }: PointContainerProps) => {
           </div>
         </div>
         <hr />
-        <div className="flex cursor-pointer items-center justify-between" onClick={() => navigate("point")}>
+        <div
+          className="flex cursor-pointer items-center justify-between"
+          onClick={() => navigate("point", { state: { userId } })}
+        >
           <span className="text-[1.5rem] font-medium">우리 부부의 포인트 내역을 알아보세요</span>
           <IconChevronRight />
         </div>
