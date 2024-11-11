@@ -1,3 +1,4 @@
 import { getFilterHospital } from "./hospital/getFilterHospital";
+import { getPointTransaction } from "./getPointTransaction";
 
-export { getFilterHospital };
+export { getFilterHospital, getPointTransaction };
