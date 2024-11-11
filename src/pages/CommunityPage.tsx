@@ -19,11 +19,11 @@ const CommunityPage = () => {
             <CommunityOpenChat />
             <CommunityMagazine />
             {filterList.slice(1).map((item) => (
-              <CommunityPostList key={item.id} category={item.name} limit={2} />
+              <CommunityPostList key={item.id} type={item.name} limit={2} />
             ))}
           </>
         ) : (
-          <CommunityPostList category={filterList[selectedButton - 1].name} />
+          <CommunityPostList type={filterList[selectedButton - 1].name} />
         )}
       </section>
       <CommunityWriteButton />

@@ -1,7 +1,8 @@
+import { useState } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormCategoryButton, FormImage, FormTag } from "@/components/common/form";
 
+import { FormCategoryButton, FormImage, FormTag } from "@/components/common/form";
 import { DrawerTitle } from "./Drawer";
 import { Button } from "./Button";
 import { Form } from "@/components/ui/Form";
@@ -16,11 +17,13 @@ import {
   AlertDialogTitle,
 } from "@/components/common/AlertDialog";
 
+import { getS3Url, postPresignedUrl, putS3Upload } from "@/apis/image/imageUpload";
+import { usePostBoardWrite } from "@/hooks/usePostBoardWrite";
+
 import { CategoryType, CommunityPostFormSchema, CommunityPostFormType } from "@/types/CommunityType";
 import { BoardPostFormSchema, BoardPostFormType } from "@/types/BoardType";
 
 import { IconClose } from "@/assets/icon";
-import { useState } from "react";
 
 type TPostFormProps = {
   type: "add" | "edit";
@@ -30,6 +33,7 @@ type TPostFormProps = {
 };
 
 const PostForm = ({ type, context, initialData = null, onClose }: TPostFormProps) => {
+  const postBoardMutation = usePostBoardWrite();
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   // form 설정
@@ -39,7 +43,7 @@ const PostForm = ({ type, context, initialData = null, onClose }: TPostFormProps
       content: initialData?.content || "",
       photoUrls: initialData?.photoUrls || [],
       ...(context === "community" && {
-        category: (initialData as CommunityPostFormType)?.category || "",
+        type: (initialData as CommunityPostFormType)?.type || "",
         tags: (initialData as CommunityPostFormType)?.tags || [],
       }),
     },
@@ -47,10 +51,53 @@ const PostForm = ({ type, context, initialData = null, onClose }: TPostFormProps
   });
 
   // 완료 버튼 클릭
-  const handleSubmit = () => {
-    if (form.formState.isValid || form.watch("content") || (context === "community" && form.watch("category"))) {
-      console.log(form.getValues());
-      onClose();
+  const handleSubmit = async () => {
+    if (form.formState.isValid || form.watch("content") || (context === "community" && form.watch("type"))) {
+      try {
+        let s3Urls: string[] = [];
+
+        // 이미지가 있는 경우
+        if (form.watch("photoUrls").length > 0) {
+          const imageNames = form.getValues().photoUrls.map((photo) => photo.file?.name);
+          const photos = form.getValues().photoUrls as { photo_url: string; file: File }[];
+
+          // Presigned url 발급
+          const presignedUrls = await postPresignedUrl(imageNames as string[]);
+
+          // s3 업로드
+          const isUpload = await putS3Upload(presignedUrls, photos);
+
+          // 실패
+          if (!isUpload) {
+            console.log("이미지 업로드 실패");
+            return;
+          }
+          // s3 URL 생성
+          s3Urls = presignedUrls.map(getS3Url);
+        }
+
+        const boardForm = {
+          content: form.getValues().content,
+          photoUrls: s3Urls,
+        };
+
+        // 커뮤니티
+        if (context === "community") {
+          // const communityForm = {
+          //   ...boardForm,
+          //   type: form.getValues().type,
+          //   tags: form.getValues().tags || [],
+          // };
+          // postCommunityMutation.mutate(communityForm);
+        }
+        // 피드
+        else {
+          postBoardMutation.mutate(boardForm);
+        }
+        onClose();
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -62,7 +109,7 @@ const PostForm = ({ type, context, initialData = null, onClose }: TPostFormProps
       form.watch("content") ||
       tags?.length ||
       photoUrls?.length ||
-      (context === "community" && form.watch("category"))
+      (context === "community" && form.watch("type"))
     ) {
       setShowConfirmDialog(true);
     } else {
@@ -89,7 +136,7 @@ const PostForm = ({ type, context, initialData = null, onClose }: TPostFormProps
             variant="oval"
             size="sm"
             disabled={
-              !form.formState.isValid || !form.watch("content") || (context === "community" && !form.watch("category"))
+              !form.formState.isValid || !form.watch("content") || (context === "community" && !form.watch("type"))
             }
             onClick={handleSubmit}
           >
@@ -100,10 +147,8 @@ const PostForm = ({ type, context, initialData = null, onClose }: TPostFormProps
         {/* 폼 카테고리 영역 (community에서만) */}
         {context === "community" && (
           <FormCategoryButton
-            selectedButton={form.watch("category") as CategoryType}
-            setSelectedButton={(category: CategoryType) =>
-              form.setValue("category", category, { shouldValidate: true })
-            }
+            selectedButton={form.watch("type") as CategoryType}
+            setSelectedButton={(type: CategoryType) => form.setValue("type", type, { shouldValidate: true })}
           />
         )}
 

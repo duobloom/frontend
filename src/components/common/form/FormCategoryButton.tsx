@@ -6,7 +6,7 @@ import { categoryList } from "@/constants";
 
 type TFormCategoryButtonProps = {
   selectedButton: CategoryType;
-  setSelectedButton: (category: CategoryType) => void;
+  setSelectedButton: (type: CategoryType) => void;
 };
 
 const FormCategoryButton = ({ selectedButton, setSelectedButton }: TFormCategoryButtonProps) => {
@@ -36,16 +36,16 @@ const FormCategoryButton = ({ selectedButton, setSelectedButton }: TFormCategory
             <button
               key={item.id}
               type="button"
-              data-button={selectedButton === item.category}
-              onClick={() => setSelectedButton(item.category)}
+              data-button={selectedButton === item.type}
+              onClick={() => setSelectedButton(item.type)}
               className={cn(
                 "inline-flex h-[5rem] min-w-[10.5rem] items-center justify-center overflow-hidden whitespace-nowrap rounded-[1rem] border px-[1.8rem] text-[1.4rem] font-semibold",
-                selectedButton === item.category
+                selectedButton === item.type
                   ? "border-red bg-red-10 text-red"
                   : "border border-gray-300 bg-white text-gray-500",
               )}
             >
-              {item.category}
+              {item.type}
             </button>
           ))}
         </div>

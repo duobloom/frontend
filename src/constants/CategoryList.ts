@@ -8,9 +8,9 @@ export const filterList = [
 ];
 
 export const categoryList = [
-  { id: 1, category: "심리케어" as const },
-  { id: 2, category: "멘토링" as const },
-  { id: 3, category: "정책" as const },
-  { id: 4, category: "병원/클리닉" as const },
-  { id: 5, category: "자유" as const },
+  { id: 1, type: "심리케어" as const },
+  { id: 2, type: "멘토링" as const },
+  { id: 3, type: "정책" as const },
+  { id: 4, type: "병원/클리닉" as const },
+  { id: 5, type: "자유" as const },
 ] as const;

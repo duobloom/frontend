@@ -6,7 +6,8 @@ export const BasePostSchema = z.object({
   author: AuthorSchema,
   content: z.string(),
   photoUrls: z.array(z.string().url()).optional().default([]),
-  createdAt: z.string().datetime(),
+  createdAt: z.string().datetime().optional(),
+  updatedAt: z.string().datetime(),
   likes: z.number().default(0),
   comments: z.array(CommentSchema),
 });
