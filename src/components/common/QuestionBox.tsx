@@ -1,11 +1,11 @@
 import * as React from "react";
-import { cn } from "@/utils";
-import { QuestionType } from "@/types";
-import { Button } from "./Button";
+import { BoxContainer, BoxContent, BoxFooter, BoxHeader } from "@/components/ui/Box";
+import Author from "@/components/ui/Author";
+import { Button } from "@/components/common/Button";
 import { Drawer, DrawerTrigger, DrawerContent } from "./Drawer";
-import { BoxContainer, BoxContent, BoxFooter, BoxHeader } from "../ui/Box";
-import Author from "../ui/Author";
-import MainQuestionForm from "../main/MainQuestionForm";
+import { MainQuestionForm } from "@/components/main";
+import { cn, formatDateConvert } from "@/utils";
+import { QuestionType } from "@/types";
 
 // Props 타입 정의
 type TQuestionBoxProps = {
@@ -51,7 +51,7 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
         <div className="flex flex-col gap-[1rem]">
           <div className="flex justify-between">
             <Button variant="oval" size="sm" className="border-blue-100 bg-blue-100 text-blue">
-              첫번째 질문
+              질문
             </Button>
             {hasNoAnswers && (
               <Drawer open={isQuestionDrawerOpen} onOpenChange={setIsQuestionDrawerOpen}>
@@ -79,9 +79,10 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
               <AnswerBoxContainer>
                 <BoxHeader>
                   <Author
-                    profileImg={answers[0].author.profileImage}
-                    name={answers[0].author.name}
-                    createdAt={answers[0].updated_at}
+                    profileImg={answers[0].profilePictureUrl}
+                    name={answers[0].nickname}
+                    createdAt={formatDateConvert(answers[0].updatedAt)}
+                    isMe={answers[0].mine}
                   ></Author>
                 </BoxHeader>
                 <BoxContent>{answers[0].content}</BoxContent>
@@ -98,22 +99,21 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
 
           {hasTwoAnswers &&
             answers.map((answer, index) => (
-              <>
-                <AnswerBoxContainer>
-                  <div className="mt-[1rem] flex gap-[.7rem]" key={index}>
-                    <BoxHeader>
-                      <Author
-                        profileImg={answer.author.profileImage}
-                        name={answer.author.name}
-                        createdAt={answer.updated_at}
-                      ></Author>
-                    </BoxHeader>
-                  </div>
-                  <BoxContent>{answer.content}</BoxContent>
-                  <BoxFooter />
-                  <p className="text-end text-[1.4rem] text-red">5포인트 획득</p>
-                </AnswerBoxContainer>
-              </>
+              <AnswerBoxContainer key={index}>
+                <div className="mt-[1rem] flex gap-[.7rem]">
+                  <BoxHeader>
+                    <Author
+                      profileImg={answer.profilePictureUrl}
+                      name={answer.nickname}
+                      createdAt={formatDateConvert(answer.updatedAt)}
+                      isMe={answer.mine}
+                    ></Author>
+                  </BoxHeader>
+                </div>
+                <BoxContent>{answer.content}</BoxContent>
+                <BoxFooter />
+                <p className="text-end text-[1.4rem] text-red">5포인트 획득</p>
+              </AnswerBoxContainer>
             ))}
         </div>
       </div>
