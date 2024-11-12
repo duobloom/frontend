@@ -15,12 +15,15 @@ type OptionBoxesProps = {
 
 const OptionTabs = ({ tabs, selectedTab, onTabSelect, className }: OptionTabProps) => (
   <div className={cn("w-full", className)}>
-    <div className="mb-0 flex justify-between font-medium text-gray-400">
+    <div className="mb-0 flex justify-between text-[1.5rem] font-medium text-gray-400">
       {tabs?.map((tab) => (
         <button
           key={tab}
           onClick={() => onTabSelect?.(tab)}
-          className={cn("w-full text-center", selectedTab === tab ? "border-b-2 border-black text-black" : "")}
+          className={cn(
+            "w-full py-[1rem] text-center",
+            selectedTab === tab ? "border-b-2 border-black font-bold text-black" : "",
+          )}
         >
           {tab}
         </button>
@@ -31,15 +34,15 @@ const OptionTabs = ({ tabs, selectedTab, onTabSelect, className }: OptionTabProp
 );
 
 const OptionBoxes = ({ options, selectedOption, onSelect }: OptionBoxesProps) => (
-  <div className={cn("grid grid-cols-2 gap-[.5rem]")}>
+  <div className={cn("grid grid-cols-2 gap-[.7rem]")}>
     {options.map((option) => (
       <Button
         key={option.id}
         variant="reverse"
         onClick={() => onSelect(option.id)}
         className={cn(
-          "font-semibold shadow-box",
-          selectedOption === option.id ? "bg-red-100" : "border-gray-300 text-gray-400",
+          "text-[14px] font-semibold shadow-box",
+          selectedOption === option.id ? "bg-red-100 font-extrabold" : "border-gray-300 text-gray-400",
         )}
       >
         {option.name}
