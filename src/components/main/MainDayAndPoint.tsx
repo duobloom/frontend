@@ -9,7 +9,7 @@ const MainDayAndPoint = ({ point, yearMonth }: { point: number; yearMonth: strin
   };
 
   return (
-    <div className="sm_mobile:gap-[3.1rem] flex items-center gap-[1rem]">
+    <div className="flex items-center gap-[1rem] sm_mobile:gap-[3.1rem]">
       <div
         className="flex h-[4rem] cursor-pointer items-center justify-between gap-[1.3rem] rounded-[10rem] border border-black py-[.8rem] pl-[1.5rem] pr-[1rem]"
         onClick={moveCalendar}
@@ -29,7 +29,6 @@ const MainDayAndPoint = ({ point, yearMonth }: { point: number; yearMonth: strin
         <p className="text-[1.6rem] font-semibold leading-normal tracking-[-0.032rem] text-black">
           {point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </p>
-        <div className="md_mobile:block ml-[1.5rem] hidden h-[2.4rem] w-[.1rem] bg-gray-300" />
       </div>
     </div>
   );
