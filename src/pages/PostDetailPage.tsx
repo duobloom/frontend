@@ -1,5 +1,5 @@
 import { PostDetailBox, CommentBox, CommentInput } from "@/components/common";
-import { BoardHeader } from "@/components/board/FeedHeader";
+import BoardHeader from "@/components/board/BoardHeader";
 import { BoardType } from "@/types";
 
 import testProfileImg from "@/assets/image/test-profile.jpg";
@@ -12,7 +12,7 @@ const boardData = {
   content:
     "오늘 아침, 일찍 일어나 따뜻한 커피 한 잔을 들고 산책을 나갔다. 선선한 바람이 불어 기분이 상쾌했고, 오랜만에 여유롭게 자연을 만끽할 수 있었다.",
   photoUrls: [testImg1, testImg2],
-  createdAt: "오전 10:56",
+  updatedAt: "오전 10:56",
   likes: 1,
   comments: [
     {
