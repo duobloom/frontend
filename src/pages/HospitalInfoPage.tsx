@@ -15,8 +15,14 @@ import {
   KakaoMap,
 } from "@/components/hospital";
 import image from "@/assets/image/test.png";
+import { useQuery } from "@tanstack/react-query";
+import { getHospitaInfo } from "@/apis";
+import { useLocation } from "react-router-dom";
+import { medicalDepartment } from "@/constants";
 
 const HospitalInfoPage = () => {
+  const location = useLocation();
+  const hospitalId = location.state?.id;
   const scrollRef = useRef<HTMLDivElement>(null);
   const draggableOptions = useDraggable(scrollRef);
   const [activeDrawer, setActiveDrawer] = useState<"medic" | "clinicHour" | null>(null);
@@ -26,6 +32,17 @@ const HospitalInfoPage = () => {
   const medicSectionRef = useRef<HTMLDivElement>(null);
   const directionSectionRef = useRef<HTMLDivElement>(null);
 
+  const {
+    data: hospitalData,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["hospitalData", hospitalId],
+    queryFn: () => getHospitaInfo(hospitalId),
+    enabled: !!hospitalId,
+  });
+
+  if (isError) return <div>{error?.message || "에러가 발생했습니다."}</div>;
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -76,13 +93,18 @@ const HospitalInfoPage = () => {
         {...draggableOptions}
         className="flex-1 overflow-y-scroll bg-white px-[1.8rem] pt-[2.2rem] scrollbar-hide"
       >
-        <InfoText>병원명</InfoText>
+        <InfoText>{hospitalData?.hospitalName}</InfoText>
         <InfoText variant="secondary" size="sm">
-          산부인과
+          {medicalDepartment.find((department) => department.type === hospitalData?.type)?.name || hospitalData?.type}
         </InfoText>
         <span className="mt-[.5rem] flex items-center gap-[.8rem]">
-          <Badge variant="tagBadge">야간진료</Badge>
-          <Badge variant="tagBadge">야간진료</Badge>
+          {hospitalData?.keywordMappings &&
+            hospitalData.keywordMappings.length > 0 &&
+            hospitalData.keywordMappings.map((keyword, index) => (
+              <Badge key={index} variant="tagBadge">
+                {keyword.keyword}
+              </Badge>
+            ))}
         </span>
         <BoxFooter />
         <section className="relative mb-[3rem] h-[17rem] w-full rounded-[1rem] border">
@@ -107,10 +129,10 @@ const HospitalInfoPage = () => {
             </div>
           )}
         </section>
-        <DetailBox title="전화번호" content="010-0000-0000" />
+        <DetailBox title="전화번호" content={hospitalData?.phone ?? ""} />
         <Drawer>
           <DrawerTrigger className="w-full" onClick={() => setActiveDrawer("clinicHour")}>
-            <DetailBox title="진료 시간" content="10:00-16:00" showIcon />
+            <DetailBox title="진료 시간" content={hospitalData?.time ?? "10:00 - 16:00"} showIcon />
           </DrawerTrigger>
           {activeDrawer === "clinicHour" && (
             <DrawerContent>
@@ -131,9 +153,7 @@ const HospitalInfoPage = () => {
           <section ref={infoSectionRef} className="hospital-info">
             <InfoText size="md">소개</InfoText>
             <InfoText size="sm" className="mb-[1.5rem]">
-              대치동 7번 출구 대치듀블여성병원은 임상경력 풍부한 산부인과 전문의가 편안하고 정확한 진료로 본연의
-              여성다움, 자연스럽게 평생 지켜드리는 아름다움, 신뢰와 편안한 미소가 있는 정다움을 드리는 듀오블룸 인증
-              산부인과입니다.
+              {hospitalData?.hospitalInfo}
             </InfoText>
             <InfoText size="md">등급 평가 정보</InfoText>
             <InfoText size="sm" className="mb-[1.5rem]">
@@ -152,7 +172,7 @@ const HospitalInfoPage = () => {
             </InfoText>
             <Drawer>
               <DrawerTrigger className="w-full" onClick={() => setActiveDrawer("medic")}>
-                <MedicInfo title="의료진이름" content="의료진 소개" image_Url="dl" />
+                <MedicInfo title="의료진이름" content={hospitalData?.staffInfo ?? "의사 정보"} image_Url="dl" />
               </DrawerTrigger>
               {activeDrawer === "medic" && (
                 <DrawerContent>
@@ -173,9 +193,14 @@ const HospitalInfoPage = () => {
             <InfoText size="md" className="mb-[.5rem]">
               오시는 길
             </InfoText>
-            <AddressCopy address="서울특별시 강남구 테헤란로 123" />
+            <AddressCopy address={hospitalData?.address ?? ""} />
             <section className="mb-[2rem] h-[17rem] w-full rounded-[1rem] border" id="map">
-              <KakaoMap />
+              {hospitalData?.latitude && hospitalData?.longitude && (
+                <KakaoMap
+                  center={{ lat: hospitalData.latitude, lng: hospitalData.longitude }}
+                  markerPosition={{ lat: hospitalData.latitude, lng: hospitalData.longitude }}
+                />
+              )}
             </section>
             <BoxFooter />
           </section>
