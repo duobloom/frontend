@@ -112,7 +112,6 @@ const HospitalPage = () => {
                   middle={item.middle}
                   detail={item.detail}
                   type={item.type}
-                  address={item.address}
                   time={item.time}
                   latitude={item.latitude}
                   longitude={item.longitude}
