@@ -4,7 +4,7 @@ import { CommunityType, CommunityPostFormType } from "@/types/CommunityType";
 import { BoardType, BoardPostFormType } from "@/types/BoardType";
 import { EmotionType } from "@/types/EmotionType";
 import { QuestionType, AnswerType } from "@/types/QuestionType";
-import { UserType, UserProfileType } from "@/types/UserType";
+import { UserType, UserProfileType, PatchUserType } from "@/types/UserType";
 import { PointType } from "./PointType";
 import { LoginType } from "./LoginType";
 
@@ -21,6 +21,7 @@ export {
   type BoardPostFormType,
   type UserProfileType,
   type UserType,
+  type PatchUserType,
   type CommunityPostFormType,
   type PointType,
   type LoginType,
