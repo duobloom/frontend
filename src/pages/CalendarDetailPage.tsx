@@ -61,7 +61,7 @@ const CalendarDetailPage = () => {
         {day} {weekDay}의 <br />
         기록을 알아보세요
       </h1>
-      <section className="flex h-[calc(100%-18.8rem)] flex-col gap-[1.5rem] overflow-auto rounded-t-[3rem] bg-gray-100 p-[1.5rem] shadow-feed scrollbar-hide">
+      <section className="flex h-[calc(100%-18.8rem)] flex-col gap-[1.5rem] overflow-auto rounded-t-[3rem] bg-gray-100 bg-[linear-gradient(to_right,_transparent,_transparent_50%,_#E2E2E2_50%,_#E2E2E2_50.3%,_transparent_50.3%)] bg-[length:100%_1px] bg-center p-[1.5rem] shadow-feed scrollbar-hide">
         <EmotionBox emotion={emotionData} />
         <BoardBox board={boardData} />
         <QuestionBox data={questionData} />
