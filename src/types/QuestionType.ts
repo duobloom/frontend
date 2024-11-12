@@ -1,18 +1,23 @@
 import { z } from "zod";
-import { AuthorSchema } from "./UserType";
 
 // 답변 스키마 정의
 export const AnswerSchema = z.object({
-  answer_id: z.number(),
+  answerId: z.number(),
+  questionId: z.number(),
   content: z.string(),
-  question_id: z.number(),
-  updated_at: z.string().datetime(),
-  author: AuthorSchema,
+  updatedAt: z.string(),
+  createdAt: z.string(),
+  nickname: z.string(),
+  profilePictureUrl: z.string(),
+  mine: z.boolean().default(false),
 });
+
 // 질문 스키마 정의
 export const QuestionSchema = z.object({
-  question_id: z.number(),
+  questionId: z.number(),
   content: z.string(),
+  myAnswerStatus: z.boolean().default(false),
+  coupleAnswerStatus: z.boolean().default(false),
   answers: z.array(AnswerSchema).optional().default([]),
 });
 
