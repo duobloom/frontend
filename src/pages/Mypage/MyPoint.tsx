@@ -6,15 +6,17 @@ import { TransactionBox } from "@/components/mypage";
 import { BoxFooter } from "@/components/ui/Box";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 const MyPoint = () => {
   const [selectedTab, setSelectedTab] = React.useState("내 포인트");
-  const userId = 2;
+  const location = useLocation();
+  const userId = location.state?.userId;
 
   const { data: TransactionData, isError } = useQuery({
     queryKey: ["TransactionData"],
     queryFn: () => getPointTransaction(),
-    staleTime: 60000,
+    staleTime: 18000,
   });
 
   if (isError) console.error("에러가 발생했습니다.");
