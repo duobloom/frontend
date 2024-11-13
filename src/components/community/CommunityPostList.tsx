@@ -8,12 +8,13 @@ const examplePost = {
     name: "이혜선",
     profileImage: "https://example.com/profile.jpg",
   },
-  category: "자유" as "자유" | "심리케어" | "멘토링" | "정책" | "병원/클리닉",
+  type: "자유" as "자유" | "심리케어" | "멘토링" | "정책" | "병원/클리닉",
   content:
     "본 타입은 커뮤니티에서 홈에서만 사용하는 타입입니다. 내용은 두줄 이상넘어가지 않고, 넘어갈시에는 이렇게 표현합니다.아아아아",
   photoUrls: ["https://example.com/profile.jpg"],
   tags: ["태그1", "태그2", "태그3"],
   createdAt: "오전 09:00",
+  updatedAt: "오전 09:00",
   likes: 1,
   comments: [
     {
@@ -33,18 +34,18 @@ const examplePost = {
 };
 
 type TCommunityPostListProps = {
-  category: string;
+  type: string;
   limit?: number;
 };
 
-const CommunityPostList = ({ category, limit }: TCommunityPostListProps) => {
+const CommunityPostList = ({ type, limit }: TCommunityPostListProps) => {
   return (
     <article className="flex flex-col gap-[1rem]">
       {limit ? (
-        <CommunityTitle title={`${category} 인기 글`} />
+        <CommunityTitle title={`${type} 인기 글`} />
       ) : (
         <div>
-          <p className="px-[1.5rem] text-[1.4rem] font-medium leading-normal">438개의 {category} 글</p>
+          <p className="px-[1.5rem] text-[1.4rem] font-medium leading-normal">438개의 {type} 글</p>
           <hr />
         </div>
       )}

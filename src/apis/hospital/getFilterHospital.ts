@@ -1,4 +1,4 @@
-import { HospitalType } from "@/types";
+import { HospitalListType } from "@/types";
 import axios from "axios";
 
 export const getFilterHospital = async (
@@ -16,7 +16,7 @@ export const getFilterHospital = async (
     ...(department ? { type: department } : {}),
   };
 
-  const response = await axios.get<HospitalType[]>("/api/hospitals/search", { params });
+  const response = await axios.get<HospitalListType[]>("/api/hospitals/search", { params });
   console.log(params);
   console.log(response.data);
   return response.data;

@@ -1,7 +1,7 @@
 import { HospitalType, HospitalListType } from "@/types/HospitalType";
 import { PolicyType, PolicyListType } from "@/types/PolicyType";
 import { CommunityType, CommunityPostFormType } from "@/types/CommunityType";
-import { BoardType, BoardPostFormType } from "@/types/BoardType";
+import { BoardType, BoardPostFormType, BoardRequestType } from "@/types/BoardType";
 import { EmotionType } from "@/types/EmotionType";
 import { QuestionType, AnswerType } from "@/types/QuestionType";
 import { UserType, UserProfileType, PatchUserType } from "@/types/UserType";
@@ -25,4 +25,5 @@ export {
   type CommunityPostFormType,
   type PointType,
   type LoginType,
+  type BoardRequestType,
 };
