@@ -6,8 +6,8 @@ import { EmotionSchema } from "./EmotionType";
 // api response 타입
 export const FeedResponseSchema = z.object({
   feedDate: z.string(),
-  userEmotion: z.array(EmotionSchema).optional().default([]),
-  coupleEmotion: z.array(EmotionSchema).optional().default([]),
+  userEmotions: z.array(EmotionSchema).optional().default([]),
+  coupleEmotions: z.array(EmotionSchema).optional().default([]),
   userBoards: z.array(BoardSchema).optional().default([]),
   coupleBoards: z.array(BoardSchema).optional().default([]),
   questionsWithAnswers: z.array(QuestionSchema).optional().default([]),
