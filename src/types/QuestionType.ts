@@ -8,7 +8,7 @@ export const AnswerSchema = z.object({
   updatedAt: z.string(),
   createdAt: z.string(),
   nickname: z.string(),
-  profilePictureUrl: z.string(),
+  profilePictureUrl: z.string().nullable(),
   mine: z.boolean().default(false),
 });
 
