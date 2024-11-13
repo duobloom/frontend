@@ -6,7 +6,8 @@ import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/componen
 import IconDotHorizontal from "@/components/ui/IconDotHorizontal";
 import LikeAndComments from "@/components/ui/LikeAndComments";
 import PostForm from "@/components/common/PostForm";
-import { Drawer, DrawerContent, DrawerTrigger } from "./Drawer";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/common/Drawer";
+import { formatDateConvert } from "@/utils";
 import { BoardType } from "@/types";
 
 type BoardBoxProps = {
@@ -50,7 +51,12 @@ export default function BoardBox({ board }: BoardBoxProps) {
     <BoxContainer>
       <BoxHeader>
         <div className="flex items-center gap-[1.2rem]">
-          <Author profileImg={board.author.profileImage} name={board.author.name} createdAt={board.createdAt} />
+          <Author
+            profileImg={board.authorProfilePictureUrl}
+            name={board.authorNickname}
+            createdAt={formatDateConvert(board.updatedAt)}
+            isMe={board.mine}
+          />
         </div>
         <Drawer>
           <DrawerTrigger asChild>
@@ -60,21 +66,25 @@ export default function BoardBox({ board }: BoardBoxProps) {
             <div className="flex flex-col gap-[1.8rem] px-[9rem] py-[3.9rem] text-[1.6rem] font-extrabold leading-normal tracking-[-0.032rem]">
               <button onClick={() => handleTextSave(board.boardId)}>글 저장</button>
 
-              <Drawer dismissible={false} open={isTextDrawerOpen} onOpenChange={setIsTextDrawerOpen}>
-                <DrawerTrigger asChild>
-                  <button onClick={() => handleTextEdit(board.boardId)}>수정</button>
-                </DrawerTrigger>
-                <DrawerContent>
-                  <PostForm
-                    type="edit"
-                    context="board"
-                    initialData={board}
-                    onClose={() => setIsTextDrawerOpen(false)}
-                  />
-                </DrawerContent>
-              </Drawer>
+              {board.mine && (
+                <>
+                  <Drawer dismissible={false} open={isTextDrawerOpen} onOpenChange={setIsTextDrawerOpen}>
+                    <DrawerTrigger asChild>
+                      <button onClick={() => handleTextEdit(board.boardId)}>수정</button>
+                    </DrawerTrigger>
+                    <DrawerContent>
+                      <PostForm
+                        type="edit"
+                        context="board"
+                        initialData={board}
+                        onClose={() => setIsTextDrawerOpen(false)}
+                      />
+                    </DrawerContent>
+                  </Drawer>
 
-              <button onClick={() => handleTextDelete(board.boardId)}>삭제</button>
+                  <button onClick={() => handleTextDelete(board.boardId)}>삭제</button>
+                </>
+              )}
             </div>
           </DrawerContent>
         </Drawer>
@@ -111,7 +121,12 @@ export default function BoardBox({ board }: BoardBoxProps) {
       </BoxContent>
 
       <BoxFooter className="ml-[4.8rem]">
-        <LikeAndComments type="board" id={board.boardId} likes={board.likes} comments={board.comments} />
+        <LikeAndComments
+          type="board"
+          id={board.boardId}
+          likeCount={board.likeCount}
+          commentCount={board.commentCount}
+        />
       </BoxFooter>
     </BoxContainer>
   );
