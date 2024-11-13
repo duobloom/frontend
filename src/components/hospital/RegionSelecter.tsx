@@ -55,7 +55,7 @@ const RegionSelecter = ({
 
   return (
     <div className="flex h-full flex-col pb-[6.5rem]">
-      <span className="relative mb-[3.5rem] flex w-full items-center">
+      <span className="relative mb-[2rem] flex w-full items-center">
         <DrawerClose className="absolute left-0" />
         <DrawerTitle text="지역 선택" className="mx-auto" />
       </span>
