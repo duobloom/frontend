@@ -198,7 +198,8 @@ const HospitalInfoPage = () => {
               {hospitalData?.latitude && hospitalData?.longitude && (
                 <KakaoMap
                   center={{ lat: hospitalData.latitude, lng: hospitalData.longitude }}
-                  markerPosition={{ lat: hospitalData.latitude, lng: hospitalData.longitude }}
+                  level={4}
+                  hospitalData={[hospitalData]}
                 />
               )}
             </section>
