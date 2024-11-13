@@ -47,7 +47,7 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
   // 상세 페이지 이동
   const moveDetail = useCallback(
     (variant: string, id: number) => {
-      navigate(`/${variant}/${id}`);
+      navigate(`/${variant}/${id}`, { state: { id } });
     },
     [navigate],
   );
@@ -61,7 +61,7 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
   // 컨텐츠 렌더링
   const renderContent = () => {
     if (variant === "hospital") {
-      const { type, time, address } = props;
+      const { type, time, region, middle, detail } = props;
       const departmentMap: { [key: string]: string } = {
         MATERNITY: "산부인과",
         CARDIOLOGY: "심장내과",
@@ -78,7 +78,7 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
           <div className="flex gap-[.5rem]">
             <span className="tracking-normal">1.3km</span> {/* 거리 계산 */}
             <span>·</span>
-            <span>{address ?? "주소 정보 없음"}</span>
+            <span>{`${region ?? ""} ${middle ?? ""} ${detail ?? ""}`}</span>
           </div>
         </div>
       );

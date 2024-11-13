@@ -112,7 +112,6 @@ const HospitalPage = () => {
                   middle={item.middle}
                   detail={item.detail}
                   type={item.type}
-                  address={item.address}
                   time={item.time}
                   latitude={item.latitude}
                   longitude={item.longitude}
@@ -130,7 +129,15 @@ const HospitalPage = () => {
           variant="ovalReverse"
           size="md"
           className="fixed bottom-[6rem] mb-[1rem] self-center"
-          onClick={() => navigate("map")}
+          onClick={() =>
+            navigate("map", {
+              state: {
+                selectedSi,
+                selectedGun,
+                selectedNeighborhood,
+              },
+            })
+          }
         >
           <IconMap />
           지도보기

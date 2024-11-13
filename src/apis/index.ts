@@ -1,3 +1,3 @@
 import { getFilterHospital } from "./hospital/getFilterHospital";
-
-export { getFilterHospital };
+import { getHospitaInfo } from "./hospital/getHospitalInfo";
+export { getFilterHospital, getHospitaInfo };
