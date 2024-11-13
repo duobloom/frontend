@@ -1,8 +1,10 @@
 import { Outlet } from "react-router-dom";
-import { IconLogoDoubloom } from "@/assets/icon";
-import Navbar from "./components/layout/Nav";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import axios from "axios";
+import { isMobile } from "react-device-detect";
+import Navbar from "./components/layout/Nav";
+import { cn } from "./utils";
+import { IconLogoDoubloom } from "@/assets/icon";
 
 const queryClient = new QueryClient();
 
@@ -29,7 +31,7 @@ function App() {
           </div>
           {/* Right section - 앱 영역 */}
           <div className="right-section flex w-full justify-center lg:w-[37.5rem] lg:min-w-[37.5rem]">
-            <div className="h-screen w-full max-w-[37.5rem] bg-white shadow-lg">
+            <div className={cn("h-screen w-full bg-white shadow-lg", isMobile ? "w-full" : "max-w-[37.5rem]")}>
               <div className="flex h-full flex-col">
                 <div className="flex-1 overflow-y-auto will-change-scroll">
                   <Outlet />

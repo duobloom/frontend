@@ -27,6 +27,7 @@ const MainPage = () => {
     <main className="relative">
       <Header variant="titleMove">
         <MainDayAndPoint point={12392} yearMonth={yearMonth} />
+        <div className="hidden h-[2.4rem] w-[.1rem] bg-gray-300 md_mobile:block" />
       </Header>
       <MainProfile userData={exampleData.userData} partnerData={exampleData.partnerData} />
       <MainCalendar yearMonth={yearMonth} calendarData={calendarData} />
