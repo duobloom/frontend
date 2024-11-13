@@ -8,7 +8,6 @@ const MyPage: React.FC = () => {
   const { data: userInfo, isError } = useQuery({
     queryKey: ["TransactionData"],
     queryFn: () => getMyProfile(),
-    staleTime: 180000,
   });
 
   if (isError) console.error("에러가 발생했습니다.");
