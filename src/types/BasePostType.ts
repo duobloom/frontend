@@ -9,7 +9,7 @@ export const BasePostSchema = z.object({
   photoUrls: z.array(z.string().url()).optional().default([]),
   createdAt: z.string().optional(),
   updatedAt: z.string(),
-  comments: z.array(CommentSchema).optional().default([]),
+  comments: z.array(CommentSchema).nullable(),
   likeCount: z.number().default(0),
   commentCount: z.number().default(0),
 });

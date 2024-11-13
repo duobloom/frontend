@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
-import { postBoardWrite } from "@/apis/main/postBoardWrite";
+import { postBoardWrite } from "@/apis/main/postBoardWriteAPI";
 import { BoardRequestType } from "@/types";
 
 export const usePostBoardWrite = () => {

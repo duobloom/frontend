@@ -62,7 +62,7 @@ const config: Config = {
         },
       },
       boxShadow: {
-        box: "0 4px 6px rgba(0, 0, 0, 0.1)", // 박스 그림자
+        box: "0 2px 8px 0 rgba(0, 0, 0, 0.10)", // 박스 그림자
         feed: "0 4px 6px 0 rgba(0, 0, 0, 0.1) inset", // 피드 박스 그림자
         icon: "4px 4px 20px 0px rgba(0, 0, 0, 0.25)", // 아이콘 버튼 그림자
       },
