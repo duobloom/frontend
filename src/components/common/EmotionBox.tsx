@@ -1,8 +1,8 @@
 import * as React from "react";
-import { cn } from "@/utils";
+import { BoxContainer, BoxContent, BoxHeader } from "@/components/ui/Box";
+import Author from "@/components/ui/Author";
+import { cn, formatDateConvert } from "@/utils";
 import { EmotionType } from "@/types";
-import { BoxContainer, BoxContent, BoxHeader } from "../ui/Box";
-import Author from "../ui/Author";
 
 const emotionList = [
   { id: 1, text: "기쁨이 가득한 하루!", emoji: "😊" },
@@ -35,9 +35,12 @@ const EmotionBox = ({ emotion }: TEmotionBoxProps) => {
   return (
     <BoxContainer>
       <BoxHeader>
-        {emotion.author && (
-          <Author profileImg={emotion.author.profileImage} name={emotion.author.name} createdAt={emotion.feedDate} />
-        )}
+        <Author
+          profileImg={emotion.authorProfilePictureUrl}
+          name={emotion.authorNickname}
+          createdAt={formatDateConvert(emotion.createdAt)}
+          isMe={emotion.mine}
+        />
         <EmotionBoxEmoji>{emoji}</EmotionBoxEmoji>
       </BoxHeader>
       <div className="ml-[4.8rem]">
