@@ -2,57 +2,31 @@ import { useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import Header from "@/components/layout/Header";
 import { EmotionBox, BoardBox, QuestionBox } from "@/components/common";
-
-import "dayjs/locale/ko";
-
-import testProfileImg from "@/assets/image/test-profile.jpg";
-import testImg1 from "@/assets/image/test-profile2.jpg";
-import testImg2 from "@/assets/image/test.png";
+import { useErrorHandler } from "@/hooks/useErrorHandler";
+import { useGetFeedData } from "@/hooks/useGetFeedData";
+import { sortFeedData } from "@/utils";
+import { BoardType, EmotionType, FeedResponseType, QuestionType } from "@/types";
 
 // 한국어 로케일 설정
 dayjs.locale("ko");
 
-const questionData = {
-  question_id: 1,
-  content: "질문에 대한 이야기를 제공하는 곳",
-  answers: [],
-};
-
-const boardData = {
-  boardId: 1,
-  author: { user_id: 1, name: "이혜선", profileImage: testProfileImg },
-  content:
-    "오늘 아침, 일찍 일어나 따뜻한 커피 한 잔을 들고 산책을 나갔다. 선선한 바람이 불어 기분이 상쾌했고, 오랜만에 여유롭게 자연을 만끽할 수 있었다.",
-  photoUrls: [testImg1, testImg2],
-  createdAt: "오전 10:56",
-  likes: 1,
-  comments: [
-    {
-      comment_id: 1,
-      author: { user_id: 1, name: "이혜선", profileImage: testProfileImg },
-      content:
-        "평소에 퇴근하고 지쳐서 당신과 많은 이야기를 나누지 못했는데, 오늘 딱 느낀 거 같아, 우리 앞으로 대화를 자주 하자.",
-      createdAt: "오후 10:56",
-    },
-    {
-      comment_id: 2,
-      author: { user_id: 2, name: "김준혁", profileImage: testProfileImg },
-      content: "아~",
-      createdAt: "오후 10:56",
-    },
-  ],
-};
-
-const emotionData = {
-  emotionId: 1,
-  emoji: 2,
-  feedDate: "오후 11:18",
-  author: { user_id: 1, name: "이혜선", profileImage: testProfileImg },
-};
-
 const CalendarDetailPage = () => {
   const params = useParams();
-  const [day, weekDay] = [dayjs(params.date).format("YYYY.MM.DD"), dayjs(params.date).format("dddd")];
+  const { handleError } = useErrorHandler();
+
+  const [day, weekDay, currentDate] = [
+    dayjs(params.date).format("YYYY.MM.DD"),
+    dayjs(params.date).format("dddd"),
+    dayjs(params.date).format("YYYY-MM-DD"),
+  ];
+
+  const { data, isLoading, error } = useGetFeedData(currentDate);
+
+  // 에러 처리
+  if (error) {
+    handleError(error);
+    return <div>Error loading feed data</div>;
+  }
 
   return (
     <main>
@@ -62,9 +36,24 @@ const CalendarDetailPage = () => {
         기록을 알아보세요
       </h1>
       <section className="flex h-[calc(100%-18.8rem)] flex-col gap-[1.5rem] overflow-auto rounded-t-[3rem] bg-gray-100 bg-[linear-gradient(to_right,_transparent,_transparent_50%,_#E2E2E2_50%,_#E2E2E2_50.3%,_transparent_50.3%)] bg-[length:100%_1px] bg-center p-[1.5rem] shadow-feed scrollbar-hide">
-        <EmotionBox emotion={emotionData} />
-        <BoardBox board={boardData} />
-        <QuestionBox data={questionData} />
+        {isLoading ? (
+          <>로딩 중...</>
+        ) : (
+          <>
+            {sortFeedData(data as FeedResponseType).map((data, index) => {
+              switch (data.component) {
+                case "BoardBox":
+                  return <BoardBox key={index} board={data as BoardType} />;
+                case "EmotionBox":
+                  return <EmotionBox key={index} emotion={data as EmotionType} />;
+                case "QuestionBox":
+                  return <QuestionBox key={index} data={data as QuestionType} />;
+                default:
+                  return null;
+              }
+            })}
+          </>
+        )}
       </section>
     </main>
   );
