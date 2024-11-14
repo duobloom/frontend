@@ -19,8 +19,7 @@ const MainFeed = ({ nowData }: { nowData: string }) => {
   }
 
   return (
-    <section className="relative z-0 mt-[1.5rem] flex h-[calc(100%-24.8rem)] flex-col gap-[1.5rem] overflow-auto rounded-t-[3rem] bg-gray-100 p-[1.5rem] shadow-feed scrollbar-hide">
-      <div className="absolute left-1/2 top-0 z-[-1] h-full w-[.1rem] bg-gray-300" />
+    <section className="relative z-0 mt-[1.5rem] flex h-[calc(100%-24.8rem)] flex-col gap-[1.5rem] overflow-auto rounded-t-[3rem] bg-gray-100 bg-[linear-gradient(to_right,_transparent,_transparent_50%,_#E2E2E2_50%,_#E2E2E2_50.3%,_transparent_50.3%)] bg-[length:100%_1px] bg-center p-[1.5rem] shadow-feed scrollbar-hide">
       {isLoading ? (
         <>로딩 중...</>
       ) : (
