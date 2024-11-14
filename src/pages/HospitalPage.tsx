@@ -7,10 +7,9 @@ import { Button, InfoBox, OptionBoxes, ScrollableOptions } from "@/components/co
 import { IconMap } from "@/assets/icon";
 import { useNavigate } from "react-router-dom";
 import { GetRegionName, RegionSelecter } from "@/components/hospital";
-import { getFilterHospital } from "@/apis";
-import { useQuery } from "@tanstack/react-query";
 import useDraggable from "@/hooks/useDraggable";
 import { cn } from "@/utils";
+import { useGetFilterHospital } from "@/hooks/useGetFilterHospital";
 
 const HospitalPage = () => {
   const navigate = useNavigate();
@@ -28,27 +27,24 @@ const HospitalPage = () => {
   const middleCode = selectedGun === 0 ? null : selectedGun;
   const detailCode = selectedNeighborhood === 0 ? null : selectedNeighborhood;
   const selectedDepartmentName = medicalDepartment.find((department) => department.id === selectedDepartment)?.name;
-  const selectedDepartmentType = medicalDepartment.find((department) => department.id === selectedDepartment)?.type;
+  const selectedDepartmentType: string | null =
+    medicalDepartment.find((department) => department.id === selectedDepartment)?.type || null;
   const selectedOptionName = medicalOptions.find((option) => option.id === selectedOption)?.name;
-  const optionKeyword = selectedOptionName === "전체" ? null : selectedOptionName;
+  const optionKeyword: string | null = selectedOptionName === "전체" ? null : selectedOptionName || null;
 
-  const {
-    data: hospitalData,
-    isError,
-    error,
-    refetch: refetchHospital,
-  } = useQuery({
-    queryKey: ["hospitalData", regionCode, middleCode, detailCode, optionKeyword, selectedDepartmentType],
-    queryFn: () => getFilterHospital(regionCode, middleCode, detailCode, optionKeyword, selectedDepartmentType),
-  });
+  const { data: hospitalData, refetch: refetchHospital } = useGetFilterHospital(
+    regionCode,
+    middleCode,
+    detailCode,
+    optionKeyword,
+    selectedDepartmentType,
+  );
 
   const applyFilters = () => {
     refetchHospital().finally(() => {
       setActiveDrawer(null);
     });
   };
-
-  if (isError) return <div>{error?.message || "에러가 발생했습니다."}</div>;
 
   return (
     <div className="flex w-full flex-col">

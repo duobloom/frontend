@@ -16,8 +16,6 @@ export const getFilterHospital = async (
     ...(department ? { type: department } : {}),
   };
 
-  const response = await axios.get<HospitalListType[]>("/api/hospitals/search", { params });
-  console.log(params);
-  console.log(response.data);
-  return response.data;
+  const response = await axios.get<HospitalListType[]>("/api/hospitals/filter", { params });
+  return response;
 };
