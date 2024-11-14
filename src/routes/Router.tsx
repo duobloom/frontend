@@ -125,6 +125,20 @@ const router = createBrowserRouter([
           return { Component: LoginPage };
         },
       },
+      {
+        path: "/search",
+        async lazy() {
+          const { default: SearchPage } = await import("@/pages/SearchPage");
+          return { Component: SearchPage };
+        },
+      },
+      {
+        path: "/alarm",
+        async lazy() {
+          const { default: AlarmPage } = await import("@/pages/AlarmPage");
+          return { Component: AlarmPage };
+        },
+      },
     ],
   },
 ]);
