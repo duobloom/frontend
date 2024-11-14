@@ -15,10 +15,9 @@ import {
   KakaoMap,
 } from "@/components/hospital";
 import image from "@/assets/image/test.png";
-import { useQuery } from "@tanstack/react-query";
-import { getHospitaInfo } from "@/apis";
 import { useLocation } from "react-router-dom";
 import { medicalDepartment } from "@/constants";
+import { useGetHospitalInfo } from "@/hooks/useGetHospitalInfo";
 
 const HospitalInfoPage = () => {
   const location = useLocation();
@@ -32,17 +31,8 @@ const HospitalInfoPage = () => {
   const medicSectionRef = useRef<HTMLDivElement>(null);
   const directionSectionRef = useRef<HTMLDivElement>(null);
 
-  const {
-    data: hospitalData,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["hospitalData", hospitalId],
-    queryFn: () => getHospitaInfo(hospitalId),
-    enabled: !!hospitalId,
-  });
+  const { data: hospitalData } = useGetHospitalInfo(hospitalId);
 
-  if (isError) return <div>{error?.message || "에러가 발생했습니다."}</div>;
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
