@@ -11,7 +11,7 @@ export const HospitalSchema = z.object({
   region: z.string().nullable(), // 상위 지역 코드
   middle: z.string().nullable(), // 시/군 단위 코드
   detail: z.string().nullable(), // 구/읍/면 단위 코드
-  type: z.string(), // 병원 종류
+  type: z.string().nullable(), // 병원 종류
   address: z.string().nullable(), // 병원 주소
   phone: z.string().nullable(), // 병원 전화번호
   time: z.string().nullable(), // 진료시간
@@ -30,7 +30,7 @@ export const HospitalListSchema = z.object({
   region: z.string().nullable(), // 상위 지역 코드
   middle: z.string().nullable(), // 시/군 단위 코드
   detail: z.string().nullable(), // 구/읍/면 단위 코드
-  type: z.string(), // 병원 종류
+  type: z.string().nullable(), // 병원 종류
   time: z.string().nullable(), // 진료시간
   latitude: z.number().nullable(), // 위도
   longitude: z.number().nullable(), // 경도
