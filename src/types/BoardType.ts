@@ -7,7 +7,6 @@ export const BoardSchema = BasePostSchema.extend({
 
 // Form 타입
 export const BoardPostFormSchema = z.object({
-  title: z.string().optional(),
   content: z.string().min(1, "내용을 입력해주세요"),
   photoUrls: z.array(
     z.object({

@@ -5,6 +5,12 @@ import { getPointTransaction } from "./mypage/getPointTransaction";
 import { getMyProfile } from "./mypage/getMyProfile";
 import { patchMyProfile } from "./mypage/patchMyProfile";
 import { getUserTotalPoint } from "./user/getUserTotalPoint";
+import { getBoardDetailData } from "./posts/getBoardDetailData";
+import { getCommunityDetailData } from "./posts/getCommunityDetailData";
+import { deletePostData } from "./posts/deletePostData";
+import { putBoardUpdate } from "./posts/putBoardUpdate";
+import { postComment } from "./posts/postComment";
+import { deleteComment } from "./posts/deleteComment";
 
 export {
   getFilterHospital,
@@ -14,4 +20,10 @@ export {
   getPointTransaction,
   getMyProfile,
   patchMyProfile,
+  getBoardDetailData,
+  getCommunityDetailData,
+  deletePostData,
+  putBoardUpdate,
+  postComment,
+  deleteComment,
 };

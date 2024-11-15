@@ -15,3 +15,4 @@ export const BasePostSchema = z.object({
 });
 
 export type BasePostType = z.infer<typeof BasePostSchema>;
+export type PostBoxType = Omit<z.infer<typeof BasePostSchema>, "comments">;

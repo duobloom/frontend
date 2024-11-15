@@ -1,13 +1,18 @@
-import Author from "../ui/Author";
-import IconDotHorizontal from "../ui/IconDotHorizontal";
-import { Drawer, DrawerContent, DrawerTrigger } from "../common/Drawer";
+import Author from "@/components/ui/Author";
+import IconDotHorizontal from "@/components/ui/IconDotHorizontal";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/common/Drawer";
+import { formatDateConvert } from "@/utils";
 import { CommentType } from "@/types/CommentType";
+import { useDeleteComment } from "@/hooks/useDeleteComment";
 
 type TCommentBoxProps = {
   commentData: CommentType[];
+  type: "board" | "community";
 };
 
-const CommentBox = ({ commentData }: TCommentBoxProps) => {
+const CommentBox = ({ commentData, type }: TCommentBoxProps) => {
+  const deleteComment = useDeleteComment();
+
   // 댓글 수정
   const handleCommentEdit = (id: number) => {
     console.log(id);
@@ -15,7 +20,7 @@ const CommentBox = ({ commentData }: TCommentBoxProps) => {
 
   // 댓글 삭제
   const handleCommentDelete = (id: number) => {
-    console.log(id);
+    deleteComment.mutate({ type, id });
   };
 
   return (
@@ -23,13 +28,14 @@ const CommentBox = ({ commentData }: TCommentBoxProps) => {
       <div className="mb-[1.5rem] mt-[2rem] h-[.6rem] w-full bg-gray-100" />
       <article className={`flex flex-col gap-[2rem] px-[1.5rem]`}>
         {commentData.map((comment) => (
-          <div key={comment.comment_id} className="flex flex-col gap-[.5rem]">
+          <div key={comment.id} className="flex flex-col gap-[.5rem]">
             <div className="flex items-center justify-between">
               <Author
                 variant="community"
-                profileImg={comment.author.profileImage}
-                name={comment.author.name}
-                createdAt={comment.createdAt}
+                profileImg={comment.profilePictureUrl}
+                name={comment.nickname}
+                createdAt={formatDateConvert(comment.createdAt)}
+                isMe={comment.mine}
               />
               <Drawer>
                 <DrawerTrigger asChild>
@@ -37,8 +43,8 @@ const CommentBox = ({ commentData }: TCommentBoxProps) => {
                 </DrawerTrigger>
                 <DrawerContent className="h-[23%]">
                   <div className="flex flex-col gap-[1.8rem] px-[9rem] py-[3.9rem] text-[1.6rem] font-extrabold leading-normal tracking-[-0.032rem]">
-                    <button onClick={() => handleCommentEdit(comment.comment_id)}>수정</button>
-                    <button onClick={() => handleCommentDelete(comment.comment_id)}>삭제</button>
+                    <button onClick={() => handleCommentEdit(comment.id)}>수정</button>
+                    <button onClick={() => handleCommentDelete(comment.id)}>삭제</button>
                   </div>
                 </DrawerContent>
               </Drawer>
