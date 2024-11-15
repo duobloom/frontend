@@ -9,6 +9,8 @@ import { getBoardDetailData } from "./posts/getBoardDetailData";
 import { getCommunityDetailData } from "./posts/getCommunityDetailData";
 import { deletePostData } from "./posts/deletePostData";
 import { putBoardUpdate } from "./posts/putBoardUpdate";
+import { postComment } from "./posts/postComment";
+import { deleteComment } from "./posts/deleteComment";
 
 export {
   getFilterHospital,
@@ -22,4 +24,6 @@ export {
   getCommunityDetailData,
   deletePostData,
   putBoardUpdate,
+  postComment,
+  deleteComment,
 };

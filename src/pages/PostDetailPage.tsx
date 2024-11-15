@@ -54,9 +54,9 @@ const PostDetailPage = () => {
           />
           <div className="h-[calc(100vh-138px)] overflow-y-auto scrollbar-hide">
             <PostDetailBox postData={postData as PostBoxType} variant={type} id={id} />
-            <CommentBox commentData={postData?.comments ?? []} />
+            <CommentBox commentData={postData?.comments ?? []} type={type} />
           </div>
-          <CommentInput />
+          <CommentInput id={id} />
         </>
       )}
     </main>
