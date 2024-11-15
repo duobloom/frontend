@@ -23,7 +23,10 @@ export const UserSchema = z.object({
 
 export const PatchUserSchema = z.object({
   nickname: z.string().max(12),
-  birth: z.string().optional(),
+  birth: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "생년월일은 YYYY-MM-DD 형식이어야 합니다.")
+    .optional(),
   profilePictureUrl: z.string().optional(),
   email: z.string().email("올바른 이메일 형식이 아닙니다"),
   region: z.string().nullable(),
