@@ -10,11 +10,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from "@/components/common/Drawer
 import { formatDateConvert } from "@/utils";
 import { BoardType } from "@/types";
 
-type BoardBoxProps = {
-  board: BoardType;
-};
-
-export default function BoardBox({ board }: BoardBoxProps) {
+export default function BoardBox({ board }: { board: BoardType }) {
   const [isTextDrawerOpen, setIsTextDrawerOpen] = useState(false);
 
   const [api, setApi] = useState<CarouselApi>();
@@ -47,6 +43,14 @@ export default function BoardBox({ board }: BoardBoxProps) {
     console.log(id);
   };
 
+  const initialData = {
+    content: board.content,
+    photoUrls: board.photoUrls.map((url) => ({
+      photo_url: url,
+      file: undefined,
+    })),
+  };
+
   return (
     <BoxContainer>
       <BoxHeader>
@@ -76,7 +80,7 @@ export default function BoardBox({ board }: BoardBoxProps) {
                       <PostForm
                         type="edit"
                         context="board"
-                        initialData={board}
+                        initialData={initialData}
                         onClose={() => setIsTextDrawerOpen(false)}
                       />
                     </DrawerContent>
@@ -123,7 +127,7 @@ export default function BoardBox({ board }: BoardBoxProps) {
       <BoxFooter className="ml-[4.8rem]">
         <LikeAndComments
           type="board"
-          id={board.boardId}
+          id={String(board.boardId)}
           likeCount={board.likeCount}
           commentCount={board.commentCount}
         />
