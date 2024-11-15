@@ -11,6 +11,7 @@ import { deletePostData } from "./posts/deletePostData";
 import { putBoardUpdate } from "./posts/putBoardUpdate";
 import { postComment } from "./posts/postComment";
 import { deleteComment } from "./posts/deleteComment";
+import { postEmotion } from "./main/postEmotion";
 
 export {
   getFilterHospital,
@@ -26,4 +27,5 @@ export {
   putBoardUpdate,
   postComment,
   deleteComment,
+  postEmotion,
 };
