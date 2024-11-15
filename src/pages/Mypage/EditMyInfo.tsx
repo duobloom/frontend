@@ -6,17 +6,28 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { getS3Url, postPresignedUrl, putS3Upload } from "@/apis/image/imageUpload";
 import { reduceImageSize } from "@/utils";
+import { ValidationError } from "@/utils/zodHelpers";
 
 const EditMyInfo = () => {
   const location = useLocation();
   const userInfo = location.state?.userInfo;
   const fileRef = React.useRef<HTMLInputElement>(null);
+
   const [profilePictureUrl, setProfilePictureUrl] = useState<string>(userInfo.profilePictureUrl);
   const [nickname, setNickname] = useState(userInfo.nickname);
   const [email, setEmail] = useState(userInfo.email);
   const [birth, setBirth] = useState(userInfo.birth);
   const [region, setRegion] = useState(userInfo.region);
-  const patchMutate = useUpdateProfile();
+
+  // 각 필드에 대한 에러 메시지 상태
+  const [fieldErrors, setFieldErrors] = useState({
+    nickname: "",
+    email: "",
+    birth: "",
+    region: "",
+  });
+
+  const { mutate: patchMutate } = useUpdateProfile();
 
   const handleImgEdit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -39,7 +50,22 @@ const EditMyInfo = () => {
   };
 
   const handleApply = () => {
-    patchMutate.mutate({ nickname, birth, profilePictureUrl, email, region });
+    patchMutate(
+      { nickname, birth, profilePictureUrl, email, region },
+      {
+        onError: (error) => {
+          if (error instanceof ValidationError) {
+            const newErrors = { nickname: "", email: "", birth: "", region: "" };
+            error.errors.forEach((err) => {
+              if (err.path[0] in newErrors) {
+                newErrors[err.path[0] as keyof typeof newErrors] = err.message;
+              }
+            });
+            setFieldErrors(newErrors); // 필드별 에러 메시지 설정
+          }
+        },
+      },
+    );
   };
 
   return (
@@ -65,6 +91,7 @@ const EditMyInfo = () => {
             value={nickname ?? ""}
             onChange={(e) => setNickname(e.target.value)}
             placeholder="닉네임"
+            error={fieldErrors.nickname} // 닉네임 에러 메시지 전달
           />
           <h1 className="mt-[1rem] text-[1.5rem] font-bold">이메일</h1>
           <EditInput
@@ -72,6 +99,7 @@ const EditMyInfo = () => {
             value={email ?? ""}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="이메일"
+            error={fieldErrors.email} // 이메일 에러 메시지 전달
           />
           <h1 className="mt-[1rem] text-[1.5rem] font-bold">생년월일</h1>
           <EditInput
@@ -79,6 +107,7 @@ const EditMyInfo = () => {
             value={birth ?? ""}
             onChange={(e) => setBirth(e.target.value)}
             placeholder="YYYY-MM-DD"
+            error={fieldErrors.birth} // 생년월일 에러 메시지 전달
           />
           <h1 className="mt-[1rem] text-[1.5rem] font-bold">거주 지역</h1>
           <EditInput
@@ -86,6 +115,7 @@ const EditMyInfo = () => {
             value={region ?? ""}
             onChange={(e) => setRegion(e.target.value)}
             placeholder="서울시 강남구"
+            error={fieldErrors.region} // 지역 에러 메시지 전달
           />
         </section>
       </div>
