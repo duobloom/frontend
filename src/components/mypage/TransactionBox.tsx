@@ -47,7 +47,7 @@ const TransactionBox = ({ transactions }: TransactionProps) => {
           {groupedTransactions[dateKey].map((transaction) => (
             <div
               key={transaction.transactionId}
-              className="mb-[1rem] flex w-full items-center justify-between rounded-[1rem] border border-gray-300 bg-gray-50 px-[1.5rem] py-[1rem]"
+              className="mb-[1rem] flex w-full items-center justify-between rounded-[1rem] border border-gray-300 bg-gray-50 px-[1.5rem] py-[1.3rem]"
             >
               <span className="text-[1.4rem] font-bold">{formatTime(transaction.createdAt)}</span>
               <span className="text-[1.4rem] font-medium">{transaction.amount}P</span>
