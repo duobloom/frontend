@@ -1,15 +1,10 @@
-import { getMyProfile } from "@/apis";
 import Header from "@/components/layout/Header";
 import { NavigateBox, PointContainer, AlarmBox } from "@/components/mypage";
-import { useQuery } from "@tanstack/react-query";
+import { useGetMyProfile } from "@/hooks/useGetMyProfile";
 import React from "react";
 
 const MyPage: React.FC = () => {
-  const { data: userInfo, isError } = useQuery({
-    queryKey: ["TransactionData"],
-    queryFn: () => getMyProfile(),
-  });
-
+  const { data: userInfo, isError } = useGetMyProfile();
   if (isError) console.error("에러가 발생했습니다.");
 
   return (
