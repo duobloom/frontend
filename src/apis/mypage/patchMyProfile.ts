@@ -15,8 +15,6 @@ export const patchMyProfile = async ({
     Object.entries({ nickname, birth, profilePictureUrl, region }).filter(([, value]) => value !== null),
   );
 
-  console.log(payload);
   const response = await axios.patch("/api/users/profile", payload);
-  console.log(response.data);
-  return response.data;
+  return response;
 };
