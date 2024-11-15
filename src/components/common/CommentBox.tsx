@@ -1,13 +1,18 @@
-import Author from "../ui/Author";
-import IconDotHorizontal from "../ui/IconDotHorizontal";
-import { Drawer, DrawerContent, DrawerTrigger } from "../common/Drawer";
+import Author from "@/components/ui/Author";
+import IconDotHorizontal from "@/components/ui/IconDotHorizontal";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/common/Drawer";
+import { formatDateConvert } from "@/utils";
 import { CommentType } from "@/types/CommentType";
+import { useDeleteComment } from "@/hooks/useDeleteComment";
 
 type TCommentBoxProps = {
   commentData: CommentType[];
+  type: "board" | "community";
 };
 
-const CommentBox = ({ commentData }: TCommentBoxProps) => {
+const CommentBox = ({ commentData, type }: TCommentBoxProps) => {
+  const deleteComment = useDeleteComment();
+
   // 댓글 수정
   const handleCommentEdit = (id: number) => {
     console.log(id);
@@ -15,7 +20,7 @@ const CommentBox = ({ commentData }: TCommentBoxProps) => {
 
   // 댓글 삭제
   const handleCommentDelete = (id: number) => {
-    console.log(id);
+    deleteComment.mutate({ type, id });
   };
 
   return (
@@ -29,7 +34,8 @@ const CommentBox = ({ commentData }: TCommentBoxProps) => {
                 variant="community"
                 profileImg={comment.profilePictureUrl}
                 name={comment.nickname}
-                createdAt={comment.createdAt}
+                createdAt={formatDateConvert(comment.createdAt)}
+                isMe={comment.mine}
               />
               <Drawer>
                 <DrawerTrigger asChild>
