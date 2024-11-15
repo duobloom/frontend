@@ -16,7 +16,17 @@ import {
 import { postQuestion, RequestBodyType } from "@/apis/main/postQuestion";
 import { IconClose } from "@/assets/icon";
 
-const MainQuestionForm = ({ qId, qTitle, onClose }: { qId: number; qTitle: string; onClose: () => void }) => {
+const MainQuestionForm = ({
+  qId,
+  qTitle,
+  isToday,
+  onClose,
+}: {
+  qId: number;
+  qTitle: string;
+  isToday: boolean;
+  onClose: () => void;
+}) => {
   const textRef = useRef<HTMLTextAreaElement>(null);
   const [isFormValid, setIsFormValid] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -58,7 +68,7 @@ const MainQuestionForm = ({ qId, qTitle, onClose }: { qId: number; qTitle: strin
 
   // 제출
   const handleSubmit = () => {
-    if (textRef.current) {
+    if (textRef.current && isToday) {
       const body = {
         questionId: qId,
         content: textRef.current.value,

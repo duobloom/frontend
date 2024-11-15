@@ -4,12 +4,13 @@ import Author from "@/components/ui/Author";
 import { Button } from "@/components/common/Button";
 import { Drawer, DrawerTrigger, DrawerContent } from "./Drawer";
 import { MainQuestionForm } from "@/components/main";
-import { cn, formatDateConvert } from "@/utils";
+import { cn, formatDateConvert, generateDates } from "@/utils";
 import { QuestionType } from "@/types";
 
 // Props 타입 정의
 type TQuestionBoxProps = {
   data: QuestionType;
+  currentDate: string | null;
 };
 
 //답변 박스 컨테이너 컴포넌트
@@ -35,7 +36,8 @@ const QuestionBoxTitle = React.forwardRef<HTMLDivElement, React.HTMLAttributes<H
 );
 QuestionBoxTitle.displayName = "QuestionBoxTitle";
 
-const QuestionBox = ({ data }: TQuestionBoxProps) => {
+const QuestionBox = ({ data, currentDate }: TQuestionBoxProps) => {
+  const { nowData } = generateDates();
   const [isQuestionDrawerOpen, setIsQuestionDrawerOpen] = React.useState(false);
 
   const answers = data.answers;
@@ -44,6 +46,8 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
   const hasTwoAnswers = answers.length === 2;
   const isMyAnswer = hasOneAnswer && answers[0].mine; // 본인 작성 여부
   const isPartnerAnswer = hasOneAnswer && !answers[0].mine; // 상대방 작성 여부
+
+  const isToday = !currentDate || currentDate === nowData;
 
   return (
     <BoxContainer>
@@ -54,7 +58,7 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
               질문
             </Button>
 
-            {(hasNoAnswers || isPartnerAnswer) && (
+            {isToday && (hasNoAnswers || isPartnerAnswer) && (
               <Drawer dismissible={false} open={isQuestionDrawerOpen} onOpenChange={setIsQuestionDrawerOpen}>
                 <DrawerTrigger asChild>
                   <Button variant="oval" size="sm">
@@ -65,6 +69,7 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
                   <MainQuestionForm
                     qId={data.questionId}
                     qTitle={data.content}
+                    isToday={isToday}
                     onClose={() => setIsQuestionDrawerOpen(false)}
                   />
                 </DrawerContent>
@@ -74,7 +79,7 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
 
           <QuestionBoxTitle className="my-[.7rem]">{data.content}</QuestionBoxTitle>
 
-          {hasNoAnswers && (
+          {isToday && hasNoAnswers && (
             <AnswerBoxContainer className="flex items-center justify-center text-[1.2rem]">
               <BoxContent className="text-[1.2rem]">질문에 답변해 주세요</BoxContent>
             </AnswerBoxContainer>
@@ -95,12 +100,14 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
                 <BoxFooter />
                 <p className="text-end text-[1.4rem] text-red">5포인트 획득</p>
               </AnswerBoxContainer>
-              <AnswerBoxContainer className="flex items-center justify-center text-[1.2rem]">
-                <BoxContent className="text-center text-[1.2rem]">
-                  아직 동반자가 질문에 대해
-                  <br /> 답변을 하지 않았습니다
-                </BoxContent>
-              </AnswerBoxContainer>
+              {isToday && (
+                <AnswerBoxContainer className="flex items-center justify-center text-[1.2rem]">
+                  <BoxContent className="text-center text-[1.2rem]">
+                    아직 동반자가 질문에 대해
+                    <br /> 답변을 하지 않았습니다
+                  </BoxContent>
+                </AnswerBoxContainer>
+              )}
             </>
           )}
 
@@ -119,9 +126,11 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
                 <BoxFooter />
                 <p className="text-end text-[1.4rem] text-red">5포인트 획득</p>
               </AnswerBoxContainer>
-              <AnswerBoxContainer className="flex items-center justify-center text-[1.2rem]">
-                <BoxContent className="text-[1.2rem]">질문에 답변해 주세요</BoxContent>
-              </AnswerBoxContainer>
+              {isToday && (
+                <AnswerBoxContainer className="flex items-center justify-center text-[1.2rem]">
+                  <BoxContent className="text-[1.2rem]">질문에 답변해 주세요</BoxContent>
+                </AnswerBoxContainer>
+              )}
             </>
           )}
 
