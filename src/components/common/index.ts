@@ -14,6 +14,7 @@ import CommentInput from "./CommentInput";
 import FilterButton from "./FilterButton";
 import PostForm from "./PostForm";
 import { QuestionBox } from "./QuestionBox";
+import PostHeader from "./PostHeader";
 
 export {
   Button,
@@ -33,4 +34,5 @@ export {
   CommentInput,
   FilterButton,
   PostForm,
+  PostHeader,
 };
