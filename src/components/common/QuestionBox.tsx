@@ -35,15 +35,15 @@ const QuestionBoxTitle = React.forwardRef<HTMLDivElement, React.HTMLAttributes<H
 );
 QuestionBoxTitle.displayName = "QuestionBoxTitle";
 
-// QuestionBox 컴포넌트
 const QuestionBox = ({ data }: TQuestionBoxProps) => {
   const [isQuestionDrawerOpen, setIsQuestionDrawerOpen] = React.useState(false);
 
-  const answers = data.answers; // 답변 배열 가져오기
-
+  const answers = data.answers;
   const hasNoAnswers = answers.length === 0;
   const hasOneAnswer = answers.length === 1;
-  const hasTwoAnswers = answers.length >= 2;
+  const hasTwoAnswers = answers.length === 2;
+  const isMyAnswer = hasOneAnswer && answers[0].mine; // 본인 작성 여부
+  const isPartnerAnswer = hasOneAnswer && !answers[0].mine; // 상대방 작성 여부
 
   return (
     <BoxContainer>
@@ -53,19 +53,25 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
             <Button variant="oval" size="sm" className="border-blue-100 bg-blue-100 text-blue">
               질문
             </Button>
-            {hasNoAnswers && (
-              <Drawer open={isQuestionDrawerOpen} onOpenChange={setIsQuestionDrawerOpen}>
+
+            {(hasNoAnswers || isPartnerAnswer) && (
+              <Drawer dismissible={false} open={isQuestionDrawerOpen} onOpenChange={setIsQuestionDrawerOpen}>
                 <DrawerTrigger asChild>
                   <Button variant="oval" size="sm">
                     답변하기
                   </Button>
                 </DrawerTrigger>
                 <DrawerContent>
-                  <MainQuestionForm qTitle={data.content} onClose={() => setIsQuestionDrawerOpen(false)} />
+                  <MainQuestionForm
+                    qId={data.questionId}
+                    qTitle={data.content}
+                    onClose={() => setIsQuestionDrawerOpen(false)}
+                  />
                 </DrawerContent>
               </Drawer>
             )}
           </div>
+
           <QuestionBoxTitle className="my-[.7rem]">{data.content}</QuestionBoxTitle>
 
           {hasNoAnswers && (
@@ -74,16 +80,16 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
             </AnswerBoxContainer>
           )}
 
-          {hasOneAnswer && (
+          {isMyAnswer && (
             <>
               <AnswerBoxContainer>
                 <BoxHeader>
                   <Author
-                    profileImg={answers[0].profilePictureUrl}
+                    profileImg={answers[0].profilePictureUrl as string}
                     name={answers[0].nickname}
                     createdAt={formatDateConvert(answers[0].updatedAt)}
                     isMe={answers[0].mine}
-                  ></Author>
+                  />
                 </BoxHeader>
                 <BoxContent>{answers[0].content}</BoxContent>
                 <BoxFooter />
@@ -91,8 +97,30 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
               </AnswerBoxContainer>
               <AnswerBoxContainer className="flex items-center justify-center text-[1.2rem]">
                 <BoxContent className="text-center text-[1.2rem]">
-                  아직 동반자가 질문에 대해<br></br> 답변을 하지 않았습니다
+                  아직 동반자가 질문에 대해
+                  <br /> 답변을 하지 않았습니다
                 </BoxContent>
+              </AnswerBoxContainer>
+            </>
+          )}
+
+          {isPartnerAnswer && (
+            <>
+              <AnswerBoxContainer>
+                <BoxHeader>
+                  <Author
+                    profileImg={answers[0].profilePictureUrl as string}
+                    name={answers[0].nickname}
+                    createdAt={formatDateConvert(answers[0].updatedAt)}
+                    isMe={answers[0].mine}
+                  />
+                </BoxHeader>
+                <BoxContent>{answers[0].content}</BoxContent>
+                <BoxFooter />
+                <p className="text-end text-[1.4rem] text-red">5포인트 획득</p>
+              </AnswerBoxContainer>
+              <AnswerBoxContainer className="flex items-center justify-center text-[1.2rem]">
+                <BoxContent className="text-[1.2rem]">질문에 답변해 주세요</BoxContent>
               </AnswerBoxContainer>
             </>
           )}
@@ -103,11 +131,11 @@ const QuestionBox = ({ data }: TQuestionBoxProps) => {
                 <div className="mt-[1rem] flex gap-[.7rem]">
                   <BoxHeader>
                     <Author
-                      profileImg={answer.profilePictureUrl}
+                      profileImg={answer.profilePictureUrl as string}
                       name={answer.nickname}
                       createdAt={formatDateConvert(answer.updatedAt)}
                       isMe={answer.mine}
-                    ></Author>
+                    />
                   </BoxHeader>
                 </div>
                 <BoxContent>{answer.content}</BoxContent>
