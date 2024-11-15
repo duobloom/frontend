@@ -27,7 +27,7 @@ const formatTime = (dateString: string) => {
 const groupByDate = (transactions: PointType[]) => {
   return transactions.reduce(
     (acc, transaction) => {
-      const dateKey = new Date(transaction.created_at).toDateString(); // 그룹화 키로 날짜만 사용
+      const dateKey = new Date(transaction.createdAt).toDateString(); // 그룹화 키로 날짜만 사용
       if (!acc[dateKey]) acc[dateKey] = [];
       acc[dateKey].push(transaction);
       return acc;
@@ -46,10 +46,10 @@ const TransactionBox = ({ transactions }: TransactionProps) => {
           <h1 className="mb-[1.5rem] mt-[1.5rem] text-[1.5rem] font-bold">{formatDate(dateKey)}</h1>
           {groupedTransactions[dateKey].map((transaction) => (
             <div
-              key={transaction.transaction_id}
-              className="mb-[1rem] flex w-full items-center justify-between rounded-[1rem] border border-gray-300 bg-gray-50 px-[1.5rem] py-[1rem]"
+              key={transaction.transactionId}
+              className="mb-[1rem] flex w-full items-center justify-between rounded-[1rem] border border-gray-300 bg-gray-50 px-[1.5rem] py-[1.3rem]"
             >
-              <span className="text-[1.4rem] font-bold">{formatTime(transaction.created_at)}</span>
+              <span className="text-[1.4rem] font-bold">{formatTime(transaction.createdAt)}</span>
               <span className="text-[1.4rem] font-medium">{transaction.amount}P</span>
             </div>
           ))}
