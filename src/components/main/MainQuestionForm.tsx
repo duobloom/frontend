@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { DrawerTitle } from "../common/Drawer";
-import { Button } from "../common";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AxiosError, AxiosResponse } from "axios";
+import { DrawerTitle } from "@/components/common/Drawer";
+import { Button } from "@/components/common";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,13 +12,25 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "../common/AlertDialog";
+} from "@/components/common/AlertDialog";
+import { postQuestion, RequestBodyType } from "@/apis/main/postQuestion";
 import { IconClose } from "@/assets/icon";
 
-const MainQuestionForm = ({ qTitle, onClose }: { qTitle: string; onClose: () => void }) => {
+const MainQuestionForm = ({
+  qId,
+  qTitle,
+  isToday,
+  onClose,
+}: {
+  qId: number;
+  qTitle: string;
+  isToday: boolean;
+  onClose: () => void;
+}) => {
   const textRef = useRef<HTMLTextAreaElement>(null);
   const [isFormValid, setIsFormValid] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (textRef.current) {
@@ -29,6 +43,22 @@ const MainQuestionForm = ({ qTitle, onClose }: { qTitle: string; onClose: () => 
     };
   }, []);
 
+  const mutation = useMutation<AxiosResponse, AxiosError, RequestBodyType>({
+    mutationFn: async (body) => await postQuestion(body),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["feed"],
+      });
+    },
+    onError: (error) => {
+      if (error.response?.status === 401) {
+        console.error("로그인이 필요합니다.");
+      } else {
+        console.error("업로드 중 오류가 발생했습니다:", error.message);
+      }
+    },
+  });
+
   // 완료 버튼 활성화
   const updateFormValidity = () => {
     if (textRef.current) {
@@ -38,8 +68,12 @@ const MainQuestionForm = ({ qTitle, onClose }: { qTitle: string; onClose: () => 
 
   // 제출
   const handleSubmit = () => {
-    if (textRef.current) {
-      console.log(textRef.current.value);
+    if (textRef.current && isToday) {
+      const body = {
+        questionId: qId,
+        content: textRef.current.value,
+      };
+      mutation.mutate(body);
     }
     onClose();
   };

@@ -1,19 +1,17 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
 import { postBoardWrite } from "@/apis/main/postBoardWriteAPI";
 import { BoardRequestType } from "@/types";
 
 export const usePostBoardWrite = () => {
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
   return useMutation<AxiosResponse<string>, AxiosError, BoardRequestType>({
     mutationFn: async (boardForm) => await postBoardWrite(boardForm),
-    onSuccess: (response) => {
-      console.log(response.data);
-      // 캐시 초기화
-      // queryClient.invalidateQueries({
-      //   queryKey: ["feed"],
-      // });
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["feed"],
+      });
     },
     onError: (error) => {
       if (error.response?.status === 401) {
