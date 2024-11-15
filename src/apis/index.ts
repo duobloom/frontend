@@ -7,6 +7,8 @@ import { patchMyProfile } from "./mypage/patchMyProfile";
 import { getUserTotalPoint } from "./user/getUserTotalPoint";
 import { getBoardDetailData } from "./posts/getBoardDetailData";
 import { getCommunityDetailData } from "./posts/getCommunityDetailData";
+import { deletePostData } from "./posts/deletePostData";
+import { putBoardUpdate } from "./posts/putBoardUpdate";
 
 export {
   getFilterHospital,
@@ -18,4 +20,6 @@ export {
   patchMyProfile,
   getBoardDetailData,
   getCommunityDetailData,
+  deletePostData,
+  putBoardUpdate,
 };
