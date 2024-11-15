@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
-import Author from "../ui/Author";
-import LikeAndComments from "../ui/LikeAndComments";
+import Author from "@/components/ui/Author";
+import LikeAndComments from "@/components/ui/LikeAndComments";
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/components/ui/Carousel";
-import { BoardType, CommunityType } from "@/types";
+import { formatDateConvert } from "@/utils";
+import { PostBoxType } from "@/types/BasePostType";
 
-type TPostDetailBoxProps = (BoardType | CommunityType) & { variant: string };
+type TPostDetailBoxProps = {
+  postData: PostBoxType;
+  variant: string;
+  id: string;
+};
 
-const PostDetailBox = (props: TPostDetailBoxProps) => {
-  const { author, content, photoUrls, createdAt, likes, comments } = props;
+const PostDetailBox = ({ postData, variant, id }: TPostDetailBoxProps) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
-
-  const id = props.variant === "board" ? (props as BoardType).boardId : (props as CommunityType).community_id;
 
   useEffect(() => {
     if (!api) return;
@@ -29,14 +31,22 @@ const PostDetailBox = (props: TPostDetailBoxProps) => {
     <section className="flex flex-col gap-[2rem] px-[1.5rem]">
       <article className="flex flex-col gap-[2rem]">
         <div>
-          <Author variant="board" profileImg={author.profileImage} name={author.name} createdAt={createdAt} />
+          <Author
+            variant={variant === "board" ? "board" : "community"}
+            profileImg={postData.authorProfilePictureUrl}
+            name={postData.authorNickname}
+            createdAt={formatDateConvert(postData.updatedAt)}
+            isMe={postData.mine}
+          />
         </div>
-        <div className="text-[1.3rem] font-medium leading-[1.8rem] tracking-[-0.026rem] text-black">{content}</div>
-        {photoUrls && photoUrls.length > 0 && (
+        <div className="text-[1.3rem] font-medium leading-[1.8rem] tracking-[-0.026rem] text-black">
+          {postData.content}
+        </div>
+        {postData.photoUrls && postData.photoUrls.length > 0 && (
           <div className="relative">
             <Carousel setApi={setApi} className="w-full">
               <CarouselContent>
-                {photoUrls.map((image, index) => (
+                {postData.photoUrls.map((image, index) => (
                   <CarouselItem key={index}>
                     <div className="relative aspect-square w-full overflow-hidden rounded-[1rem] border border-gray-300">
                       <img src={image} alt="이미지" className="h-full w-full object-cover" />
@@ -45,7 +55,7 @@ const PostDetailBox = (props: TPostDetailBoxProps) => {
                 ))}
               </CarouselContent>
             </Carousel>
-            {photoUrls.length > 1 && (
+            {postData.photoUrls.length > 1 && (
               <div className="absolute right-[1.5rem] top-[1.5rem] flex h-[2.4rem] w-auto min-w-[3.5rem] items-center justify-center rounded-[10rem] bg-black bg-opacity-80 px-[.7rem] py-[.5rem] text-[1rem] font-bold leading-normal tracking-[2px] text-white">
                 {current}/{count}
               </div>
@@ -54,7 +64,7 @@ const PostDetailBox = (props: TPostDetailBoxProps) => {
         )}
       </article>
       <hr className="my-0" />
-      <LikeAndComments type="board" id={id} likes={likes} comments={comments} />
+      <LikeAndComments type="detail" id={id} likeCount={postData.likeCount} commentCount={postData.commentCount} />
     </section>
   );
 };

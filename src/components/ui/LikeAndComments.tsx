@@ -5,7 +5,7 @@ import { IconComments, IconHeart } from "@/assets/icon";
 
 type TLikeAndComments = {
   type: "community" | "board" | "detail";
-  id: number;
+  id: string;
   likeCount: number;
   commentCount: number;
 };
@@ -32,14 +32,14 @@ const LikeAndComments = ({ type, id, likeCount, commentCount }: TLikeAndComments
     <div className="flex gap-[1.6rem]">
       <div className="flex cursor-pointer items-center gap-[0.4rem] text-gray-500" onClick={handleLikeClick}>
         <IconHeart className={`${isLiked ? "stroke-red" : "stroke-gray-500"}`} />
-        <span className="text-[1.4rem]">{String(likeCountNum)}</span>
+        <span className="text-[1.4rem]">{likeCountNum}</span>
       </div>
       <div
         className={cn(`flex items-center gap-[0.4rem] text-gray-500`, type === "detail" || "cursor-pointer")}
         onClick={moveLink}
       >
         <IconComments />
-        <span className="text-[1.4rem]">{String(commentCount)}</span>
+        <span className="text-[1.4rem]">{commentCount}</span>
       </div>
     </div>
   );

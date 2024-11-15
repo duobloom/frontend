@@ -22,7 +22,7 @@ import { BoardType, CommunityType } from "@/types";
 type TPostHeaderProps = {
   postData: BoardType | CommunityType;
   variant: "board" | "community";
-  id: number;
+  id: string;
 };
 
 const PostHeader = ({ postData, variant, id }: TPostHeaderProps) => {
@@ -48,19 +48,19 @@ const PostHeader = ({ postData, variant, id }: TPostHeaderProps) => {
       : boardInitialData;
 
   // 글 저장
-  const handleBoardSave = (id: number) => {
+  const handleBoardSave = (id: string) => {
     console.log(id);
   };
 
   // 글 수정
-  const handleBoardEdit = (id: number) => {
+  const handleBoardEdit = (id: string) => {
     console.log(id);
     setIsMenuDrawerOpen(false); // 메뉴 드로어 닫기
     setIsEditDrawerOpen(true); // 수정 드로어 열기
   };
 
   // 글 삭제
-  const handleBoardDelete = (id: number) => {
+  const handleBoardDelete = (id: string) => {
     console.log(id);
   };
 
