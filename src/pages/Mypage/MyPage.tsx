@@ -29,11 +29,7 @@ const MyPage: React.FC = () => {
             </div>
           </div>
         </section>
-        <PointContainer
-          userPoint={userInfo?.balance ?? 0}
-          partnerPoint={userInfo?.coupleBalance ?? 0}
-          userId={userInfo?.userId}
-        />
+        <PointContainer userPoint={userInfo?.balance ?? 0} partnerPoint={userInfo?.coupleBalance ?? 0} />
       </div>
       <section className="mt-[2rem] w-full flex-1 rounded-t-[3rem] bg-gray-100 px-[1.5rem] py-[2rem]">
         <p className="ml-[1rem] text-[1.3rem] text-gray-400">내 정보 관리</p>
