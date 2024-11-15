@@ -19,6 +19,7 @@ import {
 
 import { getS3Url, postPresignedUrl, putS3Upload } from "@/apis/image/imageUpload";
 import { usePostBoardWrite } from "@/hooks/usePostBoardWrite";
+import { usePutBoardUpdate } from "@/hooks/usePutBoardUpdate";
 
 import { CategoryType, CommunityPostFormSchema, CommunityPostFormType } from "@/types/CommunityType";
 import { BoardPostFormSchema, BoardPostFormType } from "@/types/BoardType";
@@ -26,14 +27,16 @@ import { BoardPostFormSchema, BoardPostFormType } from "@/types/BoardType";
 import { IconClose } from "@/assets/icon";
 
 type TPostFormProps = {
+  id?: number;
   type: "add" | "edit";
   context: "board" | "community";
   initialData?: (BoardPostFormType | CommunityPostFormType) | null;
   onClose: () => void;
 };
 
-const PostForm = ({ type, context, initialData = null, onClose }: TPostFormProps) => {
+const PostForm = ({ id, type, context, initialData = null, onClose }: TPostFormProps) => {
   const postBoardMutation = usePostBoardWrite();
+  const putBoardUpdate = usePutBoardUpdate();
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   // form 설정
@@ -92,7 +95,11 @@ const PostForm = ({ type, context, initialData = null, onClose }: TPostFormProps
         }
         // 피드
         else {
-          postBoardMutation.mutate(boardForm);
+          if (type === "add") {
+            postBoardMutation.mutate(boardForm);
+          } else {
+            putBoardUpdate.mutate({ id: id as number, boardForm });
+          }
         }
         onClose();
       } catch (error) {
