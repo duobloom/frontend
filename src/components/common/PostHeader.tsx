@@ -3,6 +3,7 @@ import Header from "@/components/layout/Header";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/common/Drawer";
 import { PostForm } from "@/components/common";
 import IconDotHorizontal from "@/components/ui/IconDotHorizontal";
+import { useDeletePostData } from "@/hooks/useDeletePostData";
 import { BoardType, CommunityType } from "@/types";
 
 // type EditPostType<T extends "board" | "community"> = T extends "board"
@@ -26,6 +27,8 @@ type TPostHeaderProps = {
 };
 
 const PostHeader = ({ postData, variant, id }: TPostHeaderProps) => {
+  const deletePostData = useDeletePostData({ page: true });
+
   const [isMenuDrawerOpen, setIsMenuDrawerOpen] = useState(false); // 메뉴 드로어 상태
   const [isEditDrawerOpen, setIsEditDrawerOpen] = useState(false); // 수정 드로어 상태
 
@@ -48,20 +51,19 @@ const PostHeader = ({ postData, variant, id }: TPostHeaderProps) => {
       : boardInitialData;
 
   // 글 저장
-  const handleBoardSave = (id: string) => {
-    console.log(id);
+  const handleBoardSave = () => {
+    console.log(variant, id);
   };
 
   // 글 수정
-  const handleBoardEdit = (id: string) => {
-    console.log(id);
+  const handleBoardEdit = () => {
     setIsMenuDrawerOpen(false); // 메뉴 드로어 닫기
     setIsEditDrawerOpen(true); // 수정 드로어 열기
   };
 
   // 글 삭제
-  const handleBoardDelete = (id: string) => {
-    console.log(id);
+  const handleBoardDelete = () => {
+    deletePostData.mutate({ type: variant, id });
   };
 
   const renderMenuButton = () => (
@@ -71,9 +73,13 @@ const PostHeader = ({ postData, variant, id }: TPostHeaderProps) => {
       </DrawerTrigger>
       <DrawerContent className="h-[23%]">
         <div className="flex flex-col gap-[1.8rem] px-[9rem] py-[3.9rem] text-[1.6rem] font-extrabold leading-normal tracking-[-0.032rem]">
-          <button onClick={() => handleBoardSave(id)}>글 저장</button>
-          <button onClick={() => handleBoardEdit(id)}>수정</button>
-          <button onClick={() => handleBoardDelete(id)}>삭제</button>
+          <button onClick={handleBoardSave}>글 저장</button>
+          {postData.mine && (
+            <>
+              <button onClick={handleBoardEdit}>수정</button>
+              <button onClick={handleBoardDelete}>삭제</button>
+            </>
+          )}
         </div>
       </DrawerContent>
     </Drawer>
@@ -87,6 +93,7 @@ const PostHeader = ({ postData, variant, id }: TPostHeaderProps) => {
       <Drawer dismissible={false} open={isEditDrawerOpen} onOpenChange={setIsEditDrawerOpen}>
         <DrawerContent>
           <PostForm
+            id={Number(id)}
             type="edit"
             context={variant}
             initialData={initialData}

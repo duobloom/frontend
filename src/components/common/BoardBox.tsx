@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
 import Author from "@/components/ui/Author";
 import { BoxContainer, BoxContent, BoxFooter, BoxHeader } from "@/components/ui/Box";
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/components/ui/Carousel";
@@ -7,11 +8,16 @@ import IconDotHorizontal from "@/components/ui/IconDotHorizontal";
 import LikeAndComments from "@/components/ui/LikeAndComments";
 import PostForm from "@/components/common/PostForm";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/common/Drawer";
+
+import { useDeletePostData } from "@/hooks/useDeletePostData";
 import { formatDateConvert } from "@/utils";
 import { BoardType } from "@/types";
 
 export default function BoardBox({ board }: { board: BoardType }) {
-  const [isTextDrawerOpen, setIsTextDrawerOpen] = useState(false);
+  const deletePostData = useDeletePostData({ page: false });
+
+  const [isMenuDrawerOpen, setIsMenuDrawerOpen] = useState(false); // 메뉴 드로어 상태
+  const [isTextDrawerOpen, setIsTextDrawerOpen] = useState(false); // 수정 드로어 상태
 
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -29,18 +35,21 @@ export default function BoardBox({ board }: { board: BoardType }) {
   }, [api]);
 
   // 글 저장 (스크랩)
-  const handleTextSave = (id: number) => {
-    console.log(id);
+  const handleTextSave = () => {
+    console.log("글 저장");
   };
 
   // 글 수정
-  const handleTextEdit = (id: number) => {
-    console.log(id);
+  const handleTextEdit = () => {
+    console.log("글 수정");
+    setIsMenuDrawerOpen(false); // 메뉴 드로어 닫기
+    setIsTextDrawerOpen(true); // 수정 드로어 열기
   };
 
   // 글 삭제
-  const handleTextDelete = (id: number) => {
-    console.log(id);
+  const handleTextDelete = () => {
+    deletePostData.mutate({ type: "board", id: String(board.boardId) });
+    setIsMenuDrawerOpen(false); // 메뉴 드로어 닫기
   };
 
   const initialData = {
@@ -62,37 +71,37 @@ export default function BoardBox({ board }: { board: BoardType }) {
             isMe={board.mine}
           />
         </div>
-        <Drawer>
+        {/* 메뉴 Drawer */}
+        <Drawer open={isMenuDrawerOpen} onOpenChange={setIsMenuDrawerOpen}>
           <DrawerTrigger asChild>
             <IconDotHorizontal className="cursor-pointer" />
           </DrawerTrigger>
           <DrawerContent className="h-[23%]">
             <div className="flex flex-col gap-[1.8rem] px-[9rem] py-[3.9rem] text-[1.6rem] font-extrabold leading-normal tracking-[-0.032rem]">
-              <button onClick={() => handleTextSave(board.boardId)}>글 저장</button>
-
+              <button onClick={handleTextSave}>글 저장</button>
               {board.mine && (
                 <>
-                  <Drawer dismissible={false} open={isTextDrawerOpen} onOpenChange={setIsTextDrawerOpen}>
-                    <DrawerTrigger asChild>
-                      <button onClick={() => handleTextEdit(board.boardId)}>수정</button>
-                    </DrawerTrigger>
-                    <DrawerContent>
-                      <PostForm
-                        type="edit"
-                        context="board"
-                        initialData={initialData}
-                        onClose={() => setIsTextDrawerOpen(false)}
-                      />
-                    </DrawerContent>
-                  </Drawer>
-
-                  <button onClick={() => handleTextDelete(board.boardId)}>삭제</button>
+                  <button onClick={handleTextEdit}>수정</button>
+                  <button onClick={handleTextDelete}>삭제</button>
                 </>
               )}
             </div>
           </DrawerContent>
         </Drawer>
       </BoxHeader>
+
+      {/* 수정 Drawer */}
+      <Drawer dismissible={false} open={isTextDrawerOpen} onOpenChange={setIsTextDrawerOpen}>
+        <DrawerContent>
+          <PostForm
+            id={board.boardId}
+            type="edit"
+            context="board"
+            initialData={initialData}
+            onClose={() => setIsTextDrawerOpen(false)}
+          />
+        </DrawerContent>
+      </Drawer>
 
       <BoxContent className="ml-[4.8rem] mt-[1rem] flex flex-col">
         <Link
