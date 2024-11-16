@@ -13,8 +13,8 @@ const SearchPage = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query") || "";
 
-  const { data: policyData } = useGetSearchPolicy(query, query !== null && selectedTab === "정책");
-  const { data: hospitalData } = useGetSearchHospital(query, query !== null && selectedTab === "병원/클리닉");
+  const { data: policyData } = useGetSearchPolicy(query, query !== "" && selectedTab === "정책");
+  const { data: hospitalData } = useGetSearchHospital(query, query !== "" && selectedTab === "병원/클리닉");
   // const { data: communityData } = useGetSearchHospital(query, query !== null && selectedTab === "커뮤니티");
 
   const handleTabSelect = (tab: string) => {
@@ -79,7 +79,7 @@ const SearchPage = () => {
                     time={item.time}
                     latitude={item.latitude}
                     longitude={item.longitude}
-                    linkUrl={item.linkUrl}
+                    imageUrl={item.imageUrl}
                     keywordMappings={item.keywordMappings}
                   />
                 ))
@@ -89,7 +89,14 @@ const SearchPage = () => {
             </div>
           </>
         )}
-        {selectedTab === "커뮤니티" && <></>}
+        {selectedTab === "커뮤니티" && (
+          <>
+            <p className="mb-[1rem] w-full border-b border-gray-200 bg-[#fff] px-[1.3rem] pb-[1.5rem] text-[1.5rem] font-medium">
+              {}개의 커뮤니티 글
+            </p>
+            <div className="flex flex-col gap-[1rem] px-[1.5rem]"></div>
+          </>
+        )}
       </section>
     </div>
   );
