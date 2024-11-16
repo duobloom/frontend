@@ -21,13 +21,15 @@ export const PolicySchema = z.object({
 
 // 정책 리스트 타입
 export const PolicyListSchema = z.object({
-  policy_id: z.number(),
-  policy_name: z.string(),
-  policy_img: z.string(),
-  host: z.string(),
-  start_date: z.string(),
-  end_date: z.string(),
-  keywordMappings: z.array(PolicyKeywordSchema),
+  policyId: z.number(),
+  policyName: z.string(),
+  linkUrl: z.string().nullable(),
+  policyHost: z.string(),
+  target: z.string().nullable(),
+  region: z.number().nullable(),
+  middle: z.number().nullable(),
+  detail: z.number().nullable(),
+  keyword: z.string(),
 });
 
 export type PolicyType = z.infer<typeof PolicySchema>;
