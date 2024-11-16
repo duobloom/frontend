@@ -4,7 +4,7 @@ import { PolicyListType } from "@/types";
 import { PolicyListSchema } from "@/types/PolicyType";
 import { getSearchPolicy } from "@/apis";
 
-export const useGetSearchPolicy = (keyword: string, enabled: boolean = true) => {
+export const useGetSearchPolicy = (keyword: string, enabled: boolean) => {
   return useQuery<PolicyListType[], Error>({
     queryKey: ["policyData", keyword],
     queryFn: async (): Promise<PolicyListType[]> => {
