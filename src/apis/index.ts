@@ -16,7 +16,9 @@ import { deleteComment } from "./posts/deleteComment";
 import { postEmotion } from "./main/postEmotion";
 import { postQuestion } from "./main/postQuestion";
 import { postLike, deleteBoardLike } from "./posts/postLike";
-
+import { postScrapHospital, deleteScrapHospital, getScrapHospital } from "./hospital/scrapHospital";
+import { postScrapPolicy, deleteScrapPolicy, getScrapPolicy } from "./policy/scrapPolicy";
+import { getPolicyInfo } from "./policy/getPolicyInfo";
 export {
   getFilterHospital,
   getHospitaInfo,
@@ -37,4 +39,11 @@ export {
   postQuestion,
   postLike,
   deleteBoardLike,
+  postScrapHospital,
+  deleteScrapHospital,
+  getScrapHospital,
+  postScrapPolicy,
+  deleteScrapPolicy,
+  getScrapPolicy,
+  getPolicyInfo,
 };
