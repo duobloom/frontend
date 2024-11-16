@@ -34,7 +34,7 @@ export const HospitalListSchema = z.object({
   time: z.string().nullable(), // 진료시간
   latitude: z.number().nullable(), // 위도
   longitude: z.number().nullable(), // 경도
-  linkUrl: z.string().nullable(), // 이미지 링크 URL
+  imageUrl: z.string().nullable(), // 이미지 링크 URL
   keywordMappings: z.array(HospitalKeywordSchema).optional(), // 키워드 정보
 });
 
