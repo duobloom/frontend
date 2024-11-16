@@ -111,7 +111,7 @@ const HospitalPage = () => {
                   time={item.time}
                   latitude={item.latitude}
                   longitude={item.longitude}
-                  linkUrl={item.linkUrl}
+                  imageUrl={item.imageUrl}
                   keywordMappings={item.keywordMappings}
                 />
               ))
