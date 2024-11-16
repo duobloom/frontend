@@ -56,7 +56,7 @@ const PostDetailPage = () => {
             <PostDetailBox postData={postData as PostBoxType} variant={type} id={id} />
             <CommentBox commentData={postData?.comments ?? []} type={type} />
           </div>
-          <CommentInput id={id} />
+          <CommentInput type={type} id={id} />
         </>
       )}
     </main>

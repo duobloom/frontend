@@ -4,11 +4,12 @@ import { Input } from "@/components/common";
 import { CommentType } from "@/types/CommentType";
 import { postComment } from "@/apis";
 
-const CommentInput = ({ id }: { id: string }) => {
+const CommentInput = ({ type, id }: { type: string; id: string }) => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation<AxiosResponse<CommentType>, AxiosError, { postId: string; text: string }>({
-    mutationFn: async ({ postId, text }: { postId: string; text: string }) => await postComment({ postId, text }),
+  const mutation = useMutation<AxiosResponse<CommentType>, AxiosError, { type: string; postId: string; text: string }>({
+    mutationFn: async ({ type, postId, text }: { type: string; postId: string; text: string }) =>
+      await postComment({ type, postId, text }),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["posts"],
@@ -24,7 +25,7 @@ const CommentInput = ({ id }: { id: string }) => {
   });
 
   const onSend = (value: string) => {
-    mutation.mutate({ postId: id, text: value });
+    mutation.mutate({ type, postId: id, text: value });
   };
 
   return (
