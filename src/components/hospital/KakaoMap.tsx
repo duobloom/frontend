@@ -27,6 +27,7 @@ function KakaoMap({
   hospitalData = [],
 }: TKakaoMapProps) {
   const mapRef = useRef<any>(null);
+  const centerRef = useRef(center);
   const [selectedHospital, setSelectedHospital] = useState<HospitalListType | null>(hospitalData[0]);
   const markersRef = useRef<any[]>([]);
   const overlaysRef = useRef<any[]>([]);
@@ -38,14 +39,14 @@ function KakaoMap({
       const container = document.getElementById("map");
       if (container) {
         const options = {
-          center: new window.kakao.maps.LatLng(center.lat, center.lng),
+          center: new window.kakao.maps.LatLng(centerRef.current.lat, centerRef.current.lng),
           level: level,
         };
         const map = new window.kakao.maps.Map(container, options);
         mapRef.current = map;
       }
     });
-  }, [center, level]);
+  }, [level]);
 
   // 마커와 오버레이 설정
   useEffect(() => {
@@ -75,9 +76,11 @@ function KakaoMap({
           });
 
           window.kakao.maps.event.addListener(marker, "click", () => {
-            setSelectedHospital(hospital); // 클릭된 병원의 데이터를 상태로 설정
-            mapRef.current.setCenter(markerPos); // 클릭된 마커 위치로 지도 중심 이동
-            api?.scrollTo(index); // 마커 클릭 시 캐러셀을 해당 병원 인덱스로 이동
+            if (selectedHospital?.hospitalId !== hospital.hospitalId) {
+              setSelectedHospital(hospital); // 상태 업데이트
+              mapRef.current.setCenter(markerPos); // 지도 중심 변경
+              api?.scrollTo(index); // 마커 클릭시 해당 캐러샐로 이동
+            }
           });
 
           marker.setMap(mapRef.current);
@@ -112,12 +115,12 @@ function KakaoMap({
     api.on("select", () => {
       const currentIndex = api.selectedScrollSnap();
       const hospital = hospitalData[currentIndex];
-      if (hospital) {
+      if (hospital && selectedHospital?.hospitalId !== hospital.hospitalId) {
         setSelectedHospital(hospital);
         mapRef.current.setCenter(new window.kakao.maps.LatLng(hospital.latitude, hospital.longitude));
       }
     });
-  }, [api, hospitalData]);
+  }, [api, hospitalData, selectedHospital]);
 
   // 사용자의 현재 위치로 지도 이동
   const handleUserLocationClick = () => {
@@ -151,7 +154,7 @@ function KakaoMap({
                     time={hospital.time}
                     latitude={hospital.latitude}
                     longitude={hospital.longitude}
-                    linkUrl={hospital.linkUrl}
+                    imageUrl={hospital.imageUrl}
                     keywordMappings={hospital.keywordMappings}
                   />
                 </div>
