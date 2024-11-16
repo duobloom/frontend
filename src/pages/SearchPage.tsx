@@ -31,7 +31,7 @@ const SearchPage = () => {
       <section ref={scrollRef} {...draggableOptions()} className="flex-1 overflow-y-auto pb-[2rem] scrollbar-hide">
         {selectedTab === "정책" && (
           <>
-            <p className="mb-[1rem] w-full border-b bg-[#fff] px-[1.3rem] pb-[1.5rem] text-[1.5rem] font-medium">
+            <p className="mb-[1rem] w-full border-b border-gray-200 bg-[#fff] px-[1.3rem] pb-[1.5rem] text-[1.5rem] font-medium">
               {policyData ? `${policyData.length}개의 정책` : "0 개의 정책"}
             </p>
 
@@ -53,14 +53,14 @@ const SearchPage = () => {
                   />
                 ))
               ) : (
-                <p className="self-center text-center text-gray-500">검색된 정책이 없습니다.</p>
+                <p className="mt-[1.5rem] text-center text-[1.4rem] text-gray-500">검색된 정책이 없습니다.</p>
               )}
             </div>
           </>
         )}
         {selectedTab === "병원/클리닉" && (
           <>
-            <p className="mb-[1rem] w-full border-b bg-[#fff] px-[1.3rem] pb-[1.5rem] text-[1.5rem] font-medium">
+            <p className="mb-[1rem] w-full border-b border-gray-200 bg-[#fff] px-[1.3rem] pb-[1.5rem] text-[1.5rem] font-medium">
               {hospitalData ? `${hospitalData.length}개의 병원/클리닉` : "0 개의 병원/클리닉"}
             </p>
 
@@ -84,7 +84,7 @@ const SearchPage = () => {
                   />
                 ))
               ) : (
-                <p className="self-center text-center text-gray-500">검색된 병원이 없습니다.</p>
+                <p className="mt-[1.5rem] text-center text-[1.4rem] text-gray-500">검색된 병원이 없습니다.</p>
               )}
             </div>
           </>
