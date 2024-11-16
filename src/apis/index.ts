@@ -5,6 +5,8 @@ import { getPointTransaction } from "./mypage/getPointTransaction";
 import { getMyProfile } from "./mypage/getMyProfile";
 import { patchMyProfile } from "./mypage/patchMyProfile";
 import { getUserTotalPoint } from "./user/getUserTotalPoint";
+import { getFilterPolicy } from "./policy/getFilterPolicy";
+import { getSearchPolicy } from "./policy/getSearchPolicy";
 import { getBoardDetailData } from "./posts/getBoardDetailData";
 import { getCommunityDetailData } from "./posts/getCommunityDetailData";
 import { deletePostData } from "./posts/deletePostData";
@@ -19,6 +21,8 @@ export {
   getHospitaInfo,
   getSearchHospital,
   getUserTotalPoint,
+  getFilterPolicy,
+  getSearchPolicy,
   getPointTransaction,
   getMyProfile,
   patchMyProfile,
@@ -31,3 +35,4 @@ export {
   postEmotion,
   postQuestion,
 };
+

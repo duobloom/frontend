@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/common";
 import { HospitalListType, PolicyListType } from "@/types";
-import { cn, dDayCalculation } from "@/utils";
+import { cn } from "@/utils";
 import { IconBookMark } from "@/assets/icon";
 
 // Props 타입 정의
@@ -35,14 +35,14 @@ const InfoBoxTitle = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
 InfoBoxTitle.displayName = "InfoBoxTitle";
 
 const InfoBox = (props: TInfoInfoBoxProps) => {
-  const { variant, keywordMappings } = props;
+  const { variant } = props;
   const [isClick, setIsClick] = useState(false);
   const navigate = useNavigate();
 
   // ID 값 추출
-  const entityId = variant === "hospital" ? props.hospitalId : props.policy_id;
-  const entityTitle = variant === "hospital" ? props.hospitalName : props.policy_name;
-  const entityImg = variant === "hospital" ? props.linkUrl : props.policy_img;
+  const entityId = variant === "hospital" ? props.hospitalId : props.policyId;
+  const entityTitle = variant === "hospital" ? props.hospitalName : props.policyName;
+  const entityImg = variant === "hospital" ? props.imageUrl : props.linkUrl;
 
   // 상세 페이지 이동
   const moveDetail = useCallback(
@@ -67,7 +67,7 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
         CARDIOLOGY: "심장내과",
         DERMATOLOGY: "피부과",
       };
-      const department = departmentMap[type] || type;
+      const department = type ? departmentMap[type] || type : "산부인과";
       return (
         <div className="flex flex-col text-[1.1rem] font-medium leading-[1.5rem] text-gray-500">
           <div className="flex gap-[.5rem]">
@@ -83,17 +83,16 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
         </div>
       );
     } else {
-      const { host, start_date, end_date } = props;
+      const { policyHost } = props;
+      // const { host, start_date, end_date } = props;
       return (
         <div className="text-[1.1rem] leading-[1.32rem]">
-          <span className="text-gray-500">{host}</span>
-          <div className="mt-[.7rem] flex gap-[.5rem] font-semibold tracking-normal text-black">
+          <span className="text-gray-500">{policyHost}</span>
+          {/* <div className="mt-[.7rem] flex gap-[.5rem] font-semibold tracking-normal text-black">
             <span>
               {start_date} ~ {end_date}
             </span>
-            <span className="text-gray-500">·</span>
-            <span className="font-bold text-red">마감 {dDayCalculation(end_date)}</span>
-          </div>
+          </div> */}
         </div>
       );
     }
@@ -103,7 +102,6 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
     <InfoBoxContainer onClick={() => moveDetail(variant, entityId)}>
       <div className="mb-[1.5rem] flex items-center justify-between gap-[1.7rem]">
         <div className="flex flex-col gap-[1rem]">
-          {/* {variant === "hospital" && props.isCert && <Badge variant="certBadge">듀블 인증병원</Badge>} */}
           <div className="w-[22rem]">
             <InfoBoxTitle>{entityTitle}</InfoBoxTitle>
             {renderContent()}
@@ -115,13 +113,14 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
       </div>
       <div className="flex justify-between">
         <div className="flex w-fit gap-[.8rem] overflow-hidden">
-          {keywordMappings &&
-            keywordMappings.length > 0 &&
-            keywordMappings.map((keyword, index) => (
-              <Badge key={index} variant="tagBadge">
-                {keyword.keyword}
-              </Badge>
-            ))}
+          {variant === "hospital"
+            ? Array.isArray(props.keywordMappings) &&
+              props.keywordMappings.map((keyword, index) => (
+                <Badge key={index} variant="tagBadge">
+                  {keyword.keyword}
+                </Badge>
+              ))
+            : typeof props.keyword === "string" && <Badge variant="tagBadge">{props.keyword}</Badge>}
         </div>
         <button onClick={bookMarkFn}>
           <IconBookMark className={`${isClick ? "stroke-red" : "stroke-gray-300"}`} />
