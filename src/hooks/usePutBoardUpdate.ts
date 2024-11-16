@@ -10,7 +10,10 @@ export const usePutBoardUpdate = () => {
     mutationFn: async ({ id, boardForm }) => await putBoardUpdate(id, boardForm),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["feed", "posts"],
+        queryKey: ["feed"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["posts"],
       });
     },
     onError: (error) => {
