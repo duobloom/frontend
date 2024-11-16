@@ -3,7 +3,7 @@ import { HospitalListSchema, HospitalListType } from "@/types/HospitalType";
 import { validateApiResponse, logValidationError } from "@/utils/zodHelpers";
 import { getSearchHospital } from "@/apis";
 
-export const useGetSearchHospital = (keyword: string) => {
+export const useGetSearchHospital = (keyword: string, enabled: boolean = true) => {
   return useQuery<HospitalListType[], Error>({
     queryKey: ["hospitalData", keyword],
     queryFn: async (): Promise<HospitalListType[]> => {
@@ -15,5 +15,6 @@ export const useGetSearchHospital = (keyword: string) => {
         throw error;
       }
     },
+    enabled,
   });
 };
