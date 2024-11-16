@@ -18,7 +18,7 @@ const HospitalPage = () => {
 
   const [activeDrawer, setActiveDrawer] = useState<"location" | "department" | null>(null);
   const [selectedOption, setSelectedOption] = useState(1);
-  const [selectedDepartment, setSelectedDepartment] = useState(1);
+  const [selectedDepartment, setSelectedDepartment] = useState(2);
   const [selectedSi, setSelectedSi] = useState<number | null>(null);
   const [selectedGun, setSelectedGun] = useState<number | null>(null);
   const [selectedNeighborhood, setSelectedNeighborhood] = useState<number | null>(null);
