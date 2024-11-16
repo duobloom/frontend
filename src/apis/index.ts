@@ -15,6 +15,7 @@ import { postComment } from "./posts/postComment";
 import { deleteComment } from "./posts/deleteComment";
 import { postEmotion } from "./main/postEmotion";
 import { postQuestion } from "./main/postQuestion";
+import { postLike, deleteBoardLike } from "./posts/postLike";
 
 export {
   getFilterHospital,
@@ -34,5 +35,6 @@ export {
   deleteComment,
   postEmotion,
   postQuestion,
+  postLike,
+  deleteBoardLike,
 };
-
