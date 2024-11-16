@@ -1,16 +1,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
-import { postBoardWrite } from "@/apis/main/postBoardWriteAPI";
-import { BoardRequestType } from "@/types";
+import { deleteComment } from "@/apis";
 
-export const usePostBoardWrite = () => {
+export const useDeleteComment = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<AxiosResponse<string>, AxiosError, BoardRequestType>({
-    mutationFn: async (boardForm) => await postBoardWrite(boardForm),
+  return useMutation<AxiosResponse<string>, AxiosError, { type: "board" | "community"; id: number }>({
+    mutationFn: async ({ type, id }) => await deleteComment(type, id),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["feed"],
+        queryKey: ["posts"],
       });
     },
     onError: (error) => {

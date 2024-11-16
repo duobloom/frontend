@@ -16,13 +16,16 @@ export const postPresignedUrl = async (imageNames: string[]) => {
 // s3 이미지 업로드
 export const putS3Upload = async (presignedUrls: string[], photos: { photo_url: string; file: File }[]) => {
   try {
-    const uploadPromises = photos.map((photo, index) =>
-      axios.put(presignedUrls[index], photo.file, {
+    const validPhotos = photos.filter((photo) => photo.file !== undefined);
+    const validUrls = presignedUrls.slice(0, validPhotos.length);
+
+    const uploadPromises = validPhotos.map((photo, index) => {
+      return axios.put(validUrls[index], photo.file, {
         headers: {
-          "Content-Type": "image/jpeg",
+          "Content-Type": photo.file?.type || "image/jpeg", // 파일 타입 설정
         },
-      }),
-    );
+      });
+    });
 
     await Promise.all(uploadPromises);
     return true;

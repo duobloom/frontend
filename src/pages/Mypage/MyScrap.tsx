@@ -1,5 +1,4 @@
 import { OptionTabs } from "@/components/common";
-import { exampleHospitalData, HospitalInfo } from "@/components/hospital";
 import Header from "@/components/layout/Header";
 import { examplePolicyData, PolicyInfo } from "@/components/policy/PolicyInfoBox";
 import React from "react";
@@ -21,11 +20,7 @@ const MyScrap = () => {
             <PolicyInfo item={examplePolicyData} />
           </div>
         )}
-        {selectedTab === "병원/클리닉" && (
-          <div className="py-[1.5rem]">
-            <HospitalInfo item={exampleHospitalData} />
-          </div>
-        )}
+        {selectedTab === "병원/클리닉" && <div className="py-[1.5rem]"></div>}
       </div>
     </div>
   );

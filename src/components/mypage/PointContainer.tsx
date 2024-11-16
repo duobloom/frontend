@@ -29,7 +29,10 @@ const PointContainer = ({ userPoint, partnerPoint }: PointContainerProps) => {
           </div>
         </div>
         <hr />
-        <div className="flex cursor-pointer items-center justify-between" onClick={() => navigate("point")}>
+        <div
+          className="flex cursor-pointer items-center justify-between"
+          onClick={() => navigate("point", { state: { userPoint, partnerPoint } })}
+        >
           <span className="text-[1.5rem] font-medium">우리 부부의 포인트 내역을 알아보세요</span>
           <IconChevronRight />
         </div>

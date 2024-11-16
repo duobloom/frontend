@@ -26,10 +26,11 @@ export interface EditInputProps
     VariantProps<typeof inputVariants> {
   asChild?: boolean;
   maxLength?: number;
+  error?: string;
 }
 
 const EditInput = React.forwardRef<HTMLInputElement, EditInputProps>(
-  ({ className, variant, asChild = false, maxLength = 12, value, onChange, ...props }, ref) => {
+  ({ className, variant, asChild = false, maxLength = 12, value, error, onChange, ...props }, ref) => {
     const Comp = asChild ? Slot : "input";
     const [isEmailValid, setIsEmailValid] = React.useState<boolean | null>(null);
     const [isVerified, setIsVerified] = React.useState(false);
@@ -59,6 +60,7 @@ const EditInput = React.forwardRef<HTMLInputElement, EditInputProps>(
             ref={ref}
             {...props}
           />
+          <p className="mt-[1rem] text-[1.2rem] text-red-400">{error}</p>
           {variant === "nickname" && typeof value === "string" && (
             <span className="absolute right-[1.4rem] top-1/2 -translate-y-1/2 text-[1.2rem] font-medium text-gray-400">
               {value.length} / {maxLength}
@@ -77,7 +79,7 @@ const EditInput = React.forwardRef<HTMLInputElement, EditInputProps>(
           )}
         </div>
         {isEmailValid === false && variant === "email" && (
-          <p className="text-[1.2rem] text-red-500">유효한 이메일을 입력해 주세요.</p>
+          <p className="text-[1.2rem] text-red-400">유효한 이메일을 입력해 주세요.</p>
         )}
         {isEmailValid === true && variant === "email" && (
           <p className="text-[1.2rem] text-blue-500">이메일 인증 성공</p>

@@ -1,6 +1,9 @@
 import { useState } from "react";
-import { DrawerClose, DrawerTitle } from "../common/Drawer";
-import { Button } from "../common";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AxiosError, AxiosResponse } from "axios";
+import { DrawerClose, DrawerTitle } from "@/components/common/Drawer";
+import { Button } from "@/components/common";
+import { postEmotion } from "@/apis";
 
 const emotionList = [
   { id: 1, text: "기쁨이 가득한 하루!", emoji: "😊" },
@@ -15,9 +18,26 @@ const emotionList = [
 
 const MainEmotionForm = ({ emojiNum = 0, onClose }: { emojiNum?: number; onClose: () => void }) => {
   const [clickEmojiNum, setClickEmojiNum] = useState(emojiNum); // 감정을 클릭한 적 있다면
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation<AxiosResponse, AxiosError, { emoji: number }>({
+    mutationFn: async ({ emoji }: { emoji: number }) => await postEmotion({ emoji }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["feed"],
+      });
+    },
+    onError: (error) => {
+      if (error.response?.status === 401) {
+        console.error("로그인이 필요합니다.");
+      } else {
+        console.error("업로드 중 오류가 발생했습니다:", error.message);
+      }
+    },
+  });
 
   const handleSubmit = () => {
-    console.log(clickEmojiNum);
+    mutation.mutate({ emoji: clickEmojiNum });
     setClickEmojiNum(0); // API 통신 완료 시
     onClose();
   };

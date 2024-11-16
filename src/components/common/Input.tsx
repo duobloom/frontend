@@ -17,27 +17,29 @@ const inputVariants = cva(
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof inputVariants> {
   isButton?: boolean;
   asChild?: boolean;
+  onSend?: (value: string) => void;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ isButton = true, className, asChild = false, ...props }, ref) => {
+  ({ isButton = true, onSend, className, asChild = false, ...props }, ref) => {
     const [inputValue, setInputValue] = React.useState("");
     const isButtonEnabled = inputValue.trim().length > 0;
     const Comp = asChild ? Slot : "input";
 
-    //   const handleSend = () => {
-    //     if (inputValue.trim()) {
-    //       // 전송 후 입력 필드 초기화
-    //       setInputValue("");
-    //     }
-    //   };
+    const handleSend = () => {
+      if (inputValue.trim()) {
+        // 전송 후 입력 필드 초기화
+        setInputValue("");
+        onSend?.(inputValue);
+      }
+    };
 
-    //   const handleKeyDown = (e: React.KeyboardEvent) => {
-    //     if (e.key === "Enter") {
-    //       e.preventDefault();
-    //       handleSend();
-    //     }
-    //   };
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        handleSend();
+      }
+    };
 
     return (
       <div className="relative w-full">
@@ -45,13 +47,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           className={cn(inputVariants({ variant: inputValue ? "active" : "default", className }))}
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
+          onKeyUp={handleKeyDown}
           placeholder="댓글을 입력해 주세요"
           ref={ref}
           {...props}
         />
         {isButton && (
           <div className="absolute right-[1.4rem] top-1/2 -translate-y-1/2 transform">
-            <Button disabled={!isButtonEnabled} variant="oval" size="sm">
+            <Button disabled={!isButtonEnabled} variant="oval" size="sm" onClick={handleSend}>
               완료
             </Button>
           </div>
