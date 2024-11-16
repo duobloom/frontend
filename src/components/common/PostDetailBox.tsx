@@ -64,7 +64,14 @@ const PostDetailBox = ({ postData, variant, id }: TPostDetailBoxProps) => {
         )}
       </article>
       <hr className="my-0" />
-      <LikeAndComments type="detail" id={id} likeCount={postData.likeCount} commentCount={postData.commentCount} />
+      <LikeAndComments
+        type={variant === "board" ? "board" : "community"}
+        isDetailPage={true}
+        id={id}
+        likeCount={postData.likeCount}
+        commentCount={postData.commentCount}
+        likedByUser={postData.likedByUser}
+      />
     </section>
   );
 };

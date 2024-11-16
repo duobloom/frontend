@@ -139,6 +139,7 @@ export default function BoardBox({ board }: { board: BoardType }) {
           id={String(board.boardId)}
           likeCount={board.likeCount}
           commentCount={board.commentCount}
+          likedByUser={board.likedByUser}
         />
       </BoxFooter>
     </BoxContainer>

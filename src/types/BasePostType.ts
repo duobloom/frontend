@@ -12,6 +12,7 @@ export const BasePostSchema = z.object({
   comments: z.array(CommentSchema).nullable(),
   likeCount: z.number().default(0),
   commentCount: z.number().default(0),
+  likedByUser: z.boolean().default(false),
 });
 
 export type BasePostType = z.infer<typeof BasePostSchema>;
