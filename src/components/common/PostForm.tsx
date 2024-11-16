@@ -57,31 +57,41 @@ const PostForm = ({ id, type, context, initialData = null, onClose }: TPostFormP
   const handleSubmit = async () => {
     if (form.formState.isValid || form.watch("content") || (context === "community" && form.watch("type"))) {
       try {
-        let s3Urls: string[] = [];
+        let finalUrls: string[] = [];
 
         // 이미지가 있는 경우
         if (form.watch("photoUrls").length > 0) {
-          const imageNames = form.getValues().photoUrls.map((photo) => photo.file?.name);
+          // const imageNames = form.getValues().photoUrls.map((photo) => photo.file?.name);
           const photos = form.getValues().photoUrls as { photo_url: string; file: File }[];
 
-          // Presigned url 발급
-          const presignedUrls = await postPresignedUrl(imageNames as string[]);
+          // file이 존재하는 경우만 필터링
+          const validPhotos = photos.filter((photo) => photo.file !== undefined);
 
-          // s3 업로드
-          const isUpload = await putS3Upload(presignedUrls, photos);
+          // Presigned url 발급
+          const presignedUrls = await postPresignedUrl(validPhotos.map((photo) => photo.file!.name));
+
+          // S3 업로드
+          const isUpload = await putS3Upload(presignedUrls, validPhotos);
 
           // 실패
           if (!isUpload) {
             console.log("이미지 업로드 실패");
             return;
           }
+
           // s3 URL 생성
-          s3Urls = presignedUrls.map(getS3Url);
+          const s3Urls = presignedUrls.map(getS3Url);
+
+          // 최종 업로드 할 이미지 url 리스트
+          finalUrls = [
+            ...photos.filter((photo) => photo.file === undefined).map((photo) => photo.photo_url), // 기존 이미지
+            ...s3Urls, // 새로 업로드된 이미지
+          ];
         }
 
         const boardForm = {
           content: form.getValues().content,
-          photoUrls: s3Urls,
+          photoUrls: finalUrls,
         };
 
         // 커뮤니티
