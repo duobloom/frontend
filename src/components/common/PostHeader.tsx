@@ -4,6 +4,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from "@/components/common/Drawer
 import { PostForm } from "@/components/common";
 import IconDotHorizontal from "@/components/ui/IconDotHorizontal";
 import { useDeletePostData } from "@/hooks/useDeletePostData";
+import { usePostScrap } from "@/hooks/usePostScrap";
 import { BoardType, CommunityType } from "@/types";
 
 // type EditPostType<T extends "board" | "community"> = T extends "board"
@@ -28,6 +29,7 @@ type TPostHeaderProps = {
 
 const PostHeader = ({ postData, variant, id }: TPostHeaderProps) => {
   const deletePostData = useDeletePostData({ page: true });
+  const postScrap = usePostScrap();
 
   const [isMenuDrawerOpen, setIsMenuDrawerOpen] = useState(false); // 메뉴 드로어 상태
   const [isEditDrawerOpen, setIsEditDrawerOpen] = useState(false); // 수정 드로어 상태
@@ -52,7 +54,8 @@ const PostHeader = ({ postData, variant, id }: TPostHeaderProps) => {
 
   // 글 저장
   const handleBoardSave = () => {
-    console.log(variant, id);
+    postScrap.mutate({ type: variant, postId: Number(id) });
+    setIsMenuDrawerOpen(false); // 메뉴 드로어 닫기
   };
 
   // 글 수정

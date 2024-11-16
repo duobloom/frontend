@@ -10,11 +10,13 @@ import PostForm from "@/components/common/PostForm";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/common/Drawer";
 
 import { useDeletePostData } from "@/hooks/useDeletePostData";
+import { usePostScrap } from "@/hooks/usePostScrap";
 import { formatDateConvert } from "@/utils";
 import { BoardType } from "@/types";
 
 export default function BoardBox({ board }: { board: BoardType }) {
   const deletePostData = useDeletePostData({ page: false });
+  const postScrap = usePostScrap();
 
   const [isMenuDrawerOpen, setIsMenuDrawerOpen] = useState(false); // 메뉴 드로어 상태
   const [isTextDrawerOpen, setIsTextDrawerOpen] = useState(false); // 수정 드로어 상태
@@ -36,7 +38,8 @@ export default function BoardBox({ board }: { board: BoardType }) {
 
   // 글 저장 (스크랩)
   const handleTextSave = () => {
-    console.log("글 저장");
+    postScrap.mutate({ type: "board", postId: board.boardId });
+    setIsMenuDrawerOpen(false); // 메뉴 드로어 닫기
   };
 
   // 글 수정
