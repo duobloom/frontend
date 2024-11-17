@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { CommunityType } from "@/types";
-import { Badge } from "./Badge";
+import { Badge } from "@/components/common/Badge";
 import Author from "@/components/ui/Author";
 import { BoxContainer, BoxContent, BoxFooter, BoxHeader } from "@/components/ui/Box";
 import LikeAndComments from "@/components/ui/LikeAndComments";
@@ -20,7 +20,8 @@ export default function CommunityBox({ communityData }: CommunityBoxProps) {
           <Author
             profileImg={communityData?.profilePictureUrl}
             name={communityData?.nickname}
-            createdAt={formatDateConvertWithRelativeTime(communityData?.createdAt)}
+            createdAt={formatDateConvertWithRelativeTime(communityData?.updatedAt as string)}
+            isMe={communityData.owner}
           />
         </div>
         {communityData?.imageUrls.length >= 1 && (
@@ -56,7 +57,7 @@ export default function CommunityBox({ communityData }: CommunityBoxProps) {
           type="community"
           id={String(communityData?.communityId)}
           likeCount={communityData?.likeCount}
-          commentCount={communityData?.commentCount}
+          commentCount={communityData.commentCount as number}
           likedByUser={communityData?.likedByUser}
         />
       </BoxFooter>

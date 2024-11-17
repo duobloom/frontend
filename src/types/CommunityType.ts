@@ -31,9 +31,9 @@ const CommunityBaseSchema = z.object({
   profilePictureUrl: z.string(),
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
-  likeCount: z.number(),
+  commentCount: z.number().default(0),
+  likeCount: z.number().default(0),
   likedByUser: z.boolean().default(false),
-  commentCount: z.number().optional(),
   owner: z.boolean().default(false),
   tags: DefaultArray(TagSchema),
 });
@@ -47,10 +47,10 @@ export const CommunityDetailSchema = z.object({
   community: CommunityBaseSchema,
   images: DefaultArray(ImageSchema),
   comments: DefaultArray(CommentSchema),
-  likeCount: z.number(),
+  likeCount: z.number().default(0),
   tags: DefaultArray(TagSchema),
-  owner: z.boolean(),
-  likedByUser: z.boolean(),
+  owner: z.boolean().default(false),
+  likedByUser: z.boolean().default(false),
 });
 
 export const CommunityPostFormSchema = z.object({
@@ -81,3 +81,4 @@ export type CommunityPostFormType = z.infer<typeof CommunityPostFormSchema>;
 export type CategoryType = z.infer<typeof CategoryEnum>;
 export type CommunityRequestType = z.infer<typeof CommunityRequestSchema>;
 export type CommunityDetailType = z.infer<typeof CommunityDetailSchema>;
+export type CommunityCommentType = z.infer<typeof CommentSchema>;

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { CommunityBox } from "@/components/common";
+import { CommunityBox } from "@/components/community";
 import { getCommunityTypeList } from "@/apis";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { logValidationError, validateApiResponse } from "@/utils/zodHelpers";

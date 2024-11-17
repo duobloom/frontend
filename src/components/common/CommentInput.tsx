@@ -14,6 +14,15 @@ const CommentInput = ({ type, id }: { type: string; id: string }) => {
       queryClient.invalidateQueries({
         queryKey: ["posts"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["posts", id],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["community"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["community", id],
+      });
     },
     onError: (error) => {
       if (error.response?.status === 401) {

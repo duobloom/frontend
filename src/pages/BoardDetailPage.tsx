@@ -8,7 +8,7 @@ import { logValidationError, validateApiResponse } from "@/utils/zodHelpers";
 import { BoardType, BoardSchema } from "@/types/BoardType";
 import { PostBoxType } from "@/types/BasePostType";
 
-// 커뮤니티, 피드에서 상세 글로 둘 다 접근
+// 피드에서 상세 글 접근
 const BoardDetailPage = () => {
   const location = useLocation();
   const [type, id] = location.pathname.slice(1).split("/") as ["board", string];
@@ -44,7 +44,13 @@ const BoardDetailPage = () => {
         <>로딩중</>
       ) : (
         <>
-          <MainBoardHeader postData={postData} variant={type} id={id} />
+          <MainBoardHeader
+            content={postData?.content as string}
+            photoUrls={postData?.photoUrls as string[]}
+            mine={postData?.mine as boolean}
+            variant={type}
+            id={id}
+          />
           <div className="h-[calc(100vh-138px)] overflow-y-auto scrollbar-hide">
             <PostDetailBox postData={postData as PostBoxType} variant={type} id={id} />
             <CommentBox commentData={postData?.comments ?? []} type={type} />

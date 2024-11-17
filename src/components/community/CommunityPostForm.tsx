@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { FormCategoryButton, FormImage, FormTag } from "@/components/common/form";
-import { DrawerTitle } from "../common/Drawer";
-import { Button } from "../common/Button";
+import { FormCategoryButton, FormTag } from "@/components/common/form";
+import { DrawerTitle } from "@/components/common/Drawer";
+import { Button } from "@/components/common";
 import { Form } from "@/components/ui/Form";
 import {
   AlertDialog,
@@ -16,51 +16,43 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/common/AlertDialog";
+import { CommunityFormImage } from "@/components/community";
 
 import { getS3Url, postPresignedUrl, putS3Upload } from "@/apis/image/imageUpload";
-import { usePostBoardWrite } from "@/hooks/usePostBoardWrite";
-import { usePutBoardUpdate } from "@/hooks/usePutBoardUpdate";
 import { usePostCommunityWrite } from "@/hooks/usePostCommunityWrite";
+import { usePutCommunityUpdate } from "@/hooks/useputCommunityUpdate";
 
 import { CategoryType, CommunityPostFormSchema, CommunityPostFormType } from "@/types/CommunityType";
-import { BoardPostFormSchema, BoardPostFormType } from "@/types/BoardType";
 
 import { IconClose } from "@/assets/icon";
 
-type TPostFormProps = {
-  id?: number;
+type TCommunityPostFormProps = {
+  id: number;
   type: "add" | "edit";
-  context: "board" | "community";
-  initialData?: (BoardPostFormType | CommunityPostFormType) | null;
+  initialData?: CommunityPostFormType | null;
   onClose: () => void;
 };
 
-const PostForm = ({ id, type, context, initialData = null, onClose }: TPostFormProps) => {
-  const postBoardMutation = usePostBoardWrite();
+const CommunityPostForm = ({ id, type, initialData = null, onClose }: TCommunityPostFormProps) => {
   const postCommunityMutation = usePostCommunityWrite();
-  const putBoardUpdate = usePutBoardUpdate();
+  const putCommunityUpdate = usePutCommunityUpdate();
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   // form 설정
   const form = useForm({
-    resolver: zodResolver(context === "community" ? CommunityPostFormSchema : BoardPostFormSchema),
+    resolver: zodResolver(CommunityPostFormSchema),
     defaultValues: {
       content: initialData?.content || "",
-      images:
-        context === "community"
-          ? (initialData as CommunityPostFormType)?.images || []
-          : (initialData as BoardPostFormType)?.images || [],
-      ...(context === "community" && {
-        type: (initialData as CommunityPostFormType)?.type || "",
-        tags: (initialData as CommunityPostFormType)?.tags || [],
-      }),
+      images: initialData?.images || [],
+      type: initialData?.type || "",
+      tags: initialData?.tags || [],
     },
     mode: "onChange",
   });
 
   // 완료 버튼 클릭
   const handleSubmit = async () => {
-    if (form.formState.isValid || form.watch("content") || (context === "community" && form.watch("type"))) {
+    if (form.formState.isValid || form.watch("content") || form.watch("type")) {
       try {
         let finalUrls: string[] = [];
 
@@ -97,32 +89,18 @@ const PostForm = ({ id, type, context, initialData = null, onClose }: TPostFormP
           content: form.getValues().content,
         };
 
-        // 커뮤니티
-        if (context === "community") {
-          const communityForm = {
-            ...baseForm,
-            imageUrls: finalUrls,
-            type: form.getValues().type as CategoryType,
-            tags: form.getValues().tags || [],
-          };
-          if (type === "add") {
-            postCommunityMutation.mutate(communityForm);
-          } else {
-            // 업데이트 (해야 됨...)
-          }
+        const communityForm = {
+          ...baseForm,
+          imageUrls: finalUrls,
+          type: form.getValues().type as CategoryType,
+          tags: form.getValues().tags || [],
+        };
+        if (type === "add") {
+          postCommunityMutation.mutate(communityForm);
+        } else {
+          putCommunityUpdate.mutate({ id, communityForm });
         }
-        // 피드
-        else {
-          const boardForm = {
-            ...baseForm,
-            photoUrls: finalUrls,
-          };
-          if (type === "add") {
-            postBoardMutation.mutate(boardForm);
-          } else {
-            putBoardUpdate.mutate({ id: id as number, boardForm });
-          }
-        }
+
         onClose();
       } catch (error) {
         console.log(error);
@@ -133,13 +111,7 @@ const PostForm = ({ id, type, context, initialData = null, onClose }: TPostFormP
   // 닫기 전 확인
   const handleClose = () => {
     const { images, tags } = form.getValues();
-    if (
-      form.formState.isValid ||
-      form.watch("content") ||
-      tags?.length ||
-      images?.length ||
-      (context === "community" && form.watch("type"))
-    ) {
+    if (form.formState.isValid || form.watch("content") || tags?.length || images?.length || form.watch("type")) {
       setShowConfirmDialog(true);
     } else {
       onClose();
@@ -164,25 +136,20 @@ const PostForm = ({ id, type, context, initialData = null, onClose }: TPostFormP
             type="button"
             variant="oval"
             size="sm"
-            disabled={
-              !form.formState.isValid || !form.watch("content") || (context === "community" && !form.watch("type"))
-            }
+            disabled={!form.formState.isValid || !form.watch("content") || !form.watch("type")}
             onClick={handleSubmit}
           >
             완료
           </Button>
         </div>
 
-        {/* 폼 카테고리 영역 (community에서만) */}
-        {context === "community" && (
-          <FormCategoryButton
-            selectedButton={form.watch("type") as CategoryType}
-            setSelectedButton={(type: CategoryType) => form.setValue("type", type, { shouldValidate: true })}
-          />
-        )}
+        <FormCategoryButton
+          selectedButton={form.watch("type") as CategoryType}
+          setSelectedButton={(type: CategoryType) => form.setValue("type", type, { shouldValidate: true })}
+        />
 
         {/* 폼 이미지 영역 */}
-        <FormImage form={form} />
+        <CommunityFormImage form={form as UseFormReturn<CommunityPostFormType>} />
 
         {/* 텍스트 입력 영역 */}
         <textarea
@@ -194,8 +161,7 @@ const PostForm = ({ id, type, context, initialData = null, onClose }: TPostFormP
           className="h-full resize-none text-[1.4rem] font-medium leading-[2rem] tracking-[-0.028] text-black outline-none"
         />
 
-        {/* 태그 입력 영역 */}
-        {context === "community" && <FormTag form={form as UseFormReturn<CommunityPostFormType>} />}
+        <FormTag form={form as UseFormReturn<CommunityPostFormType>} />
       </form>
 
       {/* Alert 부분 */}
@@ -215,4 +181,4 @@ const PostForm = ({ id, type, context, initialData = null, onClose }: TPostFormP
   );
 };
 
-export default PostForm;
+export default CommunityPostForm;

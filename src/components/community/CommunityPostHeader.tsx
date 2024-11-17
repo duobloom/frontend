@@ -1,61 +1,39 @@
 import { useState } from "react";
 import Header from "@/components/layout/Header";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/common/Drawer";
-import { PostForm } from "@/components/common";
 import IconDotHorizontal from "@/components/ui/IconDotHorizontal";
+import { CommunityPostForm } from "@/components/community";
 import { useDeletePostData } from "@/hooks/useDeletePostData";
 import { usePostScrap } from "@/hooks/usePostScrap";
-import { BoardType, CommunityDetailType } from "@/types";
+import { CommunityDetailType } from "@/types";
 
-// type EditPostType<T extends "board" | "community"> = T extends "board"
-//   ? Pick<BoardType, "content"> & {
-//       photoUrls: {
-//         photo_url: string;
-//         file?: File;
-//       }[];
-//     }
-//   : Omit<CommunityDetailType, "photoUrls"> & {
-//       photoUrls: {
-//         photo_url: string;
-//         file?: File;
-//       }[];
-//     };
-
-type TPostHeaderProps = {
-  postData: BoardType | CommunityDetailType;
-  variant: "board" | "community";
+type TCommunityPostHeaderProps = {
+  postData: CommunityDetailType;
+  variant: "community";
   id: string;
 };
 
-const PostHeader = ({ postData, variant, id }: TPostHeaderProps) => {
+const CommunityPostHeader = ({ postData, variant, id }: TCommunityPostHeaderProps) => {
   const deletePostData = useDeletePostData({ page: true });
   const postScrap = usePostScrap();
 
   const [isMenuDrawerOpen, setIsMenuDrawerOpen] = useState(false); // 메뉴 드로어 상태
   const [isEditDrawerOpen, setIsEditDrawerOpen] = useState(false); // 수정 드로어 상태
 
-  const imagesList = variant === "board" ? (postData as BoardType).photoUrls : (postData as CommunityDetailType).images;
-  const isMe = variant === "board" ? (postData as BoardType).mine : (postData as CommunityDetailType).owner;
-  const content =
-    variant === "board" ? (postData as BoardType).content : (postData as CommunityDetailType).community.content;
-
   const boardInitialData = {
-    content: content,
-    images: imagesList.map((url) => ({
-      photo_url: url,
+    content: postData.community.content,
+    images: postData.images.map((url) => ({
+      photo_url: url.imageUrl,
       file: undefined,
     })),
+    tags: postData.tags.map((tag) => tag.name),
   };
 
   // props로 넘겨줄 값
-  const initialData =
-    variant === "community"
-      ? {
-          ...boardInitialData,
-          type: (postData as CommunityDetailType).community.type,
-          tags: (postData as CommunityDetailType).tags,
-        }
-      : boardInitialData;
+  const initialData = {
+    ...boardInitialData,
+    type: postData.community.type,
+  };
 
   // 글 저장
   const handleBoardSave = () => {
@@ -82,7 +60,7 @@ const PostHeader = ({ postData, variant, id }: TPostHeaderProps) => {
       <DrawerContent className="h-[23%]">
         <div className="flex flex-col gap-[1.8rem] px-[9rem] py-[3.9rem] text-[1.6rem] font-extrabold leading-normal tracking-[-0.032rem]">
           <button onClick={handleBoardSave}>글 저장</button>
-          {isMe && (
+          {postData.owner && (
             <>
               <button onClick={handleBoardEdit}>수정</button>
               <button onClick={handleBoardDelete}>삭제</button>
@@ -100,10 +78,9 @@ const PostHeader = ({ postData, variant, id }: TPostHeaderProps) => {
       {/* 수정 Drawer */}
       <Drawer dismissible={false} open={isEditDrawerOpen} onOpenChange={setIsEditDrawerOpen}>
         <DrawerContent>
-          <PostForm
+          <CommunityPostForm
             id={Number(id)}
             type="edit"
-            context={variant}
             initialData={initialData}
             onClose={() => setIsEditDrawerOpen(false)}
           />
@@ -113,4 +90,4 @@ const PostHeader = ({ postData, variant, id }: TPostHeaderProps) => {
   );
 };
 
-export default PostHeader;
+export default CommunityPostHeader;

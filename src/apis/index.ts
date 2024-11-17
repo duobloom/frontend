@@ -23,6 +23,7 @@ import { postScrap, deleteScrap } from "./posts/postScrap";
 import { getCommunityPopularList } from "./community/getCommunityPopularList";
 import { getCommunityTypeList } from "./community/getCommunityTypeList";
 import { postCommunityWrite } from "./community/postCommunityWrite";
+import { putCommunityUpdate } from "./community/putCommunityUpdate";
 
 export {
   getFilterHospital,
@@ -56,4 +57,5 @@ export {
   getCommunityPopularList,
   getCommunityTypeList,
   postCommunityWrite,
+  putCommunityUpdate,
 };

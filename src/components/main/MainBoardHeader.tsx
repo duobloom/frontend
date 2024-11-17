@@ -2,18 +2,19 @@ import { useState } from "react";
 import Header from "@/components/layout/Header";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/common/Drawer";
 import IconDotHorizontal from "@/components/ui/IconDotHorizontal";
+import MainBoardForm from "./MainBoardForm";
 import { useDeletePostData } from "@/hooks/useDeletePostData";
 import { usePostScrap } from "@/hooks/usePostScrap";
-import { BoardType } from "@/types";
-import MainBoardForm from "./MainBoardForm";
 
 type TMainBoardHeaderProps = {
-  postData: BoardType;
+  content: string;
+  photoUrls: string[];
+  mine: boolean;
   variant: "board";
   id: string;
 };
 
-const MainBoardHeader = ({ postData, variant, id }: TMainBoardHeaderProps) => {
+const MainBoardHeader = ({ content, photoUrls, mine, variant, id }: TMainBoardHeaderProps) => {
   const deletePostData = useDeletePostData({ page: true });
   const postScrap = usePostScrap();
 
@@ -21,8 +22,8 @@ const MainBoardHeader = ({ postData, variant, id }: TMainBoardHeaderProps) => {
   const [isEditDrawerOpen, setIsEditDrawerOpen] = useState(false); // 수정 드로어 상태
 
   const initialData = {
-    content: postData.content,
-    photoUrls: postData.photoUrls.map((url) => ({
+    content: content,
+    photoUrls: photoUrls.map((url) => ({
       photo_url: url,
       file: undefined,
     })),
@@ -53,7 +54,7 @@ const MainBoardHeader = ({ postData, variant, id }: TMainBoardHeaderProps) => {
       <DrawerContent className="h-[23%]">
         <div className="flex flex-col gap-[1.8rem] px-[9rem] py-[3.9rem] text-[1.6rem] font-extrabold leading-normal tracking-[-0.032rem]">
           <button onClick={handleBoardSave}>글 저장</button>
-          {postData.mine && (
+          {mine && (
             <>
               <button onClick={handleBoardEdit}>수정</button>
               <button onClick={handleBoardDelete}>삭제</button>
