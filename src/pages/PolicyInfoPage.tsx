@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Header from "@/components/layout/Header";
 import { Badge, Button, OptionTabs } from "@/components/common";
 import { BoxFooter } from "@/components/ui/Box";
@@ -6,20 +6,33 @@ import useDraggable from "@/hooks/useDraggable";
 import { DetailBox, InfoText } from "@/components/hospital";
 import { useGetPolicyInfo } from "@/hooks/useGetPolicyInfo";
 import { useLocation } from "react-router-dom";
+import { deleteScrapPolicy, postScrapPolicy } from "@/apis";
 
 const PolicyInfoPage = () => {
   const location = useLocation();
   const policyId = location.state?.id;
   const scrollRef = useRef<HTMLDivElement>(null);
   const draggableOptions = useDraggable(scrollRef);
-  const [isBookMarked, setIsBookMarked] = React.useState(false);
-  const [selectedTab, setSelectedTab] = React.useState("지원 대상");
+  const [selectedTab, setSelectedTab] = useState("지원 대상");
   const targetSectionRef = useRef<HTMLDivElement>(null);
   const contentSectionRef = useRef<HTMLDivElement>(null);
   const infoSectionRef = useRef<HTMLDivElement>(null);
   const methodSectionRef = useRef<HTMLDivElement>(null);
 
-  const { data: policyData } = useGetPolicyInfo(policyId);
+  const { data: policyData, refetch: refetchPolicyData } = useGetPolicyInfo(policyId);
+
+  const handleBookmark = async () => {
+    try {
+      if (policyData?.scraped) {
+        await deleteScrapPolicy(policyId);
+      } else {
+        await postScrapPolicy(policyId);
+      }
+      refetchPolicyData();
+    } catch (error) {
+      console.error("북마크 업데이트 중 에러:", error);
+    }
+  };
 
   // 탭 클릭 시 스크롤이동
   const scrollToSection = (sectionRef: React.RefObject<HTMLDivElement>) => {
@@ -41,7 +54,7 @@ const PolicyInfoPage = () => {
 
   return (
     <div className="flex h-full flex-col">
-      <Header variant="backActions" isBookmark={isBookMarked} handleBookmark={() => setIsBookMarked(!isBookMarked)} />
+      {policyData && <Header variant="backActions" isBookmark={policyData.scraped} handleBookmark={handleBookmark} />}
       <div
         ref={scrollRef}
         {...draggableOptions}
@@ -60,11 +73,12 @@ const PolicyInfoPage = () => {
           />
         </title>
         <span className="mt-[.5rem] flex items-center gap-[.8rem]">
-          {policyData?.keywordMappings.map((keyword, index) => (
-            <Badge key={index} variant="tagBadge">
-              {keyword.keyword}
-            </Badge>
-          ))}
+          {policyData?.keywordMappings &&
+            policyData?.keywordMappings.map((keyword, index) => (
+              <Badge key={index} variant="tagBadge">
+                {keyword.keyword}
+              </Badge>
+            ))}
         </span>
         <BoxFooter />
         <DetailBox title="지원 대상" content={policyData?.target || ""} />
