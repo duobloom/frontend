@@ -8,6 +8,7 @@ import { UserType, UserProfileType, PatchUserType } from "@/types/UserType";
 import { PointType } from "./PointType";
 import { LoginType } from "./LoginType";
 import { FeedResponseType } from "@/types/FeedType";
+import { CommunityRequestType } from "@/types/CommunityType";
 
 export {
   type HospitalType,
@@ -28,4 +29,5 @@ export {
   type LoginType,
   type BoardRequestType,
   type FeedResponseType,
+  type CommunityRequestType,
 };
