@@ -50,7 +50,7 @@ const SearchPage = () => {
                     startDate={item.startDate}
                     endDate={item.endDate}
                     imageUrl={item.imageUrl}
-                    isScrapped={item.isScrapped}
+                    scraped={item.scraped}
                     keywordMappings={item.keywordMappings}
                   />
                 ))
@@ -82,7 +82,7 @@ const SearchPage = () => {
                     latitude={item.latitude}
                     longitude={item.longitude}
                     imageUrl={item.imageUrl}
-                    isScrapped={item.isScrapped}
+                    scraped={item.scraped}
                     keywordMappings={item.keywordMappings}
                   />
                 ))
