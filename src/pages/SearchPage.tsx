@@ -44,12 +44,14 @@ const SearchPage = () => {
                     policyId={item.policyId}
                     policyName={item.policyName}
                     policyHost={item.policyHost}
-                    target={item.target}
                     region={item.region}
                     middle={item.middle}
                     detail={item.detail}
-                    linkUrl={item.linkUrl}
-                    keyword={item.keyword}
+                    startDate={item.startDate}
+                    endDate={item.endDate}
+                    imageUrl={item.imageUrl}
+                    isScrapped={item.isScrapped}
+                    keywordMappings={item.keywordMappings}
                   />
                 ))
               ) : (
@@ -80,6 +82,7 @@ const SearchPage = () => {
                     latitude={item.latitude}
                     longitude={item.longitude}
                     imageUrl={item.imageUrl}
+                    isScrapped={item.isScrapped}
                     keywordMappings={item.keywordMappings}
                   />
                 ))

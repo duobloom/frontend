@@ -48,6 +48,7 @@ const MyScrap = () => {
                     startDate={item.startDate}
                     endDate={item.endDate}
                     imageUrl={item.imageUrl}
+                    isScrapped={item.isScrapped}
                     keywordMappings={item.keywordMappings}
                   />
                 ))
@@ -73,6 +74,7 @@ const MyScrap = () => {
                     latitude={item.latitude}
                     longitude={item.longitude}
                     imageUrl={item.imageUrl}
+                    isScrapped={item.isScrapped}
                     keywordMappings={item.keywordMappings}
                   />
                 ))

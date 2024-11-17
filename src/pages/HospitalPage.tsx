@@ -112,6 +112,7 @@ const HospitalPage = () => {
                   latitude={item.latitude}
                   longitude={item.longitude}
                   imageUrl={item.imageUrl}
+                  isScrapped={item.isScrapped}
                   keywordMappings={item.keywordMappings}
                 />
               ))
