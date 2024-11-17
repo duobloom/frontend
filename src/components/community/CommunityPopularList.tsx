@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { CommunityTitle } from "@/components/community";
-import { CommunityBox } from "@/components/common";
+import { CommunityBox } from "@/components/community";
 import { getCommunityPopularList } from "@/apis";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { logValidationError, validateApiResponse } from "@/utils/zodHelpers";

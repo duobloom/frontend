@@ -1,24 +1,22 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
-import { deleteComment } from "@/apis";
+import { putCommunityUpdate } from "@/apis";
+import { CommunityRequestType } from "@/types";
 
-export const useDeleteComment = () => {
+export const usePutCommunityUpdate = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<AxiosResponse<string>, AxiosError, { type: "board" | "community"; id: number }>({
-    mutationFn: async ({ type, id }) => await deleteComment(type, id),
-    onSuccess: (_, { id }) => {
+  return useMutation<AxiosResponse<string>, AxiosError, { id: number; communityForm: CommunityRequestType }>({
+    mutationFn: async ({ id, communityForm }) => await putCommunityUpdate(id, communityForm),
+    onSuccess: (_, { id, communityForm }) => {
       queryClient.invalidateQueries({
-        queryKey: ["posts"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["posts", id],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["community"],
+        queryKey: ["community", communityForm.type],
       });
       queryClient.invalidateQueries({
         queryKey: ["community", id],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["community"],
       });
     },
     onError: (error) => {

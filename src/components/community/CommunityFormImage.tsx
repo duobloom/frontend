@@ -1,27 +1,25 @@
 import React, { useRef } from "react";
 import { UseFormReturn } from "react-hook-form";
 import useDraggable from "@/hooks/useDraggable";
-import { CommunityPostFormType, BoardPostFormType } from "@/types";
+import { CommunityPostFormType } from "@/types";
 import { IconCamera, IconCircleClose } from "@/assets/icon";
 import { reduceImageSize } from "@/utils";
 
-type FormType = CommunityPostFormType | BoardPostFormType;
-
-type TFormImageProps = {
-  form: UseFormReturn<FormType>;
+type TCommunityFormImageProps = {
+  form: UseFormReturn<CommunityPostFormType>;
 };
 
-const FormImage = ({ form }: TFormImageProps) => {
+const CommunityFormImage = ({ form }: TCommunityFormImageProps) => {
   const fileRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const draggableOptions = useDraggable(scrollRef);
 
   // 이미지 삭제
   const handleImgDelete = (index: number) => {
-    const currentPhotos = form.getValues("photoUrls");
+    const currentPhotos = form.getValues("images");
     URL.revokeObjectURL(currentPhotos[index].photo_url); // 메모리 정리
     const newPhotos = currentPhotos.filter((_, i) => i !== index);
-    form.setValue("photoUrls", newPhotos);
+    form.setValue("images", newPhotos);
     if (fileRef.current) fileRef.current.value = "";
   };
 
@@ -50,7 +48,7 @@ const FormImage = ({ form }: TFormImageProps) => {
       file: resizedFile,
     };
 
-    form.setValue("photoUrls", [...form.getValues("photoUrls"), newFileInfo]);
+    form.setValue("images", [...form.getValues("images"), newFileInfo]);
     target.value = "";
   };
 
@@ -61,7 +59,7 @@ const FormImage = ({ form }: TFormImageProps) => {
         className="my-[1.5rem] flex min-h-[10.5rem] gap-[.8rem] overflow-x-auto scrollbar-hide"
         {...draggableOptions()}
       >
-        {form.watch("photoUrls").map((img, index) => (
+        {form.watch("images").map((img, index) => (
           <div
             key={img.photo_url}
             className="relative h-[10.5rem] w-[10.5rem] min-w-[10.5rem] overflow-hidden rounded-[1rem] border border-gray-300"
@@ -78,7 +76,7 @@ const FormImage = ({ form }: TFormImageProps) => {
             <IconCamera />
           </label>
           <input
-            {...form.register("photoUrls")}
+            {...form.register("images")}
             type="file"
             id="inputFile"
             className="hidden"
@@ -92,4 +90,4 @@ const FormImage = ({ form }: TFormImageProps) => {
   );
 };
 
-export default FormImage;
+export default CommunityFormImage;

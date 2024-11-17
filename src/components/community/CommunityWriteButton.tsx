@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/common/Drawer";
-import { PostForm } from "@/components/common";
 import { IconEdit } from "@/assets/icon";
+import { CommunityPostForm } from "@/components/community";
 
 const CommunityWriteButton = () => {
   const [isTextDrawerOpen, setIsTextDrawerOpen] = useState(false);
@@ -16,7 +16,7 @@ const CommunityWriteButton = () => {
         </button>
       </DrawerTrigger>
       <DrawerContent>
-        <PostForm type="add" context="community" onClose={() => setIsTextDrawerOpen(false)} />
+        <CommunityPostForm type="add" onClose={() => setIsTextDrawerOpen(false)} />
       </DrawerContent>
     </Drawer>
   );

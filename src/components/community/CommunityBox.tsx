@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { CommunityType } from "@/types";
-import { Badge } from "./Badge";
+import { Badge } from "@/components/common/Badge";
 import Author from "@/components/ui/Author";
 import { BoxContainer, BoxContent, BoxFooter, BoxHeader } from "@/components/ui/Box";
 import LikeAndComments from "@/components/ui/LikeAndComments";
@@ -20,14 +20,17 @@ export default function CommunityBox({ communityData }: CommunityBoxProps) {
           <Author
             profileImg={communityData?.profilePictureUrl}
             name={communityData?.nickname}
-            createdAt={formatDateConvertWithRelativeTime(communityData?.createdAt)}
+            createdAt={formatDateConvertWithRelativeTime(communityData?.updatedAt as string)}
+            isMe={communityData.owner}
           />
         </div>
-        {communityData?.imageUrls.length > 1 && (
+        {communityData?.imageUrls.length >= 1 && (
           <div className="relative h-[3.6rem] w-[3.6rem] overflow-hidden rounded-[1rem] border border-gray-100">
             <img src={communityData?.imageUrls[0]} alt="이미지" className="h-full w-full object-cover" />
             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-[1.4rem] font-bold leading-normal text-white">
-              {communityData?.imageUrls.length}+
+              {communityData?.imageUrls.length > 1
+                ? communityData?.imageUrls.length + "+"
+                : communityData?.imageUrls.length}
             </div>
           </div>
         )}
@@ -54,7 +57,7 @@ export default function CommunityBox({ communityData }: CommunityBoxProps) {
           type="community"
           id={String(communityData?.communityId)}
           likeCount={communityData?.likeCount}
-          commentCount={communityData?.commentCount}
+          commentCount={communityData.commentCount as number}
           likedByUser={communityData?.likedByUser}
         />
       </BoxFooter>

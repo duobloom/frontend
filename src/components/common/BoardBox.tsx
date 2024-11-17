@@ -6,8 +6,8 @@ import { BoxContainer, BoxContent, BoxFooter, BoxHeader } from "@/components/ui/
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/components/ui/Carousel";
 import IconDotHorizontal from "@/components/ui/IconDotHorizontal";
 import LikeAndComments from "@/components/ui/LikeAndComments";
-import PostForm from "@/components/common/PostForm";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/common/Drawer";
+import { MainBoardForm } from "@/components/main";
 
 import { useDeletePostData } from "@/hooks/useDeletePostData";
 import { usePostScrap } from "@/hooks/usePostScrap";
@@ -96,10 +96,9 @@ export default function BoardBox({ board }: { board: BoardType }) {
       {/* 수정 Drawer */}
       <Drawer dismissible={false} open={isTextDrawerOpen} onOpenChange={setIsTextDrawerOpen}>
         <DrawerContent>
-          <PostForm
+          <MainBoardForm
             id={board.boardId}
             type="edit"
-            context="board"
             initialData={initialData}
             onClose={() => setIsTextDrawerOpen(false)}
           />
