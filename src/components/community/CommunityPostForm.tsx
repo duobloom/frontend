@@ -20,14 +20,14 @@ import { CommunityFormImage } from "@/components/community";
 
 import { getS3Url, postPresignedUrl, putS3Upload } from "@/apis/image/imageUpload";
 import { usePostCommunityWrite } from "@/hooks/usePostCommunityWrite";
-import { usePutCommunityUpdate } from "@/hooks/useputCommunityUpdate";
+import { usePutCommunityUpdate } from "@/hooks/usePutCommunityUpdate";
 
 import { CategoryType, CommunityPostFormSchema, CommunityPostFormType } from "@/types/CommunityType";
 
 import { IconClose } from "@/assets/icon";
 
 type TCommunityPostFormProps = {
-  id: number;
+  id?: number;
   type: "add" | "edit";
   initialData?: CommunityPostFormType | null;
   onClose: () => void;
@@ -98,7 +98,7 @@ const CommunityPostForm = ({ id, type, initialData = null, onClose }: TCommunity
         if (type === "add") {
           postCommunityMutation.mutate(communityForm);
         } else {
-          putCommunityUpdate.mutate({ id, communityForm });
+          putCommunityUpdate.mutate({ id: id as number, communityForm });
         }
 
         onClose();

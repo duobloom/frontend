@@ -47,7 +47,7 @@ const CalendarDetailPage = () => {
                 case "EmotionBox":
                   return <EmotionBox key={index} emotion={data as EmotionType} />;
                 case "QuestionBox":
-                  return <QuestionBox key={index} data={data as QuestionType} />;
+                  return <QuestionBox key={index} data={data as QuestionType} currentDate={currentDate} />;
                 default:
                   return null;
               }
