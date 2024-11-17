@@ -16,7 +16,7 @@ const MyPage: React.FC = () => {
             <img
               src={userInfo?.profilePictureUrl}
               alt="프로필 이미지"
-              className="h-[6.5rem] w-[6.5rem] rounded-full border border-gray-300"
+              className="h-[6.5rem] w-[6.5rem] rounded-full border border-gray-300 object-cover"
             />
             <div className="flex flex-col">
               <span className="text-[1.8rem] font-bold text-black">{userInfo?.nickname}</span>
