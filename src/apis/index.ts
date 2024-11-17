@@ -19,6 +19,11 @@ import { postLike, deleteBoardLike } from "./posts/postLike";
 import { postScrapHospital, deleteScrapHospital, getScrapHospital } from "./hospital/scrapHospital";
 import { postScrapPolicy, deleteScrapPolicy, getScrapPolicy } from "./policy/scrapPolicy";
 import { getPolicyInfo } from "./policy/getPolicyInfo";
+import { postScrap, deleteScrap } from "./posts/postScrap";
+import { getCommunityPopularList } from "./community/getCommunityPopularList";
+import { getCommunityTypeList } from "./community/getCommunityTypeList";
+import { postCommunityWrite } from "./community/postCommunityWrite";
+
 export {
   getFilterHospital,
   getHospitaInfo,
@@ -46,4 +51,9 @@ export {
   deleteScrapPolicy,
   getScrapPolicy,
   getPolicyInfo,
+  postScrap,
+  deleteScrap,
+  getCommunityPopularList,
+  getCommunityTypeList,
+  postCommunityWrite,
 };

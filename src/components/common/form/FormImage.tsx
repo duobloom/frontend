@@ -38,11 +38,11 @@ const FormImage = ({ form }: TFormImageProps) => {
 
     // 원본 파일명에서 확장자를 제외한 이름만 추출
     const originalFileName = originalFile.name.replace(/\.[^/.]+$/, "");
-    // 새로운 파일명 생성 (.jpeg 확장자 사용)
-    const newFileName = `${originalFileName}.jpeg`;
+    // 새로운 파일명 생성 (.webP 확장자 사용)
+    const newFileName = `${originalFileName}.webP`;
 
     const resizedFile = new File([resizedImage], newFileName, {
-      type: "image/jpeg",
+      type: "image/webP",
     });
 
     const newFileInfo: { photo_url: string; file: File } = {

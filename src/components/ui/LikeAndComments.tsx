@@ -66,7 +66,7 @@ const LikeAndComments = ({ type, isDetailPage, id, likeCount, commentCount, like
         <span className="text-[1.4rem]">{likeCountNum}</span>
       </div>
       <div
-        className={cn(`flex items-center gap-[0.4rem] text-gray-500`, !isDetailPage || "cursor-pointer")}
+        className={cn(`flex items-center gap-[0.4rem] text-gray-500`, isDetailPage || "cursor-pointer")}
         onClick={moveLink}
       >
         <IconComments />

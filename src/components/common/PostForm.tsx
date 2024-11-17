@@ -20,6 +20,7 @@ import {
 import { getS3Url, postPresignedUrl, putS3Upload } from "@/apis/image/imageUpload";
 import { usePostBoardWrite } from "@/hooks/usePostBoardWrite";
 import { usePutBoardUpdate } from "@/hooks/usePutBoardUpdate";
+import { usePostCommunityWrite } from "@/hooks/usePostCommunityWrite";
 
 import { CategoryType, CommunityPostFormSchema, CommunityPostFormType } from "@/types/CommunityType";
 import { BoardPostFormSchema, BoardPostFormType } from "@/types/BoardType";
@@ -36,6 +37,7 @@ type TPostFormProps = {
 
 const PostForm = ({ id, type, context, initialData = null, onClose }: TPostFormProps) => {
   const postBoardMutation = usePostBoardWrite();
+  const postCommunityMutation = usePostCommunityWrite();
   const putBoardUpdate = usePutBoardUpdate();
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
@@ -96,12 +98,14 @@ const PostForm = ({ id, type, context, initialData = null, onClose }: TPostFormP
 
         // 커뮤니티
         if (context === "community") {
-          // const communityForm = {
-          //   ...boardForm,
-          //   type: form.getValues().type,
-          //   tags: form.getValues().tags || [],
-          // };
-          // postCommunityMutation.mutate(communityForm);
+          const communityForm = {
+            ...boardForm,
+            type: form.getValues().type as CategoryType,
+            tags: form.getValues().tags || [],
+          };
+          if (type === "add") {
+            postCommunityMutation.mutate(communityForm);
+          }
         }
         // 피드
         else {
