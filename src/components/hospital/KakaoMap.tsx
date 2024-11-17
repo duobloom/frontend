@@ -155,6 +155,7 @@ function KakaoMap({
                     latitude={hospital.latitude}
                     longitude={hospital.longitude}
                     imageUrl={hospital.imageUrl}
+                    scraped={hospital.scraped}
                     keywordMappings={hospital.keywordMappings}
                   />
                 </div>

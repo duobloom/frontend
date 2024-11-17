@@ -18,6 +18,7 @@ import image from "@/assets/image/test.png";
 import { useLocation } from "react-router-dom";
 import { medicalDepartment } from "@/constants";
 import { useGetHospitalInfo } from "@/hooks/useGetHospitalInfo";
+import { deleteScrapHospital, postScrapHospital } from "@/apis";
 
 const HospitalInfoPage = () => {
   const location = useLocation();
@@ -25,13 +26,25 @@ const HospitalInfoPage = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const draggableOptions = useDraggable(scrollRef);
   const [activeDrawer, setActiveDrawer] = useState<"medic" | "clinicHour" | null>(null);
-  const [isBookMarked, setIsBookMarked] = useState(false);
   const [selectedTab, setSelectedTab] = useState("병원 정보");
   const infoSectionRef = useRef<HTMLDivElement>(null);
   const medicSectionRef = useRef<HTMLDivElement>(null);
   const directionSectionRef = useRef<HTMLDivElement>(null);
 
-  const { data: hospitalData } = useGetHospitalInfo(hospitalId);
+  const { data: hospitalData, refetch: refetchHospitalData } = useGetHospitalInfo(hospitalId);
+
+  const handleBookmark = async () => {
+    try {
+      if (hospitalData?.scraped) {
+        await deleteScrapHospital(hospitalId);
+      } else {
+        await postScrapHospital(hospitalId);
+      }
+      refetchHospitalData();
+    } catch (error) {
+      console.error("북마크 업데이트 중 에러:", error);
+    }
+  };
 
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -77,7 +90,9 @@ const HospitalInfoPage = () => {
 
   return (
     <div className="flex h-full flex-col">
-      <Header variant="backActions" isBookmark={isBookMarked} handleBookmark={() => setIsBookMarked(!isBookMarked)} />
+      {hospitalData && (
+        <Header variant="backActions" isBookmark={hospitalData?.scraped} handleBookmark={handleBookmark} />
+      )}
       <div
         ref={scrollRef}
         {...draggableOptions}

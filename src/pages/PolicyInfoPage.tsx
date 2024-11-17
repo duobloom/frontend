@@ -1,21 +1,38 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Header from "@/components/layout/Header";
 import { Badge, Button, OptionTabs } from "@/components/common";
 import { BoxFooter } from "@/components/ui/Box";
 import useDraggable from "@/hooks/useDraggable";
 import { DetailBox, InfoText } from "@/components/hospital";
-import { examplePolicyData, examplePolicyDetail, PolicyInfo } from "@/components/policy/PolicyInfoBox";
+import { useGetPolicyInfo } from "@/hooks/useGetPolicyInfo";
+import { useLocation } from "react-router-dom";
+import { deleteScrapPolicy, postScrapPolicy } from "@/apis";
 
 const PolicyInfoPage = () => {
+  const location = useLocation();
+  const policyId = location.state?.id;
   const scrollRef = useRef<HTMLDivElement>(null);
   const draggableOptions = useDraggable(scrollRef);
-  const [isBookMarked, setIsBookMarked] = React.useState(false);
-  const [selectedTab, setSelectedTab] = React.useState("지원 대상");
+  const [selectedTab, setSelectedTab] = useState("지원 대상");
   const targetSectionRef = useRef<HTMLDivElement>(null);
   const contentSectionRef = useRef<HTMLDivElement>(null);
   const infoSectionRef = useRef<HTMLDivElement>(null);
   const methodSectionRef = useRef<HTMLDivElement>(null);
-  const policyInfo = examplePolicyDetail;
+
+  const { data: policyData, refetch: refetchPolicyData } = useGetPolicyInfo(policyId);
+
+  const handleBookmark = async () => {
+    try {
+      if (policyData?.scraped) {
+        await deleteScrapPolicy(policyId);
+      } else {
+        await postScrapPolicy(policyId);
+      }
+      refetchPolicyData();
+    } catch (error) {
+      console.error("북마크 업데이트 중 에러:", error);
+    }
+  };
 
   // 탭 클릭 시 스크롤이동
   const scrollToSection = (sectionRef: React.RefObject<HTMLDivElement>) => {
@@ -37,7 +54,7 @@ const PolicyInfoPage = () => {
 
   return (
     <div className="flex h-full flex-col">
-      <Header variant="backActions" isBookmark={isBookMarked} handleBookmark={() => setIsBookMarked(!isBookMarked)} />
+      {policyData && <Header variant="backActions" isBookmark={policyData.scraped} handleBookmark={handleBookmark} />}
       <div
         ref={scrollRef}
         {...draggableOptions}
@@ -45,27 +62,28 @@ const PolicyInfoPage = () => {
       >
         <title className="mb-[3rem] flex items-center justify-between">
           <span>
-            <InfoText>{policyInfo.policy_name}</InfoText>
+            <InfoText>{policyData?.policyName}</InfoText>
             <InfoText variant="secondary" size="sm">
-              {policyInfo.host}
+              {policyData?.policyHost}
             </InfoText>
           </span>
           <img
-            src={policyInfo.policy_img}
+            src={policyData?.imageUrl || ""}
             className="h-[6.5rem] w-[6.5rem] rounded-[1rem] border-gray-200 object-cover"
           />
         </title>
         <span className="mt-[.5rem] flex items-center gap-[.8rem]">
-          {examplePolicyData.keywords.map((keyword) => (
-            <Badge key={keyword.keyword_id} variant="tagBadge">
-              {keyword.keyword_name}
-            </Badge>
-          ))}
+          {policyData?.keywordMappings &&
+            policyData?.keywordMappings.map((keyword, index) => (
+              <Badge key={index} variant="tagBadge">
+                {keyword.keyword}
+              </Badge>
+            ))}
         </span>
         <BoxFooter />
-        <DetailBox title="지원 대상" content={policyInfo.target} />
-        <DetailBox title="지원 유형" content={policyInfo.category} />
-        <DetailBox title="지원 혜택" content={policyInfo.benefit} />
+        <DetailBox title="지원 대상" content={policyData?.target || ""} />
+        <DetailBox title="지원 유형" content={policyData?.target || ""} />
+        <DetailBox title="지원 혜택" content={policyData?.target || ""} />
         <p className="ml-[1.5rem] text-[1.1rem] font-medium text-gray-400">
           출처 : 보건복지부/최종 수정일 : 2023-12-20
         </p>
@@ -82,9 +100,7 @@ const PolicyInfoPage = () => {
               지원 대상
             </InfoText>
             <InfoText size="sm" className="mb-[1.5rem]">
-              대치동 7번 출구 대치듀블여성병원은 임상경력 풍부한 산부인과 전문의가 편안하고 정확한 진료로 본연의
-              여성다움, 자연스럽게 평생 지켜드리는 아름다움, 신뢰와 편안한 미소가 있는 정다움을 드리는 듀오블룸 인증
-              산부인과입니다.
+              {policyData?.target}
             </InfoText>
             <BoxFooter />
           </section>
@@ -112,12 +128,13 @@ const PolicyInfoPage = () => {
             <InfoText size="md" className="mb-[1.5rem]">
               관련 정책
             </InfoText>
-            <PolicyInfo item={examplePolicyData} />
           </section>
         </div>
       </div>
       <footer className="flex w-full items-center gap-[.7rem] border-t border-gray-300 px-[1.8rem] py-[.7rem]">
-        <Button>바로 가기</Button>
+        <Button>
+          <a href={policyData?.linkUrl || ""}>바로 가기</a>
+        </Button>
         <Button variant="reverse">전화 문의</Button>
       </footer>
     </div>

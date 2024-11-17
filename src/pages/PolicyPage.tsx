@@ -85,12 +85,14 @@ const PolicyPage = () => {
                   policyId={item.policyId}
                   policyName={item.policyName}
                   policyHost={item.policyHost}
-                  target={item.target}
                   region={item.region}
                   middle={item.middle}
                   detail={item.detail}
-                  linkUrl={item.linkUrl}
-                  keyword={item.keyword}
+                  startDate={item.startDate}
+                  endDate={item.endDate}
+                  imageUrl={item.imageUrl}
+                  scraped={item.scraped}
+                  keywordMappings={item.keywordMappings}
                 />
               ))}
           </div>

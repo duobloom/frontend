@@ -31,7 +31,7 @@ InfoText.displayName = "InfoText";
 
 type TDetailBoxProps = {
   title: string;
-  content: string;
+  content?: string;
   showIcon?: boolean;
   className?: string;
 };
