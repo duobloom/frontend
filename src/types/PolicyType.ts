@@ -17,7 +17,7 @@ export const PolicySchema = z.object({
   target: z.string().nullable(),
   linkUrl: z.string(),
   imageUrl: z.string().nullable(),
-  isScrapped: z.boolean(),
+  scraped: z.boolean(),
   keywordMappings: z.array(PolicyKeywordSchema),
 });
 
@@ -32,7 +32,7 @@ export const PolicyListSchema = z.object({
   startDate: z.string().nullable(),
   endDate: z.string().nullable(),
   imageUrl: z.string().nullable(),
-  isScrapped: z.boolean(),
+  scraped: z.boolean(),
   keywordMappings: z.array(PolicyKeywordSchema),
 });
 

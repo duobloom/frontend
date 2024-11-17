@@ -37,7 +37,7 @@ InfoBoxTitle.displayName = "InfoBoxTitle";
 
 const InfoBox = (props: TInfoInfoBoxProps) => {
   const { variant } = props;
-  const [isClick, setIsClick] = useState(props.isScrapped);
+  const [isClick, setIsClick] = useState(props.scraped);
   const navigate = useNavigate();
 
   // ID 값 추출
