@@ -53,14 +53,14 @@ const MyScrap = () => {
                   />
                 ))
               ) : (
-                <p className="text-center text-[1.5rem] text-gray-400">데이터가 없습니다.</p>
+                <p className="text-center text-[1.5rem] text-gray-400">스크랩 한 정책이 없습니다.</p>
               )}
             </>
           )}
           {selectedTab === "병원/클리닉" && (
             <>
               {hospitalData && hospitalData.length > 0 ? (
-                hospitalData.map((item) => (
+                hospitalData?.map((item) => (
                   <InfoBox
                     key={item.hospitalId}
                     variant="hospital"
@@ -79,7 +79,7 @@ const MyScrap = () => {
                   />
                 ))
               ) : (
-                <p className="text-center text-[1.5rem] text-gray-400">데이터가 없습니다.</p>
+                <p className="text-center text-[1.5rem] text-gray-400">스크랩 한 병원/클리닉이 없습니다.</p>
               )}
             </>
           )}
