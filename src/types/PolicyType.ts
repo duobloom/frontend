@@ -6,16 +6,18 @@ const PolicyKeywordSchema = z.object({
 
 // 정책 전체 타입
 export const PolicySchema = z.object({
-  policy_id: z.number(),
-  policy_name: z.string(),
-  policy_img: z.string(),
-  host: z.string(),
-  target: z.string(),
-  category: z.string(),
-  start_date: z.string(),
-  end_date: z.string(),
-  benefit: z.string(),
-  content: z.string(),
+  policyId: z.number(),
+  policyName: z.string(),
+  policyHost: z.string(),
+  region: z.string().nullable(),
+  middle: z.string().nullable(),
+  detail: z.string().nullable(),
+  startDate: z.string().nullable(),
+  endDate: z.string().nullable(),
+  target: z.string().nullable(),
+  linkUrl: z.string(),
+  imageUrl: z.string().nullable(),
+  isScrapped: z.boolean(),
   keywordMappings: z.array(PolicyKeywordSchema),
 });
 
@@ -23,13 +25,15 @@ export const PolicySchema = z.object({
 export const PolicyListSchema = z.object({
   policyId: z.number(),
   policyName: z.string(),
-  linkUrl: z.string().nullable(),
   policyHost: z.string(),
-  target: z.string().nullable(),
-  region: z.number().nullable(),
-  middle: z.number().nullable(),
-  detail: z.number().nullable(),
-  keyword: z.string(),
+  region: z.string().nullable(),
+  middle: z.string().nullable(),
+  detail: z.string().nullable(),
+  startDate: z.string().nullable(),
+  endDate: z.string().nullable(),
+  imageUrl: z.string().nullable(),
+  isScrapped: z.boolean(),
+  keywordMappings: z.array(PolicyKeywordSchema),
 });
 
 export type PolicyType = z.infer<typeof PolicySchema>;
