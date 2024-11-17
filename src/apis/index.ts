@@ -17,6 +17,8 @@ import { postEmotion } from "./main/postEmotion";
 import { postQuestion } from "./main/postQuestion";
 import { postLike, deleteBoardLike } from "./posts/postLike";
 import { postScrap, deleteScrap } from "./posts/postScrap";
+import { getCommunityPopularList } from "./community/getCommunityPopularList";
+import { getCommunityTypeList } from "./community/getCommunityTypeList";
 
 export {
   getFilterHospital,
@@ -40,4 +42,6 @@ export {
   deleteBoardLike,
   postScrap,
   deleteScrap,
+  getCommunityPopularList,
+  getCommunityTypeList,
 };

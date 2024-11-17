@@ -4,6 +4,7 @@ import { Badge } from "./Badge";
 import Author from "@/components/ui/Author";
 import { BoxContainer, BoxContent, BoxFooter, BoxHeader } from "@/components/ui/Box";
 import LikeAndComments from "@/components/ui/LikeAndComments";
+import { formatDateConvertWithRelativeTime } from "@/utils/formatDateConvert";
 
 type CommunityBoxProps = {
   communityData: CommunityType;
@@ -17,16 +18,16 @@ export default function CommunityBox({ communityData }: CommunityBoxProps) {
       <BoxHeader>
         <div className="flex items-center gap-[1.2rem]">
           <Author
-            profileImg={communityData.author.profileImage}
-            name={communityData.author.name}
-            createdAt={communityData.createdAt}
+            profileImg={communityData?.profilePictureUrl}
+            name={communityData?.nickname}
+            createdAt={formatDateConvertWithRelativeTime(communityData?.createdAt)}
           />
         </div>
-        {communityData.photoUrls.length > 1 && (
+        {communityData?.imageUrls.length > 1 && (
           <div className="relative h-[3.6rem] w-[3.6rem] overflow-hidden rounded-[1rem] border border-gray-100">
-            <img src={communityData.photoUrls[0]} alt="이미지" className="h-full w-full object-cover" />
+            <img src={communityData?.imageUrls[0]} alt="이미지" className="h-full w-full object-cover" />
             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-[1.4rem] font-bold leading-normal text-white">
-              {communityData.photoUrls.length}+
+              {communityData?.imageUrls.length}+
             </div>
           </div>
         )}
@@ -35,14 +36,14 @@ export default function CommunityBox({ communityData }: CommunityBoxProps) {
       <BoxContent className="mt-[1rem]">
         <div
           className="mb-[1.4rem] line-clamp-2 cursor-pointer text-[1.3rem] font-medium leading-[1.8rem] text-black"
-          onClick={() => navigate(`/community/${communityData.community_id}`)}
+          onClick={() => navigate(`/community/${communityData?.communityId}`)}
         >
-          {communityData.content}
+          {communityData?.content}
         </div>
         <div className="flex flex-wrap gap-[0.8rem]">
-          {communityData.tags.map((tag) => (
-            <Badge key={tag} variant="tagBadge">
-              {tag}
+          {communityData?.tags.map((tag) => (
+            <Badge key={tag.tagId} variant="tagBadge">
+              {tag.name}
             </Badge>
           ))}
         </div>
@@ -51,9 +52,10 @@ export default function CommunityBox({ communityData }: CommunityBoxProps) {
       <BoxFooter>
         <LikeAndComments
           type="community"
-          id={communityData.community_id}
-          likes={communityData.likes}
-          comments={communityData.comments}
+          id={String(communityData?.communityId)}
+          likeCount={communityData?.likeCount}
+          commentCount={communityData?.commentCount}
+          likedByUser={communityData?.likedByUser}
         />
       </BoxFooter>
     </BoxContainer>
