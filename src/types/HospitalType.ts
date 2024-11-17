@@ -22,7 +22,7 @@ export const HospitalSchema = z.object({
   imageUrl: z.string().nullable(), // 이미지 링크 URL
   linkUrl: z.string().nullable(), //
   scraped: z.boolean(),
-  keywordMappings: z.array(HospitalKeywordSchema).optional(), // 키워드 정보
+  keywordMappings: z.array(HospitalKeywordSchema).optional().nullable(), // 키워드 정보
 });
 
 //병원 리스트 타입
@@ -38,7 +38,7 @@ export const HospitalListSchema = z.object({
   longitude: z.number().nullable(), // 경도
   imageUrl: z.string().nullable(), // 이미지 링크 URL
   scraped: z.boolean(),
-  keywordMappings: z.array(HospitalKeywordSchema).optional(), // 키워드 정보
+  keywordMappings: z.array(HospitalKeywordSchema).optional().nullable(), // 키워드 정보
 });
 
 export type HospitalType = z.infer<typeof HospitalSchema>;

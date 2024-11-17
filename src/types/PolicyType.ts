@@ -18,7 +18,7 @@ export const PolicySchema = z.object({
   linkUrl: z.string(),
   imageUrl: z.string().nullable(),
   scraped: z.boolean(),
-  keywordMappings: z.array(PolicyKeywordSchema),
+  keywordMappings: z.array(PolicyKeywordSchema).nullable(),
 });
 
 // 정책 리스트 타입
@@ -33,7 +33,7 @@ export const PolicyListSchema = z.object({
   endDate: z.string().nullable(),
   imageUrl: z.string().nullable(),
   scraped: z.boolean(),
-  keywordMappings: z.array(PolicyKeywordSchema),
+  keywordMappings: z.array(PolicyKeywordSchema).nullable(),
 });
 
 export type PolicyType = z.infer<typeof PolicySchema>;
