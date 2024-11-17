@@ -43,7 +43,7 @@ const subTextVariants = cva("text-[1.2rem] leading-none text-gray-500 tracking-[
 
 interface AuthorProps extends VariantProps<typeof AuthorVariants> {
   profileImg?: string;
-  name: string;
+  name?: string;
   createdAt?: string;
   birth?: string;
   isMe?: boolean;
@@ -62,7 +62,7 @@ const Author = ({ variant = "community", profileImg, name, createdAt, birth, isM
       <div className="relative -m-[0.8rem] p-[0.8rem]">
         <Avatar className={cn(variant && avatarSizes[variant])}>
           <AvatarImage src={profileImg} alt={name} className="object-cover" />
-          <AvatarFallback>{name[0].toUpperCase()}</AvatarFallback>
+          <AvatarFallback>{(name as string)[0].toUpperCase()}</AvatarFallback>
         </Avatar>
         {isMe && (
           <div className="absolute bottom-0 right-0 m-[.8rem] flex h-[1.6rem] w-[1.6rem] items-center justify-center rounded-full border border-gray-300 bg-black text-[.8rem] font-bold text-white">
