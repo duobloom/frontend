@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply font-sans text-[62.5%] leading-[1.5] tracking-[-1px] text-black antialiased;
+  }
+  body {
+    @apply text-[1.6rem] tracking-[-1px];
+  }
+  hr {
+    @apply my-[1.6rem] w-full border-t border-solid border-gray-100;
+  }
+  main {
+    @apply h-full;
+  }
+}
