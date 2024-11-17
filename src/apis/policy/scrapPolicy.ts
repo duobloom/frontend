@@ -11,6 +11,6 @@ export const postScrapPolicy = async (policyId?: number) => {
 };
 
 export const deleteScrapPolicy = async (policyId?: number) => {
-  const response = await axios.delete(`/api/policy-scrap?policyId=${policyId}`);
+  const response = await axios.delete(`/api/policy-scrap/${policyId}`);
   console.log(response);
 };

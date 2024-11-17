@@ -12,5 +12,5 @@ export const postScrapHospital = async (hospitalId?: number) => {
 };
 
 export const deleteScrapHospital = async (hospitalId?: number) => {
-  await axios.delete(`/api/hospital-scrap?hospitalId=${hospitalId}`);
+  await axios.delete(`/api/hospital-scrap/${hospitalId}`);
 };
