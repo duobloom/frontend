@@ -4,6 +4,7 @@ import { Badge } from "@/components/common";
 import { HospitalListType, PolicyListType } from "@/types";
 import { cn } from "@/utils";
 import { IconBookMark } from "@/assets/icon";
+import { deleteScrapHospital, deleteScrapPolicy, postScrapHospital, postScrapPolicy } from "@/apis";
 
 // Props 타입 정의
 type HospitalInfoBoxProps = HospitalListType & { variant: "hospital" };
@@ -36,13 +37,13 @@ InfoBoxTitle.displayName = "InfoBoxTitle";
 
 const InfoBox = (props: TInfoInfoBoxProps) => {
   const { variant } = props;
-  const [isClick, setIsClick] = useState(false);
+  const [isClick, setIsClick] = useState(props.isScrapped);
   const navigate = useNavigate();
 
   // ID 값 추출
   const entityId = variant === "hospital" ? props.hospitalId : props.policyId;
   const entityTitle = variant === "hospital" ? props.hospitalName : props.policyName;
-  const entityImg = variant === "hospital" ? props.imageUrl : props.linkUrl;
+  const entityImg = variant === "hospital" ? props.imageUrl : props.imageUrl;
 
   // 상세 페이지 이동
   const moveDetail = useCallback(
@@ -53,10 +54,33 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
   );
 
   // 북마크 버튼
-  const bookMarkFn = useCallback((e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    e.stopPropagation();
-    setIsClick((prev) => !prev);
-  }, []);
+  const bookMarkFn = useCallback(
+    async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      e.stopPropagation();
+
+      try {
+        if (!isClick) {
+          // 스크랩 추가
+          if (variant === "hospital") {
+            await postScrapHospital(entityId);
+          } else if (variant === "policy") {
+            await postScrapPolicy(entityId);
+          }
+        } else {
+          // 스크랩 삭제
+          if (variant === "hospital") {
+            await deleteScrapHospital(entityId);
+          } else if (variant === "policy") {
+            await deleteScrapPolicy(entityId);
+          }
+        }
+        setIsClick(!isClick);
+      } catch (error) {
+        console.error("Error updating scrap status:", error);
+      }
+    },
+    [isClick, variant, entityId],
+  );
 
   // 컨텐츠 렌더링
   const renderContent = () => {
@@ -83,16 +107,13 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
         </div>
       );
     } else {
-      const { policyHost } = props;
-      // const { host, start_date, end_date } = props;
+      const { policyHost, startDate, endDate } = props;
       return (
         <div className="text-[1.1rem] leading-[1.32rem]">
           <span className="text-gray-500">{policyHost}</span>
-          {/* <div className="mt-[.7rem] flex gap-[.5rem] font-semibold tracking-normal text-black">
-            <span>
-              {start_date} ~ {end_date}
-            </span>
-          </div> */}
+          <div className="mt-[.7rem] flex gap-[.5rem] font-semibold tracking-normal text-black">
+            <span>{startDate && endDate ? `${startDate} ~ ${endDate}` : ""}</span>
+          </div>
         </div>
       );
     }
@@ -113,14 +134,12 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
       </div>
       <div className="flex justify-between">
         <div className="flex w-fit gap-[.8rem] overflow-hidden">
-          {variant === "hospital"
-            ? Array.isArray(props.keywordMappings) &&
-              props.keywordMappings.map((keyword, index) => (
-                <Badge key={index} variant="tagBadge">
-                  {keyword.keyword}
-                </Badge>
-              ))
-            : typeof props.keyword === "string" && <Badge variant="tagBadge">{props.keyword}</Badge>}
+          {Array.isArray(props.keywordMappings) &&
+            props.keywordMappings.map((keyword, index) => (
+              <Badge key={index} variant="tagBadge">
+                {keyword.keyword}
+              </Badge>
+            ))}
         </div>
         <button onClick={bookMarkFn}>
           <IconBookMark className={`${isClick ? "stroke-red" : "stroke-gray-300"}`} />
