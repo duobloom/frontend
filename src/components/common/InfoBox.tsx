@@ -57,8 +57,8 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
   const bookMarkFn = useCallback(
     async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.stopPropagation();
-
       try {
+        setIsClick(!isClick);
         if (!isClick) {
           // 스크랩 추가
           if (variant === "hospital") {
@@ -74,7 +74,6 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
             await deleteScrapPolicy(entityId);
           }
         }
-        setIsClick(!isClick);
       } catch (error) {
         console.error("Error updating scrap status:", error);
       }
