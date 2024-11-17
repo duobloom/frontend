@@ -22,7 +22,7 @@ export const putS3Upload = async (presignedUrls: string[], photos: { photo_url: 
     const uploadPromises = validPhotos.map((photo, index) => {
       return axios.put(validUrls[index], photo.file, {
         headers: {
-          "Content-Type": photo.file?.type || "image/jpeg", // 파일 타입 설정
+          "Content-Type": photo.file?.type || "image/webP", // 파일 타입 설정
         },
       });
     });

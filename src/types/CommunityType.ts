@@ -24,7 +24,7 @@ export const CommunitySchema = z.object({
 export const CommunityPostFormSchema = z.object({
   type: z.enum(["MENTAL", "MENTORING", "POLICY", "HOSPITAL", "FREE"]),
   content: z.string().min(1, "내용을 입력해주세요"),
-  tags: z.array(tagSchema).default([]),
+  tags: z.array(z.string()).default([]),
   photoUrls: z.array(
     z.object({
       photo_url: z.string(),
@@ -33,9 +33,18 @@ export const CommunityPostFormSchema = z.object({
   ),
 });
 
+// api request 타입
+export const CommunityRequestSchema = z.object({
+  type: z.enum(["MENTAL", "MENTORING", "POLICY", "HOSPITAL", "FREE"]),
+  photoUrls: z.array(z.string()).optional().default([]),
+  content: z.string(),
+  tags: z.array(z.string()).default([]),
+});
+
 export const CommunityListSchema = z.array(CommunitySchema);
 
 export type CommunityType = z.infer<typeof CommunitySchema>;
 export type CommunityListType = z.infer<typeof CommunityListSchema>;
 export type CommunityPostFormType = z.infer<typeof CommunityPostFormSchema>;
 export type CategoryType = "MENTAL" | "MENTORING" | "POLICY" | "HOSPITAL" | "FREE";
+export type CommunityRequestType = z.infer<typeof CommunityRequestSchema>;

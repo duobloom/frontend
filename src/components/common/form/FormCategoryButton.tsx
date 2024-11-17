@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import useDraggable from "@/hooks/useDraggable";
 import { cn } from "@/utils";
 import { CategoryType } from "@/types/CommunityType";
-import { categoryList } from "@/constants";
+import { filterList } from "@/constants";
 
 type TFormCategoryButtonProps = {
   selectedButton: CategoryType;
@@ -32,12 +32,12 @@ const FormCategoryButton = ({ selectedButton, setSelectedButton }: TFormCategory
           {...draggableOptions()}
           className="mr-[-1.5rem] flex w-full space-x-[.7rem] overflow-x-scroll scrollbar-hide"
         >
-          {categoryList.map((item) => (
+          {filterList.slice(1).map((item) => (
             <button
               key={item.id}
               type="button"
               data-button={selectedButton === item.type}
-              onClick={() => setSelectedButton(item.type)}
+              onClick={() => setSelectedButton(item.type as CategoryType)}
               className={cn(
                 "inline-flex h-[5rem] min-w-[10.5rem] items-center justify-center overflow-hidden whitespace-nowrap rounded-[1rem] border px-[1.8rem] text-[1.4rem] font-semibold",
                 selectedButton === item.type
@@ -45,7 +45,7 @@ const FormCategoryButton = ({ selectedButton, setSelectedButton }: TFormCategory
                   : "border border-gray-300 bg-white text-gray-500",
               )}
             >
-              {item.type}
+              {item.name}
             </button>
           ))}
         </div>

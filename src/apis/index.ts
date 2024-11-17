@@ -19,6 +19,7 @@ import { postLike, deleteBoardLike } from "./posts/postLike";
 import { postScrap, deleteScrap } from "./posts/postScrap";
 import { getCommunityPopularList } from "./community/getCommunityPopularList";
 import { getCommunityTypeList } from "./community/getCommunityTypeList";
+import { postCommunityWrite } from "./community/postCommunityWrite";
 
 export {
   getFilterHospital,
@@ -44,4 +45,5 @@ export {
   deleteScrap,
   getCommunityPopularList,
   getCommunityTypeList,
+  postCommunityWrite,
 };
