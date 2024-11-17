@@ -1,12 +1,9 @@
 import { z } from "zod";
 
 export const AuthorSchema = z.object({
-  userId: z.number().int(),
   nickname: z.string(),
-  birth: z.string().optional(),
-  balance: z.number().default(0).optional(),
-  coupleBalance: z.number().default(0).optional(),
-  coupleUserId: z.number().int().optional(),
+  birth: z.string(),
+  balance: z.number().default(0),
   profilePictureUrl: z.string().optional(),
 });
 
