@@ -7,7 +7,7 @@ export const getScrapPolicy = async () => {
 };
 
 export const postScrapPolicy = async (policyId?: number) => {
-  await axios.post(`/api/policy-scrap?policyId=${policyId}`);
+  await axios.post(`/api/policy-scrap/${policyId}`);
 };
 
 export const deleteScrapPolicy = async (policyId?: number) => {
