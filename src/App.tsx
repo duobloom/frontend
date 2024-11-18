@@ -10,13 +10,13 @@ import { IconLogoDoubloom } from "@/assets/icon";
 const queryClient = new QueryClient();
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = import.meta.env.VITE_APP_API_ENDPOINT;
+// axios.defaults.baseURL = import.meta.env.VITE_APP_API_ENDPOINT;
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen items-center justify-center bg-[#fff5f5]">
-        <div className="container relative flex max-w-[100rem] justify-between xl:max-w-[120rem]">
+      <div className="min-h-100dvh flex items-center justify-center bg-[#fff5f5]">
+        <div className="container relative flex max-w-[100rem] justify-center lg:justify-between xl:max-w-[120rem]">
           {/* Left section - 로고 영역 */}
           <div className="hidden lg:block notebook:w-[82.5rem]">
             <div className="relative h-screen w-full max-w-[50rem] pt-[5rem] xl:pl-[10.2rem]">
@@ -31,8 +31,8 @@ function App() {
             </div>
           </div>
           {/* Right section - 앱 영역 */}
-          <div className="right-section flex w-full justify-center lg:w-[37.5rem] lg:min-w-[37.5rem]">
-            <div className={cn("h-screen w-full bg-white shadow-lg", isMobile ? "w-full" : "max-w-[37.5rem]")}>
+          <div className="right-section flex w-full justify-center md:w-[37.5rem] md:min-w-[37.5rem]">
+            <div className={cn("h-screen bg-white shadow-lg", isMobile ? "w-full" : "max-w-[37.5rem]")}>
               <div className="flex h-full flex-col">
                 <div className="flex-1 overflow-y-auto will-change-scroll">
                   <Outlet />
