@@ -6,7 +6,6 @@ import { isMobile } from "react-device-detect";
 import Navbar from "./components/layout/Nav";
 import { cn } from "./utils";
 import { IconLogoDoubloom } from "@/assets/icon";
-import { useEffect } from "react";
 
 const queryClient = new QueryClient();
 
@@ -14,22 +13,9 @@ axios.defaults.withCredentials = true;
 axios.defaults.baseURL = import.meta.env.VITE_APP_API_ENDPOINT;
 
 function App() {
-  const setMobileHeight = () => {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-  };
-
-  useEffect(() => {
-    setMobileHeight();
-
-    // resize 이벤트가 발생하면 다시 계산하도록 아래 코드 추가
-    window.addEventListener("resize", setMobileHeight);
-    return () => window.removeEventListener("resize", setMobileHeight);
-  }, []);
-
   return (
     <QueryClientProvider client={queryClient}>
-      <div className={`h-real-screen flex items-center justify-center bg-[#fff5f5]`}>
+      <div className="h-real-screen flex items-center justify-center bg-[#fff5f5]">
         <div className="container relative flex max-w-[100rem] justify-between xl:max-w-[120rem]">
           {/* Left section - 로고 영역 */}
           <div className="hidden lg:block notebook:w-[82.5rem]">
@@ -46,13 +32,20 @@ function App() {
           </div>
           {/* Right section - 앱 영역 */}
           <div className="right-section flex w-full justify-center lg:w-[37.5rem] lg:min-w-[37.5rem]">
-            <div className={cn("h-screen w-full bg-white shadow-lg", isMobile ? "w-full" : "max-w-[37.5rem]")}>
-              <div className="flex h-full flex-col">
-                <div className="flex-1 overflow-y-auto will-change-scroll">
-                  <Outlet />
-                </div>
+            <div
+              className={cn(
+                "h-real-screen flex w-full flex-col bg-white shadow-lg",
+                isMobile ? "w-full" : "max-w-[37.5rem]",
+              )}
+            >
+              {/* 스크롤 가능한 컨텐츠 영역 */}
+              <main className="flex-1 overflow-y-auto scrollbar-hide">
+                <Outlet />
+              </main>
+              {/* 하단 네비게이션 바 */}
+              <nav className="flex-shrink-0">
                 <Navbar />
-              </div>
+              </nav>
             </div>
           </div>
         </div>
