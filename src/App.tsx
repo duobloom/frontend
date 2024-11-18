@@ -15,7 +15,7 @@ axios.defaults.baseURL = import.meta.env.VITE_APP_API_ENDPOINT;
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen items-center justify-center bg-[#fff5f5]">
+      <div className="flex min-h-svh items-center justify-center bg-[#fff5f5]">
         <div className="container relative flex max-w-[100rem] justify-between xl:max-w-[120rem]">
           {/* Left section - 로고 영역 */}
           <div className="hidden lg:block notebook:w-[82.5rem]">
