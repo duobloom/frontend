@@ -1,8 +1,10 @@
 import { HospitalType } from "@/types";
-import axios from "axios";
+import apiClient from "../axios";
+import { HospitalSchema } from "@/types/HospitalType";
+import { validateApiResponse } from "@/utils/zodHelpers";
 
-export const getHospitaInfo = async (hospitalId?: number) => {
-  const response = await axios.get<HospitalType>(`/api/hospitals/${hospitalId}`);
+export const getHospitalInfo = async (hospitalId?: number): Promise<HospitalType> => {
+  const response = await apiClient<HospitalType>(`/api/hospitals/${hospitalId}`);
   console.log(response.data);
-  return response;
+  return validateApiResponse(response, HospitalSchema, "hospital 상세 데이터 검증 실패");
 };

@@ -1,5 +1,5 @@
 import { getFilterHospital } from "./hospital/getFilterHospital";
-import { getHospitaInfo } from "./hospital/getHospitalInfo";
+import { getHospitalInfo } from "./hospital/getHospitalInfo";
 import { getSearchHospital } from "./hospital/getSearchHospital";
 import { getPointTransaction } from "./mypage/getPointTransaction";
 import { getMyProfile } from "./mypage/getMyProfile";
@@ -27,7 +27,7 @@ import { putCommunityUpdate } from "./community/putCommunityUpdate";
 
 export {
   getFilterHospital,
-  getHospitaInfo,
+  getHospitalInfo,
   getSearchHospital,
   getUserTotalPoint,
   getFilterPolicy,
