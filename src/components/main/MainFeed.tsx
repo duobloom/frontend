@@ -1,22 +1,14 @@
 import { useSearchParams } from "react-router-dom";
 import { EmotionBox, BoardBox, QuestionBox } from "@/components/common";
 import { useGetFeedData } from "@/hooks/useGetFeedData";
-import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { sortFeedData } from "@/utils";
 import { FeedResponseType, BoardType, EmotionType, QuestionType } from "@/types";
 
 const MainFeed = ({ nowData }: { nowData: string }) => {
   const [searchParams] = useSearchParams();
-  const { handleError } = useErrorHandler();
   const currentDate = searchParams.get("date");
 
-  const { data, isLoading, error } = useGetFeedData(currentDate || nowData);
-
-  // 에러 처리
-  if (error) {
-    handleError(error);
-    return <div>Error loading feed data</div>;
-  }
+  const { data, isLoading } = useGetFeedData(currentDate || nowData);
 
   return (
     <section className="relative z-0 mt-[1.5rem] flex h-[calc(100%-24.8rem)] flex-col gap-[1.5rem] overflow-auto rounded-t-[3rem] bg-gray-100 bg-[linear-gradient(to_right,_transparent,_transparent_50%,_#E2E2E2_50%,_#E2E2E2_50.3%,_transparent_50.3%)] bg-[length:100%_1px] bg-center p-[1.5rem] shadow-feed scrollbar-hide">
