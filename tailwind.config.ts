@@ -30,6 +30,9 @@ const config: Config = {
       "2xl": "1536px",
     },
     extend: {
+      height: {
+        "real-screen": "calc(var(--vh) * 100)",
+      },
       fontFamily: {
         sans: [
           "Pretendard",
@@ -68,6 +71,9 @@ const config: Config = {
       },
 
       scrollbar: ["hidden"], //스크롤바 숨기기
+    },
+    minHeight: {
+      "real-screen": "calc(var(--vh) * 100)",
     },
   },
   plugins: [utilsPlugin],
