@@ -22,7 +22,7 @@ const NavBarContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
     <div
       ref={ref}
       className={cn(
-        "flex w-full items-center justify-between border-t border-gray-300 bg-[#fff] px-[4rem] py-[1.2rem]",
+        "fixed bottom-0 flex w-full items-center justify-between border-t border-gray-300 bg-[#fff] px-[3rem] py-[1.2rem] md_mobile:px-[4rem] lg:w-[37.5rem] lg:min-w-[37.5rem]",
         className,
       )}
       {...props}
@@ -36,7 +36,7 @@ const Navbar = () => {
   const location = useLocation();
 
   if (!NAV_ITEMS.find((item) => item.path === location.pathname)) return;
-  
+
   const isActive = (path: string) => location.pathname === path;
   return (
     <NavBarContainer>
