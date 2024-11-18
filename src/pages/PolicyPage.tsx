@@ -67,13 +67,14 @@ const PolicyPage = () => {
             {...draggableOptions()}
             className={cn(
               "flex flex-col gap-[1rem] overflow-y-auto scrollbar-hide",
-              "h-[47.8rem]",
-              "lg:h-[46rem]",
-              "notebook:h-[47.5rem]",
-              "2xl:h-[60rem]",
-              "lg_mobile:h-[46rem]",
-              "sm_mobile:h-[41rem]",
-              "xsm_mobile:h-[25rem]",
+              "h-[calc(100dvh-28.6rem)]",
+              // "h-[47.8rem]",
+              // "lg:h-[46rem]",
+              // "notebook:h-[47.5rem]",
+              // "2xl:h-[60rem]",
+              // "lg_mobile:h-[46rem]",
+              // "sm_mobile:h-[41rem]",
+              // "xsm_mobile:h-[25rem]",
             )}
           >
             {policyData &&

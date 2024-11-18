@@ -16,7 +16,7 @@ const InfoBoxContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<H
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn("min-h-[16.5rem] rounded-[1.6rem] border border-gray-300 bg-white p-[2rem] shadow-box", className)}
+      className={cn("rounded-[1.6rem] border border-gray-300 bg-white p-[2rem] shadow-box", className)}
       {...props}
     />
   ),
@@ -122,7 +122,7 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
     <InfoBoxContainer onClick={() => moveDetail(variant, entityId)}>
       <div className="mb-[1.5rem] flex items-center justify-between gap-[1.7rem]">
         <div className="flex flex-col gap-[1rem]">
-          <div className="w-[22rem]">
+          <div className="w-[20rem]">
             <InfoBoxTitle>{entityTitle}</InfoBoxTitle>
             {renderContent()}
           </div>
@@ -132,7 +132,7 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
         </div>
       </div>
       <div className="flex justify-between">
-        <div className="flex w-fit gap-[.8rem] overflow-hidden">
+        <div className="flex flex-wrap gap-[.8rem] overflow-hidden">
           {Array.isArray(props.keywordMappings) &&
             props.keywordMappings.map((keyword, index) => (
               <Badge key={index} variant="tagBadge">

@@ -137,7 +137,7 @@ function KakaoMap({
     <div className="relative flex-1 scrollbar-hide" id="map">
       <div className="absolute bottom-[1rem] right-0 z-10 flex w-full flex-col items-end">
         <IconLocation onClick={handleUserLocationClick} className="cursor-pointer" />
-        <Carousel orientation="horizontal" setApi={setApi} className="h-[17rem] w-full">
+        <Carousel orientation="horizontal" setApi={setApi} className="h-full w-full">
           <CarouselContent className="flex">
             {hospitalData?.map((hospital) => (
               <CarouselItem key={hospital.hospitalId}>

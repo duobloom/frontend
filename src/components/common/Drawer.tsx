@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Drawer as DrawerPrimitive } from "vaul";
+import { isMobile } from "react-device-detect";
 import { cn } from "@/utils";
 import { IconClose } from "@/assets/icon";
 
@@ -41,15 +42,12 @@ const DrawerOverlay = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>
 >(({ className, ...props }, ref) => {
   const [overlayPosition, setOverlayPosition] = React.useState<string>("0px");
-  const [isMobile, setIsMobile] = React.useState<boolean>(window.innerWidth <= 375);
 
   React.useEffect(() => {
     const calculatePosition = () => {
       const currentWidth = window.innerWidth;
-      const isMobileView = currentWidth <= 375;
-      setIsMobile(isMobileView);
 
-      if (isMobileView) {
+      if (isMobile) {
         // 모바일 뷰에서는 전체 화면 width로 계산
         const calculatedLeft = 0;
         setOverlayPosition(`${calculatedLeft}px`);
@@ -89,15 +87,12 @@ const DrawerContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
 >(({ className, children, ...props }, ref) => {
   const [contentPosition, setContentPosition] = React.useState<string>("0px");
-  const [isMobile, setIsMobile] = React.useState<boolean>(window.innerWidth <= 375);
 
   React.useEffect(() => {
     const calculatePosition = () => {
       const currentWidth = window.innerWidth;
-      const isMobileView = currentWidth <= 375;
-      setIsMobile(isMobileView);
 
-      if (isMobileView) {
+      if (isMobile) {
         // 모바일 뷰에서는 전체 화면 width로 계산
         const calculatedLeft = 0;
         setContentPosition(`${calculatedLeft}px`);
@@ -144,8 +139,8 @@ const DrawerContent = React.forwardRef<
       <DrawerPrimitive.Content
         ref={ref}
         className={cn(
-          "fixed bottom-0 z-50 flex h-[83.2%] w-[37.5rem] flex-col rounded-t-[3rem] border-none bg-white px-[1.8rem] py-[2rem]",
-          isMobile ? "w-full" : "",
+          "fixed bottom-0 z-50 flex h-[83.2%] flex-col rounded-t-[3rem] border-none bg-white px-[1.8rem] py-[2rem]",
+          isMobile ? "w-full" : "w-[37.5rem]",
           className,
         )}
         style={{ left: contentPosition }}
