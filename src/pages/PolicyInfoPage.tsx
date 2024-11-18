@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import Header from "@/components/layout/Header";
 import { Badge, Button, OptionTabs } from "@/components/common";
 import { BoxFooter } from "@/components/ui/Box";
-import useDraggable from "@/hooks/useDraggable";
 import { DetailBox, InfoText } from "@/components/hospital";
 import { useGetPolicyInfo } from "@/hooks/useGetPolicyInfo";
 import { useLocation } from "react-router-dom";
@@ -12,7 +11,6 @@ const PolicyInfoPage = () => {
   const location = useLocation();
   const policyId = location.state?.id;
   const scrollRef = useRef<HTMLDivElement>(null);
-  const draggableOptions = useDraggable(scrollRef);
   const [selectedTab, setSelectedTab] = useState("지원 대상");
   const targetSectionRef = useRef<HTMLDivElement>(null);
   const contentSectionRef = useRef<HTMLDivElement>(null);
@@ -55,11 +53,7 @@ const PolicyInfoPage = () => {
   return (
     <div className="flex h-full flex-col">
       {policyData && <Header variant="backActions" isBookmark={policyData.scraped} handleBookmark={handleBookmark} />}
-      <div
-        ref={scrollRef}
-        {...draggableOptions}
-        className="flex-1 overflow-y-scroll bg-white px-[1.8rem] pt-[2.2rem] scrollbar-hide"
-      >
+      <div ref={scrollRef} className="flex-1 overflow-y-scroll bg-white px-[1.8rem] pt-[2.2rem] scrollbar-hide">
         <title className="mb-[3rem] flex items-center justify-between">
           <span>
             <InfoText>{policyData?.policyName}</InfoText>
