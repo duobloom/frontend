@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
+import { isMobile } from "react-device-detect";
 
 import { buttonVariants } from "@/components/common/Button";
 import { cn } from "@/utils";
@@ -15,16 +16,13 @@ const AlertDialogOverlay = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>
 >(({ className, ...props }, ref) => {
   const [overlayPosition, setOverlayPosition] = React.useState("0px");
-  const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 375);
   const [isRendered, setIsRendered] = React.useState(false);
 
   React.useEffect(() => {
     const calculatePosition = () => {
       const currentWidth = window.innerWidth;
-      const isMobileView = currentWidth <= 375;
-      setIsMobile(isMobileView);
 
-      if (isMobileView) {
+      if (isMobile) {
         // 모바일 뷰에서는 전체 화면 width로 계산
         const calculatedLeft = 0;
         setOverlayPosition(`${calculatedLeft}px`);
