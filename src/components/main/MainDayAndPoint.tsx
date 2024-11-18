@@ -1,19 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { useGetUserTotalPoint } from "@/hooks/useGetUserTotalPoint";
 import { IconVector } from "@/assets/icon";
 
 const MainDayAndPoint = ({ yearMonth }: { yearMonth: string }) => {
   const navigate = useNavigate();
-  const { handleError } = useErrorHandler();
 
-  const { data, error } = useGetUserTotalPoint();
-
-  // 에러 처리
-  if (error) {
-    handleError(error);
-    return <div>Error loading feed data</div>;
-  }
+  const { data } = useGetUserTotalPoint();
 
   return (
     <div className="flex items-center gap-[1rem] sm_mobile:gap-[3.1rem]">
