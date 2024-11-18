@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/common/Drawer";
 import Header from "@/components/layout/Header";
 import { BoxFooter, DropdownBox } from "@/components/ui/Box";
@@ -6,12 +6,9 @@ import { PolicyOptions } from "@/constants";
 import { Button, InfoBox, ScrollableOptions } from "@/components/common";
 import { GetRegionName, RegionSelecter } from "@/components/hospital";
 import { useGetFilterPolicy } from "@/hooks/useGetFilterPolicy";
-import useDraggable from "@/hooks/useDraggable";
 import { cn } from "@/utils";
 
 const PolicyPage = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const draggableOptions = useDraggable(scrollRef);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const [selectedOption, setSelectedOption] = useState(1);
@@ -63,8 +60,6 @@ const PolicyPage = () => {
           <p className="text-[1.5rem] font-medium">{policyData && `${policyData.length}개의 정책`}</p>
           <BoxFooter />
           <div
-            ref={scrollRef}
-            {...draggableOptions()}
             className={cn(
               "flex flex-col gap-[1rem] overflow-y-auto scrollbar-hide",
               "h-[calc(100dvh-28.6rem)]",

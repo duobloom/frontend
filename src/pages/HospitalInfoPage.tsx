@@ -4,7 +4,6 @@ import { Badge, Button, OptionTabs } from "@/components/common";
 import { BoxFooter } from "@/components/ui/Box";
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/components/ui/Carousel";
 import { Drawer, DrawerClose, DrawerContent, DrawerTitle, DrawerTrigger } from "@/components/common/Drawer";
-import useDraggable from "@/hooks/useDraggable";
 import {
   DetailBox,
   MedicDetailInfo,
@@ -24,7 +23,6 @@ const HospitalInfoPage = () => {
   const location = useLocation();
   const hospitalId = location.state?.id;
   const scrollRef = useRef<HTMLDivElement>(null);
-  const draggableOptions = useDraggable(scrollRef);
   const [activeDrawer, setActiveDrawer] = useState<"medic" | "clinicHour" | null>(null);
   const [selectedTab, setSelectedTab] = useState("병원 정보");
   const infoSectionRef = useRef<HTMLDivElement>(null);
@@ -60,6 +58,7 @@ const HospitalInfoPage = () => {
       setCurrent(api.selectedScrollSnap() + 1);
     });
   }, [api]);
+
   // 탭 클릭 시 스크롤이동
   const scrollToSection = (sectionRef: React.RefObject<HTMLDivElement>) => {
     if (scrollRef.current && sectionRef.current) {
@@ -69,6 +68,7 @@ const HospitalInfoPage = () => {
       });
     }
   };
+
   //탭 클릭 시
   const handleTabSelect = (tab: string) => {
     setSelectedTab(tab);
@@ -93,11 +93,7 @@ const HospitalInfoPage = () => {
       {hospitalData && (
         <Header variant="backActions" isBookmark={hospitalData?.scraped} handleBookmark={handleBookmark} />
       )}
-      <div
-        ref={scrollRef}
-        {...draggableOptions}
-        className="flex-1 overflow-y-scroll bg-white px-[1.8rem] pt-[2.2rem] scrollbar-hide"
-      >
+      <div ref={scrollRef} className="flex-1 overflow-y-scroll bg-white px-[1.8rem] pt-[2.2rem] scrollbar-hide">
         <InfoText>{hospitalData?.hospitalName}</InfoText>
         <InfoText variant="secondary" size="sm">
           {medicalDepartment.find((department) => department.type === hospitalData?.type)?.name || hospitalData?.type}

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Drawer, DrawerContent, DrawerTrigger, DrawerTitle, DrawerClose } from "@/components/common/Drawer";
 import Header from "@/components/layout/Header";
 import { BoxFooter, DropdownBox } from "@/components/ui/Box";
@@ -7,14 +7,11 @@ import { Button, InfoBox, OptionBoxes, ScrollableOptions } from "@/components/co
 import { IconMap } from "@/assets/icon";
 import { useNavigate } from "react-router-dom";
 import { GetRegionName, RegionSelecter } from "@/components/hospital";
-import useDraggable from "@/hooks/useDraggable";
 import { cn } from "@/utils";
 import { useGetFilterHospital } from "@/hooks/useGetFilterHospital";
 
 const HospitalPage = () => {
   const navigate = useNavigate();
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const draggableOptions = useDraggable(scrollRef);
 
   const [activeDrawer, setActiveDrawer] = useState<"location" | "department" | null>(null);
   const [selectedOption, setSelectedOption] = useState(1);
@@ -84,8 +81,6 @@ const HospitalPage = () => {
           </p>
           <BoxFooter />
           <div
-            ref={scrollRef}
-            {...draggableOptions()}
             className={cn(
               "flex flex-col gap-[1rem] overflow-y-auto scrollbar-hide",
               "h-[calc(100dvh-28.6rem)]",
