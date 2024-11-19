@@ -5,7 +5,7 @@ import axios from "axios";
 import { isMobile } from "react-device-detect";
 import Navbar from "./components/layout/Nav";
 import { cn } from "./utils";
-import { ToastProvider, useToastContext } from "./libs/custom-toast";
+import { ToastProvider } from "./libs/custom-toast";
 import { IconLogoDoubloom } from "@/assets/icon";
 
 const queryClient = new QueryClient();
@@ -14,8 +14,6 @@ axios.defaults.withCredentials = true;
 // axios.defaults.baseURL = import.meta.env.VITE_APP_API_ENDPOINT;
 
 function App() {
-  useToastContext(); // context 설정을 위해 추가
-
   return (
     <QueryClientProvider client={queryClient}>
       <div className={`flex h-dvh items-center justify-center bg-[#fff5f5]`}>

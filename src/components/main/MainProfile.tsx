@@ -1,17 +1,35 @@
 import { useQuery } from "@tanstack/react-query";
 import Author from "@/components/ui/Author";
 import { getFeedData } from "@/apis/main/getFeedDataAPI";
-import { ProfilesType } from "@/types/FeedType";
+import { useErrorHandler } from "@/hooks/useErrorHandler";
+import { logValidationError, validateApiResponse } from "@/utils/zodHelpers";
+import { FeedResponseSchema, ProfilesSchema, ProfilesType } from "@/types/FeedType";
 
 type TMainProfileProps = {
   nowData: string;
 };
 
 const MainProfile = ({ nowData }: TMainProfileProps) => {
-  const { data, isLoading } = useQuery<ProfilesType, Error>({
+  const { handleError } = useErrorHandler();
+  const { data, isLoading, error } = useQuery<ProfilesType, Error>({
     queryKey: ["coupleProfile"],
-    queryFn: () => getFeedData(nowData),
+    queryFn: async () => {
+      try {
+        const response = await getFeedData(nowData);
+        const validatedData = validateApiResponse(response, FeedResponseSchema);
+        return ProfilesSchema.parse(validatedData);
+      } catch (error) {
+        logValidationError(error);
+        throw error;
+      }
+    },
   });
+
+  // 에러 처리
+  if (error) {
+    handleError(error);
+    return <div>Error loading feed data</div>;
+  }
 
   return (
     <section className="relative flex h-[8rem] w-full items-center justify-between bg-white p-[1.5rem]">

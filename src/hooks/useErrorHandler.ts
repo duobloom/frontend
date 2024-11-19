@@ -1,13 +1,20 @@
-// Tanstack-Query를 사용하지 않고 일반적인 fetch 진행 시 에러 처리를 할 때 쓰면 됩니다.
-// 그 외에는 에러 전역 처리를 해놨기 때문에 사용하지 않아도 됩니다.
-
 import { useCallback } from "react";
-import { createErrorHandler } from "@/configs/errorHandler";
+import { ValidationError } from "@/utils/zodHelpers";
 
+// 에러 처리를 위한 커스텀 훅
 export const useErrorHandler = () => {
   const handleError = useCallback((error: unknown) => {
-    const errorHandler = createErrorHandler();
-    errorHandler(error);
+    if (error instanceof ValidationError) {
+      // 유효성 검사 에러 처리
+      console.error("유효성 검사 실패:", error.message);
+      // 여기에 사용자에게 보여줄 에러 메시지나 처리 로직 추가
+    } else if (error instanceof Error) {
+      // 일반적인 에러 처리
+      console.error("에러 발생:", error.message);
+    } else {
+      // 알 수 없는 에러 처리
+      console.error("알 수 없는 에러:", error);
+    }
   }, []);
 
   return { handleError };

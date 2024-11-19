@@ -1,8 +1,3 @@
-import { z } from "zod";
-import apiClient from "@/apis/axios";
-import { validateApiResponse } from "@/utils/zodHelpers";
+import axios from "axios";
 
-export const getUserTotalPoint = async (): Promise<number> => {
-  const response = await apiClient.get<number>(`/api/points`);
-  return validateApiResponse(response, z.number(), "Feed 데이터 검증 실패");
-};
+export const getUserTotalPoint = async () => await axios.get(`/api/points`);
