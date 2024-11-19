@@ -39,16 +39,29 @@ const LikeAndComments = ({ type, isDetailPage, id, likeCount, commentCount, like
         },
       );
     } else {
-      deleteBoardLike.mutate(
-        { id: Number(id) },
-        {
-          onError: () => {
-            setIsLiked(!newIsLiked); // 상태 복구
-            setLikeCountNum((prev) => (newIsLiked ? prev - 1 : prev + 1));
-            console.error("좋아요 취소에 실패했습니다.");
+      if (type === "community") {
+        postLike.mutate(
+          { type, id: Number(id) },
+          {
+            onError: () => {
+              setIsLiked(!newIsLiked); // 상태 복구
+              setLikeCountNum((prev) => (newIsLiked ? prev - 1 : prev + 1));
+              console.error("좋아요 처리에 실패했습니다.");
+            },
           },
-        },
-      );
+        );
+      } else {
+        deleteBoardLike.mutate(
+          { id: Number(id) },
+          {
+            onError: () => {
+              setIsLiked(!newIsLiked); // 상태 복구
+              setLikeCountNum((prev) => (newIsLiked ? prev - 1 : prev + 1));
+              console.error("좋아요 취소에 실패했습니다.");
+            },
+          },
+        );
+      }
     }
   };
 
