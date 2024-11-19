@@ -88,12 +88,12 @@ const HospitalInfoPage = () => {
   ];
 
   return (
-    <div ref={scrollRef} className="flex h-full w-full flex-col overflow-y-auto scrollbar-hide">
+    <div className="flex h-full w-full flex-col overflow-y-auto scrollbar-hide">
       {hospitalData && (
         <Header variant="backActions" isBookmark={hospitalData?.scraped} handleBookmark={handleBookmark} />
       )}
-      <div className="flex-1 bg-white px-[1.8rem] pt-[2.2rem]">
-        <InfoText>{hospitalData?.hospitalName}</InfoText>
+      <div ref={scrollRef} className="flex-1 overflow-y-scroll bg-white px-[1.8rem] scrollbar-hide">
+        <InfoText className="mt-[2rem]">{hospitalData?.hospitalName}</InfoText>
         <InfoText variant="secondary" size="sm">
           {medicalDepartment.find((department) => department.type === hospitalData?.type)?.name || hospitalData?.type}
         </InfoText>
