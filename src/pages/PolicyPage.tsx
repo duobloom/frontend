@@ -39,7 +39,7 @@ const PolicyPage = () => {
   return (
     <div className="flex h-full w-full flex-col overflow-y-auto scrollbar-hide">
       <Header variant="titleMove" title="맞춤 정책" />
-      <Drawer open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
+      <Drawer dismissible={false} open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
         <span className="w-full px-[1.5rem]">
           <DrawerTrigger className="w-full" onClick={() => setIsDrawerOpen(true)}>
             <DropdownBox className="w-full">
@@ -89,6 +89,7 @@ const PolicyPage = () => {
             setSelectedGun={setSelectedGun}
             selectedNeighborhood={selectedNeighborhood}
             setSelectedNeighborhood={setSelectedNeighborhood}
+            setActiveDrawer={setIsDrawerOpen}
           />
 
           <span className="fixed bottom-[1rem] left-0 w-full px-[2rem]">

@@ -48,7 +48,7 @@ const HospitalPage = () => {
   return (
     <div className="flex h-full w-full flex-col overflow-y-auto scrollbar-hide">
       <Header variant="titleMove" title="병원/클리닉" />
-      <Drawer open={activeDrawer !== null}>
+      <Drawer dismissible={false} open={activeDrawer !== null}>
         <span className="flex w-full items-center justify-between px-[1.5rem]">
           <DrawerTrigger onClick={() => setActiveDrawer("location")}>
             <DropdownBox>
@@ -135,12 +135,13 @@ const HospitalPage = () => {
               setSelectedGun={setSelectedGun}
               selectedNeighborhood={selectedNeighborhood}
               setSelectedNeighborhood={setSelectedNeighborhood}
+              setActiveDrawer={setActiveDrawer}
             />
           )}
           {activeDrawer === "department" && (
             <div className="flex h-full flex-col pb-[6.5rem]">
               <span className="relative mb-[3.5rem] flex w-full items-center">
-                <DrawerClose className="absolute left-0" />
+                <DrawerClose className="absolute left-0" onClick={() => setActiveDrawer(null)} />
                 <DrawerTitle text="진료과 선택" className="mx-auto" />
               </span>
               <section ref={scrollRef} className="flex-1 overflow-y-scroll scrollbar-hide">
