@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import Header from "@/components/layout/Header";
-import { Badge, Button, OptionTabs } from "@/components/common";
+import { Badge, Button, InfoBox, OptionTabs } from "@/components/common";
 import { BoxFooter } from "@/components/ui/Box";
 // import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/components/ui/Carousel";
 import { Drawer, DrawerClose, DrawerContent, DrawerTitle, DrawerTrigger } from "@/components/common/Drawer";
@@ -19,6 +19,7 @@ import { medicalDepartment } from "@/constants";
 import { useGetHospitalInfo } from "@/hooks/useGetHospitalInfo";
 import { deleteScrapHospital, postScrapHospital } from "@/apis";
 import { parseJsonString } from "@/utils/parseString";
+import { useGetFilterHospital } from "@/hooks/useGetFilterHospital";
 
 const HospitalInfoPage = () => {
   const location = useLocation();
@@ -31,6 +32,7 @@ const HospitalInfoPage = () => {
   const directionSectionRef = useRef<HTMLDivElement>(null);
 
   const { data: hospitalData, refetch: refetchHospitalData } = useGetHospitalInfo(hospitalId);
+  const { data: relatedData } = useGetFilterHospital(1100000000, 1168000000, null, null, null);
 
   const handleBookmark = async () => {
     try {
@@ -219,6 +221,29 @@ const HospitalInfoPage = () => {
             <InfoText size="md" className="mb-[1.5rem]">
               이 주변 산부인과
             </InfoText>
+            <div className="flex flex-col gap-[1rem]">
+              {relatedData &&
+                relatedData
+                  .filter((item) => item.hospitalId !== hospitalId)
+                  .map((item) => (
+                    <InfoBox
+                      key={item.hospitalId}
+                      variant="hospital"
+                      hospitalId={item.hospitalId}
+                      hospitalName={item.hospitalName}
+                      region={item.region}
+                      middle={item.middle}
+                      detail={item.detail}
+                      type={item.type}
+                      time={item.time}
+                      latitude={item.latitude}
+                      longitude={item.longitude}
+                      imageUrl={item.imageUrl}
+                      scraped={item.scraped}
+                      keywordMappings={item.keywordMappings}
+                    />
+                  ))}
+            </div>
           </section>
         </div>
       </div>
