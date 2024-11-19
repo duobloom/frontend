@@ -20,7 +20,7 @@ const MainFeed = ({ nowData }: { nowData: string }) => {
 
   return (
     <>
-      <section className="relative z-0 flex flex-col gap-[1.5rem] rounded-t-[3rem] bg-gray-100 px-[1.5rem] pb-[1.5rem] pt-[1.5rem] shadow-feed">
+      <section className="relative z-0 flex min-h-[calc(100%-19rem)] flex-col gap-[1.5rem] rounded-t-[3rem] bg-gray-100 px-[1.5rem] pb-[1.5rem] pt-[1.5rem] shadow-feed">
         <div className="absolute left-1/2 top-0 h-full w-[.1rem] bg-gray-300" />
         {isLoading ? (
           <></>
