@@ -2,17 +2,17 @@ import React, { useRef, useState } from "react";
 import Header from "@/components/layout/Header";
 import { Badge, Button, OptionTabs } from "@/components/common";
 import { BoxFooter } from "@/components/ui/Box";
-import useDraggable from "@/hooks/useDraggable";
 import { DetailBox, InfoText } from "@/components/hospital";
 import { useGetPolicyInfo } from "@/hooks/useGetPolicyInfo";
 import { useLocation } from "react-router-dom";
 import { deleteScrapPolicy, postScrapPolicy } from "@/apis";
+import { parseJsonString } from "@/utils/parseString";
+import { policyTarget } from "@/constants/MockData";
 
 const PolicyInfoPage = () => {
   const location = useLocation();
   const policyId = location.state?.id;
   const scrollRef = useRef<HTMLDivElement>(null);
-  const draggableOptions = useDraggable(scrollRef);
   const [selectedTab, setSelectedTab] = useState("지원 대상");
   const targetSectionRef = useRef<HTMLDivElement>(null);
   const contentSectionRef = useRef<HTMLDivElement>(null);
@@ -51,16 +51,12 @@ const PolicyInfoPage = () => {
     if (tab === "관련 정보") scrollToSection(infoSectionRef);
     if (tab === "신청 방법") scrollToSection(methodSectionRef);
   };
-
+  const parsedTarget = parseJsonString(policyData?.target);
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full w-full flex-col overflow-y-auto scrollbar-hide">
       {policyData && <Header variant="backActions" isBookmark={policyData.scraped} handleBookmark={handleBookmark} />}
-      <div
-        ref={scrollRef}
-        {...draggableOptions}
-        className="flex-1 overflow-y-scroll bg-white px-[1.8rem] pt-[2.2rem] scrollbar-hide"
-      >
-        <title className="mb-[3rem] flex items-center justify-between">
+      <div ref={scrollRef} className="flex-1 overflow-y-scroll bg-white px-[1.8rem] scrollbar-hide">
+        <title className="mb-[3rem] mt-[2rem] flex items-center justify-between">
           <span>
             <InfoText>{policyData?.policyName}</InfoText>
             <InfoText variant="secondary" size="sm">
@@ -81,26 +77,26 @@ const PolicyInfoPage = () => {
             ))}
         </span>
         <BoxFooter />
-        <DetailBox title="지원 대상" content={policyData?.target || ""} />
-        <DetailBox title="지원 유형" content={policyData?.target || ""} />
-        <DetailBox title="지원 혜택" content={policyData?.target || ""} />
+        <DetailBox title="지원 대상" content={parsedTarget?.target || "대상 정보 없음"} />
+        <DetailBox title="지원 유형" content={parsedTarget?.type || "유형 정보 없음"} />
+        <DetailBox title="지원 혜택" content={parsedTarget?.benefit || "혜택 정보 없음"} />
         <p className="ml-[1.5rem] text-[1.1rem] font-medium text-gray-400">
           출처 : 보건복지부/최종 수정일 : 2023-12-20
         </p>
 
-        <div className="my-[2rem]">
-          <OptionTabs
-            tabs={["지원 대상", "지원 내용", "관련 정보", "신청 방법"]}
-            selectedTab={selectedTab}
-            onTabSelect={handleTabSelect}
-            className="text-[1.5rem]"
-          />
+        <OptionTabs
+          tabs={["지원 대상", "지원 내용", "관련 정보", "신청 방법"]}
+          selectedTab={selectedTab}
+          onTabSelect={handleTabSelect}
+          className="sticky top-0 bg-[#fff] text-[1.5rem]"
+        />
+        <div className="whitespace-pre-wrap">
           <section ref={targetSectionRef}>
             <InfoText size="sm" className="font-bold">
               지원 대상
             </InfoText>
             <InfoText size="sm" className="mb-[1.5rem]">
-              {policyData?.target}
+              {policyData?.detail || policyTarget.target}
             </InfoText>
             <BoxFooter />
           </section>
@@ -108,20 +104,23 @@ const PolicyInfoPage = () => {
             <InfoText size="sm" className="font-bold">
               지원 내용
             </InfoText>
-            <InfoText size="sm">소개글 와라라라랑</InfoText>
+            <InfoText size="sm">{policyData?.detail || policyTarget.content}</InfoText>
             <BoxFooter />
           </section>
+
           <section ref={infoSectionRef}>
             <InfoText size="sm" className="font-bold">
               관련 정보
             </InfoText>
-            <InfoText size="sm">산부인과 피부과</InfoText>
+            <InfoText size="sm">{policyData?.detail || policyTarget.info}</InfoText>
             <BoxFooter />
           </section>
+
           <section ref={methodSectionRef}>
             <InfoText size="sm" className="font-bold">
               신청 방법
             </InfoText>
+            <InfoText size="sm">{policyData?.detail || policyTarget.method}</InfoText>
             <BoxFooter />
           </section>
           <section>
@@ -131,7 +130,7 @@ const PolicyInfoPage = () => {
           </section>
         </div>
       </div>
-      <footer className="flex w-full items-center gap-[.7rem] border-t border-gray-300 px-[1.8rem] py-[.7rem]">
+      <footer className="fixed bottom-0 flex w-[37.5rem] max-w-[37.5rem] items-center gap-[.7rem] border-t border-gray-300 px-[1.8rem] py-[.7rem]">
         <Button>
           <a href={policyData?.linkUrl || ""}>바로 가기</a>
         </Button>

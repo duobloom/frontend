@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import Header from "@/components/layout/Header";
 import { Badge, Button, OptionTabs } from "@/components/common";
 import { BoxFooter } from "@/components/ui/Box";
-import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/components/ui/Carousel";
+// import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/components/ui/Carousel";
 import { Drawer, DrawerClose, DrawerContent, DrawerTitle, DrawerTrigger } from "@/components/common/Drawer";
 import {
   DetailBox,
@@ -13,11 +13,12 @@ import {
   AddressCopy,
   KakaoMap,
 } from "@/components/hospital";
-import image from "@/assets/image/test.png";
+import defaultImage from "@/assets/image/test.png";
 import { useLocation } from "react-router-dom";
 import { medicalDepartment } from "@/constants";
 import { useGetHospitalInfo } from "@/hooks/useGetHospitalInfo";
 import { deleteScrapHospital, postScrapHospital } from "@/apis";
+import { parseJsonString } from "@/utils/parseString";
 
 const HospitalInfoPage = () => {
   const location = useLocation();
@@ -44,20 +45,20 @@ const HospitalInfoPage = () => {
     }
   };
 
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
-  const [count, setCount] = useState(0);
+  // const [api, setApi] = useState<CarouselApi>();
+  // const [current, setCurrent] = useState(0);
+  // const [count, setCount] = useState(0);
 
-  React.useEffect(() => {
-    if (!api) return;
+  // React.useEffect(() => {
+  //   if (!api) return;
 
-    setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap() + 1);
+  //   setCount(api.scrollSnapList().length);
+  //   setCurrent(api.selectedScrollSnap() + 1);
 
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
-  }, [api]);
+  //   api.on("select", () => {
+  //     setCurrent(api.selectedScrollSnap() + 1);
+  //   });
+  // }, [api]);
 
   // 탭 클릭 시 스크롤이동
   const scrollToSection = (sectionRef: React.RefObject<HTMLDivElement>) => {
@@ -86,17 +87,19 @@ const HospitalInfoPage = () => {
     { day: "토", time: "10:00 - 15:00" },
     { day: "일", time: "", isClosed: true },
   ];
-  const images = [image, "https://example.com/image3.jpg", "https://example.com/image4.jpg"];
 
+  const parseStaff = parseJsonString(hospitalData?.staffInfo);
+  const parseInfo = parseJsonString(hospitalData?.hospitalInfo);
+  const departmentName = medicalDepartment.find((department) => department.type === hospitalData?.type)?.name;
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full w-full flex-col overflow-y-auto scrollbar-hide">
       {hospitalData && (
         <Header variant="backActions" isBookmark={hospitalData?.scraped} handleBookmark={handleBookmark} />
       )}
-      <div ref={scrollRef} className="flex-1 overflow-y-scroll bg-white px-[1.8rem] pt-[2.2rem] scrollbar-hide">
-        <InfoText>{hospitalData?.hospitalName}</InfoText>
+      <div ref={scrollRef} className="flex-1 overflow-y-scroll bg-white px-[1.8rem] scrollbar-hide">
+        <InfoText className="mt-[2rem]">{hospitalData?.hospitalName}</InfoText>
         <InfoText variant="secondary" size="sm">
-          {medicalDepartment.find((department) => department.type === hospitalData?.type)?.name || hospitalData?.type}
+          {departmentName || hospitalData?.type}
         </InfoText>
         <span className="mt-[.5rem] flex items-center gap-[.8rem]">
           {hospitalData?.keywordMappings &&
@@ -109,7 +112,13 @@ const HospitalInfoPage = () => {
         </span>
         <BoxFooter />
         <section className="relative mb-[3rem] h-[17rem] w-full rounded-[1rem] border">
-          <Carousel orientation="horizontal" setApi={setApi} className="h-[17rem] w-full">
+          <div className="relative w-full overflow-hidden rounded-[1rem]">
+            <img
+              src={hospitalData?.imageUrl || defaultImage}
+              className="h-[17rem] w-full rounded-[1rem] object-cover"
+            />
+          </div>
+          {/* <Carousel orientation="horizontal" setApi={setApi} className="h-[17rem] w-full">
             <CarouselContent className="flex">
               {images.map((img, index) => (
                 <CarouselItem key={index}>
@@ -123,12 +132,12 @@ const HospitalInfoPage = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-          </Carousel>
-          {images.length > 1 && (
+          </Carousel> */}
+          {/* {images.length > 1 && (
             <div className="absolute right-[1.5rem] top-[1.5rem] flex h-[2.4rem] w-auto min-w-[3.5rem] items-center justify-center rounded-[10rem] bg-black bg-opacity-80 px-[.7rem] py-[.5rem] text-[1rem] font-bold leading-normal tracking-[2px] text-white">
               {current}/{count}
             </div>
-          )}
+          )} */}
         </section>
         <DetailBox title="전화번호" content={hospitalData?.phone ?? ""} />
         <Drawer>
@@ -145,24 +154,21 @@ const HospitalInfoPage = () => {
             </DrawerContent>
           )}
         </Drawer>
-        <div className="mt-[2rem]">
+        <div>
           <OptionTabs
             tabs={["병원 정보", "의료진", "오시는 길"]}
             selectedTab={selectedTab}
             onTabSelect={handleTabSelect}
+            className="sticky top-0 bg-[#fff]"
           />
           <section ref={infoSectionRef} className="hospital-info">
             <InfoText size="md">소개</InfoText>
             <InfoText size="sm" className="mb-[1.5rem]">
-              {hospitalData?.hospitalInfo}
-            </InfoText>
-            <InfoText size="md">등급 평가 정보</InfoText>
-            <InfoText size="sm" className="mb-[1.5rem]">
-              소개글 와라라라랑
+              {parseInfo?.introduction || ""}
             </InfoText>
             <InfoText size="md">진료 과목</InfoText>
             <InfoText size="sm" className="mb-[1.5rem]">
-              산부인과 피부과
+              {parseInfo?.departments || ""}
             </InfoText>
             <BoxFooter />
           </section>
@@ -173,23 +179,26 @@ const HospitalInfoPage = () => {
             </InfoText>
             <Drawer>
               <DrawerTrigger className="w-full" onClick={() => setActiveDrawer("medic")}>
-                <MedicInfo title="의료진이름" content={hospitalData?.staffInfo ?? "의사 정보"} image_Url="dl" />
+                <MedicInfo
+                  title={parseStaff?.name}
+                  content={departmentName ? `${departmentName} 전문의` : "산부인과 전문의"}
+                  image_Url={parseStaff?.imageUrl || ""}
+                />
               </DrawerTrigger>
               {activeDrawer === "medic" && (
                 <DrawerContent>
                   <MedicDetailInfo
-                    title="의사명"
+                    title={parseStaff?.name}
                     content="산부인과"
-                    image_Url=""
-                    specialty="진료항목은 이런게 있다."
-                    record="의대 졸업"
+                    image_Url={parseStaff?.imageUrl}
+                    specialty={parseStaff?.specializations}
+                    record={parseStaff?.educationAndCareer}
                   />
                 </DrawerContent>
               )}
             </Drawer>
             <BoxFooter />
           </section>
-
           <section ref={directionSectionRef} className="direction">
             <InfoText size="md" className="mb-[.5rem]">
               오시는 길
@@ -213,8 +222,8 @@ const HospitalInfoPage = () => {
           </section>
         </div>
       </div>
-      <footer className="flex w-full items-center gap-[.7rem] border-t border-gray-300 px-[1.8rem] py-[.7rem]">
-        <Button>접수 하기</Button>
+      <footer className="fixed bottom-0 flex w-[37.5rem] max-w-[37.5rem] items-center gap-[.7rem] border-t border-gray-300 px-[1.8rem] py-[.7rem]">
+        <Button>{hospitalData?.linkUrl && <a href={hospitalData?.linkUrl} />}접수 하기</Button>
         <Button variant="reverse">전화 문의</Button>
       </footer>
     </div>

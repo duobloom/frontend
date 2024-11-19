@@ -9,9 +9,11 @@ import { useNavigate } from "react-router-dom";
 import { GetRegionName, RegionSelecter } from "@/components/hospital";
 import { cn } from "@/utils";
 import { useGetFilterHospital } from "@/hooks/useGetFilterHospital";
+import React from "react";
 
 const HospitalPage = () => {
   const navigate = useNavigate();
+  const scrollRef = React.useRef<HTMLDivElement>(null);
 
   const [activeDrawer, setActiveDrawer] = useState<"location" | "department" | null>(null);
   const [selectedOption, setSelectedOption] = useState(1);
@@ -44,9 +46,9 @@ const HospitalPage = () => {
   };
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex h-full w-full flex-col overflow-y-auto scrollbar-hide">
       <Header variant="titleMove" title="병원/클리닉" />
-      <Drawer open={activeDrawer !== null}>
+      <Drawer dismissible={false} open={activeDrawer !== null}>
         <span className="flex w-full items-center justify-between px-[1.5rem]">
           <DrawerTrigger onClick={() => setActiveDrawer("location")}>
             <DropdownBox>
@@ -80,19 +82,7 @@ const HospitalPage = () => {
             {hospitalData ? `${hospitalData.length}개의 병원/클리닉` : "0 개의 병원/클리닉"}
           </p>
           <BoxFooter />
-          <div
-            className={cn(
-              "flex flex-col gap-[1rem] overflow-y-auto scrollbar-hide",
-              "h-[calc(100dvh-28.6rem)]",
-              // "h-[47.8rem]",
-              // "lg:h-[46rem]",
-              // "notebook:h-[47.5rem]",
-              // "2xl:h-[60rem]",
-              // "lg_mobile:h-[46rem]",
-              // "sm_mobile:h-[41rem]",
-              // "xsm_mobile:h-[25rem]",
-            )}
-          >
+          <div className={cn("flex flex-col gap-[1rem]", "h-[calc(100dvh-28.6rem)]")}>
             {hospitalData && hospitalData.length > 0 ? (
               hospitalData.map((item) => (
                 <InfoBox
@@ -145,22 +135,25 @@ const HospitalPage = () => {
               setSelectedGun={setSelectedGun}
               selectedNeighborhood={selectedNeighborhood}
               setSelectedNeighborhood={setSelectedNeighborhood}
+              setActiveDrawer={setActiveDrawer}
             />
           )}
           {activeDrawer === "department" && (
-            <>
+            <div className="flex h-full flex-col pb-[6.5rem]">
               <span className="relative mb-[3.5rem] flex w-full items-center">
-                <DrawerClose className="absolute left-0" />
+                <DrawerClose className="absolute left-0" onClick={() => setActiveDrawer(null)} />
                 <DrawerTitle text="진료과 선택" className="mx-auto" />
               </span>
-              <OptionBoxes
-                options={medicalDepartment}
-                selectedOption={selectedDepartment}
-                onSelect={(option) => {
-                  setSelectedDepartment(option);
-                }}
-              />
-            </>
+              <section ref={scrollRef} className="flex-1 overflow-y-scroll scrollbar-hide">
+                <OptionBoxes
+                  options={medicalDepartment}
+                  selectedOption={selectedDepartment}
+                  onSelect={(option) => {
+                    setSelectedDepartment(option);
+                  }}
+                />
+              </section>
+            </div>
           )}
           <span className="fixed bottom-[1rem] left-0 w-full px-[2rem]">
             <BoxFooter />

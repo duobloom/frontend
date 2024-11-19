@@ -68,6 +68,21 @@ const config: Config = {
       },
 
       scrollbar: ["hidden"], //스크롤바 숨기기
+
+      keyframes: {
+        fadein: {
+          "0%": { opacity: "0", transform: "translateY(-10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        fadeout: {
+          "0%": { opacity: "1", transform: "translateY(0)" },
+          "100%": { opacity: "0", transform: "translateY(-10px)" },
+        },
+      },
+      animation: {
+        fadein: "fadein 0.5s ease-in-out",
+        fadeout: "fadeout 1s ease-in-out",
+      },
     },
   },
   plugins: [utilsPlugin],

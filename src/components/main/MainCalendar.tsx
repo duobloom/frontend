@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import useDraggable from "@/hooks/useDraggable";
+import { cn } from "@/utils";
 
 type TMainCalendarProps = {
   yearMonth: string;
@@ -14,9 +15,10 @@ type TMainCalendarProps = {
       weekday: string;
     }[];
   };
+  className?: string;
 };
 
-const MainCalendar = ({ yearMonth, calendarData }: TMainCalendarProps) => {
+const MainCalendar = ({ yearMonth, calendarData, className }: TMainCalendarProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const currentDate = searchParams.get("date");
@@ -55,7 +57,10 @@ const MainCalendar = ({ yearMonth, calendarData }: TMainCalendarProps) => {
     <section
       ref={scrollRef}
       {...draggableOptions()}
-      className="flex h-[9.5rem] w-full flex-col gap-[.5rem] overflow-x-auto pb-[1rem] pt-[1.5rem] scrollbar-hide"
+      className={cn(
+        "z-10 mb-[1.5rem] flex h-[9.5rem] w-full flex-col gap-[.5rem] overflow-x-auto bg-white pb-[1rem] pt-[1.5rem] scrollbar-hide",
+        className,
+      )}
     >
       <div className="flex items-center gap-[1rem] text-[1.2rem] font-semibold text-gray-500">
         {calendarData.monthDates.map((date) => (

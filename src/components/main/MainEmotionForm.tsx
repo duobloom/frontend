@@ -4,16 +4,22 @@ import { AxiosError, AxiosResponse } from "axios";
 import { DrawerClose, DrawerTitle } from "@/components/common/Drawer";
 import { Button } from "@/components/common";
 import { postEmotion } from "@/apis";
+import { EMOTION_IMAGES } from "@/assets/image/emoji";
 
 const emotionList = [
-  { id: 1, text: "기쁨이 가득한 하루!", emoji: "😊" },
-  { id: 2, text: "마음이 울적할 때는 쉬어가자.", emoji: "😢" },
-  { id: 3, text: "화가 나면 잠시 멈추고 숨을 고르자.", emoji: "😡" },
-  { id: 4, text: "피곤할 땐 충분한 휴식이 필요해.", emoji: "😴" },
-  { id: 5, text: "사랑이 넘치는 순간!", emoji: "😍" },
-  { id: 6, text: "깊은 생각이 필요할 때.", emoji: "🤔" },
-  { id: 7, text: "눈물이 나는 날도 있어.", emoji: "😭" },
-  { id: 8, text: "축하할 일이 있을 땐 마음껏 즐기자!", emoji: "🥳" },
+  { id: 1, text: "기쁨이 가득한 하루!", emoji: EMOTION_IMAGES.SMILE_HAPPY, alt: "SMILE_HAPPY" },
+  { id: 2, text: "마음이 울적할 때는 쉬어가자.", emoji: EMOTION_IMAGES.SAD_CRYING, alt: "SAD_CRYING" },
+  { id: 3, text: "화가 나면 잠시 멈추고 숨을 고르자.", emoji: EMOTION_IMAGES.ANGRY, alt: "ANGRY" },
+  {
+    id: 4,
+    text: "피곤할 땐 충분한 휴식이 필요해.",
+    emoji: EMOTION_IMAGES.RELIEVED_CLOSED_EYES,
+    alt: "RELIEVED_CLOSED_EYES",
+  },
+  { id: 5, text: "사랑이 넘치는 순간!", emoji: EMOTION_IMAGES.HEART_EYES, alt: "HEART_EYES" },
+  { id: 6, text: "깊은 생각이 필요할 때.", emoji: EMOTION_IMAGES.THINKING, alt: "THINKING" },
+  { id: 7, text: "눈물이 나는 날도 있어.", emoji: EMOTION_IMAGES.CRYING_LOUDLY, alt: "CRYING_LOUDLY" },
+  { id: 8, text: "축하할 일이 있을 땐 마음껏 즐기자!", emoji: EMOTION_IMAGES.STAR_STRUCK, alt: "STAR_STRUCK" },
 ];
 
 const MainEmotionForm = ({ emojiNum = 0, onClose }: { emojiNum?: number; onClose: () => void }) => {
@@ -36,6 +42,11 @@ const MainEmotionForm = ({ emojiNum = 0, onClose }: { emojiNum?: number; onClose
     },
   });
 
+  const handleClose = () => {
+    setClickEmojiNum(0);
+    onClose();
+  };
+
   const handleSubmit = () => {
     mutation.mutate({ emoji: clickEmojiNum });
     setClickEmojiNum(0); // API 통신 완료 시
@@ -45,13 +56,13 @@ const MainEmotionForm = ({ emojiNum = 0, onClose }: { emojiNum?: number; onClose
   return (
     <>
       <div className="flex items-center justify-between pb-[1.4rem]">
-        <DrawerClose onClick={() => setClickEmojiNum(0)} />
+        <DrawerClose onClick={handleClose} />
         <DrawerTitle text="내 감정" />
         <Button variant="oval" size="sm" disabled={clickEmojiNum === emojiNum} onClick={handleSubmit}>
           완료
         </Button>
       </div>
-      <div className="flex flex-col gap-[1rem]">
+      <div className="flex flex-col gap-[1rem] overflow-auto scrollbar-hide">
         {emotionList.map((item) => (
           <div
             key={item.id}
@@ -63,7 +74,10 @@ const MainEmotionForm = ({ emojiNum = 0, onClose }: { emojiNum?: number; onClose
             >
               {item.text}
             </p>
-            <span className="flex h-[3.6rem] w-[3.6rem] items-end justify-center text-[2.5rem]">{item.emoji}</span>
+            <div className="flex items-center justify-center">
+              <img src={item.emoji} alt={item.alt} />
+            </div>
+            {/* <span className="flex h-[3.6rem] w-[3.6rem] items-end justify-center text-[2.5rem]">{item.emoji}</span> */}
           </div>
         ))}
       </div>

@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { regions } from "@/constants";
 import { OptionTabs, OptionBoxes } from "@/components/common";
-import useDraggable from "@/hooks/useDraggable";
 import { DrawerClose, DrawerTitle } from "../common/Drawer";
 import { GetRegionName } from ".";
 
@@ -12,6 +12,7 @@ type TRegionSelecterProps = {
   setSelectedGun: React.Dispatch<React.SetStateAction<number | null>>;
   selectedNeighborhood: number | null;
   setSelectedNeighborhood: React.Dispatch<React.SetStateAction<number | null>>;
+  setActiveDrawer: React.Dispatch<React.SetStateAction<any>>;
 };
 
 const RegionSelecter = ({
@@ -21,10 +22,10 @@ const RegionSelecter = ({
   setSelectedGun,
   selectedNeighborhood,
   setSelectedNeighborhood,
+  setActiveDrawer,
 }: TRegionSelecterProps) => {
   const [selectedTab, setSelectedTab] = useState("시/도");
   const scrollRef = React.useRef<HTMLDivElement>(null);
-  const draggableOptions = useDraggable(scrollRef);
 
   const getOptions = () => {
     if (selectedTab === "시/도") {
@@ -56,12 +57,12 @@ const RegionSelecter = ({
   return (
     <div className="flex h-full flex-col pb-[6.5rem]">
       <span className="relative mb-[2rem] flex w-full items-center">
-        <DrawerClose className="absolute left-0" />
+        <DrawerClose className="absolute left-0" onClick={() => setActiveDrawer(null)} />
         <DrawerTitle text="지역 선택" className="mx-auto" />
       </span>
       <OptionTabs tabs={["시/도", "시/군/구"]} selectedTab={selectedTab} onTabSelect={setSelectedTab} />
       <GetRegionName selectedSi={selectedSi} selectedGun={selectedGun} selectedNeighborhood={selectedNeighborhood} />
-      <section ref={scrollRef} {...draggableOptions()} className="mt-[1rem] flex-1 overflow-y-scroll scrollbar-hide">
+      <section ref={scrollRef} className="mt-[1rem] flex-1 overflow-y-scroll scrollbar-hide">
         <OptionBoxes
           options={getOptions()}
           selectedOption={
