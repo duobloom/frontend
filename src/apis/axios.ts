@@ -4,7 +4,7 @@ import { AuthenticationError, NetworkError, NotFoundError, ServerError } from ".
 
 const apiClient = axios.create({
   withCredentials: true,
-  baseURL: import.meta.env.VITE_APP_API_ENDPOINT,
+  // baseURL: import.meta.env.VITE_APP_API_ENDPOINT, // axiosClient가 어느정도 마무리 되면 옮기기
 });
 
 apiClient.interceptors.response.use(
