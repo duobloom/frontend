@@ -16,5 +16,6 @@ export const useGetFeedData = (date: string) => {
       }
     },
     enabled: !!date,
+    gcTime: 0,
   });
 };
