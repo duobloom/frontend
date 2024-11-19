@@ -44,7 +44,6 @@ export default function BoardBox({ board }: { board: BoardType }) {
 
   // 글 수정
   const handleTextEdit = () => {
-    console.log("글 수정");
     setIsMenuDrawerOpen(false); // 메뉴 드로어 닫기
     setIsTextDrawerOpen(true); // 수정 드로어 열기
   };
