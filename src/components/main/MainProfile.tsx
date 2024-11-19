@@ -11,7 +11,6 @@ type TMainProfileProps = {
 
 const MainProfile = ({ nowData }: TMainProfileProps) => {
   const { handleError } = useErrorHandler();
-
   const { data, isLoading, error } = useQuery<ProfilesType, Error>({
     queryKey: ["coupleProfile"],
     queryFn: async () => {

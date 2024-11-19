@@ -5,7 +5,7 @@ import { HospitalListType, PolicyListType } from "@/types";
 import { cn } from "@/utils";
 import { IconBookMark } from "@/assets/icon";
 import { deleteScrapHospital, deleteScrapPolicy, postScrapHospital, postScrapPolicy } from "@/apis";
-
+import defaultHospital from "@/assets/image/defaulthospital.png";
 // Props 타입 정의
 type HospitalInfoBoxProps = HospitalListType & { variant: "hospital" };
 type PolicyInfoBoxProps = PolicyListType & { variant: "policy" };
@@ -87,6 +87,7 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
       const { type, time, region, middle, detail } = props;
       const departmentMap: { [key: string]: string } = {
         MATERNITY: "산부인과",
+        UROLOGY: "비뇨기과",
         CARDIOLOGY: "심장내과",
         DERMATOLOGY: "피부과",
       };
@@ -96,10 +97,10 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
           <div className="flex items-center gap-[.5rem]">
             <span className="w-auto whitespace-nowrap">{department}</span>
             <span>·</span>
-            <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">{time ?? "시간 정보 없음"}</span>
+            <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">{time ?? "10:00-16:00"}</span>
           </div>
           <div className="flex items-center gap-[.5rem]">
-            <span className="w-auto whitespace-nowrap tracking-normal">1.3km</span> {/* 거리 계산 */}
+            <span className="w-auto whitespace-nowrap tracking-normal">1.3km</span>
             <span>·</span>
             <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">{`${region ?? ""} ${middle ?? ""} ${detail ?? ""}`}</span>
           </div>
@@ -128,7 +129,12 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
           </div>
         </div>
         <div className="h-[8.5rem] w-[8.5rem] overflow-hidden rounded-[1rem] border border-gray-100">
-          <img src={entityImg || "/default-image.png"} alt={entityTitle} className="h-full w-full object-cover" />
+          <img
+            src={entityImg || defaultHospital}
+            alt={entityTitle}
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
         </div>
       </div>
       <div className="flex justify-between">

@@ -30,7 +30,7 @@ const CommunityBaseSchema = z.object({
   nickname: z.string(),
   profilePictureUrl: z.string(),
   createdAt: z.string().optional(),
-  updatedAt: z.string().nullable(),
+  updatedAt: z.string().nullable().optional(),
   commentCount: z.number().default(0),
   likeCount: z.number().default(0),
   likedByUser: z.boolean().default(false),

@@ -29,6 +29,7 @@ const CommunityDetailPage = () => {
       }
     },
     enabled: !!id,
+    gcTime: 0,
   });
 
   // 에러 처리

@@ -5,6 +5,7 @@ import axios from "axios";
 import { isMobile } from "react-device-detect";
 import Navbar from "./components/layout/Nav";
 import { cn } from "./utils";
+import { ToastProvider } from "./libs/custom-toast";
 import { IconLogoDoubloom } from "@/assets/icon";
 
 const queryClient = new QueryClient();
@@ -32,14 +33,16 @@ function App() {
           </div>
           {/* Right section - 앱 영역 */}
           <div className="right-section relative flex w-full justify-center lg:w-[37.5rem] lg:min-w-[37.5rem]">
-            <div className={cn("h-dvh w-full bg-white shadow-lg", isMobile ? "w-full" : "max-w-[37.5rem]")}>
-              <div className="flex h-full flex-col">
-                <div className="flex-1 overflow-y-auto pb-[6.5rem] will-change-scroll">
-                  <Outlet />
+            <ToastProvider autoClose={1000} limit={3}>
+              <div className={cn("h-dvh w-full bg-white shadow-lg", isMobile ? "w-full" : "max-w-[37.5rem]")}>
+                <div className="flex h-full flex-col">
+                  <div className="flex-1 overflow-y-auto pb-[6.5rem] will-change-scroll">
+                    <Outlet />
+                  </div>
+                  <Navbar />
                 </div>
-                <Navbar />
               </div>
-            </div>
+            </ToastProvider>
           </div>
         </div>
       </div>

@@ -28,6 +28,7 @@ const CommunityPostList = ({ name, type }: TCommunityPostListProps) => {
         throw error;
       }
     },
+    gcTime: 0,
   });
 
   // 에러 처리
@@ -49,7 +50,7 @@ const CommunityPostList = ({ name, type }: TCommunityPostListProps) => {
             <hr />
           </div>
           {communityDataList?.map((communityData) => (
-            <div className="flex flex-col gap-[1.5rem] px-[1.5rem]">
+            <div key={communityData.communityId} className="flex flex-col gap-[1.5rem] px-[1.5rem]">
               <CommunityBox communityData={communityData} />
             </div>
           ))}
