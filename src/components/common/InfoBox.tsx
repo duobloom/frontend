@@ -93,15 +93,15 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
       const department = type ? departmentMap[type] || type : "산부인과";
       return (
         <div className="flex flex-col text-[1.1rem] font-medium leading-[1.5rem] text-gray-500">
-          <div className="flex gap-[.5rem]">
-            <span>{department}</span>
+          <div className="flex items-center gap-[.5rem]">
+            <span className="w-auto whitespace-nowrap">{department}</span>
             <span>·</span>
-            <span className="tracking-normal">{time ?? "시간 정보 없음"}</span>
+            <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">{time ?? "시간 정보 없음"}</span>
           </div>
-          <div className="flex gap-[.5rem]">
-            <span className="tracking-normal">1.3km</span> {/* 거리 계산 */}
+          <div className="flex items-center gap-[.5rem]">
+            <span className="w-auto whitespace-nowrap tracking-normal">1.3km</span> {/* 거리 계산 */}
             <span>·</span>
-            <span>{`${region ?? ""} ${middle ?? ""} ${detail ?? ""}`}</span>
+            <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">{`${region ?? ""} ${middle ?? ""} ${detail ?? ""}`}</span>
           </div>
         </div>
       );
