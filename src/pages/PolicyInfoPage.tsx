@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import Header from "@/components/layout/Header";
-import { Badge, Button, OptionTabs } from "@/components/common";
+import { Badge, Button, InfoBox, OptionTabs } from "@/components/common";
 import { BoxFooter } from "@/components/ui/Box";
 import { DetailBox, InfoText } from "@/components/hospital";
 import { useGetPolicyInfo } from "@/hooks/useGetPolicyInfo";
@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import { deleteScrapPolicy, postScrapPolicy } from "@/apis";
 import { parseJsonString } from "@/utils/parseString";
 import { policyTarget } from "@/constants/MockData";
+import { useGetFilterPolicy } from "@/hooks/useGetFilterPolicy";
 
 const PolicyInfoPage = () => {
   const location = useLocation();
@@ -20,6 +21,7 @@ const PolicyInfoPage = () => {
   const methodSectionRef = useRef<HTMLDivElement>(null);
 
   const { data: policyData, refetch: refetchPolicyData } = useGetPolicyInfo(policyId);
+  const { data: relatedData } = useGetFilterPolicy(null, null, null, policyData?.keywordMappings?.[0]?.keyword || null);
 
   const handleBookmark = async () => {
     try {
@@ -127,6 +129,28 @@ const PolicyInfoPage = () => {
             <InfoText size="md" className="mb-[1.5rem]">
               관련 정책
             </InfoText>
+            <div className="flex flex-col gap-[1rem]">
+              {relatedData &&
+                relatedData
+                  .filter((item) => item.policyId !== policyId)
+                  .map((item) => (
+                    <InfoBox
+                      key={item.policyId}
+                      variant="policy"
+                      policyId={item.policyId}
+                      policyName={item.policyName}
+                      policyHost={item.policyHost}
+                      region={item.region}
+                      middle={item.middle}
+                      detail={item.detail}
+                      startDate={item.startDate}
+                      endDate={item.endDate}
+                      imageUrl={item.imageUrl}
+                      scraped={item.scraped}
+                      keywordMappings={item.keywordMappings}
+                    />
+                  ))}
+            </div>
           </section>
         </div>
       </div>
