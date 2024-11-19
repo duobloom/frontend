@@ -1,12 +1,10 @@
 import { InfoBox, OptionTabs } from "@/components/common";
 import Header from "@/components/layout/Header";
-import useDraggable from "@/hooks/useDraggable";
 import { useGetScrapHospital, useGetScrapPolicy } from "@/hooks/useGetScrapData";
 import { useRef, useState } from "react";
 
 const MyScrap = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const draggableOptions = useDraggable(scrollRef);
   const [selectedTab, setSelectedTab] = useState("맞춤 정책");
 
   const { data: policyData } = useGetScrapPolicy(selectedTab === "맞춤 정책");
@@ -26,11 +24,7 @@ const MyScrap = () => {
         onTabSelect={handleTabSelect}
         className="text-[1.5rem]"
       />
-      <section
-        ref={scrollRef}
-        {...draggableOptions()}
-        className="flex-1 gap-[1rem] overflow-y-auto px-[1.5rem] scrollbar-hide"
-      >
+      <section ref={scrollRef} className="flex-1 gap-[1rem] overflow-y-auto px-[1.5rem] scrollbar-hide">
         <div className="flex flex-col gap-[1rem]">
           {selectedTab === "맞춤 정책" && (
             <>

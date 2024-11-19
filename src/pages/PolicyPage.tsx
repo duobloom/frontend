@@ -59,19 +59,7 @@ const PolicyPage = () => {
         <div className="px-[1.5rem]">
           <p className="text-[1.5rem] font-medium">{policyData && `${policyData.length}개의 정책`}</p>
           <BoxFooter />
-          <div
-            className={cn(
-              "flex flex-col gap-[1rem] overflow-y-auto scrollbar-hide",
-              "h-[calc(100dvh-28.6rem)]",
-              // "h-[47.8rem]",
-              // "lg:h-[46rem]",
-              // "notebook:h-[47.5rem]",
-              // "2xl:h-[60rem]",
-              // "lg_mobile:h-[46rem]",
-              // "sm_mobile:h-[41rem]",
-              // "xsm_mobile:h-[25rem]",
-            )}
-          >
+          <div className={cn("flex flex-col gap-[1rem] overflow-y-auto scrollbar-hide", "h-[calc(100dvh-28.6rem)]")}>
             {policyData &&
               policyData.length > 0 &&
               policyData.map((item) => (

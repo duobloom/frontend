@@ -213,7 +213,7 @@ const HospitalInfoPage = () => {
           </section>
         </div>
       </div>
-      <footer className="flex w-full items-center gap-[.7rem] border-t border-gray-300 px-[1.8rem] py-[.7rem]">
+      <footer className="fixed bottom-0 flex w-[37.5rem] max-w-[37.5rem] items-center gap-[.7rem] border-t border-gray-300 px-[1.8rem] py-[.7rem]">
         <Button>접수 하기</Button>
         <Button variant="reverse">전화 문의</Button>
       </footer>
