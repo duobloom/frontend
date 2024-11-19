@@ -6,7 +6,6 @@ import { DetailBox, InfoText } from "@/components/hospital";
 import { useGetPolicyInfo } from "@/hooks/useGetPolicyInfo";
 import { useLocation } from "react-router-dom";
 import { deleteScrapPolicy, postScrapPolicy } from "@/apis";
-import { parseJsonString } from "@/utils/parseString";
 import { policyTarget } from "@/constants/MockData";
 import { useGetFilterPolicy } from "@/hooks/useGetFilterPolicy";
 
@@ -53,7 +52,14 @@ const PolicyInfoPage = () => {
     if (tab === "관련 정보") scrollToSection(infoSectionRef);
     if (tab === "신청 방법") scrollToSection(methodSectionRef);
   };
-  const parsedTarget = parseJsonString(policyData?.target);
+  // 데이터 처리 함수 (문자열과 배열 모두 처리)
+  const renderContent = (data: string | string[]) => {
+    if (Array.isArray(data)) {
+      return data.join(", ");
+    }
+    return data;
+  };
+
   return (
     <div className="flex h-full w-full flex-col overflow-y-auto scrollbar-hide">
       {policyData && <Header variant="backActions" isBookmark={policyData.scraped} handleBookmark={handleBookmark} />}
@@ -79,9 +85,9 @@ const PolicyInfoPage = () => {
             ))}
         </span>
         <BoxFooter />
-        <DetailBox title="지원 대상" content={parsedTarget?.target || "대상 정보 없음"} />
-        <DetailBox title="지원 유형" content={parsedTarget?.type || "유형 정보 없음"} />
-        <DetailBox title="지원 혜택" content={parsedTarget?.benefit || "혜택 정보 없음"} />
+        <DetailBox title="지원 대상" content={renderContent(policyData?.target?.target || "대상 정보 없음")} />
+        <DetailBox title="지원 유형" content={renderContent(policyData?.target?.type || "유형 정보 없음")} />
+        <DetailBox title="지원 혜택" content={renderContent(policyData?.target?.benefit || "혜택 정보 없음")} />
         <p className="ml-[1.5rem] text-[1.1rem] font-medium text-gray-400">
           출처 : 보건복지부/최종 수정일 : 2023-12-20
         </p>
@@ -98,7 +104,7 @@ const PolicyInfoPage = () => {
               지원 대상
             </InfoText>
             <InfoText size="sm" className="mb-[1.5rem]">
-              {policyData?.detail || policyTarget.target}
+              {renderContent(policyData?.benefit?.target || policyTarget.target)}
             </InfoText>
             <BoxFooter />
           </section>
@@ -106,7 +112,7 @@ const PolicyInfoPage = () => {
             <InfoText size="sm" className="font-bold">
               지원 내용
             </InfoText>
-            <InfoText size="sm">{policyData?.detail || policyTarget.content}</InfoText>
+            <InfoText size="sm">{renderContent(policyData?.benefit?.content || policyTarget.content)}</InfoText>
             <BoxFooter />
           </section>
 
@@ -114,7 +120,17 @@ const PolicyInfoPage = () => {
             <InfoText size="sm" className="font-bold">
               관련 정보
             </InfoText>
-            <InfoText size="sm">{policyData?.detail || policyTarget.info}</InfoText>
+            <InfoText size="sm">
+              {policyData?.benefit?.info && policyData.benefit.info.length > 0 ? (
+                policyData.benefit.info.map((item, index) => (
+                  <InfoText key={index} size="sm" className="mb-[0.5rem]">
+                    {item}
+                  </InfoText>
+                ))
+              ) : (
+                <InfoText size="sm">{policyTarget.info}</InfoText>
+              )}
+            </InfoText>
             <BoxFooter />
           </section>
 
@@ -122,7 +138,17 @@ const PolicyInfoPage = () => {
             <InfoText size="sm" className="font-bold">
               신청 방법
             </InfoText>
-            <InfoText size="sm">{policyData?.detail || policyTarget.method}</InfoText>
+            <InfoText size="sm">
+              <span>
+                {policyData?.benefit?.method && (
+                  <InfoText size="sm">
+                    <div>{policyData.benefit.method.type || policyTarget.method}</div>
+                    {policyData.benefit.method.details &&
+                      policyData.benefit.method.details.map((detail, index) => <div key={index}>{detail}</div>)}
+                  </InfoText>
+                )}
+              </span>
+            </InfoText>
             <BoxFooter />
           </section>
           <section>
