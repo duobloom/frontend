@@ -38,7 +38,7 @@ const PolicyInfoPage = () => {
   const scrollToSection = (sectionRef: React.RefObject<HTMLDivElement>) => {
     if (scrollRef.current && sectionRef.current) {
       scrollRef.current.scrollTo({
-        top: sectionRef.current.offsetTop - scrollRef.current.offsetTop,
+        top: sectionRef.current.offsetTop - scrollRef.current.offsetTop - 60,
         behavior: "smooth",
       });
     }
