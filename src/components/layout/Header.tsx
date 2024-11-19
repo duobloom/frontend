@@ -17,6 +17,7 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { IconArrowLeft, IconBell, IconBookMark, IconSearch, IconShare } from "@/assets/icon";
+import { cn } from "@/utils";
 
 const VARIANTS = {
   TITLE_MOVE: "titleMove", // A
@@ -87,9 +88,20 @@ type BackSearchHeader = {
   menuButton?: never;
 };
 
-type HeaderProps = TitleMoveHeader | BackTitleHeader | BackMenuHeader | BackActionsHeader | BackSearchHeader;
+type HeaderProps = (TitleMoveHeader | BackTitleHeader | BackMenuHeader | BackActionsHeader | BackSearchHeader) & {
+  className?: string;
+};
 
-const Header = ({ variant, children, title, isBookmark, handleBookmark, searchQuery, menuButton }: HeaderProps) => {
+const Header = ({
+  variant,
+  children,
+  title,
+  isBookmark,
+  handleBookmark,
+  searchQuery,
+  menuButton,
+  className,
+}: HeaderProps) => {
   const navigate = useNavigate();
 
   // 공유 버튼
@@ -197,7 +209,7 @@ const Header = ({ variant, children, title, isBookmark, handleBookmark, searchQu
   };
 
   return (
-    <header className="flex h-[5.8rem] w-full items-center justify-between bg-white px-[1.5rem]">
+    <header className={cn(`flex h-[5.8rem] w-full items-center justify-between bg-white px-[1.5rem]`, className)}>
       {renderContent()}
     </header>
   );

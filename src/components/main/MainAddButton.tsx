@@ -53,7 +53,7 @@ const MainAddButton = () => {
       </Drawer>
 
       {/* 감정 추가 버튼 */}
-      <Drawer open={isEmotionDrawerOpen} onOpenChange={setIsEmotionDrawerOpen}>
+      <Drawer dismissible={false} open={isEmotionDrawerOpen} onOpenChange={setIsEmotionDrawerOpen}>
         <DrawerTrigger asChild>
           <IconButtonContainer
             onClick={() => setIsClicked(false)}

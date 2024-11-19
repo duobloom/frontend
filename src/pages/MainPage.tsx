@@ -7,13 +7,15 @@ const MainPage = () => {
 
   return (
     <main className="relative">
-      <Header variant="titleMove">
+      <Header variant="titleMove" className="relative z-10">
         <MainDayAndPoint yearMonth={yearMonth} />
         <div className="hidden h-[2.4rem] w-[.1rem] bg-gray-300 md_mobile:block" />
       </Header>
-      <MainProfile nowData={nowData} />
-      <MainCalendar yearMonth={yearMonth} calendarData={calendarData} />
-      <MainFeed nowData={nowData} />
+      <div className="h-[calc(100dvh-12.2rem)] overflow-auto scrollbar-hide">
+        <MainProfile nowData={nowData} />
+        <MainCalendar yearMonth={yearMonth} calendarData={calendarData} className="sticky top-0" />
+        <MainFeed nowData={nowData} />
+      </div>
       <MainAddButton />
     </main>
   );
