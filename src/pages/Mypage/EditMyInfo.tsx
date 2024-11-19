@@ -7,8 +7,10 @@ import { useLocation } from "react-router-dom";
 import { getS3Url, postPresignedUrl, putS3Upload } from "@/apis/image/imageUpload";
 import { reduceImageSize } from "@/utils";
 import { ValidationError } from "@/utils/zodHelpers";
+import { useToast } from "@/libs/custom-toast";
 
 const EditMyInfo = () => {
+  const toast = useToast();
   const location = useLocation();
   const userInfo = location.state?.userInfo;
   const fileRef = React.useRef<HTMLInputElement>(null);
@@ -53,6 +55,9 @@ const EditMyInfo = () => {
     patchMutate(
       { nickname, birth, profilePictureUrl, email, region },
       {
+        onSuccess: () => {
+          toast.success("정보가 성공적으로 수정되었습니다!");
+        },
         onError: (error) => {
           if (error instanceof ValidationError) {
             const newErrors = { nickname: "", email: "", birth: "", region: "" };
@@ -61,7 +66,9 @@ const EditMyInfo = () => {
                 newErrors[err.path[0] as keyof typeof newErrors] = err.message;
               }
             });
-            setFieldErrors(newErrors); // 필드별 에러 메시지 설정
+            setFieldErrors(newErrors);
+          } else {
+            toast.error("수정 중 문제가 발생했습니다. 다시 시도해주세요.");
           }
         },
       },
