@@ -42,6 +42,11 @@ const MainEmotionForm = ({ emojiNum = 0, onClose }: { emojiNum?: number; onClose
     },
   });
 
+  const handleClose = () => {
+    setClickEmojiNum(0);
+    onClose();
+  };
+
   const handleSubmit = () => {
     mutation.mutate({ emoji: clickEmojiNum });
     setClickEmojiNum(0); // API 통신 완료 시
@@ -51,13 +56,13 @@ const MainEmotionForm = ({ emojiNum = 0, onClose }: { emojiNum?: number; onClose
   return (
     <>
       <div className="flex items-center justify-between pb-[1.4rem]">
-        <DrawerClose onClick={() => setClickEmojiNum(0)} />
+        <DrawerClose onClick={handleClose} />
         <DrawerTitle text="내 감정" />
         <Button variant="oval" size="sm" disabled={clickEmojiNum === emojiNum} onClick={handleSubmit}>
           완료
         </Button>
       </div>
-      <div className="flex flex-col gap-[1rem]">
+      <div className="flex flex-col gap-[1rem] overflow-auto scrollbar-hide">
         {emotionList.map((item) => (
           <div
             key={item.id}
