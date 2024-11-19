@@ -27,7 +27,7 @@ const ScrollableOptions = ({ options, selectedOption, onSelect }: TScrollableOpt
     <section
       ref={scrollRef}
       {...draggableOptions()}
-      className="flex w-full space-x-[.8rem] overflow-x-scroll px-[1rem] py-[.5rem] scrollbar-hide"
+      className="sticky top-0 flex w-full space-x-[.8rem] overflow-x-scroll bg-[#fff] px-[1rem] py-[.5rem] scrollbar-hide"
     >
       {options.map((option) => (
         <Button

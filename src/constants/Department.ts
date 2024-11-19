@@ -1,7 +1,7 @@
 const medicalDepartment = [
   { id: 1, name: "전체", type: "BASIC" },
   { id: 2, name: "산부인과", type: "MATERNITY" },
-  { id: 3, name: "비뇨기과" },
+  { id: 3, name: "비뇨기과", type: "UROLOGY" },
   { id: 4, name: "내분비내과" },
   { id: 5, name: "유전학과" },
   { id: 6, name: "한방과" },
