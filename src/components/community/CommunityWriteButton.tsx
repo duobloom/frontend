@@ -10,7 +10,7 @@ const CommunityWriteButton = () => {
     <Drawer dismissible={false} open={isTextDrawerOpen} onOpenChange={setIsTextDrawerOpen}>
       <DrawerTrigger asChild>
         <button
-          className={`absolute bottom-[2rem] right-[2rem] flex h-[5rem] w-[5rem] items-center justify-center rounded-full border border-gray-300 bg-white shadow-icon`}
+          className={`absolute bottom-[2rem] right-[2rem] z-10 flex h-[5rem] w-[5rem] items-center justify-center rounded-full border border-gray-300 bg-white shadow-icon`}
         >
           <IconEdit />
         </button>
