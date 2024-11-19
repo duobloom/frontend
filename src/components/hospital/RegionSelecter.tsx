@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { regions } from "@/constants";
 import { OptionTabs, OptionBoxes } from "@/components/common";
-import useDraggable from "@/hooks/useDraggable";
 import { DrawerClose, DrawerTitle } from "../common/Drawer";
 import { GetRegionName } from ".";
 
@@ -24,7 +23,6 @@ const RegionSelecter = ({
 }: TRegionSelecterProps) => {
   const [selectedTab, setSelectedTab] = useState("시/도");
   const scrollRef = React.useRef<HTMLDivElement>(null);
-  const draggableOptions = useDraggable(scrollRef);
 
   const getOptions = () => {
     if (selectedTab === "시/도") {
@@ -61,7 +59,7 @@ const RegionSelecter = ({
       </span>
       <OptionTabs tabs={["시/도", "시/군/구"]} selectedTab={selectedTab} onTabSelect={setSelectedTab} />
       <GetRegionName selectedSi={selectedSi} selectedGun={selectedGun} selectedNeighborhood={selectedNeighborhood} />
-      <section ref={scrollRef} {...draggableOptions()} className="mt-[1rem] flex-1 overflow-y-scroll scrollbar-hide">
+      <section ref={scrollRef} className="mt-[1rem] flex-1 overflow-y-scroll scrollbar-hide">
         <OptionBoxes
           options={getOptions()}
           selectedOption={

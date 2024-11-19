@@ -9,9 +9,11 @@ import { useNavigate } from "react-router-dom";
 import { GetRegionName, RegionSelecter } from "@/components/hospital";
 import { cn } from "@/utils";
 import { useGetFilterHospital } from "@/hooks/useGetFilterHospital";
+import React from "react";
 
 const HospitalPage = () => {
   const navigate = useNavigate();
+  const scrollRef = React.useRef<HTMLDivElement>(null);
 
   const [activeDrawer, setActiveDrawer] = useState<"location" | "department" | null>(null);
   const [selectedOption, setSelectedOption] = useState(1);
@@ -148,19 +150,21 @@ const HospitalPage = () => {
             />
           )}
           {activeDrawer === "department" && (
-            <>
+            <div className="flex h-full flex-col pb-[6.5rem]">
               <span className="relative mb-[3.5rem] flex w-full items-center">
                 <DrawerClose className="absolute left-0" />
                 <DrawerTitle text="진료과 선택" className="mx-auto" />
               </span>
-              <OptionBoxes
-                options={medicalDepartment}
-                selectedOption={selectedDepartment}
-                onSelect={(option) => {
-                  setSelectedDepartment(option);
-                }}
-              />
-            </>
+              <section ref={scrollRef} className="flex-1 overflow-y-scroll scrollbar-hide">
+                <OptionBoxes
+                  options={medicalDepartment}
+                  selectedOption={selectedDepartment}
+                  onSelect={(option) => {
+                    setSelectedDepartment(option);
+                  }}
+                />
+              </section>
+            </div>
           )}
           <span className="fixed bottom-[1rem] left-0 w-full px-[2rem]">
             <BoxFooter />
