@@ -30,6 +30,7 @@ const CommunityPopularList = ({
         throw error;
       }
     },
+    gcTime: 0,
   });
 
   // 에러 처리
@@ -68,9 +69,10 @@ const CommunityPopularList = ({
             Object.keys(groupByCategory(communityPopularList)).map((category, index) => {
               const communityPopularData =
                 groupByCategory(communityPopularList)[category as keyof typeof groupByCategory];
+              const categoryNum = filterList.find((item) => item.name === category)?.id ?? 1;
               return (
                 <article key={index} className="flex flex-col gap-[1rem]">
-                  <div onClick={() => moveFilter(index + 2)}>
+                  <div onClick={() => moveFilter(categoryNum)}>
                     <CommunityTitle title={`${category} 인기 글`} />
                   </div>
                   <div className="flex flex-col gap-[1.6rem]">
