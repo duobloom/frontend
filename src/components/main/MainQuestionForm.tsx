@@ -14,6 +14,7 @@ import {
   AlertDialogTitle,
 } from "@/components/common/AlertDialog";
 import { postQuestion, RequestBodyType } from "@/apis/main/postQuestion";
+import { useToast } from "@/libs/custom-toast";
 import { IconClose } from "@/assets/icon";
 
 const MainQuestionForm = ({
@@ -31,6 +32,7 @@ const MainQuestionForm = ({
   const [isFormValid, setIsFormValid] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const queryClient = useQueryClient();
+  const toast = useToast();
 
   useEffect(() => {
     if (textRef.current) {
@@ -49,11 +51,14 @@ const MainQuestionForm = ({
       queryClient.invalidateQueries({
         queryKey: ["feed"],
       });
+      toast.info("5포인트를 획득하셨습니다.", 3000);
     },
     onError: (error) => {
       if (error.response?.status === 401) {
-        console.error("로그인이 필요합니다.");
+        toast.error("로그인 해주시기 바랍니다.", 3000);
+        console.error("로그인 해주시기 바랍니다.");
       } else {
+        toast.error("답변 업로드 중 오류가 발생했습니다.", 3000);
         console.error("업로드 중 오류가 발생했습니다:", error.message);
       }
     },

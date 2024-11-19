@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
 import { DrawerClose, DrawerTitle } from "@/components/common/Drawer";
 import { Button } from "@/components/common";
+import { useToast } from "@/libs/custom-toast";
 import { postEmotion } from "@/apis";
 import { EMOTION_IMAGES } from "@/assets/image/emoji";
 
@@ -25,6 +26,7 @@ const emotionList = [
 const MainEmotionForm = ({ emojiNum = 0, onClose }: { emojiNum?: number; onClose: () => void }) => {
   const [clickEmojiNum, setClickEmojiNum] = useState(emojiNum); // 감정을 클릭한 적 있다면
   const queryClient = useQueryClient();
+  const toast = useToast();
 
   const mutation = useMutation<AxiosResponse, AxiosError, { emoji: number }>({
     mutationFn: async ({ emoji }: { emoji: number }) => await postEmotion({ emoji }),
@@ -32,12 +34,15 @@ const MainEmotionForm = ({ emojiNum = 0, onClose }: { emojiNum?: number; onClose
       queryClient.invalidateQueries({
         queryKey: ["feed"],
       });
+      toast.success("오늘 감정 표현 잘 해내셨어요", 3000);
     },
     onError: (error) => {
       if (error.response?.status === 401) {
         console.error("로그인이 필요합니다.");
+        toast.error("로그인이 필요합니다.", 3000);
       } else {
         console.error("업로드 중 오류가 발생했습니다:", error.message);
+        toast.error("감정 업로드 중 오류가 발생했습니다", 3000);
       }
     },
   });
