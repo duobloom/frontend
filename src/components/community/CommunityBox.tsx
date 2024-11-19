@@ -20,7 +20,9 @@ export default function CommunityBox({ communityData }: CommunityBoxProps) {
           <Author
             profileImg={communityData?.profilePictureUrl}
             name={communityData?.nickname}
-            createdAt={formatDateConvertWithRelativeTime(communityData?.updatedAt as string)}
+            createdAt={formatDateConvertWithRelativeTime(
+              (communityData?.createdAt || communityData?.updatedAt) as string,
+            )}
             isMe={communityData.owner}
           />
         </div>
