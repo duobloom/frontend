@@ -10,7 +10,7 @@ import { IconLogoDoubloom } from "@/assets/icon";
 const queryClient = new QueryClient();
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = import.meta.env.VITE_APP_API_ENDPOINT;
+// axios.defaults.baseURL = import.meta.env.VITE_APP_API_ENDPOINT;
 
 function App() {
   return (

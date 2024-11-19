@@ -1,6 +1,5 @@
 import { InfoBox, OptionTabs } from "@/components/common";
 import Header from "@/components/layout/Header";
-import useDraggable from "@/hooks/useDraggable";
 import { useGetSearchHospital } from "@/hooks/useGetSearchHospital";
 import { useGetSearchPolicy } from "@/hooks/useGetSearchPolicy";
 import { useRef, useState } from "react";
@@ -8,7 +7,6 @@ import { useSearchParams } from "react-router-dom";
 
 const SearchPage = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const draggableOptions = useDraggable(scrollRef);
   const [selectedTab, setSelectedTab] = useState("정책");
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query") || "";
@@ -28,7 +26,7 @@ const SearchPage = () => {
         selectedTab={selectedTab}
         onTabSelect={handleTabSelect}
       ></OptionTabs>
-      <section ref={scrollRef} {...draggableOptions()} className="flex-1 overflow-y-auto pb-[2rem] scrollbar-hide">
+      <section ref={scrollRef} className="flex-1 overflow-y-auto pb-[2rem] scrollbar-hide">
         {selectedTab === "정책" && (
           <>
             <p className="mb-[1rem] w-full border-b border-gray-200 bg-[#fff] px-[1.3rem] pb-[1.5rem] text-[1.5rem] font-medium">

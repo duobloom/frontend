@@ -76,9 +76,9 @@ const EditMyInfo = () => {
           <img
             src={profilePictureUrl}
             alt="Profile"
-            className="relative h-[12rem] w-[12rem] rounded-full border border-gray-300 object-cover"
+            className="h-[12rem] w-[12rem] rounded-full border border-gray-300 object-cover"
           />
-          <Button variant="oval" size="sm" className="absolute top-[18rem]" onClick={handleEditClick}>
+          <Button variant="oval" size="sm" className="mt-[-2rem]" onClick={handleEditClick}>
             수정
           </Button>
           <input ref={fileRef} type="file" id="inputFile" className="hidden" onChange={handleImgEdit} />
@@ -119,7 +119,7 @@ const EditMyInfo = () => {
           />
         </section>
       </div>
-      <footer className="flex w-full items-center gap-[.7rem] border-t border-gray-300 py-[1rem]">
+      <footer className="max-[37.5rem] fixed bottom-0 flex w-[37.5rem] max-w-[37.5rem] items-center gap-[.7rem] border-t border-gray-300 bg-[#fff] py-[1rem]">
         <Button className="mx-[1.5rem]" onClick={handleApply}>
           적용하기
         </Button>
