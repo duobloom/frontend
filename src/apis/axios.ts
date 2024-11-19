@@ -4,7 +4,7 @@ import { AuthenticationError, NetworkError, NotFoundError, ServerError } from ".
 
 const apiClient = axios.create({
   withCredentials: true,
-  // baseURL: import.meta.env.VITE_APP_API_ENDPOINT
+  baseURL: import.meta.env.VITE_APP_API_ENDPOINT,
 });
 
 apiClient.interceptors.response.use(
