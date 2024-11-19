@@ -18,6 +18,7 @@ import { useLocation } from "react-router-dom";
 import { medicalDepartment } from "@/constants";
 import { useGetHospitalInfo } from "@/hooks/useGetHospitalInfo";
 import { deleteScrapHospital, postScrapHospital } from "@/apis";
+import { parseJsonString } from "@/utils/parseString";
 
 const HospitalInfoPage = () => {
   const location = useLocation();
@@ -87,6 +88,9 @@ const HospitalInfoPage = () => {
     { day: "일", time: "", isClosed: true },
   ];
 
+  const parseStaff = parseJsonString(hospitalData?.staffInfo);
+  const parseInfo = parseJsonString(hospitalData?.hospitalInfo);
+  const departmentName = medicalDepartment.find((department) => department.type === hospitalData?.type)?.name;
   return (
     <div className="flex h-full w-full flex-col overflow-y-auto scrollbar-hide">
       {hospitalData && (
@@ -95,7 +99,7 @@ const HospitalInfoPage = () => {
       <div ref={scrollRef} className="flex-1 overflow-y-scroll bg-white px-[1.8rem] scrollbar-hide">
         <InfoText className="mt-[2rem]">{hospitalData?.hospitalName}</InfoText>
         <InfoText variant="secondary" size="sm">
-          {medicalDepartment.find((department) => department.type === hospitalData?.type)?.name || hospitalData?.type}
+          {departmentName || hospitalData?.type}
         </InfoText>
         <span className="mt-[.5rem] flex items-center gap-[.8rem]">
           {hospitalData?.keywordMappings &&
@@ -160,15 +164,11 @@ const HospitalInfoPage = () => {
           <section ref={infoSectionRef} className="hospital-info">
             <InfoText size="md">소개</InfoText>
             <InfoText size="sm" className="mb-[1.5rem]">
-              {hospitalData?.hospitalInfo}
-            </InfoText>
-            <InfoText size="md">등급 평가 정보</InfoText>
-            <InfoText size="sm" className="mb-[1.5rem]">
-              소개글 와라라라랑
+              {parseInfo?.introduction || ""}
             </InfoText>
             <InfoText size="md">진료 과목</InfoText>
             <InfoText size="sm" className="mb-[1.5rem]">
-              산부인과 피부과
+              {parseInfo?.departments || ""}
             </InfoText>
             <BoxFooter />
           </section>
@@ -179,23 +179,26 @@ const HospitalInfoPage = () => {
             </InfoText>
             <Drawer>
               <DrawerTrigger className="w-full" onClick={() => setActiveDrawer("medic")}>
-                <MedicInfo title="의료진이름" content={hospitalData?.staffInfo ?? "의사 정보"} image_Url="dl" />
+                <MedicInfo
+                  title={parseStaff?.name}
+                  content={departmentName ? `${departmentName} 전문의` : "산부인과 전문의"}
+                  image_Url={parseStaff?.imageUrl || ""}
+                />
               </DrawerTrigger>
               {activeDrawer === "medic" && (
                 <DrawerContent>
                   <MedicDetailInfo
-                    title="의사명"
+                    title={parseStaff?.name}
                     content="산부인과"
-                    image_Url=""
-                    specialty="진료항목은 이런게 있다."
-                    record="의대 졸업"
+                    image_Url={parseStaff?.imageUrl}
+                    specialty={parseStaff?.specializations}
+                    record={parseStaff?.educationAndCareer}
                   />
                 </DrawerContent>
               )}
             </Drawer>
             <BoxFooter />
           </section>
-
           <section ref={directionSectionRef} className="direction">
             <InfoText size="md" className="mb-[.5rem]">
               오시는 길
