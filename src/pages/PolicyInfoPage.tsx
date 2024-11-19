@@ -51,7 +51,7 @@ const PolicyInfoPage = () => {
   };
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full w-full flex-col overflow-y-auto scrollbar-hide">
       {policyData && <Header variant="backActions" isBookmark={policyData.scraped} handleBookmark={handleBookmark} />}
       <div ref={scrollRef} className="flex-1 overflow-y-scroll bg-white px-[1.8rem] pt-[2.2rem] scrollbar-hide">
         <title className="mb-[3rem] flex items-center justify-between">
@@ -82,48 +82,46 @@ const PolicyInfoPage = () => {
           출처 : 보건복지부/최종 수정일 : 2023-12-20
         </p>
 
-        <div className="my-[2rem]">
-          <OptionTabs
-            tabs={["지원 대상", "지원 내용", "관련 정보", "신청 방법"]}
-            selectedTab={selectedTab}
-            onTabSelect={handleTabSelect}
-            className="text-[1.5rem]"
-          />
-          <section ref={targetSectionRef}>
-            <InfoText size="sm" className="font-bold">
-              지원 대상
-            </InfoText>
-            <InfoText size="sm" className="mb-[1.5rem]">
-              {policyData?.target}
-            </InfoText>
-            <BoxFooter />
-          </section>
-          <section ref={contentSectionRef}>
-            <InfoText size="sm" className="font-bold">
-              지원 내용
-            </InfoText>
-            <InfoText size="sm">소개글 와라라라랑</InfoText>
-            <BoxFooter />
-          </section>
-          <section ref={infoSectionRef}>
-            <InfoText size="sm" className="font-bold">
-              관련 정보
-            </InfoText>
-            <InfoText size="sm">산부인과 피부과</InfoText>
-            <BoxFooter />
-          </section>
-          <section ref={methodSectionRef}>
-            <InfoText size="sm" className="font-bold">
-              신청 방법
-            </InfoText>
-            <BoxFooter />
-          </section>
-          <section>
-            <InfoText size="md" className="mb-[1.5rem]">
-              관련 정책
-            </InfoText>
-          </section>
-        </div>
+        <OptionTabs
+          tabs={["지원 대상", "지원 내용", "관련 정보", "신청 방법"]}
+          selectedTab={selectedTab}
+          onTabSelect={handleTabSelect}
+          className="sticky top-0 bg-[#fff] text-[1.5rem]"
+        />
+        <section ref={targetSectionRef}>
+          <InfoText size="sm" className="font-bold">
+            지원 대상
+          </InfoText>
+          <InfoText size="sm" className="mb-[1.5rem]">
+            {policyData?.target}
+          </InfoText>
+          <BoxFooter />
+        </section>
+        <section ref={contentSectionRef}>
+          <InfoText size="sm" className="font-bold">
+            지원 내용
+          </InfoText>
+          <InfoText size="sm">소개글 와라라라랑</InfoText>
+          <BoxFooter />
+        </section>
+        <section ref={infoSectionRef}>
+          <InfoText size="sm" className="font-bold">
+            관련 정보
+          </InfoText>
+          <InfoText size="sm">산부인과 피부과</InfoText>
+          <BoxFooter />
+        </section>
+        <section ref={methodSectionRef}>
+          <InfoText size="sm" className="font-bold">
+            신청 방법
+          </InfoText>
+          <BoxFooter />
+        </section>
+        <section>
+          <InfoText size="md" className="mb-[1.5rem]">
+            관련 정책
+          </InfoText>
+        </section>
       </div>
       <footer className="fixed bottom-0 flex w-[37.5rem] max-w-[37.5rem] items-center gap-[.7rem] border-t border-gray-300 px-[1.8rem] py-[.7rem]">
         <Button>
