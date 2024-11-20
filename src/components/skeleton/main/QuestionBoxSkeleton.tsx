@@ -1,4 +1,4 @@
-import { BoxContainer, BoxContent } from "@/components/ui/Box";
+import { BoxContainer } from "@/components/ui/Box";
 import { Skeleton } from "@/components/ui/Skeleton";
 import ButtonSkeleton from "../common/ButtonSkeleton";
 import React from "react";

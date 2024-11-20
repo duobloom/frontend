@@ -1,4 +1,3 @@
-import React from "react";
 import AuthorSkeleton from "./AuthorSkeleton";
 import { Skeleton } from "@/components/ui/Skeleton";
 import LikeAndCommentSkeleton from "./LikeAndCommentSkeleton";
