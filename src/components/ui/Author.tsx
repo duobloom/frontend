@@ -15,7 +15,7 @@ const AuthorVariants = cva("flex items-center", {
   },
 });
 
-const nameVariants = cva("font-bold leading-none", {
+const nameVariants = cva("font-bold leading-none text-black", {
   variants: {
     variant: {
       community: "text-[1.4rem] tracking-[-0.028rem]",

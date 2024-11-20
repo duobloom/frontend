@@ -102,7 +102,7 @@ const QuestionBox = ({ data, currentDate }: TQuestionBoxProps) => {
               </AnswerBoxContainer>
               {isToday && (
                 <AnswerBoxContainer className="flex items-center justify-center text-[1.2rem]">
-                  <BoxContent className="text-center text-[1.2rem]">
+                  <BoxContent className="text-center text-[1.2rem] text-gray-500">
                     아직 동반자가 질문에 대해
                     <br /> 답변을 하지 않았습니다
                   </BoxContent>
