@@ -61,11 +61,15 @@ const CommunityPostList = ({ name, type }: TCommunityPostListProps) => {
             </p>
             <hr />
           </div>
-          {communityDataList?.map((communityData) => (
-            <div key={communityData.communityId} className="flex flex-col gap-[1.5rem] px-[1.5rem]">
-              <CommunityBox communityData={communityData} />
-            </div>
-          ))}
+          {communityDataList
+            ?.sort((a, b) => {
+              return new Date(b.createdAt as string).getTime() - new Date(a.createdAt as string).getTime();
+            })
+            ?.map((communityData) => (
+              <div key={communityData.communityId} className="flex flex-col gap-[1.5rem] px-[1.5rem]">
+                <CommunityBox communityData={communityData} />
+              </div>
+            ))}
         </>
       )}
     </article>
