@@ -36,7 +36,7 @@ function App() {
             <ToastProvider autoClose={1000} limit={3}>
               <div className={cn("h-dvh w-full bg-white shadow-lg", isMobile ? "w-full" : "max-w-[37.5rem]")}>
                 <div className="flex h-full flex-col">
-                  <div className="flex-1 overflow-y-auto pb-[6.5rem] will-change-scroll">
+                  <div className="flex-1 overflow-y-auto will-change-scroll">
                     <Outlet />
                   </div>
                   <Navbar />
