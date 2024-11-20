@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 import { deleteScrapPolicy, postScrapPolicy } from "@/apis";
 import { policyTarget } from "@/constants/MockData";
 import { useGetFilterPolicy } from "@/hooks/useGetFilterPolicy";
-import { DetailInfoSkeleton } from "@/components/skeleton/detailInfoSkeleton";
+import { DetailInfoSkeleton } from "@/components/skeleton/DetailInfoSkeleton";
 
 const PolicyInfoPage = () => {
   const location = useLocation();
