@@ -48,9 +48,19 @@ interface AuthorProps extends VariantProps<typeof AuthorVariants> {
   birth?: string;
   isMe?: boolean;
   className?: string;
+  textColor?: string;
 }
 
-const Author = ({ variant = "community", profileImg, name, createdAt, birth, isMe, className }: AuthorProps) => {
+const Author = ({
+  variant = "community",
+  profileImg,
+  name,
+  createdAt,
+  birth,
+  isMe,
+  className,
+  textColor,
+}: AuthorProps) => {
   const avatarSizes = {
     community: "h-[3.6rem] w-[3.6rem]",
     board: "h-[5rem] w-[5rem]",
@@ -72,7 +82,7 @@ const Author = ({ variant = "community", profileImg, name, createdAt, birth, isM
       </div>
       <div className={cn(`flex flex-col gap-[.5rem] ${variant === "boardReverse" && "items-end"}`)}>
         <div className="flex items-center gap-[.5rem]">
-          <span className={nameVariants({ variant })}>{name}</span>
+          <span className={cn(nameVariants({ variant }), textColor)}>{name}</span>
         </div>
         {(birth || createdAt) && (
           <span className={cn(subTextVariants({ variant, className }))}>{birth || createdAt}</span>
