@@ -33,7 +33,7 @@ const MainCalendar = ({ yearMonth, calendarData, className }: TMainCalendarProps
     if (selectElement) {
       selectElement.scrollIntoView({
         behavior: nowDate === calendarData.today.date.padStart(2, "0") ? "auto" : "smooth",
-        block: "start",
+        block: "center",
         inline: "center",
       });
     }
