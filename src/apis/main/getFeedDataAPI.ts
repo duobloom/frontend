@@ -1,3 +1,3 @@
-import axios from "axios";
+import apiClient from "@/apis/axios";
 
-export const getFeedData = async (date: string) => await axios.get(`/api/feeds/${date}`);
+export const getFeedData = async (date: string) => await apiClient.get(`/api/feeds/${date}`);
