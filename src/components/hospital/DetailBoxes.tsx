@@ -38,7 +38,7 @@ type TDetailBoxProps = {
 
 const DetailBox: React.FC<TDetailBoxProps> = ({ title, content, showIcon = false }) => {
   return (
-    <div className="mb-[.7rem] flex w-full items-center justify-between rounded-[1rem] border border-gray-300 bg-gray-50 px-[1.5rem] py-[1.2rem]">
+    <div className="mb-[1rem] flex w-full items-center justify-between rounded-[1rem] border border-gray-300 bg-gray-50 px-[1.5rem] py-[1.2rem]">
       <div className="flex gap-[2rem]">
         <span className="text-[1.4rem] font-bold">{title}</span>
         <span className="text-[1.4rem] font-normal">{content}</span>
@@ -69,7 +69,7 @@ const ClinicHours: React.FC<TClinicHoursProps> = ({ hours }) => {
       {hours.map((hour, index) => (
         <ClinicHour key={index} day={hour.day} time={hour.time} isClosed={hour.isClosed} />
       ))}
-      <h1 className="mb-[2.5rem] text-[1.6rem] font-bold">점심 시간</h1>
+      <h1 className="mb-[2.5rem] mt-[2.5rem] text-[1.6rem] font-bold">점심 시간</h1>
       <DetailBox title="평일" content="없음" />
       <DetailBox title="주말" content="없음" />
     </div>
