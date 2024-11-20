@@ -10,6 +10,7 @@ import { GetRegionName, RegionSelecter } from "@/components/hospital";
 // import { cn } from "@/utils";
 import { useGetFilterHospital } from "@/hooks/useGetFilterHospital";
 import React from "react";
+import { InfoBoxSkeleton } from "@/components/skeleton/InfoBoxSkeleton";
 
 const HospitalPage = () => {
   const navigate = useNavigate();
@@ -31,13 +32,11 @@ const HospitalPage = () => {
   const selectedOptionName = medicalOptions.find((option) => option.id === selectedOption)?.name;
   const optionKeyword: string | null = selectedOptionName === "전체" ? null : selectedOptionName || null;
 
-  const { data: hospitalData, refetch: refetchHospital } = useGetFilterHospital(
-    regionCode,
-    middleCode,
-    detailCode,
-    optionKeyword,
-    selectedDepartmentType,
-  );
+  const {
+    data: hospitalData,
+    refetch: refetchHospital,
+    isLoading,
+  } = useGetFilterHospital(regionCode, middleCode, detailCode, optionKeyword, selectedDepartmentType);
 
   const applyFilters = () => {
     refetchHospital().finally(() => {
@@ -85,7 +84,9 @@ const HospitalPage = () => {
             </p>
             <BoxFooter />
             <div className="flex h-[calc(100dvh-28.6rem)] flex-col gap-[1rem] pb-[10rem]">
-              {hospitalData && hospitalData.length > 0 ? (
+              {isLoading && Array.from({ length: 5 }, (_, idx) => <InfoBoxSkeleton key={idx} />)}
+              {hospitalData &&
+                hospitalData.length > 0 &&
                 hospitalData.map((item) => (
                   <InfoBox
                     key={item.hospitalId}
@@ -103,10 +104,7 @@ const HospitalPage = () => {
                     scraped={item.scraped}
                     keywordMappings={item.keywordMappings}
                   />
-                ))
-              ) : (
-                <p className="text-center text-[1.5rem] text-gray-400">데이터가 없습니다.</p>
-              )}
+                ))}
               <div className="min-h-[1rem]" />
             </div>
           </div>

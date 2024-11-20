@@ -1,5 +1,6 @@
 import { InfoBox, OptionTabs } from "@/components/common";
 import Header from "@/components/layout/Header";
+import { InfoBoxSkeleton } from "@/components/skeleton/InfoBoxSkeleton";
 import { useGetScrapHospital, useGetScrapPolicy } from "@/hooks/useGetScrapData";
 import { useRef, useState } from "react";
 
@@ -7,8 +8,8 @@ const MyScrap = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [selectedTab, setSelectedTab] = useState("맞춤 정책");
 
-  const { data: policyData } = useGetScrapPolicy(selectedTab === "맞춤 정책");
-  const { data: hospitalData } = useGetScrapHospital(selectedTab === "병원/클리닉");
+  const { data: policyData, isLoading: policyLoading } = useGetScrapPolicy(selectedTab === "맞춤 정책");
+  const { data: hospitalData, isLoading: hospitalLoading } = useGetScrapHospital(selectedTab === "병원/클리닉");
 
   const handleTabSelect = (tab: string) => {
     setSelectedTab(tab);
@@ -28,6 +29,7 @@ const MyScrap = () => {
         <div className="flex flex-col gap-[1rem]">
           {selectedTab === "맞춤 정책" && (
             <>
+              {policyLoading && Array.from({ length: 3 }, (_, idx) => <InfoBoxSkeleton key={idx} />)}
               {policyData && policyData.length > 0 ? (
                 policyData.map((item) => (
                   <InfoBox
@@ -53,6 +55,7 @@ const MyScrap = () => {
           )}
           {selectedTab === "병원/클리닉" && (
             <>
+              {hospitalLoading && Array.from({ length: 3 }, (_, idx) => <InfoBoxSkeleton key={idx} />)}
               {hospitalData && hospitalData.length > 0 ? (
                 hospitalData?.map((item) => (
                   <InfoBox

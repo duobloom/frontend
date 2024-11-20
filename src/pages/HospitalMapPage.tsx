@@ -8,7 +8,13 @@ const HospitalMapPage = () => {
   const location = useLocation();
   const { selectedSi, selectedGun, selectedNeighborhood } = location.state || {};
 
-  const { data: hospitalData } = useGetFilterHospital(selectedSi, selectedGun, selectedNeighborhood, null, null);
+  const { data: hospitalData, isLoading } = useGetFilterHospital(
+    selectedSi,
+    selectedGun,
+    selectedNeighborhood,
+    null,
+    null,
+  );
 
   return (
     <div className="flex h-full w-full flex-col">
@@ -16,10 +22,11 @@ const HospitalMapPage = () => {
       {hospitalData && (
         <KakaoMap
           center={{
-            lat: hospitalData[0]?.latitude ?? 37.49671009920956,
-            lng: hospitalData[0]?.longitude ?? 126.95356743986663,
+            lat: hospitalData[0]?.latitude ?? 37.48402343350356,
+            lng: hospitalData[0]?.longitude ?? 127.12265346891247,
           }}
           hospitalData={hospitalData}
+          isLoading={isLoading}
         />
       )}
     </div>
