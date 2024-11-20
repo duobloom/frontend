@@ -6,6 +6,7 @@ import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { logValidationError, validateApiResponse } from "@/utils/zodHelpers";
 import { CommunityDetailSchema, CommunityDetailType } from "@/types/CommunityType";
 import { CommunityPostHeader } from "@/components/community";
+import DetailPageSkeleton from "@/components/skeleton/detail/DetailPageSkeleton";
 
 // 커뮤니티, 피드에서 상세 글로 둘 다 접근
 const CommunityDetailPage = () => {
@@ -41,7 +42,9 @@ const CommunityDetailPage = () => {
   return (
     <main>
       {isLoading ? (
-        <></>
+        <>
+          <DetailPageSkeleton />
+        </>
       ) : (
         <>
           <CommunityPostHeader postData={postData as CommunityDetailType} variant="community" id={id} />
