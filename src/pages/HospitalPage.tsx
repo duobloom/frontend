@@ -107,7 +107,9 @@ const HospitalPage = () => {
                   />
                 ))
               ) : (
-                <p className="mt-[2rem] text-center text-[1.4rem] text-gray-400">필터링 된 병원이 없습니다.</p>
+                <div className="flex h-full items-center justify-center">
+                  <p className="mt-[2rem] text-center text-[1.4rem] text-gray-400">필터링 된 병원이 없습니다.</p>
+                </div>
               )}
               <div className="min-h-[1rem]" />
             </div>
