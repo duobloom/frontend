@@ -4,6 +4,8 @@ import { getCommunityTypeList } from "@/apis";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { logValidationError, validateApiResponse } from "@/utils/zodHelpers";
 import { CommunityListSchema, CommunityListType } from "@/types/CommunityType";
+import { Skeleton } from "../ui/Skeleton";
+import CommunityBoxSkeleton from "../skeleton/community/CommunityBoxSkeleton";
 
 type TCommunityPostListProps = {
   name: string;
@@ -40,7 +42,17 @@ const CommunityPostList = ({ name, type }: TCommunityPostListProps) => {
   return (
     <article className="flex flex-col gap-[1rem]">
       {isLoading ? (
-        <>로딩 중...</>
+        <>
+          <div>
+            <Skeleton className="ml-[1.5rem] h-[2rem] w-[60%]" />
+            <hr />
+          </div>
+          <div className="flex flex-col gap-[1.6rem] px-[1.5rem]">
+            {Array.from(Array(10)).map((_, index) => (
+              <CommunityBoxSkeleton key={index} />
+            ))}
+          </div>
+        </>
       ) : (
         <>
           <div>

@@ -7,6 +7,22 @@ import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { logValidationError, validateApiResponse } from "@/utils/zodHelpers";
 import { CommunityListSchema, CommunityListType } from "@/types/CommunityType";
 import { filterList } from "@/constants";
+import CommunityBoxSkeleton from "../skeleton/community/CommunityBoxSkeleton";
+
+const CommunityPopularListSkeleton = () => (
+  <section className="flex flex-col gap-[2.6rem]">
+    {filterList.slice(1).map((filterItem) => (
+      <article key={filterItem.id} className="flex flex-col gap-[1rem] px-[1.5rem]">
+        <CommunityTitle title={`${filterItem.name} 인기 글`} />
+        <div className="flex flex-col gap-[1.6rem]">
+          {[1, 2].map((_, index) => (
+            <CommunityBoxSkeleton key={index} />
+          ))}
+        </div>
+      </article>
+    ))}
+  </section>
+);
 
 const CommunityPopularList = ({
   setSelectedButton,
@@ -54,33 +70,29 @@ const CommunityPopularList = ({
     );
   };
 
+  if (isLoading) return <CommunityPopularListSkeleton />;
+
   return (
     <section className="flex flex-col gap-[2.6rem]">
-      {isLoading ? (
-        <></>
-      ) : (
-        <>
-          {communityPopularList &&
-            filterList.slice(1).map((filterItem) => {
-              const communityPopularData = groupByCategory(communityPopularList)[filterItem.name] || [];
+      {communityPopularList &&
+        filterList.slice(1).map((filterItem) => {
+          const communityPopularData = groupByCategory(communityPopularList)[filterItem.name] || [];
 
-              return (
-                <article key={filterItem.id} className="flex flex-col gap-[1rem]">
-                  <div onClick={() => moveFilter(filterItem.id)}>
-                    <CommunityTitle title={`${filterItem.name} 인기 글`} />
+          return (
+            <article key={filterItem.id} className="flex flex-col gap-[1rem]">
+              <div onClick={() => moveFilter(filterItem.id)}>
+                <CommunityTitle title={`${filterItem.name} 인기 글`} />
+              </div>
+              <div className="flex flex-col gap-[1.6rem]">
+                {communityPopularData.map((communityData) => (
+                  <div key={communityData.communityId} className="flex flex-col gap-[1.5rem] px-[1.5rem]">
+                    <CommunityBox communityData={communityData} />
                   </div>
-                  <div className="flex flex-col gap-[1.6rem]">
-                    {communityPopularData.map((communityData) => (
-                      <div key={communityData.communityId} className="flex flex-col gap-[1.5rem] px-[1.5rem]">
-                        <CommunityBox communityData={communityData} />
-                      </div>
-                    ))}
-                  </div>
-                </article>
-              );
-            })}
-        </>
-      )}
+                ))}
+              </div>
+            </article>
+          );
+        })}
     </section>
   );
 };
