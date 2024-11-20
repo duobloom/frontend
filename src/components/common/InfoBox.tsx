@@ -134,7 +134,7 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
         </div>
       </div>
       <div className="flex justify-between">
-        <div className="flex flex-wrap gap-[.8rem] overflow-hidden">
+        <div className="flex w-[80%] flex-nowrap gap-[.8rem] overflow-hidden">
           {Array.isArray(props.keywordMappings) &&
             props.keywordMappings.map((keyword, index) => (
               <Badge key={index} variant="tagBadge">
