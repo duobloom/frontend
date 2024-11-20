@@ -7,9 +7,10 @@ import { Button, InfoBox, OptionBoxes, ScrollableOptions } from "@/components/co
 import { IconMap } from "@/assets/icon";
 import { useNavigate } from "react-router-dom";
 import { GetRegionName, RegionSelecter } from "@/components/hospital";
-import { cn } from "@/utils";
+// import { cn } from "@/utils";
 import { useGetFilterHospital } from "@/hooks/useGetFilterHospital";
 import React from "react";
+import { InfoBoxSkeleton } from "@/components/skeleton/InfoBoxSkeleton";
 
 const HospitalPage = () => {
   const navigate = useNavigate();
@@ -31,13 +32,11 @@ const HospitalPage = () => {
   const selectedOptionName = medicalOptions.find((option) => option.id === selectedOption)?.name;
   const optionKeyword: string | null = selectedOptionName === "전체" ? null : selectedOptionName || null;
 
-  const { data: hospitalData, refetch: refetchHospital } = useGetFilterHospital(
-    regionCode,
-    middleCode,
-    detailCode,
-    optionKeyword,
-    selectedDepartmentType,
-  );
+  const {
+    data: hospitalData,
+    refetch: refetchHospital,
+    isLoading,
+  } = useGetFilterHospital(regionCode, middleCode, detailCode, optionKeyword, selectedDepartmentType);
 
   const applyFilters = () => {
     refetchHospital().finally(() => {
@@ -48,7 +47,8 @@ const HospitalPage = () => {
   return (
     <div className="flex h-full w-full flex-col">
       <Header variant="titleMove" title="병원/클리닉" />
-      <div className="flex-1 overflow-y-auto scrollbar-hide">
+
+      <div className="flex flex-1 flex-col overflow-y-auto scrollbar-hide">
         <Drawer dismissible={false} open={activeDrawer !== null}>
           <span className="flex w-full items-center justify-between px-[1.5rem]">
             <DrawerTrigger onClick={() => setActiveDrawer("location")}>
@@ -78,12 +78,13 @@ const HospitalPage = () => {
             }}
           />
 
-          <div className="px-[1.5rem]">
+          <div className="mt-1 px-[1.5rem]">
             <p className="text-[1.5rem] font-medium">
               {hospitalData ? `${hospitalData.length}개의 병원/클리닉` : "0 개의 병원/클리닉"}
             </p>
             <BoxFooter />
-            <div className={cn("flex flex-col gap-[1rem]", "h-[calc(100dvh-28.6rem)]")}>
+            <div className="flex h-[calc(100dvh-28.6rem)] flex-col gap-[1rem] pb-[10rem]">
+              {isLoading && Array.from({ length: 5 }, (_, idx) => <InfoBoxSkeleton key={idx} />)}
               {hospitalData && hospitalData.length > 0 ? (
                 hospitalData.map((item) => (
                   <InfoBox
@@ -104,15 +105,16 @@ const HospitalPage = () => {
                   />
                 ))
               ) : (
-                <p className="text-center text-[1.5rem] text-gray-400">데이터가 없습니다.</p>
+                <p className="mt-[2rem] text-center text-[1.4rem] text-gray-400">필터링 된 병원이 없습니다.</p>
               )}
+              <div className="min-h-[1rem]" />
             </div>
           </div>
 
           <Button
             variant="ovalReverse"
             size="md"
-            className="fixed bottom-[6rem] mb-[1rem] self-center"
+            className="fixed bottom-[6rem] mb-[1.3rem] self-center"
             onClick={() =>
               navigate("map", {
                 state: {

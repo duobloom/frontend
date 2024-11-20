@@ -1,5 +1,6 @@
 import { InfoBox, OptionTabs } from "@/components/common";
 import Header from "@/components/layout/Header";
+import { InfoBoxSkeleton } from "@/components/skeleton/InfoBoxSkeleton";
 import { useGetSearchHospital } from "@/hooks/useGetSearchHospital";
 import { useGetSearchPolicy } from "@/hooks/useGetSearchPolicy";
 import { useRef, useState } from "react";
@@ -11,8 +12,14 @@ const SearchPage = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query") || "";
 
-  const { data: policyData } = useGetSearchPolicy(query, query !== "" && selectedTab === "정책");
-  const { data: hospitalData } = useGetSearchHospital(query, query !== "" && selectedTab === "병원/클리닉");
+  const { data: policyData, isLoading: loadingPolicy } = useGetSearchPolicy(
+    query,
+    query !== "" && selectedTab === "정책",
+  );
+  const { data: hospitalData, isLoading: loadingHospital } = useGetSearchHospital(
+    query,
+    query !== "" && selectedTab === "병원/클리닉",
+  );
   // const { data: communityData } = useGetSearchHospital(query, query !== null && selectedTab === "커뮤니티");
 
   const handleTabSelect = (tab: string) => {
@@ -34,6 +41,7 @@ const SearchPage = () => {
             </p>
 
             <div className="flex flex-col gap-[1rem] px-[1.5rem]">
+              {loadingPolicy && <InfoBoxSkeleton />}
               {policyData && policyData.length > 0 ? (
                 policyData.map((item) => (
                   <InfoBox
@@ -65,6 +73,7 @@ const SearchPage = () => {
             </p>
 
             <div className="flex flex-col gap-[1rem] px-[1.5rem]">
+              {loadingHospital && <InfoBoxSkeleton />}
               {hospitalData && hospitalData.length > 0 ? (
                 hospitalData.map((item) => (
                   <InfoBox

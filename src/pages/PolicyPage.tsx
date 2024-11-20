@@ -7,6 +7,7 @@ import { Button, InfoBox, ScrollableOptions } from "@/components/common";
 import { GetRegionName, RegionSelecter } from "@/components/hospital";
 import { useGetFilterPolicy } from "@/hooks/useGetFilterPolicy";
 import { cn } from "@/utils";
+import { InfoBoxSkeleton } from "@/components/skeleton/InfoBoxSkeleton";
 
 const PolicyPage = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -23,12 +24,11 @@ const PolicyPage = () => {
   const selectedOptionName = PolicyOptions.find((option) => option.id === selectedOption)?.name;
   const optionKeyword: string | null = selectedOptionName === "전체" ? null : selectedOptionName || null;
 
-  const { data: policyData, refetch: refetchPolilcy } = useGetFilterPolicy(
-    regionCode,
-    middleCode,
-    detailCode,
-    optionKeyword,
-  );
+  const {
+    data: policyData,
+    refetch: refetchPolilcy,
+    isLoading,
+  } = useGetFilterPolicy(regionCode, middleCode, detailCode, optionKeyword);
 
   const applyFilters = () => {
     refetchPolilcy().finally(() => {
@@ -57,12 +57,12 @@ const PolicyPage = () => {
             </DrawerTrigger>
           </span>
           <ScrollableOptions options={PolicyOptions} selectedOption={selectedOption} onSelect={setSelectedOption} />
-          <div className="px-[1.5rem]">
+          <div className="mt-1 px-[1.5rem]">
             <p className="text-[1.5rem] font-medium">{policyData && `${policyData.length}개의 정책`}</p>
             <BoxFooter />
             <div className={cn("flex flex-col gap-[1rem]", "h-[calc(100dvh-28.6rem)]")}>
-              {policyData &&
-                policyData.length > 0 &&
+              {isLoading && Array.from({ length: 5 }, (_, idx) => <InfoBoxSkeleton key={idx} />)}
+              {policyData && policyData.length > 0 ? (
                 policyData.map((item) => (
                   <InfoBox
                     key={item.policyId}
@@ -79,7 +79,11 @@ const PolicyPage = () => {
                     scraped={item.scraped}
                     keywordMappings={item.keywordMappings}
                   />
-                ))}
+                ))
+              ) : (
+                <p className="mt-[2rem] text-center text-[1.4rem] text-gray-400">필터링 된 정책이 없습니다.</p>
+              )}
+              <div className="min-h-[1rem]" />
             </div>
           </div>
           <DrawerContent>

@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import { deleteScrapPolicy, postScrapPolicy } from "@/apis";
 import { policyTarget } from "@/constants/MockData";
 import { useGetFilterPolicy } from "@/hooks/useGetFilterPolicy";
+import { DetailInfoSkeleton } from "@/components/skeleton/detailInfoSkeleton";
 
 const PolicyInfoPage = () => {
   const location = useLocation();
@@ -19,7 +20,7 @@ const PolicyInfoPage = () => {
   const infoSectionRef = useRef<HTMLDivElement>(null);
   const methodSectionRef = useRef<HTMLDivElement>(null);
 
-  const { data: policyData, refetch: refetchPolicyData } = useGetPolicyInfo(policyId);
+  const { data: policyData, refetch: refetchPolicyData, isLoading } = useGetPolicyInfo(policyId);
   const { data: relatedData } = useGetFilterPolicy(null, null, null, policyData?.keywordMappings?.[0]?.keyword || null);
 
   const handleBookmark = async () => {
@@ -59,7 +60,9 @@ const PolicyInfoPage = () => {
     }
     return data;
   };
-
+  if (isLoading) {
+    return <DetailInfoSkeleton />;
+  }
   return (
     <div className="flex h-full w-full flex-col overflow-y-auto scrollbar-hide">
       {policyData && <Header variant="backActions" isBookmark={policyData.scraped} handleBookmark={handleBookmark} />}
@@ -180,7 +183,7 @@ const PolicyInfoPage = () => {
           </section>
         </div>
       </div>
-      <footer className="fixed bottom-0 flex w-[37.5rem] max-w-[37.5rem] items-center gap-[.7rem] border-t border-gray-300 px-[1.8rem] py-[.7rem]">
+      <footer className="fixed bottom-0 flex w-[37.5rem] max-w-[37.5rem] items-center gap-[.7rem] border-t border-gray-300 bg-[#fff] px-[1.8rem] py-[.7rem]">
         <Button>
           <a href={policyData?.linkUrl || ""}>바로 가기</a>
         </Button>
