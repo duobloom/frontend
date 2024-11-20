@@ -16,7 +16,8 @@ const MainDayAndPoint = ({ yearMonth }: { yearMonth: string }) => {
   }
 
   return (
-    <div className="flex items-center gap-[1rem] sm_mobile:gap-[3.1rem]">
+    // <div className="flex items-center gap-[1rem] sm_mobile:gap-[3.1rem]">
+    <div className="flex w-full items-center justify-between gap-[1rem]">
       <div
         className="flex h-[4rem] cursor-pointer items-center justify-between gap-[1.3rem] rounded-[10rem] border border-black py-[.8rem] pl-[1.5rem] pr-[1rem]"
         onClick={() => navigate("/calendar")}
@@ -29,13 +30,16 @@ const MainDayAndPoint = ({ yearMonth }: { yearMonth: string }) => {
         </div>
       </div>
 
-      <div className="flex h-[2.4rem] items-center gap-[.5rem]">
-        <div className="flex h-[2.4rem] w-[2.4rem] items-center justify-center rounded-full bg-[#FADAD1] text-[1.3rem] font-black leading-normal text-red">
-          P
+      <div className="flex items-center">
+        <div className="flex h-[2.4rem] items-center gap-[.5rem]">
+          <div className="flex h-[2.4rem] w-[2.4rem] items-center justify-center rounded-full bg-[#FADAD1] text-[1.3rem] font-black leading-normal text-red">
+            P
+          </div>
+          <p className="text-[1.6rem] font-semibold leading-normal tracking-[-0.032rem] text-black">
+            {data?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") || ""}
+          </p>
         </div>
-        <p className="text-[1.6rem] font-semibold leading-normal tracking-[-0.032rem] text-black">
-          {data?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") || 0}
-        </p>
+        <div className="mx-[2rem] hidden h-[2.4rem] w-[.1rem] bg-gray-300 md_mobile:block" />
       </div>
     </div>
   );

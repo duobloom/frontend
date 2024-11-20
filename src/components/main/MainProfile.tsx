@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import Author from "@/components/ui/Author";
-import AuthorSkeleton from "@/components/skeleton/AuthorSkeleton";
+import AuthorSkeleton from "@/components/skeleton/common/AuthorSkeleton";
 import { getFeedData } from "@/apis/main/getFeedDataAPI";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { logValidationError, validateApiResponse } from "@/utils/zodHelpers";
@@ -33,7 +33,7 @@ const MainProfile = ({ nowData }: TMainProfileProps) => {
   }
 
   return (
-    <section className="relative flex h-[8rem] w-full items-center justify-between bg-white p-[1.5rem]">
+    <section className="relative z-30 flex h-[8rem] w-full items-center justify-between bg-white p-[1.5rem]">
       {isLoading ? (
         <>
           <AuthorSkeleton variant="board" />

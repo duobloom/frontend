@@ -6,7 +6,7 @@ const BoxContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn("z-10 rounded-[1.6rem] border border-gray-300 bg-white p-[2rem] shadow-box", className)}
+      className={cn("z-20 rounded-[1.6rem] border border-gray-300 bg-white p-[2rem] shadow-box", className)}
       {...props}
     />
   ),

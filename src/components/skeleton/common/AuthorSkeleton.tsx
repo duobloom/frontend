@@ -22,8 +22,8 @@ const AuthorSkeleton = ({
         <Skeleton className={cn("rounded-full", avatarSizes[variant])} />
       </div>
       <div className={cn(`flex flex-col gap-[.5rem] ${variant === "boardReverse" && "items-end"}`)}>
-        <Skeleton className="h-[1.8rem] w-[8rem] rounded-md" />
-        <Skeleton className="h-[1.2rem] w-[6rem] rounded-md" />
+        <Skeleton className="h-[1.8rem] w-[6rem] rounded-md" />
+        <Skeleton className="h-[1.2rem] w-[8rem] rounded-md" />
       </div>
     </div>
   );

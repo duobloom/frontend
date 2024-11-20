@@ -28,7 +28,7 @@ const NavigateBox: React.FC<NavigateBoxProps> = ({ userInfo }) => {
         <div
           key={item.path}
           onClick={() => navigate(item.path, { state: { userInfo } })}
-          className="flex items-center justify-between rounded-[1rem] py-[.5rem] hover:bg-gray-100"
+          className="flex items-center justify-between rounded-[1rem] py-[.5rem]"
         >
           <p className="px-[.5rem] text-[1.5rem] font-bold text-black">{item.name}</p>
           <IconChevronRight />
@@ -41,11 +41,11 @@ const NavigateBox: React.FC<NavigateBoxProps> = ({ userInfo }) => {
 const AlarmBox = () => {
   return (
     <div className="my-[1rem] flex w-full flex-col rounded-[1.5rem] bg-[#fff] px-[1rem] py-[1.5rem]">
-      <div className="flex items-center justify-between rounded-[1rem] py-[.5rem] hover:bg-gray-100">
+      <div className="flex cursor-pointer items-center justify-between rounded-[1rem] py-[.5rem]">
         <p className="px-[.5rem] text-[1.5rem] font-bold text-black">알림 설정</p>
         <IconChevronRight />
       </div>
-      <div className="flex items-center justify-between rounded-[1rem] py-[.5rem] hover:bg-gray-100">
+      <div className="flex cursor-pointer items-center justify-between rounded-[1rem] py-[.5rem]">
         <p className="px-[.5rem] text-[1.5rem] font-bold text-black">기본 설정</p>
         <IconChevronRight />
       </div>

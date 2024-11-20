@@ -9,7 +9,6 @@ const MainPage = () => {
     <main className="relative">
       <Header variant="titleMove" className="relative z-10">
         <MainDayAndPoint yearMonth={yearMonth} />
-        <div className="hidden h-[2.4rem] w-[.1rem] bg-gray-300 md_mobile:block" />
       </Header>
       <div className="h-[calc(100dvh-12.2rem)] overflow-auto scrollbar-hide">
         <MainProfile nowData={nowData} />

@@ -73,7 +73,7 @@ const PolicyInfoPage = () => {
           </span>
           <img
             src={policyData?.imageUrl || ""}
-            className="h-[6.5rem] w-[6.5rem] rounded-[1rem] border-gray-200 object-cover"
+            className="h-[8.5rem] w-[8.5rem] rounded-[1rem] border-gray-200 object-cover"
           />
         </title>
         <span className="mt-[.5rem] flex items-center gap-[.8rem]">

@@ -7,6 +7,7 @@ import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { logValidationError, validateApiResponse } from "@/utils/zodHelpers";
 import { BoardType, BoardSchema } from "@/types/BoardType";
 import { PostBoxType } from "@/types/BasePostType";
+import DetailPageSkeleton from "@/components/skeleton/detail/DetailPageSkeleton";
 
 // 피드에서 상세 글 접근
 const BoardDetailPage = () => {
@@ -42,7 +43,7 @@ const BoardDetailPage = () => {
   return (
     <main>
       {isLoading ? (
-        <>로딩중</>
+        <DetailPageSkeleton />
       ) : (
         <>
           <MainBoardHeader
@@ -52,7 +53,7 @@ const BoardDetailPage = () => {
             variant={type}
             id={id}
           />
-          <div className="h-[calc(100vh-138px)] overflow-y-auto scrollbar-hide">
+          <div className="h-[calc(100dvh-13.8rem)] overflow-y-auto scrollbar-hide">
             <PostDetailBox postData={postData as PostBoxType} variant={type} id={id} />
             <CommentBox commentData={postData?.comments ?? []} type={type} />
           </div>

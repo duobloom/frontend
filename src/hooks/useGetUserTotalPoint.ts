@@ -5,7 +5,7 @@ import { validateApiResponse, logValidationError } from "@/utils/zodHelpers";
 
 export const useGetUserTotalPoint = () => {
   return useQuery<number, Error>({
-    queryKey: ["point"],
+    queryKey: ["total-point"],
     queryFn: async () => {
       try {
         const response = await getUserTotalPoint();

@@ -58,7 +58,7 @@ const MainCalendar = ({ yearMonth, calendarData, className }: TMainCalendarProps
       ref={scrollRef}
       {...draggableOptions()}
       className={cn(
-        "z-10 mb-[1.5rem] flex h-[9.5rem] w-full flex-col gap-[.5rem] overflow-x-auto bg-white pb-[1rem] pt-[1.5rem] scrollbar-hide",
+        "z-30 mb-[1.5rem] flex h-[9.5rem] w-full flex-col gap-[.5rem] overflow-x-auto bg-white pb-[1rem] pt-[1.5rem] scrollbar-hide",
         className,
       )}
     >

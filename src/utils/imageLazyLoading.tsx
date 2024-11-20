@@ -9,7 +9,7 @@ const useIntersection = (onIntersect: IntersectHandler, options?: IntersectionOb
     (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          console.log("IntersectionObserver triggered for:", entry.target);
+          // console.log("IntersectionObserver triggered for:", entry.target);
           onIntersect(entry, observer);
         }
       });
@@ -48,8 +48,6 @@ export const LazyImage: React.FC<LazyImageProps> = ({ src, alt, className = "" }
         const imgElement = target as HTMLImageElement;
         const imageSrc = imgElement.getAttribute("data-src");
 
-        console.log("data-src attribute:", imageSrc);
-
         if (imageSrc) {
           imgElement.setAttribute("src", imageSrc); // 실제 이미지 로드
           observer.unobserve(target);
@@ -62,14 +60,14 @@ export const LazyImage: React.FC<LazyImageProps> = ({ src, alt, className = "" }
 
   return (
     <>
-      {!loaded && !error && <div className="h-full w-full bg-gray-200"></div>}
+      {!loaded && !error && <div className="h-full w-full animate-pulse bg-gray-100"></div>}
       <img
         ref={ref}
         data-src={src}
         alt={alt}
         className={`${className} ${loaded ? "loaded" : "loading"} ${error ? "error" : ""}`}
         onLoad={() => {
-          console.log("이미지 로드 성공:", src); // 로드 성공 로그
+          // console.log("이미지 로드 성공:", src); // 로드 성공 로그
           setLoaded(true);
         }}
         onError={() => {
