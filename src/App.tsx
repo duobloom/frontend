@@ -1,21 +1,26 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import axios from "axios";
 import { isMobile } from "react-device-detect";
 import Navbar from "./components/layout/Nav";
 import { cn } from "./utils";
 import { ToastProvider } from "./libs/custom-toast";
 import { IconLogoDoubloom } from "@/assets/icon";
+import { setNavigateFunction } from "./apis/axios";
 
 const queryClient = new QueryClient();
-
-axios.defaults.withCredentials = true;
-// axios.defaults.baseURL = import.meta.env.VITE_APP_API_ENDPOINT;
 
 function App() {
   const location = useLocation();
   const pathname = location.pathname;
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setNavigateFunction(navigate);
+  }, [navigate]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <div className={`flex h-dvh items-center justify-center bg-[#fff5f5]`}>
