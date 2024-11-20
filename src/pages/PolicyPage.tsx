@@ -62,8 +62,7 @@ const PolicyPage = () => {
             <BoxFooter />
             <div className={cn("flex flex-col gap-[1rem]", "h-[calc(100dvh-28.6rem)]")}>
               {isLoading && Array.from({ length: 5 }, (_, idx) => <InfoBoxSkeleton key={idx} />)}
-              {policyData &&
-                policyData.length > 0 &&
+              {policyData && policyData.length > 0 ? (
                 policyData.map((item) => (
                   <InfoBox
                     key={item.policyId}
@@ -80,7 +79,10 @@ const PolicyPage = () => {
                     scraped={item.scraped}
                     keywordMappings={item.keywordMappings}
                   />
-                ))}
+                ))
+              ) : (
+                <p className="mt-[2rem] text-center text-[1.4rem] text-gray-400">필터링 된 정책이 없습니다.</p>
+              )}
               <div className="min-h-[1rem]" />
             </div>
           </div>

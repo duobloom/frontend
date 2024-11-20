@@ -85,8 +85,7 @@ const HospitalPage = () => {
             <BoxFooter />
             <div className="flex h-[calc(100dvh-28.6rem)] flex-col gap-[1rem] pb-[10rem]">
               {isLoading && Array.from({ length: 5 }, (_, idx) => <InfoBoxSkeleton key={idx} />)}
-              {hospitalData &&
-                hospitalData.length > 0 &&
+              {hospitalData && hospitalData.length > 0 ? (
                 hospitalData.map((item) => (
                   <InfoBox
                     key={item.hospitalId}
@@ -104,7 +103,10 @@ const HospitalPage = () => {
                     scraped={item.scraped}
                     keywordMappings={item.keywordMappings}
                   />
-                ))}
+                ))
+              ) : (
+                <p className="mt-[2rem] text-center text-[1.4rem] text-gray-400">필터링 된 병원이 없습니다.</p>
+              )}
               <div className="min-h-[1rem]" />
             </div>
           </div>
