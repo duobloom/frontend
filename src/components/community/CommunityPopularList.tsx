@@ -39,24 +39,19 @@ const CommunityPopularList = ({
     return <div>Error loading feed data</div>;
   }
 
+  const moveFilter = (id: number) => {
+    setSelectedButton(id);
+  };
+
   const groupByCategory = (data: CommunityListType): Record<string, typeof data> => {
-    return data.reduce(
-      (acc, item) => {
-        const category = item.type;
-        const typeName = filterList.find((item) => item.type === category)?.name;
-        const categoryName = typeName || category; // 한글 매핑
-        if (!acc[categoryName]) {
-          acc[categoryName] = [];
-        }
-        acc[categoryName].push(item);
+    return filterList.slice(1).reduce(
+      (acc, filterItem) => {
+        const categoryName = filterItem.name;
+        acc[categoryName] = data.filter((item) => item.type === filterItem.type);
         return acc;
       },
       {} as Record<string, typeof data>,
     );
-  };
-
-  const moveFilter = (id: number) => {
-    setSelectedButton(id);
   };
 
   return (
@@ -66,14 +61,13 @@ const CommunityPopularList = ({
       ) : (
         <>
           {communityPopularList &&
-            Object.keys(groupByCategory(communityPopularList)).map((category, index) => {
-              const communityPopularData =
-                groupByCategory(communityPopularList)[category as keyof typeof groupByCategory];
-              const categoryNum = filterList.find((item) => item.name === category)?.id ?? 1;
+            filterList.slice(1).map((filterItem) => {
+              const communityPopularData = groupByCategory(communityPopularList)[filterItem.name] || [];
+
               return (
-                <article key={index} className="flex flex-col gap-[1rem]">
-                  <div onClick={() => moveFilter(categoryNum)}>
-                    <CommunityTitle title={`${category} 인기 글`} />
+                <article key={filterItem.id} className="flex flex-col gap-[1rem]">
+                  <div onClick={() => moveFilter(filterItem.id)}>
+                    <CommunityTitle title={`${filterItem.name} 인기 글`} />
                   </div>
                   <div className="flex flex-col gap-[1.6rem]">
                     {communityPopularData.map((communityData) => (
