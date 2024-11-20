@@ -9,7 +9,7 @@ type OptionTabProps = {
 };
 type OptionBoxesProps = {
   options: { id: number; name: string }[];
-  selectedOption: number;
+  selectedOption: number | null;
   onSelect: (id: number) => void;
 };
 

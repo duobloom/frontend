@@ -152,7 +152,9 @@ const HospitalInfoPage = () => {
                 <DrawerClose className="absolute left-0" />
                 <DrawerTitle text="진료 시간" className="mx-auto" />
               </span>
-              <ClinicHours hours={clinicHoursData} />
+              <div className="h-full overflow-y-auto scrollbar-hide">
+                <ClinicHours hours={clinicHoursData} />
+              </div>
             </DrawerContent>
           )}
         </Drawer>

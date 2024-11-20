@@ -6,6 +6,7 @@ import { cn } from "@/utils";
 import { IconBookMark } from "@/assets/icon";
 import { deleteScrapHospital, deleteScrapPolicy, postScrapHospital, postScrapPolicy } from "@/apis";
 import defaultHospital from "@/assets/image/defaulthospital.png";
+import { LazyImage } from "@/utils/imageLazyLoading";
 // Props 타입 정의
 type HospitalInfoBoxProps = HospitalListType & { variant: "hospital" };
 type PolicyInfoBoxProps = PolicyListType & { variant: "policy" };
@@ -129,12 +130,7 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
           </div>
         </div>
         <div className="h-[8.5rem] w-[8.5rem] overflow-hidden rounded-[1rem] border border-gray-100">
-          <img
-            src={entityImg || defaultHospital}
-            alt={entityTitle}
-            className="h-full w-full object-cover"
-            loading="lazy"
-          />
+          <LazyImage src={entityImg || defaultHospital} alt={entityTitle} className="h-full w-full object-cover" />
         </div>
       </div>
       <div className="flex justify-between">

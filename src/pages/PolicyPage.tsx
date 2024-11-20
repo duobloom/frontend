@@ -37,69 +37,71 @@ const PolicyPage = () => {
   };
 
   return (
-    <div className="flex h-full w-full flex-col overflow-y-auto scrollbar-hide">
+    <div className="flex h-full w-full flex-col">
       <Header variant="titleMove" title="맞춤 정책" />
-      <Drawer dismissible={false} open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
-        <span className="w-full px-[1.5rem]">
-          <DrawerTrigger className="w-full" onClick={() => setIsDrawerOpen(true)}>
-            <DropdownBox className="w-full">
-              {selectedGun ? (
-                <GetRegionName
-                  selectedSi={selectedSi}
-                  selectedGun={selectedGun}
-                  selectedNeighborhood={selectedNeighborhood}
-                />
-              ) : (
-                "전체"
-              )}
-            </DropdownBox>
-          </DrawerTrigger>
-        </span>
-        <ScrollableOptions options={PolicyOptions} selectedOption={selectedOption} onSelect={setSelectedOption} />
-        <div className="px-[1.5rem]">
-          <p className="text-[1.5rem] font-medium">{policyData && `${policyData.length}개의 정책`}</p>
-          <BoxFooter />
-          <div className={cn("flex flex-col gap-[1rem]", "h-[calc(100dvh-28.6rem)]")}>
-            {policyData &&
-              policyData.length > 0 &&
-              policyData.map((item) => (
-                <InfoBox
-                  key={item.policyId}
-                  variant="policy"
-                  policyId={item.policyId}
-                  policyName={item.policyName}
-                  policyHost={item.policyHost}
-                  region={item.region}
-                  middle={item.middle}
-                  detail={item.detail}
-                  startDate={item.startDate}
-                  endDate={item.endDate}
-                  imageUrl={item.imageUrl}
-                  scraped={item.scraped}
-                  keywordMappings={item.keywordMappings}
-                />
-              ))}
-          </div>
-        </div>
-        <DrawerContent>
-          <RegionSelecter
-            selectedSi={selectedSi}
-            setSelectedSi={setSelectedSi}
-            selectedGun={selectedGun}
-            setSelectedGun={setSelectedGun}
-            selectedNeighborhood={selectedNeighborhood}
-            setSelectedNeighborhood={setSelectedNeighborhood}
-            setActiveDrawer={setIsDrawerOpen}
-          />
-
-          <span className="fixed bottom-[1rem] left-0 w-full px-[2rem]">
-            <BoxFooter />
-            <Button variant="default" className="w-full" onClick={applyFilters}>
-              적용하기
-            </Button>
+      <div className="flex-1 overflow-y-auto scrollbar-hide">
+        <Drawer dismissible={false} open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
+          <span className="w-full px-[1.5rem]">
+            <DrawerTrigger className="w-full" onClick={() => setIsDrawerOpen(true)}>
+              <DropdownBox className="w-full">
+                {selectedGun ? (
+                  <GetRegionName
+                    selectedSi={selectedSi}
+                    selectedGun={selectedGun}
+                    selectedNeighborhood={selectedNeighborhood}
+                  />
+                ) : (
+                  "전체"
+                )}
+              </DropdownBox>
+            </DrawerTrigger>
           </span>
-        </DrawerContent>
-      </Drawer>
+          <ScrollableOptions options={PolicyOptions} selectedOption={selectedOption} onSelect={setSelectedOption} />
+          <div className="px-[1.5rem]">
+            <p className="text-[1.5rem] font-medium">{policyData && `${policyData.length}개의 정책`}</p>
+            <BoxFooter />
+            <div className={cn("flex flex-col gap-[1rem]", "h-[calc(100dvh-28.6rem)]")}>
+              {policyData &&
+                policyData.length > 0 &&
+                policyData.map((item) => (
+                  <InfoBox
+                    key={item.policyId}
+                    variant="policy"
+                    policyId={item.policyId}
+                    policyName={item.policyName}
+                    policyHost={item.policyHost}
+                    region={item.region}
+                    middle={item.middle}
+                    detail={item.detail}
+                    startDate={item.startDate}
+                    endDate={item.endDate}
+                    imageUrl={item.imageUrl}
+                    scraped={item.scraped}
+                    keywordMappings={item.keywordMappings}
+                  />
+                ))}
+            </div>
+          </div>
+          <DrawerContent>
+            <RegionSelecter
+              selectedSi={selectedSi}
+              setSelectedSi={setSelectedSi}
+              selectedGun={selectedGun}
+              setSelectedGun={setSelectedGun}
+              selectedNeighborhood={selectedNeighborhood}
+              setSelectedNeighborhood={setSelectedNeighborhood}
+              setActiveDrawer={setIsDrawerOpen}
+            />
+
+            <span className="fixed bottom-[1rem] left-0 w-full px-[2rem]">
+              <BoxFooter />
+              <Button variant="default" className="w-full" onClick={applyFilters}>
+                적용하기
+              </Button>
+            </span>
+          </DrawerContent>
+        </Drawer>
+      </div>
     </div>
   );
 };
