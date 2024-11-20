@@ -57,7 +57,7 @@ const PolicyPage = () => {
             </DrawerTrigger>
           </span>
           <ScrollableOptions options={PolicyOptions} selectedOption={selectedOption} onSelect={setSelectedOption} />
-          <div className="px-[1.5rem]">
+          <div className="mt-1 px-[1.5rem]">
             <p className="text-[1.5rem] font-medium">{policyData && `${policyData.length}개의 정책`}</p>
             <BoxFooter />
             <div className={cn("flex flex-col gap-[1rem]", "h-[calc(100dvh-28.6rem)]")}>
@@ -80,6 +80,7 @@ const PolicyPage = () => {
                     keywordMappings={item.keywordMappings}
                   />
                 ))}
+              <div className="min-h-[1rem]" />
             </div>
           </div>
           <DrawerContent>
