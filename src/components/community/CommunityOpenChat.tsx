@@ -38,6 +38,7 @@ const CommunityOpenChat = () => {
                 name={item.name}
                 createdAt={item.sub}
                 className="text-white"
+                textColor="text-white"
               />
               <div className="flex justify-between">
                 <div className="flex max-w-[19rem] items-center gap-[.7rem] overflow-hidden whitespace-nowrap">
