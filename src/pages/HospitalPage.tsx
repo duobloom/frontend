@@ -116,7 +116,7 @@ const HospitalPage = () => {
           <Button
             variant="ovalReverse"
             size="md"
-            className="fixed bottom-[6rem] mb-[1.3rem] self-center"
+            className="fixed bottom-[6rem] mb-[2rem] self-center shadow-box"
             onClick={() =>
               navigate("map", {
                 state: {
