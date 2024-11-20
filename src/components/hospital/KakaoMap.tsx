@@ -193,63 +193,20 @@ function KakaoMap({
     }
   };
 
-  // // 사용자 위치로 가장 가까운 병원 이동
-  // const handleUserLocationClick = () => {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(
-  //       (position) => {
-  //         const { latitude, longitude } = position.coords;
-
-  //         // 사용자 위치 마커 생성
-  //         const userLocation = new window.kakao.maps.LatLng(latitude, longitude);
-  //         const userMarkerImage = new window.kakao.maps.MarkerImage(UserIcon, new window.kakao.maps.Size(35, 35), {
-  //           offset: new window.kakao.maps.Point(17.5, 35),
-  //         });
-  //         const userMarker = new window.kakao.maps.Marker({
-  //           position: userLocation,
-  //           image: userMarkerImage,
-  //         });
-
-  //         // 사용자 마커를 지도에 표시
-  //         userMarker.setMap(mapRef.current);
-
-  //         // 지도 중심을 사용자 위치로 설정
-  //         mapRef.current.setCenter(userLocation);
-
-  //         // 가장 가까운 병원 찾기
-  //         const nearestHospital = findNearestHospital(latitude, longitude);
-
-  //         if (nearestHospital) {
-  //           const hospitalPos = new window.kakao.maps.LatLng(nearestHospital.latitude!, nearestHospital.longitude!);
-  //           // 지도 중심을 가장 가까운 병원으로 설정
-  //           mapRef.current.setCenter(hospitalPos);
-  //           setSelectedHospital(nearestHospital);
-  //         }
-  //       },
-  //       (error) => {
-  //         console.error("위치 정보를 가져오는 중 오류가 발생했습니다:", error);
-  //       },
-  //       {
-  //         enableHighAccuracy: true, // 고정밀 위치 사용
-  //         maximumAge: 0, // 캐시된 위치 사용 방지
-  //         timeout: 10000, // 위치 요청 제한 시간 (10초)
-  //       },
-  //     );
-  //   } else {
-  //     console.error("사용자의 위치 정보를 지원하지 않는 브라우저입니다.");
-  //   }
-  // };
-
   return (
-    <div className="relative flex-1 scrollbar-hide" id="map">
+    <div className="relative flex-1 overflow-hidden scrollbar-hide" id="map">
       <div className="absolute bottom-[1rem] right-0 z-10 flex w-full flex-col items-end">
         <IconLocation onClick={handleUserLocationClick} className="cursor-pointer" />
         <Carousel orientation="horizontal" setApi={setApi} className="h-full w-full">
-          <CarouselContent className="flex">
+          <CarouselContent className="flex gap-[1.2rem] overflow-visible px-[3.2rem] py-0">
             {hospitalData.map((hospital) => (
-              <CarouselItem key={hospital.hospitalId}>
-                <div className="relative w-full overflow-hidden rounded-[1rem] px-[1.5rem]">
-                  {isLoading && <InfoBoxSkeleton />}
+              <CarouselItem
+                key={hospital.hospitalId}
+                className="relative mx-auto w-full flex-shrink-0 items-center overflow-hidden rounded-[1rem]"
+              >
+                {isLoading ? (
+                  <InfoBoxSkeleton />
+                ) : (
                   <InfoBox
                     key={hospital.hospitalId}
                     variant="hospital"
@@ -266,7 +223,7 @@ function KakaoMap({
                     scraped={hospital.scraped}
                     keywordMappings={hospital.keywordMappings}
                   />
-                </div>
+                )}
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -275,5 +232,4 @@ function KakaoMap({
     </div>
   );
 }
-
 export { KakaoMap };
