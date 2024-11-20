@@ -49,7 +49,7 @@ const MainBoardHeader = ({ content, photoUrls, mine, variant, id }: TMainBoardHe
   const renderMenuButton = () => (
     <Drawer open={isMenuDrawerOpen} onOpenChange={setIsMenuDrawerOpen}>
       <DrawerTrigger asChild>
-        <IconDotHorizontal className="cursor-pointer" />
+        <IconDotHorizontal className="cursor-pointer" aria-label="게시글 메뉴 열기" />
       </DrawerTrigger>
       <DrawerContent className="h-[23%]">
         <div className="flex flex-col gap-[1.8rem] px-[9rem] py-[3.9rem] text-[1.6rem] font-extrabold leading-normal tracking-[-0.032rem]">

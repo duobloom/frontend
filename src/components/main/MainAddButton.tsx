@@ -16,6 +16,7 @@ const IconButtonContainer = React.forwardRef<
   return (
     <button
       ref={ref}
+      aria-label="폼 열기"
       className={cn(
         "absolute right-[2rem] flex h-[5rem] w-[5rem] transform items-center justify-center rounded-full border border-gray-300",
         className,
@@ -73,6 +74,7 @@ const MainAddButton = () => {
       <IconButtonContainer
         onClick={() => setIsClicked((prev) => !prev)}
         className={`bottom-[2rem] bg-black duration-300 ${isClicked ? "rotate-45" : ""}`}
+        aria-label="메뉴 열기"
       >
         <IconPlus />
       </IconButtonContainer>
