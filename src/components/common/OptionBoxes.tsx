@@ -21,7 +21,7 @@ const OptionTabs = ({ tabs, selectedTab, onTabSelect, className }: OptionTabProp
           key={tab}
           onClick={() => onTabSelect?.(tab)}
           className={cn(
-            "w-full pb-[1rem] pt-[2rem] text-center",
+            "w-full pb-[1.4rem] pt-[2rem] text-center",
             selectedTab === tab ? "border-b-2 border-black font-bold text-black" : "",
           )}
         >

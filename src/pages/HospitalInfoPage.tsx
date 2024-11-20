@@ -104,8 +104,8 @@ const HospitalInfoPage = () => {
         <Header variant="backActions" isBookmark={hospitalData?.scraped} handleBookmark={handleBookmark} />
       )}
       <div ref={scrollRef} className="flex-1 overflow-y-scroll bg-white px-[1.8rem] scrollbar-hide">
-        <InfoText className="mt-[2rem]">{hospitalData?.hospitalName}</InfoText>
-        <InfoText variant="secondary" size="sm">
+        <InfoText className="mb-[.8rem] mt-[2rem]">{hospitalData?.hospitalName}</InfoText>
+        <InfoText variant="secondary" size="sm" className="mb-[2rem]">
           {departmentName || hospitalData?.type}
         </InfoText>
         <span className="mt-[.5rem] flex items-center gap-[.8rem]">
@@ -117,8 +117,8 @@ const HospitalInfoPage = () => {
               </Badge>
             ))}
         </span>
-        <BoxFooter />
-        <section className="relative mb-[3rem] h-[17rem] w-full rounded-[1rem] border">
+        <BoxFooter className="my-[2rem]" />
+        <section className="relative my-[1rem] mb-[3rem] h-[17rem] w-full rounded-[1rem] border">
           <div className="relative w-full overflow-hidden rounded-[1rem]">
             <img
               src={hospitalData?.imageUrl || defaultImage}
@@ -153,11 +153,11 @@ const HospitalInfoPage = () => {
           </DrawerTrigger>
           {activeDrawer === "clinicHour" && (
             <DrawerContent>
-              <span className="relative mb-[3.5rem] flex w-full items-center">
+              <span className="relative mb-[3rem] flex w-full items-center">
                 <DrawerClose className="absolute left-0" />
                 <DrawerTitle text="진료 시간" className="mx-auto" />
               </span>
-              <div className="h-full overflow-y-auto scrollbar-hide">
+              <div className="mt-[1rem] h-full overflow-y-auto scrollbar-hide">
                 <ClinicHours hours={clinicHoursData} />
               </div>
             </DrawerContent>
@@ -172,17 +172,17 @@ const HospitalInfoPage = () => {
           />
           <section ref={infoSectionRef} className="hospital-info">
             <InfoText size="md">소개</InfoText>
-            <InfoText size="sm" className="mb-[1.5rem]">
+            <InfoText size="sm" className="mb-[1.5rem] mt-[.8rem]">
               {parseInfo?.introduction || ""}
             </InfoText>
             <InfoText size="md">진료 과목</InfoText>
-            <InfoText size="sm" className="mb-[1.5rem]">
+            <InfoText size="sm" className="mb-[2.5rem] mt-[.8rem]">
               {parseInfo?.departments || ""}
             </InfoText>
             <BoxFooter />
           </section>
 
-          <section ref={medicSectionRef} className="medic">
+          <section ref={medicSectionRef} className="medic mt-[2.5rem]">
             <InfoText size="md" className="mb-[1.5rem]">
               의료진
             </InfoText>
@@ -206,14 +206,14 @@ const HospitalInfoPage = () => {
                 </DrawerContent>
               )}
             </Drawer>
-            <BoxFooter />
+            <BoxFooter className="my-[2.5rem]" />
           </section>
           <section ref={directionSectionRef} className="direction">
-            <InfoText size="md" className="mb-[.5rem]">
+            <InfoText size="md" className="mb-[1rem]">
               오시는 길
             </InfoText>
             <AddressCopy address={hospitalData?.address ?? ""} />
-            <section className="mb-[2rem] h-[17rem] w-full rounded-[1rem] border" id="map">
+            <section className="mb-[3rem] mt-[1.5rem] h-[17rem] w-full rounded-[1rem] border" id="map">
               {hospitalData?.latitude && hospitalData?.longitude && (
                 <KakaoMap
                   center={{ lat: hospitalData.latitude, lng: hospitalData.longitude }}
@@ -254,7 +254,7 @@ const HospitalInfoPage = () => {
           </section>
         </div>
       </div>
-      <footer className="fixed bottom-0 z-20 flex w-[37.5rem] max-w-[37.5rem] items-center gap-[.7rem] border-t border-gray-300 bg-[#fff] px-[1.8rem] py-[.7rem]">
+      <footer className="fixed bottom-0 z-20 flex w-full items-center gap-[.7rem] border-t border-gray-300 bg-[#fff] px-[1.8rem] py-[.7rem]">
         <Button>{hospitalData?.linkUrl && <a href={hospitalData?.linkUrl} />}접수 하기</Button>
         <Button variant="reverse">전화 문의</Button>
       </footer>
