@@ -1,6 +1,7 @@
 import { IconDropdown } from "@/assets/icon";
 import { DrawerClose, DrawerTitle } from "../common/Drawer";
 import { BoxFooter } from "../ui/Box";
+import defaultImage from "@/assets/image/doctor1.png";
 
 type TMedicInfoProps = {
   title: string;
@@ -13,7 +14,7 @@ const MedicInfo: React.FC<TMedicInfoProps> = ({ title, content, image_Url }) => 
     <div className="mb-[1rem] flex w-full items-center justify-between rounded-[1rem] border border-gray-300 bg-gray-50 px-[1.5rem] py-[1rem] shadow-box">
       <div className="flex items-center gap-[1.5rem] px-[1rem] py-[1.1rem]">
         <img
-          src={image_Url}
+          src={image_Url || defaultImage}
           alt={title}
           className="h-[4rem] w-[4rem] rounded-full border border-gray-300 object-cover"
         />
