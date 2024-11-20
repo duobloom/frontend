@@ -183,7 +183,7 @@ const PolicyInfoPage = () => {
           </section>
         </div>
       </div>
-      <footer className="fixed bottom-0 flex w-[37.5rem] max-w-[37.5rem] items-center gap-[.7rem] border-t border-gray-300 px-[1.8rem] py-[.7rem]">
+      <footer className="fixed bottom-0 flex w-[37.5rem] max-w-[37.5rem] items-center gap-[.7rem] border-t border-gray-300 bg-[#fff] px-[1.8rem] py-[.7rem]">
         <Button>
           <a href={policyData?.linkUrl || ""}>바로 가기</a>
         </Button>
