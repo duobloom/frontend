@@ -99,7 +99,8 @@ const PolicyInfoPage = () => {
           tabs={["지원 대상", "지원 내용", "관련 정보", "신청 방법"]}
           selectedTab={selectedTab}
           onTabSelect={handleTabSelect}
-          className="sticky top-0 ml-[-1.8rem] w-[calc(100%+36px)] bg-[#fff] text-[1.5rem]"
+          className="sticky top-[-1px] bg-[#fff] text-[1.5rem]"
+          lineStyle="w-[calc(100%+3.6rem)] ml-[-1.8rem]"
         />
         <div className="whitespace-pre-wrap">
           <section ref={targetSectionRef}>
@@ -158,7 +159,7 @@ const PolicyInfoPage = () => {
             <InfoText size="md" className="mb-[1.5rem]">
               관련 정책
             </InfoText>
-            <div className="flex flex-col gap-[1rem]">
+            <div className="mb-[1.5rem] flex flex-col gap-[1rem]">
               {relatedData &&
                 relatedData
                   .filter((item) => item.policyId !== policyId)
