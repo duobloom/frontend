@@ -16,6 +16,9 @@ export const getFilterHospital = async (
     ...(department ? { type: department } : {}),
   };
 
-  const response = await axios.get<HospitalListType[]>("/api/hospitals/filter", { params });
+  const response = await axios.get<HospitalListType[]>(
+    `${import.meta.env.VITE_APP_API_ENDPOINT}/api/hospitals/filter`,
+    { params },
+  );
   return response;
 };

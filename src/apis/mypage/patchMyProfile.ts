@@ -15,6 +15,6 @@ export const patchMyProfile = async ({
     Object.entries({ nickname, birth, profilePictureUrl, region }).filter(([, value]) => value !== null),
   );
 
-  const response = await axios.patch("/api/users/profile", payload);
+  const response = await axios.patch(`${import.meta.env.VITE_APP_API_ENDPOINT}/api/users/profile`, payload);
   return response;
 };

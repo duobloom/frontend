@@ -10,6 +10,8 @@ export const postComment = async ({
   text: string;
 }): Promise<AxiosResponse> => {
   return type === "board"
-    ? await axios.post(`/api/feeds/boards/${postId}/comments`, { content: text })
-    : await axios.post(`/api/community/${postId}/comments`, { content: text });
+    ? await axios.post(`${import.meta.env.VITE_APP_API_ENDPOINT}/api/feeds/boards/${postId}/comments`, {
+        content: text,
+      })
+    : await axios.post(`${import.meta.env.VITE_APP_API_ENDPOINT}/api/community/${postId}/comments`, { content: text });
 };

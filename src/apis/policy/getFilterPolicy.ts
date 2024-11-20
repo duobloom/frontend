@@ -14,7 +14,9 @@ export const getFilterPolicy = async (
     ...(option ? { keyword: option } : {}),
   };
 
-  const response = await axios.get<PolicyListType[]>("/api/policies/filter", { params });
+  const response = await axios.get<PolicyListType[]>(`${import.meta.env.VITE_APP_API_ENDPOINT}/api/policies/filter`, {
+    params,
+  });
   console.log(response.data);
   return response;
 };
