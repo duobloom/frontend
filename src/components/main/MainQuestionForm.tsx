@@ -51,6 +51,9 @@ const MainQuestionForm = ({
       queryClient.invalidateQueries({
         queryKey: ["feed"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["total-point"],
+      });
       toast.info("5포인트를 획득하셨습니다.", 3000);
     },
     onError: (error) => {
