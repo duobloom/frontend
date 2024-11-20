@@ -69,8 +69,8 @@ const PolicyInfoPage = () => {
       <div ref={scrollRef} className="flex-1 overflow-y-scroll bg-white px-[1.8rem] scrollbar-hide">
         <title className="mb-[3rem] mt-[2rem] flex items-center justify-between">
           <span>
-            <InfoText>{policyData?.policyName}</InfoText>
-            <InfoText variant="secondary" size="sm">
+            <InfoText className="mb-[1rem]">{policyData?.policyName}</InfoText>
+            <InfoText variant="secondary" size="sm" className="mb-[1rem]">
               {policyData?.policyHost}
             </InfoText>
           </span>
@@ -87,40 +87,40 @@ const PolicyInfoPage = () => {
               </Badge>
             ))}
         </span>
-        <BoxFooter />
+        <BoxFooter className="my-[2rem]" />
         <DetailBox title="지원 대상" content={renderContent(policyData?.target?.target || "대상 정보 없음")} />
         <DetailBox title="지원 유형" content={renderContent(policyData?.target?.type || "유형 정보 없음")} />
         <DetailBox title="지원 혜택" content={renderContent(policyData?.target?.benefit || "혜택 정보 없음")} />
-        <p className="ml-[1.5rem] text-[1.1rem] font-medium text-gray-400">
-          출처 : 보건복지부/최종 수정일 : 2023-12-20
+        <p className="my-[2rem] ml-[1.5rem] text-[1.1rem] font-medium text-gray-400">
+          출처 : 보건복지부/최종 수정일 : 2024-09-20
         </p>
 
         <OptionTabs
           tabs={["지원 대상", "지원 내용", "관련 정보", "신청 방법"]}
           selectedTab={selectedTab}
           onTabSelect={handleTabSelect}
-          className="sticky top-0 bg-[#fff] text-[1.5rem]"
+          className="sticky top-0 mb-[1.5rem] bg-[#fff] text-[1.5rem]"
         />
         <div className="whitespace-pre-wrap">
           <section ref={targetSectionRef}>
-            <InfoText size="sm" className="font-bold">
+            <InfoText size="sm" className="mb-[.8rem] font-bold">
               지원 대상
             </InfoText>
             <InfoText size="sm" className="mb-[1.5rem]">
               {renderContent(policyData?.benefit?.target || policyTarget.target)}
             </InfoText>
-            <BoxFooter />
+            <BoxFooter className="my-[2.5rem]" />
           </section>
           <section ref={contentSectionRef}>
-            <InfoText size="sm" className="font-bold">
+            <InfoText size="sm" className="mb-[.8rem] font-bold">
               지원 내용
             </InfoText>
             <InfoText size="sm">{renderContent(policyData?.benefit?.content || policyTarget.content)}</InfoText>
-            <BoxFooter />
+            <BoxFooter className="my-[2.5rem]" />
           </section>
 
           <section ref={infoSectionRef}>
-            <InfoText size="sm" className="font-bold">
+            <InfoText size="sm" className="mb-[.8rem] font-bold">
               관련 정보
             </InfoText>
             <InfoText size="sm">
@@ -134,7 +134,7 @@ const PolicyInfoPage = () => {
                 <InfoText size="sm">{policyTarget.info}</InfoText>
               )}
             </InfoText>
-            <BoxFooter />
+            <BoxFooter className="my-[2.5rem]" />
           </section>
 
           <section ref={methodSectionRef}>
@@ -152,7 +152,7 @@ const PolicyInfoPage = () => {
                 )}
               </span>
             </InfoText>
-            <BoxFooter />
+            <BoxFooter className="my-[2.5rem]" />
           </section>
           <section>
             <InfoText size="md" className="mb-[1.5rem]">
@@ -183,7 +183,7 @@ const PolicyInfoPage = () => {
           </section>
         </div>
       </div>
-      <footer className="fixed bottom-0 flex w-[37.5rem] max-w-[37.5rem] items-center gap-[.7rem] border-t border-gray-300 bg-[#fff] px-[1.8rem] py-[.7rem]">
+      <footer className="fixed bottom-0 flex w-full items-center gap-[.7rem] border-t border-gray-300 bg-[#fff] px-[1.8rem] py-[.7rem]">
         <Button>
           <a href={policyData?.linkUrl || ""}>바로 가기</a>
         </Button>
