@@ -168,7 +168,8 @@ const HospitalInfoPage = () => {
             tabs={["병원 정보", "의료진", "오시는 길"]}
             selectedTab={selectedTab}
             onTabSelect={handleTabSelect}
-            className="sticky top-0 z-10 ml-[-1.8rem] w-[calc(100%+36px)] bg-[#fff]"
+            className="sticky top-0 z-10 bg-[#fff]"
+            lineStyle="w-[calc(100%+3.6rem)] ml-[-1.8rem]"
           />
           <section ref={infoSectionRef} className="hospital-info">
             <InfoText size="md">소개</InfoText>
@@ -228,7 +229,7 @@ const HospitalInfoPage = () => {
             <InfoText size="md" className="mb-[1.5rem]">
               이 주변 산부인과
             </InfoText>
-            <div className="flex flex-col gap-[1rem]">
+            <div className="mb-[1.5rem] flex flex-col gap-[1rem]">
               {relatedData &&
                 relatedData
                   .filter((item) => item.hospitalId !== hospitalId)

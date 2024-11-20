@@ -6,6 +6,7 @@ type OptionTabProps = {
   selectedTab: string;
   onTabSelect: (tab: string) => void;
   className?: string;
+  lineStyle?: string;
 };
 type OptionBoxesProps = {
   options: { id: number; name: string }[];
@@ -13,7 +14,7 @@ type OptionBoxesProps = {
   onSelect: (id: number) => void;
 };
 
-const OptionTabs = ({ tabs, selectedTab, onTabSelect, className }: OptionTabProps) => (
+const OptionTabs = ({ tabs, selectedTab, onTabSelect, className, lineStyle }: OptionTabProps) => (
   <div className={cn("w-full", className)}>
     <div className="mb-0 flex justify-between text-[1.5rem] font-medium text-gray-400">
       {tabs?.map((tab) => (
@@ -29,7 +30,7 @@ const OptionTabs = ({ tabs, selectedTab, onTabSelect, className }: OptionTabProp
         </button>
       ))}
     </div>
-    <div className="mb-[2rem] mt-0 w-full border-b border-gray-300" />
+    <div className={cn("mb-[2rem] mt-0 w-full border-b border-gray-300", lineStyle)} />
   </div>
 );
 

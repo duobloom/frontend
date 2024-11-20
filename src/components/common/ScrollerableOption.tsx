@@ -7,9 +7,10 @@ type TScrollableOptionsProps = {
   options: { id: number; name: string }[];
   selectedOption: number;
   onSelect: (id: number) => void;
+  className?: string;
 };
 
-const ScrollableOptions = ({ options, selectedOption, onSelect }: TScrollableOptionsProps) => {
+const ScrollableOptions = ({ options, selectedOption, onSelect, className }: TScrollableOptionsProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const draggableOptions = useDraggable(scrollRef);
 
@@ -27,7 +28,10 @@ const ScrollableOptions = ({ options, selectedOption, onSelect }: TScrollableOpt
     <section
       ref={scrollRef}
       {...draggableOptions()}
-      className="sticky top-0 z-10 flex min-h-[4rem] w-full space-x-[.8rem] overflow-x-scroll bg-[#fff] px-[1rem] py-[.5rem] scrollbar-hide"
+      className={cn(
+        "sticky top-0 z-10 flex min-h-[4rem] w-full space-x-[.8rem] overflow-x-scroll bg-[#fff] px-[1rem] py-[.5rem] scrollbar-hide",
+        className,
+      )}
     >
       {options.map((option) => (
         <Button
