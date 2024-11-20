@@ -21,5 +21,6 @@ export const useGetFilterHospital = (
         throw error;
       }
     },
+    retry: false,
   });
 };

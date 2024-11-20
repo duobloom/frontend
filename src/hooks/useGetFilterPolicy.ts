@@ -21,5 +21,6 @@ export const useGetFilterPolicy = (
         throw error;
       }
     },
+    retry: false,
   });
 };
