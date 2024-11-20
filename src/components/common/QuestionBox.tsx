@@ -19,7 +19,7 @@ const AnswerBoxContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes
     <div
       ref={ref}
       className={cn(
-        "min-h-[10rem] w-full cursor-pointer flex-col rounded-[1.6rem] border bg-gray-50 px-[1.8rem] py-[1.5rem] font-medium text-black",
+        "min-h-[10rem] w-full flex-col rounded-[1.6rem] border bg-gray-50 px-[1.8rem] py-[1.5rem] font-medium text-gray-200",
         className,
       )}
       {...props}
@@ -81,7 +81,7 @@ const QuestionBox = ({ data, currentDate }: TQuestionBoxProps) => {
 
           {isToday && hasNoAnswers && (
             <AnswerBoxContainer className="flex items-center justify-center text-[1.2rem]">
-              <BoxContent className="text-[1.2rem]">질문에 답변해 주세요</BoxContent>
+              <BoxContent className="text-[1.2rem] text-gray-400">질문에 답변해 주세요</BoxContent>
             </AnswerBoxContainer>
           )}
 
@@ -128,7 +128,7 @@ const QuestionBox = ({ data, currentDate }: TQuestionBoxProps) => {
               </AnswerBoxContainer>
               {isToday && (
                 <AnswerBoxContainer className="flex items-center justify-center text-[1.2rem]">
-                  <BoxContent className="text-[1.2rem]">질문에 답변해 주세요</BoxContent>
+                  <BoxContent className="text-[1.2rem] text-gray-200">질문에 답변해 주세요</BoxContent>
                 </AnswerBoxContainer>
               )}
             </>
