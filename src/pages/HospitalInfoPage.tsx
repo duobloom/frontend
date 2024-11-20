@@ -168,7 +168,7 @@ const HospitalInfoPage = () => {
             tabs={["병원 정보", "의료진", "오시는 길"]}
             selectedTab={selectedTab}
             onTabSelect={handleTabSelect}
-            className="sticky top-0 z-10 bg-[#fff]"
+            className="sticky top-0 z-10 ml-[-1.8rem] w-[calc(100%+36px)] bg-[#fff]"
           />
           <section ref={infoSectionRef} className="hospital-info">
             <InfoText size="md">소개</InfoText>
