@@ -41,7 +41,7 @@ const PolicyPage = () => {
       <Header variant="titleMove" title="맞춤 정책" />
       <div className="flex-1 overflow-y-auto scrollbar-hide">
         <Drawer dismissible={false} open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
-          <span className="w-full px-[1.5rem]">
+          <div className="w-full px-[1.5rem]">
             <DrawerTrigger className="w-full" onClick={() => setIsDrawerOpen(true)}>
               <DropdownBox className="w-full">
                 {selectedGun ? (
@@ -55,11 +55,13 @@ const PolicyPage = () => {
                 )}
               </DropdownBox>
             </DrawerTrigger>
-          </span>
+          </div>
           <ScrollableOptions options={PolicyOptions} selectedOption={selectedOption} onSelect={setSelectedOption} />
-          <div className="mt-1 px-[1.5rem]">
+          <div className="px-[1.5rem] py-[1.3rem]">
             <p className="text-[1.5rem] font-medium">{policyData && `${policyData.length}개의 정책`}</p>
-            <BoxFooter />
+          </div>
+          <hr className="mt-0" />
+          <div className="mt-1 px-[1.5rem]">
             <div className={cn("flex flex-col gap-[1rem]", "h-[calc(100dvh-28.6rem)]")}>
               {isLoading && Array.from({ length: 5 }, (_, idx) => <InfoBoxSkeleton key={idx} />)}
               {policyData && policyData.length > 0 ? (
