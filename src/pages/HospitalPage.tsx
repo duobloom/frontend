@@ -50,7 +50,7 @@ const HospitalPage = () => {
 
       <div className="flex flex-1 flex-col overflow-y-auto scrollbar-hide">
         <Drawer dismissible={false} open={activeDrawer !== null}>
-          <span className="flex w-full items-center justify-between px-[1.5rem]">
+          <div className="flex w-full items-center justify-between px-[1.5rem]">
             <DrawerTrigger onClick={() => setActiveDrawer("location")}>
               <DropdownBox>
                 {selectedGun ? (
@@ -67,7 +67,7 @@ const HospitalPage = () => {
             <DrawerTrigger onClick={() => setActiveDrawer("department")}>
               <DropdownBox>{selectedDepartmentName || "전체"}</DropdownBox>
             </DrawerTrigger>
-          </span>
+          </div>
 
           <ScrollableOptions
             options={medicalOptions}
@@ -78,11 +78,13 @@ const HospitalPage = () => {
             }}
           />
 
-          <div className="mt-1 px-[1.5rem]">
+          <div className="px-[1.5rem] py-[1.3rem]">
             <p className="text-[1.5rem] font-medium">
               {hospitalData ? `${hospitalData.length}개의 병원/클리닉` : "0 개의 병원/클리닉"}
             </p>
-            <BoxFooter />
+          </div>
+          <hr className="mt-0" />
+          <div className="mt-1 px-[1.5rem]">
             <div className="flex h-[calc(100dvh-28.6rem)] flex-col gap-[1rem] pb-[10rem]">
               {isLoading && Array.from({ length: 5 }, (_, idx) => <InfoBoxSkeleton key={idx} />)}
               {hospitalData && hospitalData.length > 0 ? (
