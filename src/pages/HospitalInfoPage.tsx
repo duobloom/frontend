@@ -20,7 +20,7 @@ import { useGetHospitalInfo } from "@/hooks/useGetHospitalInfo";
 import { deleteScrapHospital, postScrapHospital } from "@/apis";
 import { parseJsonString } from "@/utils/parseString";
 import { useGetFilterHospital } from "@/hooks/useGetFilterHospital";
-import { DetailInfoSkeleton } from "@/components/skeleton/detailInfoSkeleton";
+import { DetailInfoSkeleton } from "@/components/skeleton/DetailInfoSkeleton";
 
 const HospitalInfoPage = () => {
   const location = useLocation();
