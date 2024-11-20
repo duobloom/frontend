@@ -21,18 +21,20 @@ const MyPoint = () => {
     : [];
 
   return (
-    <div>
+    <div className="flex h-full flex-col">
       <Header variant="backTitle" title="포인트 내역" />
-      <div className="py-[2rem]">
-        <OptionTabs
-          tabs={["내 포인트", "동반자 포인트"]}
-          selectedTab={selectedTab}
-          onTabSelect={setSelectedTab}
-          className="px-[1.5rem] text-[1.5rem]"
-        />
+      <div className="flex-1 overflow-y-auto pb-[2rem] scrollbar-hide">
+        <span className="sticky top-0">
+          <OptionTabs
+            tabs={["내 포인트", "동반자 포인트"]}
+            selectedTab={selectedTab}
+            onTabSelect={setSelectedTab}
+            className="bg-[#fff] px-[1.5rem] text-[1.5rem]"
+          />
+        </span>
         <div>
           <div className="flex flex-col px-[1.5rem]">
-            <section className="flex items-center justify-between">
+            <section className="flex items-center justify-between bg-[#fff]">
               <h1 className="text-[1.7rem] font-bold">전체 포인트</h1>
               <span className="flex items-center gap-[1rem]">
                 <IconPoint />
