@@ -58,10 +58,10 @@ const MainQuestionForm = ({
     },
     onError: (error) => {
       if (error.response?.status === 401) {
-        toast.error("로그인 해주시기 바랍니다.", 3000);
+        toast.info("로그인 해주시기 바랍니다.", 3000);
         console.error("로그인 해주시기 바랍니다.");
       } else {
-        toast.error("답변 업로드 중 오류가 발생했습니다.", 3000);
+        toast.info("답변 업로드 중 오류가 발생했습니다.", 3000);
         console.error("업로드 중 오류가 발생했습니다:", error.message);
       }
     },
