@@ -76,7 +76,7 @@ const PolicyInfoPage = () => {
           </span>
           <img
             src={policyData?.imageUrl || ""}
-            className="h-[8.5rem] w-[8.5rem] rounded-[1rem] border-gray-200 object-cover"
+            className="h-[8.5rem] w-[8.5rem] rounded-[1rem] border border-gray-200 object-cover"
           />
         </title>
         <span className="mt-[.5rem] flex items-center gap-[.8rem]">
@@ -91,7 +91,7 @@ const PolicyInfoPage = () => {
         <DetailBox title="지원 대상" content={renderContent(policyData?.target?.target || "대상 정보 없음")} />
         <DetailBox title="지원 유형" content={renderContent(policyData?.target?.type || "유형 정보 없음")} />
         <DetailBox title="지원 혜택" content={renderContent(policyData?.target?.benefit || "혜택 정보 없음")} />
-        <p className="ml-[1.5rem] text-[1.1rem] font-medium text-gray-400">
+        <p className="my-[1.5rem] ml-[1.5rem] text-[1.1rem] font-medium text-gray-400">
           출처 : 보건복지부/최종 수정일 : 2023-12-20
         </p>
 
@@ -99,7 +99,7 @@ const PolicyInfoPage = () => {
           tabs={["지원 대상", "지원 내용", "관련 정보", "신청 방법"]}
           selectedTab={selectedTab}
           onTabSelect={handleTabSelect}
-          className="sticky top-0 bg-[#fff] text-[1.5rem]"
+          className="sticky top-0 ml-[-1.8rem] w-[calc(100%+36px)] bg-[#fff] text-[1.5rem]"
         />
         <div className="whitespace-pre-wrap">
           <section ref={targetSectionRef}>
@@ -183,7 +183,7 @@ const PolicyInfoPage = () => {
           </section>
         </div>
       </div>
-      <footer className="fixed bottom-0 flex w-[37.5rem] max-w-[37.5rem] items-center gap-[.7rem] border-t border-gray-300 bg-[#fff] px-[1.8rem] py-[.7rem]">
+      <footer className="fixed bottom-0 flex w-full min-w-[37.5rem] items-center gap-[.7rem] border-t border-gray-300 bg-[#fff] px-[1.8rem] py-[.7rem]">
         <Button>
           <a href={policyData?.linkUrl || ""}>바로 가기</a>
         </Button>
