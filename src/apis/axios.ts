@@ -10,7 +10,7 @@ export const setNavigateFunction = (navigate: (path: string) => void) => {
 
 const apiClient = axios.create({
   withCredentials: true,
-  baseURL: "https://api.duo-bloom.com",
+  // baseURL: "https://api.duo-bloom.com",
 });
 
 apiClient.interceptors.response.use(
