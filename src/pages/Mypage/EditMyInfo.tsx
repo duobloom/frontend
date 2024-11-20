@@ -56,7 +56,7 @@ const EditMyInfo = () => {
       { nickname, birth, profilePictureUrl, email, region },
       {
         onSuccess: () => {
-          toast.success("정보가 성공적으로 수정되었습니다!");
+          toast.info("정보가 성공적으로 수정되었습니다!");
         },
         onError: (error) => {
           if (error instanceof ValidationError) {
@@ -68,7 +68,7 @@ const EditMyInfo = () => {
             });
             setFieldErrors(newErrors);
           } else {
-            toast.error("수정 중 문제가 발생했습니다. 다시 시도해주세요.");
+            toast.info("수정 중 문제가 발생했습니다. 다시 시도해주세요.");
           }
         },
       },

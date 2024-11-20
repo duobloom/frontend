@@ -156,13 +156,13 @@ class ToastManager {
 
   success(message: string, duration?: number) {
     if (this.toastContext) {
-      this.toastContext.toast.success(message, duration);
+      this.toastContext.toast.info(message, duration);
     }
   }
 
   error(message: string, duration?: number) {
     if (this.toastContext) {
-      this.toastContext.toast.error(message, duration);
+      this.toastContext.toast.info(message, duration);
     }
   }
 

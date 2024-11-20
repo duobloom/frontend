@@ -76,7 +76,7 @@ const PolicyInfoPage = () => {
           </span>
           <img
             src={policyData?.imageUrl || ""}
-            className="h-[8.5rem] w-[8.5rem] rounded-[1rem] border-gray-200 object-cover"
+            className="h-[8.5rem] w-[8.5rem] rounded-[1rem] border border-gray-200 object-cover"
           />
         </title>
         <span className="mt-[.5rem] flex items-center gap-[.8rem]">
@@ -99,7 +99,7 @@ const PolicyInfoPage = () => {
           tabs={["지원 대상", "지원 내용", "관련 정보", "신청 방법"]}
           selectedTab={selectedTab}
           onTabSelect={handleTabSelect}
-          className="sticky top-0 mb-[1.5rem] bg-[#fff] text-[1.5rem]"
+          className="sticky top-0 ml-[-1.8rem] w-[calc(100%+36px)] bg-[#fff] text-[1.5rem]"
         />
         <div className="whitespace-pre-wrap">
           <section ref={targetSectionRef}>
