@@ -21,6 +21,8 @@ const CommentSchema = z.object({
   nickname: z.string(),
   profileUrl: z.string(),
   owner: z.boolean(),
+  createdAt: z.string().optional(),
+  updatedAt: z.string().optional(),
 });
 
 const CommunityBaseSchema = z.object({

@@ -41,7 +41,7 @@ const CommentBox = ({ commentData, type }: TCommentBoxProps) => {
             commentId = (comment as CommunityCommentType).commentId;
             profileImg = (comment as CommunityCommentType).profileUrl;
             name = (comment as CommunityCommentType).nickname;
-            createdAt = comment as CommunityCommentType;
+            createdAt = (comment as CommunityCommentType).createdAt;
             isMe = (comment as CommunityCommentType).owner;
             content = (comment as CommunityCommentType).content;
           }
