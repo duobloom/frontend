@@ -45,7 +45,7 @@ const CommunityDetailPage = () => {
       ) : (
         <>
           <CommunityPostHeader postData={postData as CommunityDetailType} variant="community" id={id} />
-          <div className="h-[calc(100vh-138px)] overflow-y-auto scrollbar-hide">
+          <div className="h-[calc(100dvh-138px)] overflow-y-auto scrollbar-hide">
             <PostDetailBox postData={postData as CommunityDetailType} variant={type} id={id} />
             <CommentBox commentData={postData?.comments ?? []} type={type} />
           </div>
