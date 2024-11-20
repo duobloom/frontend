@@ -20,6 +20,7 @@ import { useGetHospitalInfo } from "@/hooks/useGetHospitalInfo";
 import { deleteScrapHospital, postScrapHospital } from "@/apis";
 import { parseJsonString } from "@/utils/parseString";
 import { useGetFilterHospital } from "@/hooks/useGetFilterHospital";
+import { DetailInfoSkeleton } from "@/components/skeleton/detailInfoSkeleton";
 
 const HospitalInfoPage = () => {
   const location = useLocation();
@@ -31,7 +32,7 @@ const HospitalInfoPage = () => {
   const medicSectionRef = useRef<HTMLDivElement>(null);
   const directionSectionRef = useRef<HTMLDivElement>(null);
 
-  const { data: hospitalData, refetch: refetchHospitalData } = useGetHospitalInfo(hospitalId);
+  const { data: hospitalData, refetch: refetchHospitalData, isLoading } = useGetHospitalInfo(hospitalId);
   const { data: relatedData } = useGetFilterHospital(1100000000, 1168000000, null, null, null);
 
   const handleBookmark = async () => {
@@ -93,6 +94,10 @@ const HospitalInfoPage = () => {
   const parseStaff = parseJsonString(hospitalData?.staffInfo);
   const parseInfo = parseJsonString(hospitalData?.hospitalInfo);
   const departmentName = medicalDepartment.find((department) => department.type === hospitalData?.type)?.name;
+  if (isLoading) {
+    <DetailInfoSkeleton />;
+  }
+
   return (
     <div className="flex h-full w-full flex-col overflow-y-auto scrollbar-hide">
       {hospitalData && (
