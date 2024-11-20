@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import Author from "@/components/ui/Author";
-import AuthorSkeleton from "@/components/skeleton/AuthorSkeleton";
+import AuthorSkeleton from "@/components/skeleton/common/AuthorSkeleton";
 import { getFeedData } from "@/apis/main/getFeedDataAPI";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { logValidationError, validateApiResponse } from "@/utils/zodHelpers";
