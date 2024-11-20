@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Button } from "@/components/common";
 import { cn } from "@/utils";
 import useDraggable from "@/hooks/useDraggable";
@@ -14,22 +14,22 @@ const ScrollableOptions = ({ options, selectedOption, onSelect, className }: TSc
   const scrollRef = useRef<HTMLDivElement>(null);
   const draggableOptions = useDraggable(scrollRef);
 
-  useEffect(() => {
-    const selectElement = scrollRef.current?.querySelector('[data-select="true"]');
-    if (selectElement) {
-      selectElement.scrollIntoView({
-        behavior: "smooth",
-        inline: "center",
-      });
-    }
-  }, [selectedOption]);
+  // useEffect(() => {
+  //   const selectElement = scrollRef.current?.querySelector('[data-select="true"]');
+  //   if (selectElement) {
+  //     selectElement.scrollIntoView({
+  //       behavior: "smooth",
+  //       inline: "center",
+  //     });
+  //   }
+  // }, [selectedOption]);
 
   return (
     <section
       ref={scrollRef}
       {...draggableOptions()}
       className={cn(
-        "sticky top-0 z-10 flex min-h-[4rem] w-full space-x-[.8rem] overflow-x-scroll bg-[#fff] px-[1rem] py-[.5rem] scrollbar-hide",
+        "sticky top-0 z-10 flex min-h-[5rem] w-full space-x-[.8rem] overflow-x-scroll bg-[#fff] px-[1rem] py-[.5rem] scrollbar-hide",
         className,
       )}
     >

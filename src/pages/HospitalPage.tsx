@@ -76,7 +76,6 @@ const HospitalPage = () => {
               setSelectedOption(option);
               applyFilters();
             }}
-            className="min-h-[4rem]"
           />
 
           <div className="px-[1.5rem] py-[1.3rem]">
