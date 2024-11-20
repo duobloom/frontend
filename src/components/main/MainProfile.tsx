@@ -33,7 +33,7 @@ const MainProfile = ({ nowData }: TMainProfileProps) => {
   }
 
   return (
-    <section className="relative flex h-[8rem] w-full items-center justify-between bg-white p-[1.5rem]">
+    <section className="relative z-30 flex h-[8rem] w-full items-center justify-between bg-white p-[1.5rem]">
       {isLoading ? (
         <>
           <AuthorSkeleton variant="board" />

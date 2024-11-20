@@ -18,7 +18,7 @@ const IconButtonContainer = React.forwardRef<
       ref={ref}
       aria-label="폼 열기"
       className={cn(
-        "absolute right-[2rem] flex h-[5rem] w-[5rem] transform items-center justify-center rounded-full border border-gray-300",
+        "absolute right-[2rem] z-30 flex h-[5rem] w-[5rem] transform items-center justify-center rounded-full border border-gray-300",
         className,
       )}
       onClick={onClick}

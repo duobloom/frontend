@@ -21,11 +21,11 @@ const MainFeed = ({ nowData }: { nowData: string }) => {
 
   return (
     <>
-      <div className="sticky top-[90px] z-10 bg-white">
+      <div className="sticky top-[95px] z-10 bg-white">
         <div className="h-[1.5rem] rounded-t-[3rem] bg-gray-100 shadow-feed" />
         <div className="absolute left-1/2 top-0 h-full w-[.1rem] bg-gray-300" />
       </div>
-      <section className="shadow-feed-side relative z-0 flex min-h-[calc(100%-19rem)] flex-col gap-[1.5rem] overflow-auto bg-gray-100 px-[1.5rem] pb-[1.5rem]">
+      <section className="shadow-feed-side relative flex min-h-[calc(100%-19rem)] flex-col gap-[1.5rem] overflow-auto bg-gray-100 px-[1.5rem] pb-[1.5rem]">
         <div className="absolute left-1/2 top-0 h-full w-[.1rem] bg-gray-300" />
         {isLoading ? (
           <QuestionBoxSkeleton />
