@@ -41,7 +41,7 @@ const ScrollableOptions = ({ options, selectedOption, onSelect, className }: TSc
           size="md"
           onClick={() => onSelect(option.id)}
           className={cn(
-            "inline-flex min-w-fit whitespace-nowrap px-[1.8rem] text-[1.4rem] font-semibold",
+            "min-w-fit whitespace-nowrap px-[1.8rem] text-[1.4rem] font-semibold",
             selectedOption === option.id ? "bg-red text-white" : "border border-gray-500 bg-white text-gray-500",
           )}
         >
