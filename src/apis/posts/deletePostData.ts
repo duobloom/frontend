@@ -1,7 +1,7 @@
-import axios from "axios";
+import apiClient from "@/apis/axios";
 
 export const deletePostData = async (type: string, id: string) => {
   return type === "board"
-    ? await axios.delete(`${import.meta.env.VITE_APP_API_ENDPOINT}/api/feeds/boards/${id}`)
-    : await axios.delete(`${import.meta.env.VITE_APP_API_ENDPOINT}/api/community/${id}`);
+    ? await apiClient.delete(`${import.meta.env.VITE_APP_API_ENDPOINT}/api/feeds/boards/${id}`)
+    : await apiClient.delete(`${import.meta.env.VITE_APP_API_ENDPOINT}/api/community/${id}`);
 };

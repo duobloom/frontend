@@ -1,8 +1,8 @@
 import { HospitalType } from "@/types";
-import axios from "axios";
+import apiClient from "@/apis/axios";
 
 export const getHospitaInfo = async (hospitalId?: number) => {
-  const response = await axios.get<HospitalType>(
+  const response = await apiClient.get<HospitalType>(
     `${import.meta.env.VITE_APP_API_ENDPOINT}/api/hospitals/${hospitalId}`,
   );
   console.log(response.data);

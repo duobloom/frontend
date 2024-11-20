@@ -1,8 +1,8 @@
-import axios from "axios";
+import apiClient from "@/apis/axios";
 
 // Presigned url 발급
 export const postPresignedUrl = async (imageNames: string[]) => {
-  const promises = imageNames.map((imageName) => axios.post("/file/IMAGE/presigned-url", { imageName }));
+  const promises = imageNames.map((imageName) => apiClient.post("/file/IMAGE/presigned-url", { imageName }));
 
   try {
     const responses = await Promise.all(promises);
@@ -20,7 +20,7 @@ export const putS3Upload = async (presignedUrls: string[], photos: { photo_url: 
     const validUrls = presignedUrls.slice(0, validPhotos.length);
 
     const uploadPromises = validPhotos.map((photo, index) => {
-      return axios.put(validUrls[index], photo.file, {
+      return apiClient.put(validUrls[index], photo.file, {
         headers: {
           "Content-Type": photo.file?.type || "image/webP", // 파일 타입 설정
         },

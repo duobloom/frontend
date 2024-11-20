@@ -1,5 +1,5 @@
 import { HospitalListType } from "@/types";
-import axios from "axios";
+import apiClient from "@/apis/axios";
 
 export const getFilterHospital = async (
   region_code?: number | null,
@@ -16,7 +16,7 @@ export const getFilterHospital = async (
     ...(department ? { type: department } : {}),
   };
 
-  const response = await axios.get<HospitalListType[]>(
+  const response = await apiClient.get<HospitalListType[]>(
     `${import.meta.env.VITE_APP_API_ENDPOINT}/api/hospitals/filter`,
     { params },
   );

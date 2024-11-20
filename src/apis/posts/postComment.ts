@@ -1,4 +1,5 @@
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
+import apiClient from "@/apis/axios";
 
 export const postComment = async ({
   type,
@@ -10,8 +11,10 @@ export const postComment = async ({
   text: string;
 }): Promise<AxiosResponse> => {
   return type === "board"
-    ? await axios.post(`${import.meta.env.VITE_APP_API_ENDPOINT}/api/feeds/boards/${postId}/comments`, {
+    ? await apiClient.post(`${import.meta.env.VITE_APP_API_ENDPOINT}/api/feeds/boards/${postId}/comments`, {
         content: text,
       })
-    : await axios.post(`${import.meta.env.VITE_APP_API_ENDPOINT}/api/community/${postId}/comments`, { content: text });
+    : await apiClient.post(`${import.meta.env.VITE_APP_API_ENDPOINT}/api/community/${postId}/comments`, {
+        content: text,
+      });
 };

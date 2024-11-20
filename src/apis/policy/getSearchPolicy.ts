@@ -1,8 +1,8 @@
 import { PolicyListType } from "@/types";
-import axios from "axios";
+import apiClient from "@/apis/axios";
 
 export const getSearchPolicy = async (keyword?: string) => {
-  const response = await axios.get<PolicyListType[]>(
+  const response = await apiClient.get<PolicyListType[]>(
     `${import.meta.env.VITE_APP_API_ENDPOINT}/api/policies/search?name=${keyword}`,
   );
   console.log(response.data);

@@ -1,5 +1,5 @@
 import { PolicyListType } from "@/types";
-import axios from "axios";
+import apiClient from "@/apis/axios";
 
 export const getFilterPolicy = async (
   region_code?: number | null,
@@ -14,9 +14,12 @@ export const getFilterPolicy = async (
     ...(option ? { keyword: option } : {}),
   };
 
-  const response = await axios.get<PolicyListType[]>(`${import.meta.env.VITE_APP_API_ENDPOINT}/api/policies/filter`, {
-    params,
-  });
+  const response = await apiClient.get<PolicyListType[]>(
+    `${import.meta.env.VITE_APP_API_ENDPOINT}/api/policies/filter`,
+    {
+      params,
+    },
+  );
   console.log(response.data);
   return response;
 };

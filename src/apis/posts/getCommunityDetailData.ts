@@ -1,4 +1,4 @@
-import axios from "axios";
+import apiClient from "@/apis/axios";
 
 export const getCommunityDetailData = async (id: string) =>
-  await axios.get(`${import.meta.env.VITE_APP_API_ENDPOINT}/api/community/${id}`);
+  await apiClient.get(`${import.meta.env.VITE_APP_API_ENDPOINT}/api/community/${id}`);
