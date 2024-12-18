@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/common";
 import { HospitalListType, PolicyListType } from "@/types";
 import { cn } from "@/utils";
-import { IconBookMark } from "@/assets/icon";
+import LazyIcon from "@/assets/icon/LazyIcon";
 import { deleteScrapHospital, deleteScrapPolicy, postScrapHospital, postScrapPolicy } from "@/apis";
 import defaultHospital from "@/assets/image/defaulthospital.png";
 
@@ -143,7 +143,7 @@ const InfoBox = (props: TInfoInfoBoxProps) => {
             ))}
         </div>
         <button onClick={bookMarkFn}>
-          <IconBookMark className={`${isClick ? "stroke-red" : "stroke-gray-300"}`} />
+          <LazyIcon name="icon-bookmark" className={`${isClick ? "stroke-red" : "stroke-gray-300"}`} />
         </button>
       </div>
     </InfoBoxContainer>

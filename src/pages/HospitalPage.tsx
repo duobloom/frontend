@@ -4,7 +4,7 @@ import Header from "@/components/layout/Header";
 import { BoxFooter, DropdownBox } from "@/components/ui/Box";
 import { medicalDepartment, medicalOptions } from "@/constants";
 import { Button, InfoBox, OptionBoxes, ScrollableOptions } from "@/components/common";
-import { IconMap } from "@/assets/icon";
+import LazyIcon from "@/assets/icon/LazyIcon";
 import { useNavigate } from "react-router-dom";
 import { GetRegionName, RegionSelecter } from "@/components/hospital";
 // import { cn } from "@/utils";
@@ -129,7 +129,7 @@ const HospitalPage = () => {
               })
             }
           >
-            <IconMap />
+            <LazyIcon name="icon-map" />
             지도보기
           </Button>
 

@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { UseFormReturn } from "react-hook-form";
 import useDraggable from "@/hooks/useDraggable";
 import { BoardPostFormType } from "@/types";
-import { IconCamera, IconCircleClose } from "@/assets/icon";
+import LazyIcon from "@/assets/icon/LazyIcon";
 import { reduceImageSize } from "@/utils";
 
 type TBoardFormImageProps = {
@@ -65,7 +65,8 @@ const BoardFormImage = ({ form }: TBoardFormImageProps) => {
             className="relative h-[10.5rem] w-[10.5rem] min-w-[10.5rem] overflow-hidden rounded-[1rem] border border-gray-300"
           >
             <img src={img.photo_url} alt={"이미지"} className="h-full w-full object-cover" />
-            <IconCircleClose
+            <LazyIcon
+              name="icon-circle-close"
               className="absolute right-[.4rem] top-[.4rem] cursor-pointer"
               onClick={() => handleImgDelete(index)}
             />
@@ -73,7 +74,7 @@ const BoardFormImage = ({ form }: TBoardFormImageProps) => {
         ))}
         <fieldset className="h-full w-[10.5rem] min-w-[10.5rem] rounded-[1rem] border border-gray-300">
           <label htmlFor="inputFile" className="flex h-full w-full cursor-pointer items-center justify-center">
-            <IconCamera />
+            <LazyIcon name="icon-camera" />
           </label>
           <input
             {...form.register("photoUrls")}

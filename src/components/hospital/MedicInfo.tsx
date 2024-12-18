@@ -1,4 +1,4 @@
-import { IconDropdown } from "@/assets/icon";
+import LazyIcon from "@/assets/icon/LazyIcon";
 import { DrawerClose, DrawerTitle } from "../common/Drawer";
 import { BoxFooter } from "../ui/Box";
 import defaultImage from "@/assets/image/doctor1.png";
@@ -23,7 +23,7 @@ const MedicInfo: React.FC<TMedicInfoProps> = ({ title, content, image_Url }) => 
           <span className="text-[1.4rem] font-normal text-gray-400">{content}</span>
         </div>
       </div>
-      <IconDropdown />
+      <LazyIcon name="icon-dropdown" />
     </div>
   );
 };

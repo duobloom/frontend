@@ -23,7 +23,7 @@ import { usePutBoardUpdate } from "@/hooks/usePutBoardUpdate";
 
 import { BoardPostFormSchema, BoardPostFormType } from "@/types/BoardType";
 
-import { IconClose } from "@/assets/icon";
+import LazyIcon from "@/assets/icon/LazyIcon";
 
 type TMainBoardFormProps = {
   id?: number;
@@ -121,7 +121,7 @@ const MainBoardForm = ({ id, type, initialData = null, onClose }: TMainBoardForm
       <form onSubmit={(e) => e.preventDefault()} className="flex h-full flex-col overflow-y-auto scrollbar-hide">
         <div className="flex items-center justify-between pb-[1.4rem]">
           <div onClick={handleClose} className="cursor-pointer">
-            <IconClose />
+            <LazyIcon name="icon-close" />
           </div>
           <DrawerTitle text={`${type === "add" ? "글 쓰기" : "글 수정"}`} />
           <Button

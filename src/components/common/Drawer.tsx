@@ -2,7 +2,7 @@ import * as React from "react";
 import { Drawer as DrawerPrimitive } from "vaul";
 import { isMobile } from "react-device-detect";
 import { cn } from "@/utils";
-import { IconClose } from "@/assets/icon";
+import LazyIcon from "@/assets/icon/LazyIcon";
 
 //drawer 최상위 컴포넌트(컨테이너)
 const Drawer = ({ shouldScaleBackground = true, ...props }: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
@@ -30,7 +30,7 @@ DrawerTitle.displayName = "DrawerTitle";
 const DrawerClose = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof DrawerPrimitive.Close>>(
   ({ className, ...props }, ref) => (
     <DrawerPrimitive.Close ref={ref} className={className} {...props}>
-      <IconClose />
+      <LazyIcon name="icon-close" />
     </DrawerPrimitive.Close>
   ),
 );
