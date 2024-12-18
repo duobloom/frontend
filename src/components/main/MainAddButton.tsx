@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { MainBoardForm, MainEmotionForm } from "@/components/main";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/common/Drawer";
 import { cn } from "@/utils";
-import { IconEdit, IconPlus, IconSmileHappy } from "@/assets/icon";
+import LazyIcon from "@/assets/icon/LazyIcon";
 
 // 아이콘 버튼 컨테이너
 const IconButtonContainer = React.forwardRef<
@@ -45,7 +45,7 @@ const MainAddButton = () => {
               isClicked ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-8 opacity-0"
             }`}
           >
-            <IconEdit />
+            <LazyIcon name="icon-edit" />
           </IconButtonContainer>
         </DrawerTrigger>
         <DrawerContent>
@@ -62,7 +62,7 @@ const MainAddButton = () => {
               isClicked ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-8 opacity-0"
             }`}
           >
-            <IconSmileHappy />
+            <LazyIcon name="icon-smiley-happy" />
           </IconButtonContainer>
         </DrawerTrigger>
         <DrawerContent>
@@ -76,7 +76,7 @@ const MainAddButton = () => {
         className={`bottom-[2rem] bg-black duration-300 ${isClicked ? "rotate-45" : ""}`}
         aria-label="메뉴 열기"
       >
-        <IconPlus />
+        <LazyIcon name="icon-plus" />
       </IconButtonContainer>
     </div>
   );

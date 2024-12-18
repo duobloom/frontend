@@ -1,4 +1,4 @@
-import { IconPoint } from "@/assets/icon";
+import LazyIcon from "@/assets/icon/LazyIcon";
 import { OptionTabs } from "@/components/common";
 import Header from "@/components/layout/Header";
 import { TransactionBox } from "@/components/mypage";
@@ -37,7 +37,7 @@ const MyPoint = () => {
             <section className="flex items-center justify-between bg-[#fff]">
               <h1 className="text-[1.7rem] font-bold">전체 포인트</h1>
               <span className="flex items-center gap-[1rem]">
-                <IconPoint />
+                <LazyIcon name="icon-point" />
                 <h2 className="text-[1.6rem] font-semibold">
                   {selectedTab === "내 포인트" ? `${userPoint}` : `${partnerPoint}`}
                 </h2>

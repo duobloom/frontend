@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/common/Drawer";
-import { IconEdit } from "@/assets/icon";
+import LazyIcon from "@/assets/icon/LazyIcon";
 import { CommunityPostForm } from "@/components/community";
 
 const CommunityWriteButton = () => {
@@ -12,7 +12,7 @@ const CommunityWriteButton = () => {
         <button
           className={`absolute bottom-[2rem] right-[2rem] z-30 flex h-[5rem] w-[5rem] items-center justify-center rounded-full border border-gray-300 bg-white shadow-icon`}
         >
-          <IconEdit />
+          <LazyIcon name="icon-edit" />
         </button>
       </DrawerTrigger>
       <DrawerContent>

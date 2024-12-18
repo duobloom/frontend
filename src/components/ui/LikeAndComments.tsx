@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/utils";
-import { IconComments, IconHeart } from "@/assets/icon";
 import { useDeleteBoardLike, usePostLike } from "@/hooks/usePostLike";
+import LazyIcon from "@/assets/icon/LazyIcon";
 
 type TLikeAndComments = {
   type: "community" | "board";
@@ -75,14 +75,14 @@ const LikeAndComments = ({ type, isDetailPage, id, likeCount, commentCount, like
   return (
     <div className="flex gap-[1.6rem]">
       <div className="flex cursor-pointer items-center gap-[0.4rem] text-gray-500" onClick={handleLikeClick}>
-        <IconHeart className={`${isLiked ? "stroke-red" : "stroke-gray-500"}`} />
+        <LazyIcon name="icon-heart" className={`${isLiked ? "stroke-red" : "stroke-gray-500"}`} />
         <span className="text-[1.4rem]">{likeCountNum}</span>
       </div>
       <div
         className={cn(`flex items-center gap-[0.4rem] text-gray-500`, isDetailPage || "cursor-pointer")}
         onClick={moveLink}
       >
-        <IconComments />
+        <LazyIcon name="icon-comments" />
         <span className="text-[1.4rem]">{commentCount}</span>
       </div>
     </div>

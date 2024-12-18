@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { UseFormReturn } from "react-hook-form";
-import { IconCircleClose } from "@/assets/icon";
+import LazyIcon from "@/assets/icon/LazyIcon";
 import { CommunityPostFormType } from "@/types";
 
 type TFormTagProps = {
@@ -70,7 +70,7 @@ const FormTag = ({ form }: TFormTagProps) => {
                   );
                 }}
               >
-                <IconCircleClose />
+                <LazyIcon name="icon-circle-close" />
               </button>
             </div>
           ))}

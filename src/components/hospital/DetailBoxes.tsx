@@ -1,7 +1,7 @@
-import { IconDropdown } from "@/assets/icon";
 import { cn } from "@/utils";
 import { cva, VariantProps } from "class-variance-authority";
 import React from "react";
+import LazyIcon from "@/assets/icon/LazyIcon";
 
 const textVariants = cva("font-bold", {
   variants: {
@@ -43,7 +43,7 @@ const DetailBox: React.FC<TDetailBoxProps> = ({ title, content, showIcon = false
         <span className="text-[1.4rem] font-bold">{title}</span>
         <span className="text-[1.4rem] font-normal">{content}</span>
       </div>
-      {showIcon && <IconDropdown />}
+      {showIcon && <LazyIcon name="icon-dropdown" />}
     </div>
   );
 };

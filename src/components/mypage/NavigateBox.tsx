@@ -1,7 +1,7 @@
 import React from "react";
-import { IconChevronRight } from "@/assets/icon";
 import { useNavigate } from "react-router-dom";
 import { UserType } from "@/types";
+import LazyIcon from "@/assets/icon/LazyIcon";
 
 type NavItem = {
   name: string;
@@ -31,7 +31,7 @@ const NavigateBox: React.FC<NavigateBoxProps> = ({ userInfo }) => {
           className="flex items-center justify-between rounded-[1rem] py-[.5rem]"
         >
           <p className="px-[.5rem] text-[1.5rem] font-bold text-black">{item.name}</p>
-          <IconChevronRight />
+          <LazyIcon name="icon-chevron-right" />
         </div>
       ))}
     </div>
@@ -43,11 +43,11 @@ const AlarmBox = () => {
     <div className="my-[1rem] flex w-full flex-col rounded-[1.5rem] bg-[#fff] px-[1rem] py-[1.5rem]">
       <div className="flex cursor-pointer items-center justify-between rounded-[1rem] py-[.5rem]">
         <p className="px-[.5rem] text-[1.5rem] font-bold text-black">알림 설정</p>
-        <IconChevronRight />
+        <LazyIcon name="icon-chevron-right" />
       </div>
       <div className="flex cursor-pointer items-center justify-between rounded-[1rem] py-[.5rem]">
         <p className="px-[.5rem] text-[1.5rem] font-bold text-black">기본 설정</p>
-        <IconChevronRight />
+        <LazyIcon name="icon-chevron-right" />
       </div>
     </div>
   );

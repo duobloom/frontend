@@ -16,7 +16,7 @@
 
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { IconArrowLeft, IconBell, IconBookMark, IconSearch, IconShare } from "@/assets/icon";
+import LazyIcon from "@/assets/icon/LazyIcon";
 import { cn } from "@/utils";
 
 const VARIANTS = {
@@ -111,7 +111,7 @@ const Header = ({
   const renderBackButton = () => {
     return (
       <button onClick={() => navigate(-1)}>
-        <IconArrowLeft />
+        <LazyIcon name="icon-arrow-left" />
       </button>
     );
   };
@@ -124,10 +124,10 @@ const Header = ({
             {title ? <h1 className="text-[2.6rem] font-extrabold leading-normal text-black">{title}</h1> : children}
             <div className="flex items-center gap-[1.5rem]">
               <button onClick={() => navigate("/search")}>
-                <IconSearch aria-label="검색 페이지 이동" />
+                <LazyIcon name="icon-search" aria-label="검색 페이지 이동" />
               </button>
               <button onClick={() => navigate("/alarm")}>
-                <IconBell aria-label="알림 페이지 이동" />
+                <LazyIcon name="icon-bell" aria-label="알림 페이지 이동" />
               </button>
             </div>
           </>
@@ -157,10 +157,10 @@ const Header = ({
             {renderBackButton()}
             <div className="flex items-center gap-[1.5rem]">
               <button onClick={handleShare}>
-                <IconShare />
+                <LazyIcon name="icon-share" />
               </button>
               <button onClick={handleBookmark}>
-                <IconBookMark className={`${isBookmark ? "stroke-red" : "stroke-gray-300"}`} />
+                <LazyIcon name="icon-bookmark" className={`${isBookmark ? "stroke-red" : "stroke-gray-300"}`} />
               </button>
             </div>
           </>

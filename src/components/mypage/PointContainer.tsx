@@ -1,5 +1,5 @@
-import { IconChevronRight, IconPoint } from "@/assets/icon";
 import { useNavigate } from "react-router-dom";
+import LazyIcon from "@/assets/icon/LazyIcon";
 
 type PointContainerProps = {
   userPoint: number;
@@ -16,14 +16,14 @@ const PointContainer = ({ userPoint, partnerPoint }: PointContainerProps) => {
           <div className="flex w-full flex-col gap-[.5rem] border-r">
             <span className="text-[1.4rem] font-normal text-gray-400">내 포인트</span>
             <span className="flex gap-[.5rem]">
-              <IconPoint />
+              <LazyIcon name="icon-point" />
               <h1 className="text-[1.6rem] font-semibold">{userPoint.toLocaleString()}</h1>
             </span>
           </div>
           <div className="flex w-full flex-col gap-[.5rem] pl-[1.5rem]">
             <span className="text-[1.4rem] font-normal text-gray-400">동반자 포인트</span>
             <span className="flex gap-[.5rem]">
-              <IconPoint />
+              <LazyIcon name="icon-point" />
               <h1 className="text-[1.6rem] font-semibold">{partnerPoint.toLocaleString()}</h1>
             </span>
           </div>
@@ -34,7 +34,7 @@ const PointContainer = ({ userPoint, partnerPoint }: PointContainerProps) => {
           onClick={() => navigate("point", { state: { userPoint, partnerPoint } })}
         >
           <span className="text-[1.5rem] font-medium">우리 부부의 포인트 내역을 알아보세요</span>
-          <IconChevronRight />
+          <LazyIcon name="icon-chevron-right" />
         </div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cn } from "@/utils";
-import { IconDropdown } from "@/assets/icon";
+import LazyIcon from "@/assets/icon/LazyIcon";
 
 const BoxContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
@@ -45,7 +45,7 @@ const DropdownBox = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Rea
       {...props}
     >
       {children}
-      <IconDropdown />
+      <LazyIcon name="icon-dropdown" />
     </div>
   ),
 );

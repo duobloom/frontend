@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { useGetUserTotalPoint } from "@/hooks/useGetUserTotalPoint";
-import { IconVector } from "@/assets/icon";
+import LazyIcon from "@/assets/icon/LazyIcon";
 
 const MainDayAndPoint = ({ yearMonth }: { yearMonth: string }) => {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ const MainDayAndPoint = ({ yearMonth }: { yearMonth: string }) => {
           {yearMonth}
         </div>
         <div className="flex h-[2.4rem] w-[2.4rem] items-center justify-center">
-          <IconVector />
+          <LazyIcon name="icon-vector" />
         </div>
       </div>
 

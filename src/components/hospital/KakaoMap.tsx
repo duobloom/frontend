@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef, useEffect, useState } from "react";
-import { IconLocation } from "@/assets/icon";
+import LazyIcon from "@/assets/icon/LazyIcon";
 import MarkerIcon from "@/assets/icon/icn-Hospital-on.png";
 import RedDotIcon from "@/assets/icon/icon-reddot.png";
 import UserIcon from "@/assets/icon/icon-userlocation.png";
@@ -196,7 +196,7 @@ function KakaoMap({
   return (
     <div className="relative flex-1 overflow-hidden scrollbar-hide" id="map">
       <div className="absolute bottom-[1rem] right-0 z-10 flex w-full flex-col items-end">
-        <IconLocation onClick={handleUserLocationClick} className="cursor-pointer" />
+        <LazyIcon name="icon-location" onClick={handleUserLocationClick} className="cursor-pointer" />
         <Carousel orientation="horizontal" setApi={setApi} className="h-full w-full">
           <CarouselContent className="flex gap-[1.2rem] overflow-visible px-[3.2rem] py-0">
             {hospitalData.map((hospital) => (
