@@ -3,10 +3,22 @@ import react from "@vitejs/plugin-react-swc";
 import svgr from "vite-plugin-svgr";
 import path from "path";
 import tailwindcss from "tailwindcss";
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), svgr({ include: "**/*.svg?react" })],
+  plugins: [
+    react(),
+    sentryVitePlugin({
+      org: "duobloom",
+      project: "duobloom-sentry",
+      sourcemaps: {
+        filesToDeleteAfterUpload: "./dist/**/*.map",
+      },
+      authToken: "secret",
+    }),
+    svgr({ include: "**/*.svg?react" }),
+  ],
   css: {
     postcss: {
       plugins: [tailwindcss()],
@@ -31,5 +43,21 @@ export default defineConfig({
   },
   resolve: {
     alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          if (id.includes("icon-")) {
+            return `icons/${id.split("/").pop()?.replace(".svg?react", "")}`;
+          }
+          if (id.includes("@sentry")) {
+            return "sentry";
+          }
+        },
+      },
+    },
+
+    sourcemap: true,
   },
 });
