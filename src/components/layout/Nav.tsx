@@ -1,6 +1,7 @@
 import { cn } from "@/utils";
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { isMobile } from "react-device-detect";
 import { IconNavHome, IconNavMypage, IconNavPolicy, IconNavHospital, IconNavCommunity } from "@/assets/icon";
 
 type NavItem = {
@@ -23,6 +24,7 @@ const NavBarContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
       ref={ref}
       className={cn(
         "fixed bottom-0 flex w-full items-center justify-between border-t border-gray-300 bg-[#fff] px-[3rem] py-[1.2rem] md_mobile:px-[4rem] lg:w-[37.5rem] lg:min-w-[37.5rem]",
+        isMobile ? "w-full" : "max-w-[37.5rem]",
         className,
       )}
       {...props}
