@@ -124,11 +124,18 @@ const MainQuestionForm = ({
       <div className="flex h-full flex-col">
         <h1 className="py-[1.5rem] text-[2.4rem] font-bold leading-[3rem] tracking-[-0.048rem] text-black">{qTitle}</h1>
         <hr className="mb-[2rem] mt-[1.5rem]" />
-        <textarea
+        {/* <textarea
           ref={textRef}
           placeholder="답변을 입력해 주세요"
           className="h-full resize-none text-[1.4rem] font-medium leading-[2rem] tracking-[-0.028] text-black outline-none"
-        ></textarea>
+        /> */}
+
+        {/* #91 font 스케일 조정으로 인한 값 수정 */}
+        <textarea
+          ref={textRef}
+          placeholder="답변을 입력해 주세요"
+          className="h-full w-[114.2857%] origin-top-left scale-[0.875] transform resize-none text-[1.6rem] font-medium leading-[2.2857rem] tracking-[-0.032rem] text-black outline-none"
+        />
       </div>
 
       <AlertDialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
