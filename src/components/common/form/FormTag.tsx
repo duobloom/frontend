@@ -39,11 +39,20 @@ const FormTag = ({ form }: TFormTagProps) => {
   return (
     <div className="flex flex-col gap-[1.4rem] py-[1.5rem]">
       <div className="flex h-[5rem] w-full items-center justify-between rounded-[1rem] border border-gray-300 px-[1.5rem] py-[1rem]">
-        <input
+        {/* <input
           ref={tagInputRef}
           type="text"
           placeholder="태그를 입력해 주세요"
           className="w-[22rem] border-none text-[1.4rem] font-medium outline-none"
+          onKeyUp={handleEnterEvent}
+        /> */}
+
+        {/* #91 font 스케일 조정으로 인한 값 수정 */}
+        <input
+          ref={tagInputRef}
+          type="text"
+          placeholder="태그를 입력해 주세요"
+          className="ml-[-13.42857px] w-[25.142854rem] scale-[0.875] transform border-none text-[1.6rem] font-medium outline-none"
           onKeyUp={handleEnterEvent}
         />
         <div className="flex items-center gap-[1.5rem] text-[1.4rem]">

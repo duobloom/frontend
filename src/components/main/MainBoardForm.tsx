@@ -139,13 +139,23 @@ const MainBoardForm = ({ id, type, initialData = null, onClose }: TMainBoardForm
         <BoardFormImage form={form} />
 
         {/* 텍스트 입력 영역 */}
-        <textarea
+        {/* <textarea
           {...form.register("content", {
             required: true,
             validate: (value) => value.trim().length > 0,
           })}
           placeholder="내용을 입력해 주세요"
           className="h-full resize-none text-[1.4rem] font-medium leading-[2rem] tracking-[-0.028] text-black outline-none"
+        /> */}
+
+        {/* #91 font 스케일 조정으로 인한 값 수정 */}
+        <textarea
+          {...form.register("content", {
+            required: true,
+            validate: (value) => value.trim().length > 0,
+          })}
+          placeholder="내용을 입력해 주세요"
+          className="h-full w-[114.2857%] origin-top-left scale-[0.875] transform resize-none text-[1.6rem] font-medium leading-[2.2857rem] tracking-[-0.032rem] text-black outline-none"
         />
       </form>
 

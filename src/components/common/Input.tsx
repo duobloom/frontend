@@ -4,8 +4,19 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Button } from "./Button";
 
+// const inputVariants = cva(
+//   "border-input w-full bg-[#fff] placeholder:text-muted-foreground rounded-[1rem] border border-gray pl-[1.4rem] pr-[7rem] py-[1.2rem] text-[1.4rem] font-medium focus-visible:outline-none disabled:opacity-50 selection:bg-red selection:bg-opacity-70 selection:text-[#fff]",
+//   {
+//     variants: { variant: { default: "text-gray cursor-default", active: "text-black cursor-text" } },
+//     defaultVariants: {
+//       variant: "default",
+//     },
+//   },
+// );
+
+// #91 font 스케일 조정으로 인한 값 수정
 const inputVariants = cva(
-  "border-input w-full bg-[#fff] placeholder:text-muted-foreground rounded-[1rem] border border-gray pl-[1.4rem] pr-[7rem] py-[1.2rem] text-[1.4rem] font-medium focus-visible:outline-none disabled:opacity-50 selection:bg-red selection:bg-opacity-70 selection:text-[#fff]",
+  "border-input w-[114.2857%] h-[57.14285px] bg-[#fff] placeholder:text-muted-foreground rounded-[1.142857rem] border border-gray pl-[1.6rem] pr-[8rem] py-[1.371428rem] text-[1.6rem] font-medium focus-visible:outline-none disabled:opacity-50 selection:bg-red selection:bg-opacity-70 selection:text-[#fff] transform scale-[0.875] origin-top-left",
   {
     variants: { variant: { default: "text-gray cursor-default", active: "text-black cursor-text" } },
     defaultVariants: {
@@ -53,7 +64,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         {isButton && (
-          <div className="absolute right-[1.4rem] top-1/2 -translate-y-1/2 transform">
+          // <div className="absolute right-[1.4rem] top-1/2 -translate-y-1/2 transform">
+          //   <Button disabled={!isButtonEnabled} variant="oval" size="sm" onClick={handleSend}>
+          //     완료
+          //   </Button>
+          // </div>
+
+          // font 스케일 조정으로 인한 값 수정
+          <div className="absolute right-[1.4rem] top-[45%] -translate-y-[53%] transform">
             <Button disabled={!isButtonEnabled} variant="oval" size="sm" onClick={handleSend}>
               완료
             </Button>
