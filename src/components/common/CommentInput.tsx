@@ -39,7 +39,7 @@ const CommentInput = ({ type, id }: { type: string; id: string }) => {
 
   return (
     <footer className="h-[8rem] p-[1.5rem]">
-      <Input className="h-[5rem] cursor-text" onSend={onSend} />
+      <Input className="cursor-text" onSend={onSend} />
     </footer>
   );
 };
