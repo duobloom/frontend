@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { DrawerTitle } from "@/components/common/Drawer";
-import { Button } from "@/components/common";
 import { Form } from "@/components/ui/Form";
 import {
   AlertDialog,
@@ -15,7 +14,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/common/AlertDialog";
-import BoardFormImage from "./BoardFormImage";
+import { BoardFormImage, BoardSubmitButton } from "@/components/main";
 
 import { getS3Url, postPresignedUrl, putS3Upload } from "@/apis/image/imageUpload";
 import { usePostBoardWrite } from "@/hooks/usePostBoardWrite";
@@ -23,7 +22,7 @@ import { usePutBoardUpdate } from "@/hooks/usePutBoardUpdate";
 
 import { BoardPostFormSchema, BoardPostFormType } from "@/types/BoardType";
 
-import LazyIcon from "@/assets/icon/LazyIcon";
+import IconClose from "@/assets/icon/icon-close.svg?react";
 
 type TMainBoardFormProps = {
   id?: number;
@@ -121,18 +120,10 @@ const MainBoardForm = ({ id, type, initialData = null, onClose }: TMainBoardForm
       <form onSubmit={(e) => e.preventDefault()} className="flex h-full flex-col overflow-y-auto scrollbar-hide">
         <div className="flex items-center justify-between pb-[1.4rem]">
           <div onClick={handleClose} className="cursor-pointer">
-            <LazyIcon name="icon-close" />
+            <IconClose />
           </div>
           <DrawerTitle text={`${type === "add" ? "글 쓰기" : "글 수정"}`} />
-          <Button
-            type="button"
-            variant="oval"
-            size="sm"
-            disabled={!form.formState.isValid || !form.watch("content")}
-            onClick={handleSubmit}
-          >
-            완료
-          </Button>
+          <BoardSubmitButton form={form} onSubmit={handleSubmit} />
         </div>
 
         {/* 폼 이미지 영역 */}
@@ -149,13 +140,16 @@ const MainBoardForm = ({ id, type, initialData = null, onClose }: TMainBoardForm
         /> */}
 
         {/* #91 font 스케일 조정으로 인한 값 수정 */}
-        <textarea
-          {...form.register("content", {
-            required: true,
-            validate: (value) => value.trim().length > 0,
-          })}
-          placeholder="내용을 입력해 주세요"
-          className="h-full w-[114.2857%] origin-top-left scale-[0.875] transform resize-none text-[1.6rem] font-medium leading-[2.2857rem] tracking-[-0.032rem] text-black outline-none"
+        <Controller
+          name="content"
+          control={form.control}
+          render={({ field }) => (
+            <textarea
+              {...field}
+              placeholder="내용을 입력해 주세요"
+              className="h-full w-[114.2857%] origin-top-left scale-[0.875] transform resize-none text-[1.6rem] font-medium leading-[2.2857rem] tracking-[-0.032rem] text-black outline-none"
+            />
+          )}
         />
       </form>
 
