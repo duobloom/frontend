@@ -8,6 +8,7 @@ import MainQuestionForm from "./MainQuestionForm";
 import MainBoardForm from "./MainBoardForm";
 import MainBoardHeader from "./MainBoardHeader";
 import BoardFormImage from "./BoardFormImage";
+import BoardSubmitButton from "./BoardSubmitButton";
 
 export {
   MainDayAndPoint,
@@ -20,4 +21,5 @@ export {
   MainBoardForm,
   MainBoardHeader,
   BoardFormImage,
+  BoardSubmitButton,
 };

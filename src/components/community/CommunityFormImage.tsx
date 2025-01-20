@@ -2,8 +2,9 @@ import React, { useRef } from "react";
 import { UseFormReturn } from "react-hook-form";
 import useDraggable from "@/hooks/useDraggable";
 import { CommunityPostFormType } from "@/types";
-import LazyIcon from "@/assets/icon/LazyIcon";
 import { reduceImageSize } from "@/utils";
+import LazyIcon from "@/assets/icon/LazyIcon";
+import IconCamera from "@/assets/icon/icon-camera.svg?react";
 
 type TCommunityFormImageProps = {
   form: UseFormReturn<CommunityPostFormType>;
@@ -74,7 +75,7 @@ const CommunityFormImage = ({ form }: TCommunityFormImageProps) => {
         ))}
         <fieldset className="h-full w-[10.5rem] min-w-[10.5rem] rounded-[1rem] border border-gray-300">
           <label htmlFor="inputFile" className="flex h-full w-full cursor-pointer items-center justify-center">
-            <LazyIcon name="icon-camera" />
+            <IconCamera />
           </label>
           <input
             {...form.register("images")}

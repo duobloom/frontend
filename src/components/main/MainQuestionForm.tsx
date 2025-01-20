@@ -15,7 +15,7 @@ import {
 } from "@/components/common/AlertDialog";
 import { postQuestion, RequestBodyType } from "@/apis/main/postQuestion";
 import { useToast } from "@/libs/custom-toast";
-import LazyIcon from "@/assets/icon/LazyIcon";
+import IconClose from "@/assets/icon/icon-close.svg?react";
 
 const MainQuestionForm = ({
   qId,
@@ -114,7 +114,7 @@ const MainQuestionForm = ({
     <>
       <div className="flex items-center justify-between pb-[1.4rem]">
         <div onClick={handleClose} className="cursor-pointer">
-          <LazyIcon name="icon-close" />
+          <IconClose />
         </div>
         <DrawerTitle text="질문 답변" />
         <Button variant="oval" size="sm" disabled={!isFormValid} onClick={handleSubmit}>

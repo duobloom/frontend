@@ -8,6 +8,7 @@ import CommunityFormImage from "./CommunityFormImage";
 import CommunityPostForm from "./CommunityPostForm";
 import CommunityPostHeader from "./CommunityPostHeader";
 import CommunityBox from "./CommunityBox";
+import CommunitySubmitButton from "./CommunitySubmitButton";
 
 export {
   CommunityTitle,
@@ -20,4 +21,5 @@ export {
   CommunityPostForm,
   CommunityPostHeader,
   CommunityBox,
+  CommunitySubmitButton,
 };
