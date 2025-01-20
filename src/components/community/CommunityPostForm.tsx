@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { useForm, UseFormReturn } from "react-hook-form";
+import { Controller, useForm, UseFormReturn } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { FormCategoryButton, FormTag } from "@/components/common/form";
 import { DrawerTitle } from "@/components/common/Drawer";
-import { Button } from "@/components/common";
 import { Form } from "@/components/ui/Form";
 import {
   AlertDialog,
@@ -16,7 +15,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/common/AlertDialog";
-import { CommunityFormImage } from "@/components/community";
+import { CommunityFormImage, CommunitySubmitButton } from "@/components/community";
 
 import { getS3Url, postPresignedUrl, putS3Upload } from "@/apis/image/imageUpload";
 import { usePostCommunityWrite } from "@/hooks/usePostCommunityWrite";
@@ -24,7 +23,7 @@ import { usePutCommunityUpdate } from "@/hooks/usePutCommunityUpdate";
 
 import { CategoryType, CommunityPostFormSchema, CommunityPostFormType } from "@/types/CommunityType";
 
-import LazyIcon from "@/assets/icon/LazyIcon";
+import IconClose from "@/assets/icon/icon-close.svg?react";
 
 type TCommunityPostFormProps = {
   id?: number;
@@ -126,21 +125,13 @@ const CommunityPostForm = ({ id, type, initialData = null, onClose }: TCommunity
 
   return (
     <Form {...form}>
-      <form onSubmit={(e) => e.preventDefault()} className="flex h-full flex-col overflow-y-auto scrollbar-hide">
+      <form onSubmit={(e) => e.preventDefault()} className="flex h-full flex-col overflow-visible scrollbar-hide">
         <div className="flex items-center justify-between pb-[1.4rem]">
           <div onClick={handleClose} className="cursor-pointer">
-            <LazyIcon name="icon-close" />
+            <IconClose />
           </div>
           <DrawerTitle text={`${type === "add" ? "글 쓰기" : "글 수정"}`} />
-          <Button
-            type="button"
-            variant="oval"
-            size="sm"
-            disabled={!form.formState.isValid || !form.watch("content") || !form.watch("type")}
-            onClick={handleSubmit}
-          >
-            완료
-          </Button>
+          <CommunitySubmitButton form={form as UseFormReturn<CommunityPostFormType>} onSubmit={handleSubmit} />
         </div>
 
         <FormCategoryButton
@@ -162,15 +153,17 @@ const CommunityPostForm = ({ id, type, initialData = null, onClose }: TCommunity
         /> */}
 
         {/* #91 font 스케일 조정으로 인한 값 수정 */}
-        <textarea
-          {...form.register("content", {
-            required: true,
-            validate: (value) => value.trim().length > 0,
-          })}
-          placeholder="내용을 입력해 주세요"
-          className="w-[114.2857%] origin-top-left scale-[0.875] transform resize-none text-[1.6rem] font-medium leading-[2.2857rem] tracking-[-0.032rem] text-black outline-none"
+        <Controller
+          name="content"
+          control={form.control}
+          render={({ field }) => (
+            <textarea
+              {...field}
+              placeholder="내용을 입력해 주세요"
+              className="h-full w-[114.2857%] origin-top-left scale-[0.875] transform resize-none text-[1.6rem] font-medium leading-[2.2857rem] tracking-[-0.032rem] text-black outline-none"
+            />
+          )}
         />
-
         <FormTag form={form as UseFormReturn<CommunityPostFormType>} />
       </form>
 
