@@ -22,8 +22,7 @@ import { usePostCommunityWrite } from "@/hooks/usePostCommunityWrite";
 import { usePutCommunityUpdate } from "@/hooks/usePutCommunityUpdate";
 
 import { CategoryType, CommunityPostFormSchema, CommunityPostFormType } from "@/types/CommunityType";
-
-import IconClose from "@/assets/icon/icon-close.svg?react";
+import LazyIcon from "@/assets/icon/LazyIcon";
 
 type TCommunityPostFormProps = {
   id?: number;
@@ -128,7 +127,7 @@ const CommunityPostForm = ({ id, type, initialData = null, onClose }: TCommunity
       <form onSubmit={(e) => e.preventDefault()} className="flex h-full flex-col overflow-visible scrollbar-hide">
         <div className="flex items-center justify-between pb-[1.4rem]">
           <div onClick={handleClose} className="cursor-pointer">
-            <IconClose />
+            <LazyIcon name="icon-close" />
           </div>
           <DrawerTitle text={`${type === "add" ? "글 쓰기" : "글 수정"}`} />
           <CommunitySubmitButton form={form as UseFormReturn<CommunityPostFormType>} onSubmit={handleSubmit} />
