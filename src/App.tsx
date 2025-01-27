@@ -6,8 +6,8 @@ import { isMobile } from "react-device-detect";
 import Navbar from "./components/layout/Nav";
 import { cn } from "./utils";
 import { ToastProvider } from "./libs/custom-toast";
-import { IconLogoDoubloom } from "@/assets/icon";
 import { setNavigateFunction } from "./apis/axios";
+import LazyIcon from "./assets/icon/LazyIcon";
 
 const queryClient = new QueryClient();
 
@@ -32,7 +32,7 @@ function App() {
           <div className="hidden lg:block notebook:w-[82.5rem]">
             <div className="relative h-dvh w-full max-w-[50rem] pt-[5rem] xl:pl-[10.2rem]">
               <div className="mb-[14.7rem]">
-                <IconLogoDoubloom />
+                <LazyIcon name="logo_duobloom" />
               </div>
               <div className="space-y-[0.2rem] text-[4.6rem] font-medium leading-[1.2] tracking-[-0.2rem]">
                 <h1>소중한 길을</h1>
