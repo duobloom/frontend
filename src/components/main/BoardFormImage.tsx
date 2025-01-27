@@ -4,7 +4,6 @@ import useDraggable from "@/hooks/useDraggable";
 import { BoardPostFormType } from "@/types";
 import { reduceImageSize } from "@/utils";
 import LazyIcon from "@/assets/icon/LazyIcon";
-import IconCamera from "@/assets/icon/icon-camera.svg?react";
 
 type TBoardFormImageProps = {
   form: UseFormReturn<BoardPostFormType>;
@@ -75,8 +74,7 @@ const BoardFormImage = ({ form }: TBoardFormImageProps) => {
         ))}
         <fieldset className="h-full w-[10.5rem] min-w-[10.5rem] rounded-[1rem] border border-gray-300">
           <label htmlFor="inputFile" className="flex h-full w-full cursor-pointer items-center justify-center">
-            {/* <LazyIcon name="icon-camera" /> */}
-            <IconCamera />
+            <LazyIcon name="icon-camera" />
           </label>
           <input
             {...form.register("photoUrls")}
